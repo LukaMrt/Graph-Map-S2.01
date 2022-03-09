@@ -1,5 +1,11 @@
 package com.juka.graphmap.domain.model;
 
+/**
+ * @author Luka Maret
+ * @since 0.1.0
+ *
+ * Link class represents a link between two nodes.
+ */
 public class Link {
 
     private final Node destination;
@@ -12,14 +18,29 @@ public class Link {
         this.distance = distance;
     }
 
+    /**
+     * Returns the destination node of this link.
+     *
+     * @return the destination node of this link
+     */
     public Node getDestination() {
         return this.destination;
     }
 
+    /**
+     * Returns the distance of this link.
+     *
+     * @return the distance of this link
+     */
     public LinkType getType() {
         return this.type;
     }
 
+    /**
+     * Returns the distance of this link.
+     *
+     * @return the distance of this link
+     */
     public int getDistance() {
         return this.distance;
     }
