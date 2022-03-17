@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 public class Node {
 
     private final List<Link> neighbors = new ArrayList<>();
-    private final NodeType type;
     private final String name;
+    private final NodeType type;
 
-    public Node(NodeType type, String name) {
-        this.type = type;
+    public Node(String name, NodeType type) {
         this.name = name;
+        this.type = type;
     }
 
     /**

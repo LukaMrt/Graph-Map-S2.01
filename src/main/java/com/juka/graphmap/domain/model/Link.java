@@ -8,11 +8,13 @@ package com.juka.graphmap.domain.model;
  */
 public class Link {
 
+    private final String name;
     private final Node destination;
     private final LinkType type;
     private final int distance;
 
-    public Link(Node destination, LinkType type, int distance) {
+    public Link(String name, Node destination, LinkType type, int distance) {
+        this.name = name;
         this.destination = destination;
         this.type = type;
         this.distance = distance;
