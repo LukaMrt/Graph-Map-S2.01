@@ -53,4 +53,11 @@ public class NodeServiceTest {
         assertThat(neighbours).hasSize(1);
     }
 
+    @Test
+    void getType_shouldReturnMatchingNodeType() {
+        Node node = new Node("Node", NodeType.RECREATION_CENTER);
+        when(nodeRepository.getNode("Node")).thenReturn(node);
+        assertThat(nodeService.getType("Node")).isEqualTo(NodeType.RECREATION_CENTER);
+    }
+
 }

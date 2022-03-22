@@ -1,6 +1,7 @@
 package com.juka.graphmap.domain.application;
 
 import com.juka.graphmap.domain.model.Node;
+import com.juka.graphmap.domain.model.NodeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,4 +18,7 @@ public class NodeService {
         return nodeRepository.getNode(node).getNeighbors();
     }
 
+    public NodeType getType(String node) {
+        return nodeRepository.getNode(node).getType();
+    }
 }
