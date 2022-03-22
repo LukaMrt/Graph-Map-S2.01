@@ -60,4 +60,17 @@ public class NodeServiceTest {
         assertThat(nodeService.getType("Node")).isEqualTo(NodeType.RECREATION_CENTER);
     }
 
+    @Test
+    void getDirectNeighborsLinks_shouldReturnListWithOneElement_whenNodeHasOneNeighbor() {
+        Node node = new Node("Node", NodeType.CITY);
+        Node neighbour = new Node("Neighbour", NodeType.CITY);
+        Link link = new Link("Link", neighbour, LinkType.HIGHWAY, 10);
+        node.addLink(link);
+        when(nodeRepository.getNode("Node")).thenReturn(node);
+
+        List<Link> neighbours = nodeService.getDirectNeighborsLinks("Node");
+
+        assertThat(neighbours).hasSize(1);
+    }
+
 }
