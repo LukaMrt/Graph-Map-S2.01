@@ -42,6 +42,15 @@ public class Node {
     }
 
     /**
+     * Returns all links linked to this node
+     *
+     * @return a list of links
+     */
+    public List<Link> getNeighborsLinks() {
+        return this.neighbors;
+    }
+
+    /**
      * Returns the type of the node.
      *
      * @return the type of the node

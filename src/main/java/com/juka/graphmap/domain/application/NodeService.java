@@ -1,5 +1,6 @@
 package com.juka.graphmap.domain.application;
 
+import com.juka.graphmap.domain.model.Link;
 import com.juka.graphmap.domain.model.Node;
 import com.juka.graphmap.domain.model.NodeType;
 
@@ -16,6 +17,10 @@ public class NodeService {
 
     public List<Node> getDirectNeighbours(String node) {
         return nodeRepository.getNode(node).getNeighbors();
+    }
+
+    public List<Link> getDirectNeighborsLinks(String node) {
+        return nodeRepository.getNode(node).getNeighborsLinks();
     }
 
     public NodeType getType(String node) {
