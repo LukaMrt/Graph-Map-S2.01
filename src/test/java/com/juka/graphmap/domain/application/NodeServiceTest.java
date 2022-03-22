@@ -61,6 +61,18 @@ public class NodeServiceTest {
     }
 
     @Test
+    void getDirectNeighborsLinks_shouldReturnEmptyList_whenNodeHasNoNeighbor() {
+
+        Node node = new Node("Node", NodeType.CITY);
+        when(nodeRepository.getNode("Node")).thenReturn(node);
+
+        List<Link> neighboursLinks = nodeService.getDirectNeighborsLinks("Node");
+
+        assertThat(neighboursLinks).isEmpty();
+    }
+
+
+    @Test
     void getDirectNeighborsLinks_shouldReturnListWithOneElement_whenNodeHasOneNeighbor() {
         Node node = new Node("Node", NodeType.CITY);
         Node neighbour = new Node("Neighbour", NodeType.CITY);
@@ -68,9 +80,9 @@ public class NodeServiceTest {
         node.addLink(link);
         when(nodeRepository.getNode("Node")).thenReturn(node);
 
-        List<Link> neighbours = nodeService.getDirectNeighborsLinks("Node");
+        List<Link> neighboursLinks = nodeService.getDirectNeighborsLinks("Node");
 
-        assertThat(neighbours).hasSize(1);
+        assertThat(neighboursLinks).hasSize(1);
     }
 
 }
