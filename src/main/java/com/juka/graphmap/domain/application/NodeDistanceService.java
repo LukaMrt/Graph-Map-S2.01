@@ -6,7 +6,6 @@ import java.util.Collection;
 
 public class NodeDistanceService {
 
-
     private final NodeRepository nodeRepository;
 
     public NodeDistanceService(NodeRepository nodeRepository) {
