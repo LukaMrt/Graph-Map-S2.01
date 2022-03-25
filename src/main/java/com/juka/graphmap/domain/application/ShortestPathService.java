@@ -15,29 +15,29 @@ public class ShortestPathService {
         this.nodeRepository = nodeRepository;
     }
 
-    private void initializeDistances(Map<String, Double> distance, String originNodeName) {
+    private void initializeDistances(Map<Node, Double> distance, String originNodeName) {
         for (Node node : nodeRepository.getAllNodes()) {
-            distance.put(node.getName(), Double.POSITIVE_INFINITY);
+            distance.put(node, Double.POSITIVE_INFINITY);
         }
-        distance.put(originNodeName, (double) 0);
+        distance.put(nodeRepository.getNode(originNodeName), (double) 0);
     }
 
-    private void release(Map<String, Double> distance, Map<Node, Node> previous,
+    private void release(Map<Node, Double> distance, Map<Node, Node> previous,
                          Node originNode, Link currentLink) {
-        if (distance.get(currentLink.getDestination().getName()) >
-                (distance.get(originNode.getName()) + currentLink.getDistance())) {
-            distance.put(currentLink.getDestination().getName(), distance.get(originNode.getName()) + currentLink.getDistance());
+        if (distance.get(currentLink.getDestination()) >
+                (distance.get(originNode) + currentLink.getDistance())) {
+            distance.put(currentLink.getDestination(), distance.get(originNode) + currentLink.getDistance());
             previous.put(currentLink.getDestination(), originNode);
         }
     }
 
-    public Node nodeWithMinimalDistance(Map<String, Double> distances, List<Node> remaining) {
+    public Node nodeWithMinimalDistance(Map<Node, Double> distances, List<Node> remaining) {
         Node minimalNode = remaining.get(0);
-        Double minimalDistance = distances.get(minimalNode.getName());
+        Double minimalDistance = distances.get(minimalNode);
         for (Node node : remaining) {
-            if  (distances.get(node.getName()) < minimalDistance) {
+            if  (distances.get(node) < minimalDistance) {
                 minimalNode = node;
-                minimalDistance = distances.get(node.getName());
+                minimalDistance = distances.get(node);
             }
         }
         return minimalNode;
@@ -46,7 +46,7 @@ public class ShortestPathService {
     public ShortestPath getShortestPath(String originNodeName, String destinationNodeName) {
         List<Node> path = new ArrayList<>();
         List<Node> remaining = new ArrayList<>(nodeRepository.getAllNodes());
-        Map<String, Double> distance = new HashMap<>();
+        Map<Node, Double> distance = new HashMap<>();
         Map<Node, Node> previous = new HashMap<>();
         Node minimalNode;
         Node currentNode;
@@ -63,7 +63,7 @@ public class ShortestPathService {
             }
         }
 
-        if (distance.get(destinationNodeName) != Double.POSITIVE_INFINITY) {
+        if (distance.get(destinationNode) != Double.POSITIVE_INFINITY) {
             path.add(destinationNode);
             currentNode = destinationNode;
             while (previous.get(currentNode) != null) {
@@ -72,6 +72,6 @@ public class ShortestPathService {
             }
         }
 
-        return new ShortestPath(path, distance.get(destinationNodeName));
+        return new ShortestPath(path, distance.get(destinationNode));
     }
 }
