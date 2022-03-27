@@ -1,4 +1,4 @@
-package com.juka.graphmap.domain.application;
+package com.juka.graphmap.domain.application.path;
 
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.application.path.Path;
@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -67,11 +68,11 @@ public class PathServiceTest {
 
         when(nodeRepository.getNode("A")).thenReturn(node1);
         when(nodeRepository.getNode("D")).thenReturn(node4);
-        when(nodeRepository.getAllNodes()).thenReturn(Arrays.stream(new Node[]{node1, node2, node3, node4}).toList());
+        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4));
 
         Path path = pathService.getShortestPath("A", "D");
-        Node[] expectedPath = {node1, node2, node3, node4};
-        Path expected = new Path(Arrays.stream(expectedPath).toList(), 11.0);
+
+        Path expected = new Path(List.of(node1, node2, node3, node4), 11.0);
         assertThat(path).isEqualTo(expected);
     }
 }

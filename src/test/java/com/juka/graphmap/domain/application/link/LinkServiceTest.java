@@ -1,4 +1,4 @@
-package com.juka.graphmap.domain.application;
+package com.juka.graphmap.domain.application.link;
 
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
