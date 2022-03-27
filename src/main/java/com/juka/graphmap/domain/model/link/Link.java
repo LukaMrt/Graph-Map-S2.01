@@ -49,6 +49,24 @@ public class Link {
         return this.distance;
     }
 
+    /**
+     * Returns the name of this link with the index.
+     *
+     * @return the name of this link with the index
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the name of this link without the index.
+     *
+     * @return the name of this link without the index
+     */
+    public String getRoadName() {
+        return name.substring(0, name.indexOf("."));
+    }
+
     @Override
     public String toString() {
         return "Link{" +

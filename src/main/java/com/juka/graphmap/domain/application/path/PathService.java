@@ -1,20 +1,26 @@
 package com.juka.graphmap.domain.application.path;
 
+import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.road.Road;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class PathService {
 
     private final NodeRepository nodeRepository;
+    private final LinkRepository linkRepository;
 
-    public PathService(NodeRepository nodeRepository) {
+    public PathService(NodeRepository nodeRepository, LinkRepository linkRepository) {
         this.nodeRepository = nodeRepository;
+        this.linkRepository = linkRepository;
     }
 
     public Path getShortestPath(String originNodeName, String destinationNodeName) {
@@ -69,12 +75,29 @@ public class PathService {
         Node minimalNode = remaining.get(0);
         Double minimalDistance = distances.get(minimalNode);
         for (Node node : remaining) {
-            if  (distances.get(node) < minimalDistance) {
+            if (distances.get(node) < minimalDistance) {
                 minimalNode = node;
                 minimalDistance = distances.get(node);
             }
         }
         return minimalNode;
+    }
+
+    public List<Road> getPathsWithSpecificLocations(int cityCount, int restaurantCount, int recreationCenterCount) {
+
+        return linkRepository.getAllLinks().stream()
+                .map(Link::getRoadName)
+                .distinct()
+                .map(road -> new Road(road, nodeRepository.getAllNodes()
+                        .stream()
+                        .filter(node -> node.getNeighborsLinks().stream()
+                                .map(Link::getRoadName)
+                                .anyMatch(roadName -> roadName.equals(road)))
+                        .toList()))
+                .filter(road -> cityCount <= road.countCities())
+                .filter(road -> restaurantCount <= road.countRestaurants())
+                .filter(road -> recreationCenterCount <= road.countRecreationCenters())
+                .toList();
     }
 
 }

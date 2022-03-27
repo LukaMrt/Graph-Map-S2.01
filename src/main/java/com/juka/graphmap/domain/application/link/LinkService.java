@@ -2,7 +2,7 @@ package com.juka.graphmap.domain.application.link;
 
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.model.exceptions.LinkDoesntExist;
+import com.juka.graphmap.domain.model.exception.LinkDoesntExist;
 import com.juka.graphmap.domain.model.link.Link;
 
 import java.util.Optional;

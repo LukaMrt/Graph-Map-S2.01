@@ -1,4 +1,4 @@
-package com.juka.graphmap.domain.model.exceptions;
+package com.juka.graphmap.domain.model.exception;
 
 public class LinkDoesntExist extends RuntimeException {
 }

@@ -1,12 +1,12 @@
 package com.juka.graphmap.domain.application.path;
 
+import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.application.path.Path;
-import com.juka.graphmap.domain.application.path.PathService;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
+import com.juka.graphmap.domain.model.road.Road;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,14 +22,18 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PathServiceTest {
+
     @Mock
     private NodeRepository nodeRepository;
+
+    @Mock
+    private LinkRepository linkRepository;
 
     private PathService pathService;
 
     @BeforeEach
     void setUp() {
-        pathService = new PathService(nodeRepository);
+        pathService = new PathService(nodeRepository, linkRepository);
     }
 
     @Test
@@ -75,4 +79,58 @@ public class PathServiceTest {
         Path expected = new Path(List.of(node1, node2, node3, node4), 11.0);
         assertThat(path).isEqualTo(expected);
     }
+
+    @Test
+    void getPathsWithSpecificLocations_shouldReturnEmptyList_whenThereIsNotPathWithSpecificLocations() {
+
+        when(linkRepository.getAllLinks()).thenReturn(new ArrayList<>());
+
+        List<Road> paths = pathService.getPathsWithSpecificLocations(1, 1, 0);
+
+        assertThat(paths).isEqualTo(new ArrayList<>());
+    }
+
+    @Test
+    void getPathsWithSpecificLocations_should1Road_whenThereIs1PathWithSpecificLocations() {
+
+        Node node1 = new Node("A", NodeType.RESTAURANT);
+        Node node2 = new Node("B", NodeType.CITY);
+        Link link1 = new Link("Road1.1A", node2, LinkType.HIGHWAY, 2);
+        Link link2 = new Link("Road1.1B", node1, LinkType.HIGHWAY, 2);
+        node1.addLink(link1);
+        node2.addLink(link2);
+
+        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2));
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2));
+
+        List<Road> paths = pathService.getPathsWithSpecificLocations(1, 1, 0);
+        List<Road> expected = List.of(new Road("Road1", List.of(node1, node2)));
+
+        assertThat(paths).isEqualTo(expected);
+    }
+
+    @Test
+    void getPathsWithSpecificLocations_should2Road_whenThereAre2PathsWithSpecificLocations() {
+
+        Node node1 = new Node("A", NodeType.RESTAURANT);
+        Node node2 = new Node("B", NodeType.RESTAURANT);
+        Node node3 = new Node("C", NodeType.RESTAURANT);
+        Link link1 = new Link("Road1.1A", node2, LinkType.HIGHWAY, 2);
+        Link link2 = new Link("Road1.1B", node1, LinkType.HIGHWAY, 2);
+        Link link3 = new Link("Road2.1A", node3, LinkType.HIGHWAY, 2);
+        Link link4 = new Link("Road2.1B", node2, LinkType.HIGHWAY, 2);
+        node1.addLink(link1);
+        node2.addLink(link2);
+        node2.addLink(link3);
+        node3.addLink(link4);
+
+        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3));
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2, link3, link4));
+
+        List<Road> paths = pathService.getPathsWithSpecificLocations(0, 1, 0);
+        List<Road> expected = List.of(new Road("Road1", List.of(node1, node2)), new Road("Road2", List.of(node2, node3)));
+
+        assertThat(paths).isEqualTo(expected);
+    }
+
 }
