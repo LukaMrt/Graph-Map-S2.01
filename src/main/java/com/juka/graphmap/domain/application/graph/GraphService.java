@@ -1,8 +1,12 @@
-package com.juka.graphmap.domain.application;
+package com.juka.graphmap.domain.application.graph;
 
-import com.juka.graphmap.domain.model.*;
+import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkType;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 
-import static com.juka.graphmap.domain.model.GraphCharacteristicsBuilder.aGraphCharacteristics;
+import static com.juka.graphmap.domain.model.graph.GraphCharacteristicsBuilder.aGraphCharacteristics;
 
 public class GraphService {
 

@@ -1,4 +1,6 @@
-package com.juka.graphmap.domain.model;
+package com.juka.graphmap.domain.model.node;
+
+import com.juka.graphmap.domain.model.link.Link;
 
 import java.util.ArrayList;
 import java.util.List;

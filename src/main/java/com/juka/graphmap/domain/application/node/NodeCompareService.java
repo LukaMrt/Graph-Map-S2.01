@@ -1,7 +1,8 @@
-package com.juka.graphmap.domain.application;
+package com.juka.graphmap.domain.application.node;
 
-import com.juka.graphmap.domain.model.Node;
-import com.juka.graphmap.domain.model.NodeType;
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 
 import java.util.HashMap;
 import java.util.Map;

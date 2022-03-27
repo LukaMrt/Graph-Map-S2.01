@@ -1,9 +1,12 @@
 package com.juka.graphmap.domain.application;
 
-import com.juka.graphmap.domain.model.Link;
-import com.juka.graphmap.domain.model.LinkType;
-import com.juka.graphmap.domain.model.Node;
-import com.juka.graphmap.domain.model.NodeType;
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.application.path.Path;
+import com.juka.graphmap.domain.application.path.PathService;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkType;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,21 +15,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ShortestPathServiceTest {
+public class PathServiceTest {
     @Mock
     private NodeRepository nodeRepository;
 
-    private ShortestPathService shortestPathService;
+    private PathService pathService;
 
     @BeforeEach
     void setUp() {
-        shortestPathService = new ShortestPathService(nodeRepository);
+        pathService = new PathService(nodeRepository);
     }
 
     @Test
@@ -38,8 +40,8 @@ public class ShortestPathServiceTest {
         when(nodeRepository.getNode("New York")).thenReturn(destination);
         when(nodeRepository.getAllNodes()).thenReturn(Arrays.stream(new Node[]{origin, destination}).toList());
 
-        ShortestPath path = shortestPathService.getShortestPath("Lyon", "New York");
-        ShortestPath expected = new ShortestPath(new ArrayList<>(), Double.POSITIVE_INFINITY);
+        Path path = pathService.getShortestPath("Lyon", "New York");
+        Path expected = new Path(new ArrayList<>(), Double.POSITIVE_INFINITY);
 
         assertThat(path).isEqualTo(expected);
     }
@@ -67,9 +69,9 @@ public class ShortestPathServiceTest {
         when(nodeRepository.getNode("D")).thenReturn(node4);
         when(nodeRepository.getAllNodes()).thenReturn(Arrays.stream(new Node[]{node1, node2, node3, node4}).toList());
 
-        ShortestPath path = shortestPathService.getShortestPath("A", "D");
+        Path path = pathService.getShortestPath("A", "D");
         Node[] expectedPath = {node1, node2, node3, node4};
-        ShortestPath expected = new ShortestPath(Arrays.stream(expectedPath).toList(), 11.0);
+        Path expected = new Path(Arrays.stream(expectedPath).toList(), 11.0);
         assertThat(path).isEqualTo(expected);
     }
 }

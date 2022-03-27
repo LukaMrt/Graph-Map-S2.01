@@ -1,4 +1,6 @@
-package com.juka.graphmap.domain.model;
+package com.juka.graphmap.domain.model.link;
+
+import com.juka.graphmap.domain.model.node.Node;
 
 /**
  * @author Luka Maret

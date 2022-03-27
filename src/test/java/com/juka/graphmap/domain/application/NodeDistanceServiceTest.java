@@ -1,9 +1,11 @@
 package com.juka.graphmap.domain.application;
 
-import com.juka.graphmap.domain.model.Link;
-import com.juka.graphmap.domain.model.LinkType;
-import com.juka.graphmap.domain.model.Node;
-import com.juka.graphmap.domain.model.NodeType;
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.application.node.NodeDistanceService;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkType;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
