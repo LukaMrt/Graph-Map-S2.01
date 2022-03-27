@@ -2,16 +2,10 @@ package com.juka.graphmap.domain.application.path;
 
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.road.Road;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Stream;
+import java.util.*;
 
 public class PathService {
 
@@ -24,63 +18,50 @@ public class PathService {
     }
 
     public Path getShortestPath(String originNodeName, String destinationNodeName) {
-        List<Node> path = new ArrayList<>();
-        List<Node> remaining = new ArrayList<>(nodeRepository.getAllNodes());
-        Map<Node, Double> distance = new HashMap<>();
+        Map<Node, Double> distances = new HashMap<>();
         Map<Node, Node> previous = new HashMap<>();
-        Node minimalNode;
-        Node currentNode;
-        Node originNode = nodeRepository.getNode(originNodeName);
-        Node destinationNode = nodeRepository.getNode(destinationNodeName);
-        initializeDistances(distance, originNodeName);
-        previous.put(originNode, null);
 
+        nodeRepository.getAllNodes().forEach(node -> distances.put(node, Double.POSITIVE_INFINITY));
+        distances.put(nodeRepository.getNode(originNodeName), 0.0);
+        previous.put(nodeRepository.getNode(originNodeName), null);
+
+        List<Node> remaining = new ArrayList<>(nodeRepository.getAllNodes());
         while (!remaining.isEmpty()) {
-            minimalNode = nodeWithMinimalDistance(distance, remaining);
+            remaining.sort(Comparator.comparing(distances::get));
+            Node minimalNode = remaining.get(0);
             remaining.remove(minimalNode);
-            for (Link link : minimalNode.getNeighborsLinks()) {
-                release(distance, previous, minimalNode, link);
-            }
+            executeDijkstra(distances, previous, minimalNode);
         }
 
-        if (distance.get(destinationNode) != Double.POSITIVE_INFINITY) {
-            path.add(destinationNode);
-            currentNode = destinationNode;
-            while (previous.get(currentNode) != null) {
-                path.add(0, previous.get(currentNode));
-                currentNode = previous.get(currentNode);
-            }
-        }
-
-        return new Path(path, distance.get(destinationNode));
+        return buildPath(distances, nodeRepository.getNode(destinationNodeName), previous);
     }
 
-    private void initializeDistances(Map<Node, Double> distance, String originNodeName) {
-        for (Node node : nodeRepository.getAllNodes()) {
-            distance.put(node, Double.POSITIVE_INFINITY);
-        }
-        distance.put(nodeRepository.getNode(originNodeName), (double) 0);
+    private void executeDijkstra(Map<Node, Double> distances, Map<Node, Node> previous, Node minimalNode) {
+        Double currentDistance = distances.get(minimalNode);
+
+        minimalNode.getNeighborsLinks().stream()
+                .filter(link -> distances.get(link.getDestination()) > currentDistance + link.getDistance())
+                .forEach(link -> {
+                    distances.put(link.getDestination(), currentDistance + link.getDistance());
+                    previous.put(link.getDestination(), minimalNode);
+                });
     }
 
-    private void release(Map<Node, Double> distance, Map<Node, Node> previous,
-                         Node originNode, Link currentLink) {
-        if (distance.get(currentLink.getDestination()) >
-                (distance.get(originNode) + currentLink.getDistance())) {
-            distance.put(currentLink.getDestination(), distance.get(originNode) + currentLink.getDistance());
-            previous.put(currentLink.getDestination(), originNode);
-        }
-    }
+    private Path buildPath(Map<Node, Double> distances, Node destinationNode, Map<Node, Node> previous) {
 
-    private Node nodeWithMinimalDistance(Map<Node, Double> distances, List<Node> remaining) {
-        Node minimalNode = remaining.get(0);
-        Double minimalDistance = distances.get(minimalNode);
-        for (Node node : remaining) {
-            if (distances.get(node) < minimalDistance) {
-                minimalNode = node;
-                minimalDistance = distances.get(node);
-            }
+        if (distances.get(destinationNode) == Double.POSITIVE_INFINITY) {
+            return new Path(new ArrayList<>(), Double.POSITIVE_INFINITY);
         }
-        return minimalNode;
+
+        List<Node> path = new ArrayList<>();
+        path.add(destinationNode);
+        Node currentNode = destinationNode;
+
+        while ((currentNode = previous.get(currentNode)) != null) {
+            path.add(0, currentNode);
+        }
+
+        return new Path(path, distances.get(destinationNode));
     }
 
     public List<Road> getPathsWithSpecificLocations(int cityCount, int restaurantCount, int recreationCenterCount) {

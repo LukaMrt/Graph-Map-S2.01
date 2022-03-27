@@ -30,4 +30,5 @@ public class Path {
         Path that = (Path) o;
         return path.equals(that.path) && Objects.equals(distance, that.distance);
     }
+
 }
