@@ -40,4 +40,19 @@ public class LinkServiceTest {
 
         assertThat(linkService.getDistance("Start", "End")).isEqualTo(10);
     }
+
+    @Test
+    public void getDistance_shouldReturn20_whenTwoNodesHaveALinkWithDistanceAt20() throws Exception {
+        Node node1 = new Node("Start", NodeType.CITY);
+        Node node2 = new Node("End", NodeType.CITY);
+
+        Link link = new Link("Middle", node2, LinkType.DEPARTMENTAL, 20);
+
+        node1.addLink(link);
+
+        when(nodeRepository.getNode("Start")).thenReturn(node1);
+
+        assertThat(linkService.getDistance("Start", "End")).isEqualTo(20);
+    }
+
 }

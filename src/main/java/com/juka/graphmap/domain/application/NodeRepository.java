@@ -7,5 +7,9 @@ import java.util.List;
 public interface NodeRepository {
 
     Node getNode(String name);
+
     List<Node> getAllNodes();
+
+    boolean hasEncounteredError();
+
 }
