@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface NodeRepository {
 
+    void addNode(Node node);
+
+    void encounterError();
+
     List<Node> getAllNodes();
 
     Node getNode(String name);
