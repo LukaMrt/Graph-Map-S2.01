@@ -2,11 +2,13 @@ package com.juka.graphmap.domain.application.link;
 
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.exceptions.LinkDoesntExist;
 import com.juka.graphmap.domain.model.link.Link;
 
-import java.util.List;
+import java.util.Optional;
 
 public class LinkService {
+
     private final LinkRepository linkRepository;
     private final NodeRepository nodeRepository;
 
@@ -19,14 +21,18 @@ public class LinkService {
         return linkRepository.getLink(name);
     }
 
-    public int getDistance(String node1, String node2) throws Exception{
-        List<Link> neighbors = nodeRepository.getNode(node1).getNeighborsLinks();
-        int i = 0;
-        while (i < neighbors.size() && !neighbors.get(i).getDestination().getName().equals(node2)) i++;
-        if (i == neighbors.size()) {
-            throw new Exception("Link doesn't exist");
-        } else {
-            return neighbors.get(i).getDistance();
+    public int getDistance(String node1, String node2) throws LinkDoesntExist {
+        Optional<Link> neighbor = nodeRepository.getNode(node1)
+                .getNeighborsLinks()
+                .stream()
+                .filter(link -> link.getDestination().getName().equals(node2))
+                .findFirst();
+
+        if (neighbor.isEmpty()) {
+            throw new LinkDoesntExist();
         }
+
+        return neighbor.get().getDistance();
     }
+    
 }

@@ -52,7 +52,8 @@ public class Link {
     @Override
     public String toString() {
         return "Link{" +
-                "destination=" + destination +
+                "name='" + name + '\'' +
+                ", destination=" + destination +
                 ", type=" + type +
                 ", distance=" + distance +
                 '}';
