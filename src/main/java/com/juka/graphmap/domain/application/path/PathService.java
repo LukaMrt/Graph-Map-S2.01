@@ -1,7 +1,9 @@
 package com.juka.graphmap.domain.application.path;
 
+import com.google.inject.Inject;
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.road.Road;
 
