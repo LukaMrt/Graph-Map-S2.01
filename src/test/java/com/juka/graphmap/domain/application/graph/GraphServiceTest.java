@@ -32,9 +32,11 @@ public class GraphServiceTest {
     @Mock
     private LinkRepository linkRepository;
 
+    @Mock
+    private GraphLoader loader;
     @BeforeEach
     void setUp() {
-        graphService = new GraphService(nodeRepository, linkRepository);
+        graphService = new GraphService(nodeRepository, linkRepository, loader);
     }
 
     @Test

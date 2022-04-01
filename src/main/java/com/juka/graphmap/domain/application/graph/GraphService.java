@@ -14,11 +14,13 @@ public class GraphService {
 
     private final NodeRepository nodeRepository;
     private final LinkRepository linkRepository;
+    private final GraphLoader graphLoader;
 
     @Inject
-    public GraphService(NodeRepository nodeRepository, LinkRepository linkRepository) {
+    public GraphService(NodeRepository nodeRepository, LinkRepository linkRepository, GraphLoader graphLoader) {
         this.nodeRepository = nodeRepository;
         this.linkRepository = linkRepository;
+        this.graphLoader = graphLoader;
     }
 
     public GraphCharacteristics getGraphCharacteristics() {
@@ -69,4 +71,8 @@ public class GraphService {
         return nodeRepository.hasEncounteredError();
     }
 
+    public void load() {
+        graphLoader.loadNodes().forEach(nodeRepository::addNode);
+        graphLoader.loadLinks(nodeRepository).forEach(linkRepository::addLink);
+    }
 }

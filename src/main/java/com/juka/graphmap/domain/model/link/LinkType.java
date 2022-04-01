@@ -10,6 +10,14 @@ public enum LinkType {
 
     HIGHWAY,
     NATIONAL,
-    DEPARTMENTAL
+    DEPARTMENTAL;
 
+    public static LinkType of(String type) {
+        return switch (type) {
+            case "A" -> LinkType.HIGHWAY;
+            case "D" -> LinkType.DEPARTMENTAL;
+            case "N" -> LinkType.NATIONAL;
+            default -> null;
+        };
+    }
 }
