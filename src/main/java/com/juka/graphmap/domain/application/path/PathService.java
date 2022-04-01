@@ -10,7 +10,7 @@ import com.juka.graphmap.domain.model.road.Road;
 
 import java.util.*;
 
-public class PathService {
+public class PathService implements RoadsFinderService {
 
     private final NodeRepository nodeRepository;
     private final LinkRepository linkRepository;
@@ -68,6 +68,7 @@ public class PathService {
         return new Path(path, distances.get(destinationNode));
     }
 
+    @Override
     public List<Road> getPathsWithSpecificLocations(int cityCount, int restaurantCount, int recreationCenterCount) {
 
         return linkRepository.getAllLinks().stream()

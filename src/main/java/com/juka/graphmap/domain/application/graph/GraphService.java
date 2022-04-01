@@ -75,4 +75,5 @@ public class GraphService {
         graphLoader.loadNodes().forEach(nodeRepository::addNode);
         graphLoader.loadLinks(nodeRepository).forEach(linkRepository::addLink);
     }
+
 }

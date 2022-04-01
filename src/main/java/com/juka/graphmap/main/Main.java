@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Injector injector = Guice.createInjector(new TerminalGuiceModule());
+        Injector injector = Guice.createInjector(new TerminalGuiceModule("graph.csv"));
 
         NodeRepository nodeRepository = injector.getInstance(NodeRepository.class);
         LinkRepository linkRepository = injector.getInstance(LinkRepository.class);
@@ -28,20 +28,20 @@ public class Main {
         Node node6 = new Node("node6", NodeType.CITY);
         Node node7 = new Node("node7", NodeType.RECREATION_CENTER);
 
-        Link link1 = new Link("link1", node1, LinkType.HIGHWAY, 100);
-        Link link2 = new Link("link2", node2, LinkType.DEPARTMENTAL, 324);
-        Link link3 = new Link("link3", node3, LinkType.NATIONAL, 3);
-        Link link4 = new Link("link4", node4, LinkType.DEPARTMENTAL, 10);
-        Link link5 = new Link("link5", node5, LinkType.HIGHWAY, 100);
-        Link link6 = new Link("link6", node6, LinkType.DEPARTMENTAL, 2348);
-        Link link7 = new Link("link7", node7, LinkType.NATIONAL, 3);
-        Link link8 = new Link("link1", node1, LinkType.HIGHWAY, 43);
-        Link link9 = new Link("link2", node2, LinkType.DEPARTMENTAL, 100);
-        Link link10 = new Link("link3", node3, LinkType.HIGHWAY, 23);
-        Link link11 = new Link("link4", node4, LinkType.NATIONAL, 45);
-        Link link12 = new Link("link5", node5, LinkType.NATIONAL, 5);
-        Link link13 = new Link("link6", node6, LinkType.NATIONAL, 67);
-        Link link14 = new Link("link7", node7, LinkType.HIGHWAY, 3);
+        Link link1 = new Link("A1.1.1", node1, LinkType.HIGHWAY, 100);
+        Link link2 = new Link("A1.1.1", node2, LinkType.DEPARTMENTAL, 324);
+        Link link3 = new Link("A1.1.1", node3, LinkType.NATIONAL, 3);
+        Link link4 = new Link("A1.1.1", node4, LinkType.DEPARTMENTAL, 10);
+        Link link5 = new Link("A1.1.1", node5, LinkType.HIGHWAY, 100);
+        Link link6 = new Link("A1.1.1", node6, LinkType.DEPARTMENTAL, 2348);
+        Link link7 = new Link("A1.2.1", node7, LinkType.NATIONAL, 3);
+        Link link8 = new Link("A1.2.1", node1, LinkType.HIGHWAY, 43);
+        Link link9 = new Link("A1.2.1", node2, LinkType.DEPARTMENTAL, 100);
+        Link link10 = new Link("A1.1.1", node3, LinkType.HIGHWAY, 23);
+        Link link11 = new Link("A1.1.1", node4, LinkType.NATIONAL, 45);
+        Link link12 = new Link("A1.1.2", node5, LinkType.NATIONAL, 5);
+        Link link13 = new Link("A1.1.1", node6, LinkType.NATIONAL, 67);
+        Link link14 = new Link("A1.1.1", node7, LinkType.HIGHWAY, 3);
 
         node1.addLink(link2);
         node1.addLink(link5);
@@ -87,7 +87,6 @@ public class Main {
         linkRepository.addLink(link14);
 
         injector.getInstance(HomeUI.class).interact();
-
     }
 
 }
