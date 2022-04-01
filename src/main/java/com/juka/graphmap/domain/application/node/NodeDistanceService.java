@@ -3,12 +3,14 @@ package com.juka.graphmap.domain.application.node;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.node.Node;
 
+import javax.inject.Inject;
 import java.util.Collection;
 
 public class NodeDistanceService {
 
     private final NodeRepository nodeRepository;
 
+    @Inject
     public NodeDistanceService(NodeRepository nodeRepository) {
         this.nodeRepository = nodeRepository;
     }

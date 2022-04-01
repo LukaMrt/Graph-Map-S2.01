@@ -6,6 +6,8 @@ import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
 
+import javax.inject.Inject;
+
 import static com.juka.graphmap.domain.model.graph.GraphCharacteristicsBuilder.aGraphCharacteristics;
 
 public class GraphService {
@@ -13,6 +15,7 @@ public class GraphService {
     private final NodeRepository nodeRepository;
     private final LinkRepository linkRepository;
 
+    @Inject
     public GraphService(NodeRepository nodeRepository, LinkRepository linkRepository) {
         this.nodeRepository = nodeRepository;
         this.linkRepository = linkRepository;
@@ -37,7 +40,7 @@ public class GraphService {
     }
 
     public int countRoads() {
-        return linkRepository.getAllLinks().size();
+        return linkRepository.getAllLinks().size() / 2;
     }
 
     public float getPercentageOfLocationType(NodeType type) {

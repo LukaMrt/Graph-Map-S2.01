@@ -6,6 +6,7 @@ import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
+import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.road.Road;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -5,6 +5,7 @@ import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.road.Road;
 
 import java.util.*;
@@ -14,6 +15,7 @@ public class PathService {
     private final NodeRepository nodeRepository;
     private final LinkRepository linkRepository;
 
+    @Inject
     public PathService(NodeRepository nodeRepository, LinkRepository linkRepository) {
         this.nodeRepository = nodeRepository;
         this.linkRepository = linkRepository;

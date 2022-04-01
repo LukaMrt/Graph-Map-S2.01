@@ -5,12 +5,14 @@ import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class NodeService {
 
     private final NodeRepository nodeRepository;
 
+    @Inject
     public NodeService(NodeRepository nodeRepository) {
         this.nodeRepository = nodeRepository;
     }

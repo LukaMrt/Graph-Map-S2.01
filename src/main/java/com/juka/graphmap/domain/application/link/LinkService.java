@@ -5,6 +5,7 @@ import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.exception.LinkDoesntExist;
 import com.juka.graphmap.domain.model.link.Link;
 
+import javax.inject.Inject;
 import java.util.Optional;
 
 public class LinkService {
@@ -12,6 +13,7 @@ public class LinkService {
     private final LinkRepository linkRepository;
     private final NodeRepository nodeRepository;
 
+    @Inject
     public LinkService(NodeRepository nodeRepository, LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
         this.nodeRepository = nodeRepository;

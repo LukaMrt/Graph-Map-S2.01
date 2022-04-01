@@ -4,6 +4,7 @@ import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ public class NodeCompareService {
 
     private final NodeRepository nodeRepository;
 
+    @Inject
     public NodeCompareService(NodeRepository nodeRepository) {
         this.nodeRepository = nodeRepository;
     }

@@ -65,7 +65,8 @@ public class GraphServiceTest {
 
         Node node1 = new Node("node1", NodeType.CITY);
         Link link1 = new Link("link1", node1, LinkType.HIGHWAY, 1);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link1));
+        Link link2 = new Link("link2", node1, LinkType.HIGHWAY, 1);
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2));
 
         int result = graphService.countRoads();
 
@@ -78,7 +79,9 @@ public class GraphServiceTest {
         Node node1 = new Node("node1", NodeType.CITY);
         Link link1 = new Link("link1", node1, LinkType.HIGHWAY, 1);
         Link link2 = new Link("link2", node1, LinkType.HIGHWAY, 1);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2));
+        Link link3 = new Link("link3", node1, LinkType.HIGHWAY, 1);
+        Link link4 = new Link("link4", node1, LinkType.HIGHWAY, 1);
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2, link3, link4));
 
         int result = graphService.countRoads();
 
