@@ -29,9 +29,6 @@ public class TerminalGraphView implements GraphView {
         for (Node node : nodes) {
             System.out.println(node.getName());
         }
-        System.out.println();
-        System.out.println("0 - Quitter");
-        System.out.println("1 - Afficher les liens");
     }
 
     @Override
@@ -46,8 +43,5 @@ public class TerminalGraphView implements GraphView {
                     "\tType : " + link.getType() + "\n" +
                     "\tDistance : " + link.getDistance());
         }
-        System.out.println();
-        System.out.println("0 - Quitter");
-        System.out.println("1 - Afficher les noeuds");
     }
 }
