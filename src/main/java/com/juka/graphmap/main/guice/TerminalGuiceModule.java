@@ -9,6 +9,7 @@ import com.juka.graphmap.infrastructure.DefaultLinkRepository;
 import com.juka.graphmap.infrastructure.DefaultNodeRepository;
 import com.juka.graphmap.infrastructure.graph.FileGraphLoader;
 import com.juka.graphmap.ui.graph.GraphUI;
+import com.juka.graphmap.ui.graph.GraphView;
 import com.juka.graphmap.ui.graph.TerminalGraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.home.HomeView;
@@ -16,6 +17,7 @@ import com.juka.graphmap.ui.home.TerminalHomeUI;
 import com.juka.graphmap.ui.roads.RoadsUI;
 import com.juka.graphmap.ui.roads.RoadsView;
 import com.juka.graphmap.ui.roads.TerminalRoadsUI;
+import com.juka.graphmap.view.graph.TerminalGraphView;
 import com.juka.graphmap.view.home.TerminalHomeView;
 import com.juka.graphmap.view.roads.TerminalRoadsView;
 
@@ -41,10 +43,12 @@ public class TerminalGuiceModule extends AbstractModule {
 
         bind(HomeView.class).to(TerminalHomeView.class);
         bind(RoadsView.class).to(TerminalRoadsView.class);
+        bind(GraphView.class).to(TerminalGraphView.class);
 
         bind(GraphUI.class).to(TerminalGraphUI.class);
         bind(RoadsUI.class).to(TerminalRoadsUI.class);
         bind(HomeUI.class).to(TerminalHomeUI.class);
+
 
     }
 
