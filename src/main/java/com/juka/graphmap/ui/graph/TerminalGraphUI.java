@@ -5,6 +5,7 @@ import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.application.node.NodeService;
+import com.juka.graphmap.ui.home.HomeUI;
 
 import java.util.Scanner;
 
@@ -15,33 +16,37 @@ public class TerminalGraphUI implements GraphUI {
     private final NodeRepository nodeRepository;
     private final LinkRepository linkRepository;
     private final GraphView graphView;
-    private final GraphUI graphUI;
+    private final HomeUI homeUI;
 
     @Inject
-    public TerminalGraphUI(NodeRepository nodeRepository, LinkRepository linkRepository, GraphView graphView, GraphUI graphUI) {
+    public TerminalGraphUI(NodeRepository nodeRepository, LinkRepository linkRepository, GraphView graphView, HomeUI homeUI) {
         this.nodeRepository = nodeRepository;
         this.linkRepository = linkRepository;
         this.graphView = graphView;
-        this.graphUI = graphUI;
+        this.homeUI = homeUI;
     }
 
     @Override
     public void interact() {
         char entry;
-        graphView.displayMenu();
 
-        entry = scanner.next().charAt(0);
+        do {
+            graphView.displayMenu();
 
-        while (!"012".contains(String.valueOf(entry))) {
-            System.out.println("Entrée invalide. Veuillez réessayer (0, 1 ou 2).");
-            entry = scanner.nextLine().charAt(0);
-        }
+            entry = scanner.next().charAt(0);
 
-        switch (entry) {
-            case '0' -> System.out.println("Au revoir.");
-            case '1' -> graphView.displayNodes(nodeRepository.getAllNodes());
-            case '2' -> graphView.displayLinks(linkRepository.getAllLinks());
-        }
+            while (!"012".contains(String.valueOf(entry))) {
+                System.out.println("Entrée invalide. Veuillez réessayer (0, 1 ou 2).");
+                entry = scanner.nextLine().charAt(0);
+            }
+
+            switch (entry) {
+                case '0' -> homeUI.interact();
+                case '1' -> graphView.displayNodes(nodeRepository.getAllNodes());
+                case '2' -> graphView.displayLinks(linkRepository.getAllLinks());
+            }
+        } while (entry != '0');
+
     }
 
 }

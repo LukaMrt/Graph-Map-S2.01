@@ -15,7 +15,7 @@ public class TerminalGraphView implements GraphView {
         System.out.println("Écran n°2 - Choix des informations à afficher");
         System.out.println();
 
-        System.out.println("0 - Quitter");
+        System.out.println("0 - Retour");
         System.out.println("1 - Afficher les noeuds");
         System.out.println("2 - Afficher les liens");
     }
@@ -27,7 +27,7 @@ public class TerminalGraphView implements GraphView {
         System.out.println("Écran n°2 - Affichage de tous les noeuds");
         System.out.println();
         for (Node node : nodes) {
-            System.out.println(node.getName());
+            System.out.println(node.getName() + "\n" + "\tType : " + node.getType());
         }
     }
 
