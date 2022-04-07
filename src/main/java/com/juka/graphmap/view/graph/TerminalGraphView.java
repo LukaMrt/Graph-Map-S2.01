@@ -18,6 +18,7 @@ public class TerminalGraphView implements GraphView {
         System.out.println("0 - Retour");
         System.out.println("1 - Afficher les noeuds");
         System.out.println("2 - Afficher les liens");
+        System.out.println("3 - Comparer 2 noeuds");
     }
 
     @Override
