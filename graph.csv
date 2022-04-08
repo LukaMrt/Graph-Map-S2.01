@@ -1,0 +1,30 @@
+V,Lille:N,N2,220,Paris
+V,Paris:N,N2,220,Lille;N,N3,43,DisneyLand;A,A20,584,Bordeaux;A,A6.1,466,Lyon
+V,Bordeaux:A,A20,584,Paris;A,A10,327,Puy du Fou;A,A89.1,376,Clermont-Ferrand
+V,Clermont-Ferrand:A,A89.1,376,Clermont-Ferrand;A,A89.2,167,Lyon
+V,Lyon:A,A6.1,466,Paris;A,A89.2,167,Clermont-Ferrand;A,A6.2,475,DisneyLand;N,N7.1,3,Cinéma comoedia;D,D318.1,4,McDonald's;D,D383.1,8,Villeurbanne;A,A43,146,Annecy;N,N7.2,30,Seyssuel;N,N7.3,34,Vienne;A,A7.1,34,Vienne;N,N88,63,Saint-Étienne
+V,Villeurbanne:D,D318.2,3,McDonald's;D,D318.3,2,Burger King;D,D318.4,2,Tasty Pizza;D,D383.1,8,Lyon;D,D383.2,30,Seyssuel
+V,Annecy:A,A43,143,Lyon;A,A41,107,Grenoble
+V,Meyzieu:D,D317.1,13,Tasty Pizza;D,D317.2,13,Bron
+V,Bron:D,D383.4,9,Tasty Pizza;D,D317.2,13,Meyzieu;D,D383.3,33,Luzinay
+V,Luzinay:D,D383.3,33,Bron;D,D36.1,11,Seyssuel;D,D36.2,4,Saveurs & traditions
+V,Seyssuel:D,D383.2,30,Villeurbanne;D,D36.1,11,Luzinay;D,D36.3,7,Saveurs & traditions;N,N7.2,30,Lyon;N,N7.4,6,Vienne
+V,Vienne:N,N7.4,6,Seyssuel;A,A48,94,Grenoble;N,N7.3,34,Lyon;A,A7.1,34,Lyon;D,D123,9,Saveurs & traditions;A,A47,52,Saint-Étienne;D,D502,3,Musée gallo-romain;N,N7.6,86,Tence;N,N7.7,39,Zoo de Peaugres;A,A7.2,71,Valence;N,N7.5,71,Valence
+V,Grenoble:A,A41,107,Annecy;A,A48,94,Vienne
+V,Saint-Étienne:N,N88,63,Lyon;A,A47,52,Vienne;D,D3,3,Stromboli
+V,Tence:N,N7.6,86,Vienne;D,D533,78,Valence
+V,Valence:A,A7.2,71,Vienne;N,N7.5,71,Vienne;D,D533,78,Tence;N,N7.8,60,Zoo de Peaugres;N,N7.9,214,Marseille;A,A7.3,214,Marseille
+V,Marseille:N,N7.9,214,Valence;A,A7.3,214,Valence;N,N7.10,10,La place des canailles;A,A9,317,Perpignan
+V,Perpignan:A,A9,317,Marseille;D,D617,14,Aquarium Oniria
+R,McDonald's:D,D318.2,3,Villeurbanne;D,D318.1,4,Lyon
+R,Burger King:D,D318.3,2,Villeurbanne
+R,Tasty Pizza:D,D318.4,2,Villeurbanne;D,D317.1,13,Meyzieu;D,D383.4,9,Bron
+R,Stromboli:D,D3,3,Saint-Étienne
+R,Saveurs & traditions:D,D123,9,Vienne;D,D36.3,7,Seyssuel;D,D36.2,4,Luzinay
+R,La place des canailles:N,N7.10,10,Marseille
+L,DisneyLand:N,N3,43,Paris;A,A6.2,475,Lyon
+L,Puy du Fou:A,A10,327,Bordeaux
+L,Cinéma comoedia:N,N7.1,3,Lyon
+L,Zoo de Peaugres:N,N7.7,39,Vienne;N,N7.8,60,Valence
+L,Aquarium Oniria:D,D617,14,Perpignan
+L,Musée gallo-romain:D,D502,3,Vienne
