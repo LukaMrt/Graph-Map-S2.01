@@ -29,14 +29,15 @@ public class FileGraphLoader implements GraphLoader {
 
         try {
             loadNodes(nodes);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
 
         return nodes;
     }
 
-    private void loadNodes(List<Node> nodes) throws IOException {
+    private void loadNodes(List<Node> nodes) throws IOException, RuntimeException {
 
         BufferedReader reader = new BufferedReader(new FileReader(filePath.path));
 
@@ -48,6 +49,10 @@ public class FileGraphLoader implements GraphLoader {
                     .replace("\n", "")
                     .split(":")[0]
                     .split(",");
+
+            if (node.length != 2) {
+                throw new RuntimeException("Invalid node format");
+            }
 
             nodes.add(new Node(node[1], NodeType.of(node[0])));
         }
@@ -63,14 +68,15 @@ public class FileGraphLoader implements GraphLoader {
 
         try {
             loadLinks(nodeRepository, links);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
 
         return links;
     }
 
-    private void loadLinks(NodeRepository nodeRepository, List<Link> links) throws IOException {
+    private void loadLinks(NodeRepository nodeRepository, List<Link> links) throws IOException, RuntimeException {
 
         BufferedReader reader = new BufferedReader(new FileReader(filePath.path));
 
@@ -93,16 +99,39 @@ public class FileGraphLoader implements GraphLoader {
 
             for (String neighbor : neighbors) {
 
-                road = neighbor.replace("::", ",").split(",");
+                road = neighbor.split(",");
+
+                if (road.length != 4) {
+                    throw new RuntimeException("Invalid link format");
+                }
+
                 Node origin = nodeRepository.getNode(node);
                 Node destination = nodeRepository.getNode(road[3]);
 
-                link = new Link(road[1], destination, LinkType.of(road[0]), Integer.parseInt(road[2]));
-                origin.addLink(link);
-                links.add(link);
+                if (origin == null) {
+                    throw new RuntimeException("Node " + node + " found");
+                }
 
-                link = new Link(road[1], origin, LinkType.of(road[0]), Integer.parseInt(road[2]));
-                destination.addLink(link);
+                if (destination == null) {
+                    throw new RuntimeException("Node " + road[3] + " found");
+                }
+
+                if (LinkType.of(road[0]) == null) {
+                    throw new RuntimeException("Invalid link type");
+                }
+
+                String[] finalRoad = road;
+                if (origin.getNeighborsLinks().stream().map(Link::getName).anyMatch(name -> name.equals(finalRoad[1] + ".1"))) {
+                    throw new RuntimeException("Link " + finalRoad[1] + " already exists");
+                }
+
+                String finalName = finalRoad[1] + ".1";
+                if (links.stream().map(Link::getName).anyMatch(name -> name.equals(finalRoad[1] + ".1"))) {
+                    finalName = finalRoad[1] + ".2";
+                }
+
+                link = new Link(finalName, destination, LinkType.of(road[0]), Integer.parseInt(road[2]));
+                origin.addLink(link);
                 links.add(link);
 
             }

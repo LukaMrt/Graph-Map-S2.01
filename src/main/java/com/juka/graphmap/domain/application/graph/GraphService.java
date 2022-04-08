@@ -1,12 +1,18 @@
 package com.juka.graphmap.domain.application.graph;
 
+import com.juka.graphmap.domain.model.file.FilePath;
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
+import com.juka.graphmap.infrastructure.DefaultLinkRepository;
+import com.juka.graphmap.infrastructure.DefaultNodeRepository;
+import com.juka.graphmap.infrastructure.graph.FileGraphLoader;
 
 import javax.inject.Inject;
+
+import java.util.List;
 
 import static com.juka.graphmap.domain.model.graph.GraphCharacteristicsBuilder.aGraphCharacteristics;
 
@@ -72,8 +78,22 @@ public class GraphService {
     }
 
     public void load() {
-        graphLoader.loadNodes().forEach(nodeRepository::addNode);
-        graphLoader.loadLinks(nodeRepository).forEach(linkRepository::addLink);
+        List<Node> nodes = graphLoader.loadNodes();
+
+        if (nodes == null) {
+            nodeRepository.encounterError();
+            return;
+        }
+
+        nodes.forEach(nodeRepository::addNode);
+        List<Link> links = graphLoader.loadLinks(nodeRepository);
+
+        if (links == null) {
+            nodeRepository.encounterError();
+            return;
+        }
+
+        links.forEach(linkRepository::addLink);
     }
 
 }
