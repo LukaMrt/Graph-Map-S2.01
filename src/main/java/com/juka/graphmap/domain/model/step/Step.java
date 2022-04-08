@@ -33,8 +33,4 @@ public class Step {
         return Objects.equals(originLink, step.originLink);
     }
 
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }
