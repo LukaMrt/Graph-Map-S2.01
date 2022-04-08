@@ -8,6 +8,7 @@ import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
 import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.road.Road;
+import com.juka.graphmap.domain.model.step.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -77,7 +78,10 @@ public class PathServiceTest {
 
         Path path = pathService.getShortestPath("A", "D");
 
-        Path expected = new Path(List.of(node1, node2, node3, node4), 11.0);
+        Path expected = new Path(List.of(new Step(node1, null),
+                new Step(node2, linkLoop1),
+                new Step(node3, link1),
+                new Step(node4, link2)), 11.0);
         assertThat(path).isEqualTo(expected);
     }
 

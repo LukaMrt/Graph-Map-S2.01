@@ -1,21 +1,22 @@
 package com.juka.graphmap.domain.model.path;
 
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.step.Step;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Path {
 
-    private final List<Node> path;
+    private final List<Step> path;
     private final Double distance;
 
-    public Path(List<Node> path, Double distance) {
+    public Path(List<Step> path, Double distance) {
         this.path = path;
         this.distance = distance;
     }
 
-    public List<Node> getPath() {
+    public List<Step> getPath() {
         return path;
     }
 
