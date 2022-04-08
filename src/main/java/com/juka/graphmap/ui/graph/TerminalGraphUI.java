@@ -33,23 +33,21 @@ public class TerminalGraphUI implements GraphUI {
     public void interact() {
         char entry;
 
-        do {
-            graphView.displayMenu();
+        graphView.displayMenu();
 
-            entry = scanner.next().charAt(0);
+        entry = scanner.next().charAt(0);
 
-            while (!"0123".contains(String.valueOf(entry))) {
-                System.out.println("Entrée invalide. Veuillez réessayer (0, 1, 2 ou 3).");
-                entry = scanner.nextLine().charAt(0);
-            }
+        while (!"0123".contains(String.valueOf(entry))) {
+            System.out.println("Entrée invalide. Veuillez réessayer (0, 1, 2 ou 3).");
+            entry = scanner.nextLine().charAt(0);
+        }
 
-            switch (entry) {
-                case '0' -> homeUI.interact();
-                case '1' -> graphView.displayNodes(nodeRepository.getAllNodes());
-                case '2' -> graphView.displayLinks(linkRepository.getAllLinks());
-                case '3' -> compareUI.interact();
-            }
-        } while (entry != '0');
+        switch (entry) {
+            case '0' -> homeUI.interact();
+            case '1' -> graphView.displayNodes(nodeRepository.getAllNodes());
+            case '2' -> graphView.displayLinks(linkRepository.getAllLinks());
+            case '3' -> compareUI.interact();
+        }
 
     }
 
