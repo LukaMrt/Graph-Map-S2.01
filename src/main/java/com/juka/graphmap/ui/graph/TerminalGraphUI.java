@@ -44,7 +44,6 @@ public class TerminalGraphUI implements GraphUI {
         }
 
         switch (entry) {
-            case '0' -> homeUI.interact();
             case '1' -> {
                 graphView.displayNodes(nodeRepository.getAllNodes());
                 this.interact();
@@ -55,6 +54,7 @@ public class TerminalGraphUI implements GraphUI {
             }
             case '3' -> compareUI.interact();
             case '4' -> pathUI.interact();
+            default -> homeUI.interact();
         }
 
     }

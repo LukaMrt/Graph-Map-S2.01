@@ -1,14 +1,10 @@
 package com.juka.graphmap.domain.application.graph;
 
-import com.juka.graphmap.domain.model.file.FilePath;
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
-import com.juka.graphmap.infrastructure.DefaultLinkRepository;
-import com.juka.graphmap.infrastructure.DefaultNodeRepository;
-import com.juka.graphmap.infrastructure.graph.FileGraphLoader;
 
 import javax.inject.Inject;
 

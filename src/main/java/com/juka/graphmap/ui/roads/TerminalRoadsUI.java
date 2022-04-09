@@ -37,12 +37,11 @@ public class TerminalRoadsUI implements RoadsUI {
             SCANNER.nextLine();
         }
 
-        switch (entry) {
-            case '0' -> System.out.println("Au revoir.");
-            case '1' -> homeUI.interact();
-            default -> {}
+        if (entry == '0') {
+            System.out.println("Au revoir.");
         }
 
+        homeUI.interact();
     }
 
 }

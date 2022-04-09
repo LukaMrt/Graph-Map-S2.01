@@ -1,7 +1,6 @@
 package com.juka.graphmap.ui.path;
 
 import com.google.inject.Inject;
-import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.application.path.PathService;
 import com.juka.graphmap.domain.model.path.Path;
@@ -64,11 +63,10 @@ public class TerminalPathUI implements PathUI {
             choice = SCANNER.nextLine().charAt(0);
         }
 
-        switch (choice) {
-            case '0' -> graphUI.interact();
-            case '1' -> homeUI.interact();
-            default -> {}
+        if (choice == '0') {
+            graphUI.interact();
         }
 
+        homeUI.interact();
     }
 }

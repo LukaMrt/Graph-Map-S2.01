@@ -39,10 +39,9 @@ public class TerminalHomeUI implements HomeUI {
         }
 
         switch (entry) {
-            case '0' -> System.out.println("Au revoir.");
             case '1' -> graphUI.interact();
             case '2' -> roadsInteract();
-            default -> {}
+            default -> System.out.println("Au revoir.");
         }
 
     }

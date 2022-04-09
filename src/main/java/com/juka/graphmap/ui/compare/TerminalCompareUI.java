@@ -72,11 +72,12 @@ public class TerminalCompareUI implements CompareUI {
             choice = SCANNER.nextLine().charAt(0);
         }
 
-        switch (choice) {
-            case '0' -> graphUI.interact();
-            case '1' -> homeUI.interact();
-            default -> {}
+        if (choice == '0') {
+            graphUI.interact();
+            return;
         }
 
+        homeUI.interact();
     }
+
 }
