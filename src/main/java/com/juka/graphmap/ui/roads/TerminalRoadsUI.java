@@ -40,6 +40,7 @@ public class TerminalRoadsUI implements RoadsUI {
         switch (entry) {
             case '0' -> System.out.println("Au revoir.");
             case '1' -> homeUI.interact();
+            default -> {}
         }
 
     }

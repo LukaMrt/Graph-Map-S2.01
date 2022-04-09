@@ -2,6 +2,7 @@ package com.juka.graphmap.infrastructure.graph;
 
 import com.juka.graphmap.domain.application.graph.GraphLoader;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.exception.*;
 import com.juka.graphmap.domain.model.file.FilePath;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
@@ -37,7 +38,7 @@ public class FileGraphLoader implements GraphLoader {
         return nodes;
     }
 
-    private void loadNodes(List<Node> nodes) throws IOException, RuntimeException {
+    private void loadNodes(List<Node> nodes) throws Exception {
 
         BufferedReader reader = new BufferedReader(new FileReader(filePath.path));
 
@@ -51,7 +52,7 @@ public class FileGraphLoader implements GraphLoader {
                     .split(",");
 
             if (node.length != 2) {
-                throw new RuntimeException("Invalid node format");
+                throw new InvalidNodeFormatException();
             }
 
             nodes.add(new Node(node[1], NodeType.of(node[0])));
@@ -81,7 +82,8 @@ public class FileGraphLoader implements GraphLoader {
         BufferedReader reader = new BufferedReader(new FileReader(filePath.path));
 
         String line;
-        String[] neighbors, road;
+        String[] neighbors;
+        String[] road;
         int doublePoint;
         Link link;
 
@@ -102,27 +104,27 @@ public class FileGraphLoader implements GraphLoader {
                 road = neighbor.split(",");
 
                 if (road.length != 4) {
-                    throw new RuntimeException("Invalid link format");
+                    throw new InvalidLinkFormatException();
                 }
 
                 Node origin = nodeRepository.getNode(node);
                 Node destination = nodeRepository.getNode(road[3]);
 
                 if (origin == null) {
-                    throw new RuntimeException("Node " + node + " found");
+                    throw new NodeNotFountException(node);
                 }
 
                 if (destination == null) {
-                    throw new RuntimeException("Node " + road[3] + " found");
+                    throw new NodeNotFountException(road[3]);
                 }
 
                 if (LinkType.of(road[0]) == null) {
-                    throw new RuntimeException("Invalid link type");
+                    throw new InvalidLinkTypeException();
                 }
 
                 String[] finalRoad = road;
                 if (origin.getNeighborsLinks().stream().map(Link::getName).anyMatch(name -> name.equals(finalRoad[1] + ".1"))) {
-                    throw new RuntimeException("Link " + finalRoad[1] + " already exists");
+                    throw new LinkAlreadyExistException(finalRoad[1]);
                 }
 
                 String finalName = finalRoad[1] + ".1";

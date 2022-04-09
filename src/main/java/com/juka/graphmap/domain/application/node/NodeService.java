@@ -28,4 +28,5 @@ public class NodeService {
     public NodeType getType(String node) {
         return nodeRepository.getNode(node).getType();
     }
+
 }

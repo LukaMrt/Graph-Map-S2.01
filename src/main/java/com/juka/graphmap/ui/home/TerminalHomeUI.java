@@ -42,6 +42,7 @@ public class TerminalHomeUI implements HomeUI {
             case '0' -> System.out.println("Au revoir.");
             case '1' -> graphUI.interact();
             case '2' -> roadsInteract();
+            default -> {}
         }
 
     }
@@ -51,7 +52,9 @@ public class TerminalHomeUI implements HomeUI {
         System.out.println("Choisissez 3 nombres représentant le nombre de villes, de restaurants et de centre de" +
                 "loisirs traversés par une même route.");
 
-        int x, y, z;
+        int x;
+        int y;
+        int z;
         String entry;
 
         System.out.print("Nombre de villes : ");

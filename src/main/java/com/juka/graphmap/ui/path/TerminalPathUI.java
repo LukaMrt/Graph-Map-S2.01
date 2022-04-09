@@ -34,7 +34,8 @@ public class TerminalPathUI implements PathUI {
         pathView.displayChoice();
         pathView.displayNodes(nodeRepository.getAllNodes());
 
-        String start, end;
+        String start;
+        String end;
         char choice;
         Path path;
 
@@ -66,6 +67,8 @@ public class TerminalPathUI implements PathUI {
         switch (choice) {
             case '0' -> graphUI.interact();
             case '1' -> homeUI.interact();
+            default -> {}
         }
+
     }
 }

@@ -1,6 +1,5 @@
 package com.juka.graphmap.domain.model.path;
 
-import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.step.Step;
 
 import java.util.List;

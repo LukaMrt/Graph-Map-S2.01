@@ -2,7 +2,7 @@ package com.juka.graphmap.domain.application.link;
 
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.model.exception.LinkDoesntExist;
+import com.juka.graphmap.domain.model.exception.LinkDoesntExistException;
 import com.juka.graphmap.domain.model.link.Link;
 
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ public class LinkService {
         return linkRepository.getLink(name);
     }
 
-    public int getDistance(String node1, String node2) throws LinkDoesntExist {
+    public int getDistance(String node1, String node2) throws LinkDoesntExistException {
         Optional<Link> neighbor = nodeRepository.getNode(node1)
                 .getNeighborsLinks()
                 .stream()
@@ -31,7 +31,7 @@ public class LinkService {
                 .findFirst();
 
         if (neighbor.isEmpty()) {
-            throw new LinkDoesntExist();
+            throw new LinkDoesntExistException();
         }
 
         return neighbor.get().getDistance();

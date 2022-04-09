@@ -51,7 +51,7 @@ public class TerminalCompareUI implements CompareUI {
                 currentNode = nodeRepository.getNode(inputs[i]);
             }
             while (currentNode.getType() != NodeType.CITY) {
-                System.out.println("Noeud " + currentNode.getName() +" invalide. Choisissez une ville.");
+                System.out.println("Noeud " + currentNode.getName() + " invalide. Choisissez une ville.");
                 inputs[i] = SCANNER.nextLine();
                 currentNode = nodeRepository.getNode(inputs[i]);
             }
@@ -75,6 +75,8 @@ public class TerminalCompareUI implements CompareUI {
         switch (choice) {
             case '0' -> graphUI.interact();
             case '1' -> homeUI.interact();
+            default -> {}
         }
+
     }
 }
