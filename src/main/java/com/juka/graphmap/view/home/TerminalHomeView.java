@@ -13,7 +13,7 @@ public class TerminalHomeView implements HomeView {
         System.out.println(graph.error ? "Erreur détectée" : "Aucune erreur détectée");
         System.out.println();
 
-        System.out.println("Le graphe contient " + graph.cityCount + " lieux dont :");
+        System.out.println("Le graphe contient " + graph.locationCount + " lieux dont :");
         System.out.println("  - " + Math.round(graph.cityPercentage * 10000) / 100.0 + " % de villes");
         System.out.println("  - " + Math.round(graph.restaurantPercentage * 10000) / 100.0 + " % de restaurants");
         System.out.println("  - " + Math.round(graph.recreationPercentage * 10000) / 100.0 + " % de centres de loisirs");
