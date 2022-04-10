@@ -8,15 +8,26 @@ package com.juka.graphmap.domain.model.node;
  */
 public enum NodeType {
     
-    CITY,
-    RESTAURANT,
-    RECREATION_CENTER;
+    CITY("Ville"),
+    RESTAURANT("Restaurant"),
+    RECREATION_CENTER("Centre de loisirs");
+
+    private final String type;
+
+    NodeType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 
     public static NodeType of(String type) {
         return switch (type) {
             case "V" -> NodeType.CITY;
             case "R" -> NodeType.RESTAURANT;
-            case "P" -> NodeType.RECREATION_CENTER;
+            case "L" -> NodeType.RECREATION_CENTER;
             default -> null;
         };
     }

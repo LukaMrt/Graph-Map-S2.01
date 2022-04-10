@@ -29,7 +29,8 @@ public class TerminalGraphView implements GraphView {
         System.out.println("Écran n°2 - Affichage de tous les noeuds");
         System.out.println();
         for (Node node : nodes) {
-            System.out.println(node.getName() + "\n" + "\tType : " + node.getType());
+            System.out.println(node.getName());
+            System.out.println("\tType : " + node.getType());
         }
     }
 
@@ -40,10 +41,10 @@ public class TerminalGraphView implements GraphView {
         System.out.println("Écran n°2 - Affichage de tous les noeuds");
         System.out.println();
         for (Link link : links) {
-            System.out.println(link.getName() + "\n" +
-                    "\tDestination : " + link.getDestination().getName() + "\n" +
-                    "\tType : " + link.getType() + "\n" +
-                    "\tDistance : " + link.getDistance());
+            System.out.println(link.getName().substring(0, link.getName().lastIndexOf(".")));
+            System.out.println("\tDestination : " + link.getDestination().getName());
+            System.out.println("\tType : " + link.getType());
+            System.out.println("\tDistance : " + link.getDistance());
         }
     }
 }

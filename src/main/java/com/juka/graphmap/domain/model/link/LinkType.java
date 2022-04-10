@@ -8,9 +8,20 @@ package com.juka.graphmap.domain.model.link;
  */
 public enum LinkType {
 
-    HIGHWAY,
-    NATIONAL,
-    DEPARTMENTAL;
+    HIGHWAY("Autoroute"),
+    NATIONAL("Route nationale"),
+    DEPARTMENTAL("Route départementale");
+
+    private final String type;
+
+    LinkType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 
     public static LinkType of(String type) {
         return switch (type) {
