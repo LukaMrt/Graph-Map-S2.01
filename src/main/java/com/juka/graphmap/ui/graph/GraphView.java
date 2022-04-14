@@ -8,5 +8,6 @@ import java.util.List;
 public interface GraphView {
     void displayMenu();
     void displayNodes(List<Node> nodes);
-    void displayLinks(List<Link> links);
+    void displayLinksHeader();
+    void displayLink(Node origin, Link link);
 }

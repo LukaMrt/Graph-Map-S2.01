@@ -35,16 +35,19 @@ public class TerminalGraphView implements GraphView {
     }
 
     @Override
-    public void displayLinks(List<Link> links) {
+    public void displayLinksHeader() {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°2 - Affichage de tous les noeuds");
         System.out.println();
-        for (Link link : links) {
-            System.out.println(link.getName().substring(0, link.getName().lastIndexOf(".")));
-            System.out.println("\tDestination : " + link.getDestination().getName());
-            System.out.println("\tType : " + link.getType());
-            System.out.println("\tDistance : " + link.getDistance());
-        }
+    }
+
+    @Override
+    public void displayLink(Node origin, Link link) {
+        System.out.println(link.getName().substring(0, link.getName().lastIndexOf(".")));
+        System.out.println("\tOrigine : " + origin.getName());
+        System.out.println("\tDestination : " + link.getDestination().getName());
+        System.out.println("\tType : " + link.getType());
+        System.out.println("\tDistance : " + link.getDistance());
     }
 }
