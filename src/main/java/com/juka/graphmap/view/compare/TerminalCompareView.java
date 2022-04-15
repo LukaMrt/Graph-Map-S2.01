@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.compare;
 
+import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareView;
 
@@ -8,30 +9,22 @@ import java.util.Map;
 
 public class TerminalCompareView implements CompareView {
 
-
     @Override
-    public void displayEndOptions() {
+    public void display() {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°4 - Comparaison de villes");
         System.out.println("0 - Retour à l'écran précédent");
-        System.out.println("1 - Retour à l'écran n°1");
+        System.out.println("1 - Choisissez 2 villes à comparer");
+        System.out.println("2 - Retour à l'écran principal");
     }
 
     @Override
-    public void displayOptions() {
-        System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°4 - Comparaison de villes");
-        System.out.println("Choisissez 2 villes à comparer");
-    }
-
-    @Override
-    public void displayNodes(List<Node> nodes) {
+    public void displayNodes(NodeRepository nodeRepository) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°4 - Affichage des noeuds");
-        for (Node node : nodes) {
+        for (Node node : nodeRepository.getAllNodes()) {
             System.out.println(node.getName() + " : " + node.getType());
         }
     }

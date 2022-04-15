@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.path;
 
+import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.step.Step;
@@ -10,19 +11,21 @@ import java.util.List;
 public class TerminalPathView implements PathView {
 
     @Override
-    public void displayChoice() {
+    public void display() {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°6 - Recherche de chemins");
-        System.out.println("Choisissez le depart, l'arrivée et les points de passage");
+        System.out.println("0 - Retour");
+        System.out.println("1 - Rechercher un chemin");
+        System.out.println("2 - Retour à l'écran principal");
     }
 
     @Override
-    public void displayNodes(List<Node> nodes) {
+    public void displayNodes(NodeRepository nodeRepository) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°6 - Affichages des noeuds");
-        for (Node node : nodes) {
+        for (Node node : nodeRepository.getAllNodes()) {
             System.out.println(node.getName() + " : " + node.getType());
         }
     }
@@ -39,14 +42,5 @@ public class TerminalPathView implements PathView {
                     steps.get(i).getOriginLink().getName());
         }
         System.out.println("Avec une distance de " + path.getDistance());
-    }
-
-    @Override
-    public void displayEndMenu() {
-        System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°6 - Fin de l'affichage");
-        System.out.println("0 - Retour à l'écran précédent");
-        System.out.println("1 - Retour à l'écran n°1");
     }
 }

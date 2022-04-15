@@ -31,16 +31,11 @@ public class TerminalCompareUI implements CompareUI {
         this.graphUI = graphUI;
     }
 
-    @Override
-    public void interact() {
-        compareView.displayNodes(nodeRepository.getAllNodes());
-
-        compareView.displayOptions();
-
+    private String[] inputTwoNodesName() {
         String[] inputs = new String[2];
         Node currentNode;
-        Map<String, Boolean> comparaisonResult;
-        char choice;
+
+        compareView.displayNodes(nodeRepository);
 
         for (int i = 0; i < inputs.length; i++) {
             inputs[i] = SCANNER.nextLine();
@@ -55,29 +50,35 @@ public class TerminalCompareUI implements CompareUI {
                 inputs[i] = SCANNER.nextLine();
                 currentNode = nodeRepository.getNode(inputs[i]);
             }
-
         }
+        return inputs;
+    }
 
-        comparaisonResult = nodeCompareService.nodeCompareCity(inputs[0], inputs[1]);
+    @Override
+    public void interact() {
+        Map<String, Boolean> comparaisonResult;
+        char choice;
 
-        compareView.displayComparaison(comparaisonResult, nodeRepository.getNode(inputs[0]),
-                nodeRepository.getNode(inputs[1]));
-
-        compareView.displayEndOptions();
+        compareView.display();
 
         choice = SCANNER.nextLine().charAt(0);
 
-        while (!"012".contains(String.valueOf(choice))) {
-            System.out.println("Entrée invalide. Veuillez réessayer (0 ou 1).");
+        if (!"012".contains(String.valueOf(choice))) {
+            System.out.println("Entrée invalide. Veuillez réessayer.");
             choice = SCANNER.nextLine().charAt(0);
         }
 
-        if (choice == '0') {
-            graphUI.interact();
-            return;
+        switch (choice) {
+            case '0' -> graphUI.interact();
+            case '1' -> {
+                String[] inputs = inputTwoNodesName();
+                comparaisonResult = nodeCompareService.nodeCompareCity(inputs[0], inputs[1]);
+                compareView.displayComparaison(comparaisonResult, nodeRepository.getNode(inputs[0]),
+                        nodeRepository.getNode(inputs[1]));
+                this.interact();
+            }
+            case '2' -> homeUI.interact();
         }
-
-        homeUI.interact();
     }
 
 }

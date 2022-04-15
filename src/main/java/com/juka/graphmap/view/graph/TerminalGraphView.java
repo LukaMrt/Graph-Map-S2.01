@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.graph;
 
+import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphView;
@@ -9,7 +10,7 @@ import java.util.List;
 public class TerminalGraphView implements GraphView {
 
     @Override
-    public void displayMenu() {
+    public void display() {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°2 - Choix des informations à afficher");
@@ -23,31 +24,38 @@ public class TerminalGraphView implements GraphView {
     }
 
     @Override
-    public void displayNodes(List<Node> nodes) {
+    public void displayNodes(NodeRepository nodeRepository) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°2 - Affichage de tous les noeuds");
         System.out.println();
-        for (Node node : nodes) {
+        for (Node node : nodeRepository.getAllNodes()) {
             System.out.println(node.getName());
             System.out.println("\tType : " + node.getType());
         }
     }
 
-    @Override
-    public void displayLinksHeader() {
+    private void displayLinksHeader() {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°2 - Affichage de tous les noeuds");
         System.out.println();
     }
-
-    @Override
-    public void displayLink(Node origin, Link link) {
+    private void displayLink(Node origin, Link link) {
         System.out.println(link.getName().substring(0, link.getName().lastIndexOf(".")));
         System.out.println("\tOrigine : " + origin.getName());
         System.out.println("\tDestination : " + link.getDestination().getName());
         System.out.println("\tType : " + link.getType());
         System.out.println("\tDistance : " + link.getDistance());
+    }
+
+    @Override
+    public void displayLinks(NodeRepository nodeRepository) {
+        displayLinksHeader();
+        for (Node node : nodeRepository.getAllNodes()) {
+            for (Link link : node.getNeighborsLinks()) {
+                displayLink(node, link);
+            }
+        }
     }
 }

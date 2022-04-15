@@ -1,16 +1,11 @@
 package com.juka.graphmap.ui.graph;
 
 import com.google.inject.Inject;
-import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.model.link.Link;
-import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.path.PathUI;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TerminalGraphUI implements GraphUI {
@@ -36,7 +31,7 @@ public class TerminalGraphUI implements GraphUI {
     public void interact() {
         char entry;
 
-        graphView.displayMenu();
+        graphView.display();
 
         entry = scanner.nextLine().charAt(0);
 
@@ -47,16 +42,11 @@ public class TerminalGraphUI implements GraphUI {
 
         switch (entry) {
             case '1' -> {
-                graphView.displayNodes(nodeRepository.getAllNodes());
+                graphView.displayNodes(nodeRepository);
                 this.interact();
             }
             case '2' -> {
-                graphView.displayLinksHeader();
-                for (Node node : nodeRepository.getAllNodes()) {
-                    for (Link link : node.getNeighborsLinks()) {
-                        graphView.displayLink(node, link);
-                    }
-                }
+                graphView.displayLinks(nodeRepository);
                 this.interact();
             }
             case '3' -> compareUI.interact();

@@ -28,15 +28,9 @@ public class TerminalPathUI implements PathUI {
         this.pathService = pathService;
     }
 
-    @Override
-    public void interact() {
-        pathView.displayChoice();
-        pathView.displayNodes(nodeRepository.getAllNodes());
-
+    private String[] inputTwoStartEndNodesNames() {
         String start;
         String end;
-        char choice;
-        Path path;
 
         System.out.println("Entrez le nom du noeud de départ :");
         start = SCANNER.nextLine();
@@ -52,21 +46,34 @@ public class TerminalPathUI implements PathUI {
             end = SCANNER.nextLine();
         }
 
-        path = pathService.getShortestPath(start, end);
-        pathView.displayPath(path);
+        return new String[] {start, end};
+    }
 
-        pathView.displayEndMenu();
+    @Override
+    public void interact() {
+        char choice;
+        Path path;
+        String[] inputsNodesNames;
+
+        pathView.display();
+
         choice = SCANNER.nextLine().charAt(0);
 
-        while(choice != '0' && choice != '1') {
+        while(!"012".contains(String.valueOf(choice))) {
             System.out.println("Entrée invalide. Veuillez réessayer.");
             choice = SCANNER.nextLine().charAt(0);
         }
 
-        if (choice == '0') {
-            graphUI.interact();
+        switch (choice) {
+            case '0' -> graphUI.interact();
+            case '1' -> {
+                inputsNodesNames = inputTwoStartEndNodesNames();
+                path = pathService.getShortestPath(inputsNodesNames[0], inputsNodesNames[1]);
+                pathView.displayPath(path);
+                this.interact();
+            }
+            case '2' -> homeUI.interact();
         }
 
-        homeUI.interact();
     }
 }
