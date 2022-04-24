@@ -31,29 +31,6 @@ public class TerminalCompareUI implements CompareUI {
         this.graphUI = graphUI;
     }
 
-    private String[] inputTwoNodesName() {
-        String[] inputs = new String[2];
-        Node currentNode;
-
-        compareView.displayNodes(nodeRepository);
-
-        for (int i = 0; i < inputs.length; i++) {
-            inputs[i] = SCANNER.nextLine();
-            currentNode = nodeRepository.getNode(inputs[i]);
-            while (currentNode == null) {
-                System.out.println("Entrée invalide. Veuillez réessayer.");
-                inputs[i] = SCANNER.nextLine();
-                currentNode = nodeRepository.getNode(inputs[i]);
-            }
-            while (currentNode.getType() != NodeType.CITY) {
-                System.out.println("Noeud " + currentNode.getName() + " invalide. Choisissez une ville.");
-                inputs[i] = SCANNER.nextLine();
-                currentNode = nodeRepository.getNode(inputs[i]);
-            }
-        }
-        return inputs;
-    }
-
     @Override
     public void interact() {
         Map<String, Boolean> comparaisonResult;
@@ -79,6 +56,36 @@ public class TerminalCompareUI implements CompareUI {
             }
             case '2' -> homeUI.interact();
         }
+    }
+
+    private String[] inputTwoNodesName() {
+        String[] inputs = new String[2];
+        Node currentNode;
+
+        compareView.displayNodes(nodeRepository);
+
+        for (int i = 0; i < 2; i++) {
+            System.out.println();
+            System.out.println("Entrez la ville n°" + (i + 1) + " :");
+            inputs[i] = SCANNER.nextLine();
+            currentNode = nodeRepository.getNode(inputs[i]);
+            while (currentNode == null) {
+                System.out.println("Entrée invalide. Veuillez réessayer.");
+                inputs[i] = SCANNER.nextLine();
+                currentNode = nodeRepository.getNode(inputs[i]);
+            }
+            while (currentNode.getType() != NodeType.CITY) {
+                System.out.println("Noeud " + currentNode.getName() + " invalide. Choisissez une ville.");
+                inputs[i] = SCANNER.nextLine();
+                currentNode = nodeRepository.getNode(inputs[i]);
+                while (currentNode == null) {
+                    System.out.println("Entrée invalide. Veuillez réessayer.");
+                    inputs[i] = SCANNER.nextLine();
+                    currentNode = nodeRepository.getNode(inputs[i]);
+                }
+            }
+        }
+        return inputs;
     }
 
 }
