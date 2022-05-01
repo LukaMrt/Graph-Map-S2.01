@@ -13,6 +13,7 @@ import com.juka.graphmap.ui.compare.CompareView;
 import com.juka.graphmap.ui.compare.TerminalCompareUI;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.graph.GraphView;
+import com.juka.graphmap.ui.graph.SwingGraphUI;
 import com.juka.graphmap.ui.graph.TerminalGraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.home.HomeView;
@@ -60,6 +61,7 @@ public class SwingGuiceModule extends AbstractModule {
         bind(HomeView.class).to(SwingHomeView.class);
 
         bind(HomeUI.class).to(SwingHomeUI.class);
+        bind(GraphUI.class).to(SwingGraphUI.class);
 
     }
 

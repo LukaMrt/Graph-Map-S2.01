@@ -17,6 +17,9 @@ import com.juka.graphmap.ui.graph.TerminalGraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.home.TerminalHomeUI;
+import com.juka.graphmap.ui.neighbours.DirectNeighboursUI;
+import com.juka.graphmap.ui.neighbours.DirectNeighboursView;
+import com.juka.graphmap.ui.neighbours.TerminalDirectNeighboursUI;
 import com.juka.graphmap.ui.path.PathUI;
 import com.juka.graphmap.ui.path.PathView;
 import com.juka.graphmap.ui.path.TerminalPathUI;
@@ -26,6 +29,7 @@ import com.juka.graphmap.ui.roads.TerminalRoadsUI;
 import com.juka.graphmap.view.compare.TerminalCompareView;
 import com.juka.graphmap.view.graph.TerminalGraphView;
 import com.juka.graphmap.view.home.TerminalHomeView;
+import com.juka.graphmap.view.neighbours.TerminalDirectNeighboursView;
 import com.juka.graphmap.view.path.TerminalPathView;
 import com.juka.graphmap.view.roads.TerminalRoadsView;
 
@@ -54,13 +58,14 @@ public class TerminalGuiceModule extends AbstractModule {
         bind(GraphView.class).to(TerminalGraphView.class);
         bind(CompareView.class).to(TerminalCompareView.class);
         bind(PathView.class).to(TerminalPathView.class);
+        bind(DirectNeighboursView.class).to(TerminalDirectNeighboursView.class);
 
         bind(GraphUI.class).to(TerminalGraphUI.class);
         bind(RoadsUI.class).to(TerminalRoadsUI.class);
         bind(HomeUI.class).to(TerminalHomeUI.class);
         bind(CompareUI.class).to(TerminalCompareUI.class);
         bind(PathUI.class).to(TerminalPathUI.class);
-
+        bind(DirectNeighboursUI.class).to(TerminalDirectNeighboursUI.class);
 
     }
 

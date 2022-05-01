@@ -92,4 +92,16 @@ public class GraphService {
         links.forEach(linkRepository::addLink);
     }
 
+    public List<Node> getAllNodes() {
+        return nodeRepository.getAllNodes();
+    }
+
+    public boolean nodeExist(String entry) {
+        return nodeRepository.getNode(entry) != null;
+    }
+
+    public List<Link> getAllLinks() {
+        return linkRepository.getAllLinks();
+    }
+
 }

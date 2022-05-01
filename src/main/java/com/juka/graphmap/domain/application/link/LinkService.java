@@ -4,8 +4,11 @@ import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.exception.LinkDoesntExistException;
 import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Optional;
 
 public class LinkService {
@@ -36,5 +39,23 @@ public class LinkService {
 
         return neighbor.get().getDistance();
     }
-    
+
+    public LinkCharacteristics getLinkCharacteristics(String link) {
+
+        List<Node> nodes = linkRepository.getAllLinks().stream()
+                .filter(l -> l.getName().contains(link + "."))
+                .map(Link::getDestination)
+                .toList();
+
+        if (nodes.size() != 2) {
+            return new LinkCharacteristics("", "", "", 0);
+        }
+
+        return new LinkCharacteristics(getLink(link + ".1").getRoadName(), nodes.get(0).getName(), nodes.get(1).getName(), getLink(link + ".1").getDistance());
+    }
+
+    public boolean linkExist(String entry) {
+        return linkRepository.getLink(entry + ".1") != null;
+    }
+
 }

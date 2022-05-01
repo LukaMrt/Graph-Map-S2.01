@@ -67,6 +67,15 @@ public class Link {
         return name.substring(0, name.indexOf("."));
     }
 
+    /**
+     * Returns the name of this link without the last .1 or .2.
+     *
+     * @return the name of this link without the index
+     */
+    public String getRoadNameWithIndex() {
+        return name.substring(0, name.lastIndexOf("."));
+    }
+
     @Override
     public String toString() {
         return "Link{" +
