@@ -10,4 +10,5 @@ public interface PathView {
     void displayNodes(NodeRepository nodeRepository);
 
     void displayPath(Path path);
+
 }

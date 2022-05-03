@@ -1,7 +1,7 @@
 package com.juka.graphmap.view.neighbours;
 
 import com.juka.graphmap.domain.model.node.Node;
-import com.juka.graphmap.ui.neighbours.IndirectNeighboursView;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighboursView;
 
 import java.util.List;
 

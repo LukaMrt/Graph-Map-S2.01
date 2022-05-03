@@ -2,7 +2,7 @@ package com.juka.graphmap.view.neighbours;
 
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
 import com.juka.graphmap.domain.model.node.Node;
-import com.juka.graphmap.ui.neighbours.DirectNeighboursView;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighboursView;
 
 import java.util.List;
 

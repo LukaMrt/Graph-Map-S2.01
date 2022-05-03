@@ -1,4 +1,4 @@
-package com.juka.graphmap.ui.neighbours;
+package com.juka.graphmap.ui.neighbours.direct;
 
 import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.link.LinkService;

@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.home.HomeUI;
-import com.juka.graphmap.ui.neighbours.DirectNeighboursUI;
-import com.juka.graphmap.ui.neighbours.IndirectNeighboursUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighboursUI;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighboursUI;
 import com.juka.graphmap.ui.path.PathUI;
 
 import java.util.Scanner;
