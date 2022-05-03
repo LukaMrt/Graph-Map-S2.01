@@ -54,7 +54,7 @@ public class TerminalCompareUI implements CompareUI {
                         nodeRepository.getNode(inputs[1]));
                 this.interact();
             }
-            case '2' -> homeUI.interact();
+            default -> homeUI.interact();
         }
     }
 

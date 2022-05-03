@@ -72,7 +72,7 @@ public class TerminalPathUI implements PathUI {
                 pathView.displayPath(path);
                 this.interact();
             }
-            case '2' -> homeUI.interact();
+            default -> homeUI.interact();
         }
 
     }

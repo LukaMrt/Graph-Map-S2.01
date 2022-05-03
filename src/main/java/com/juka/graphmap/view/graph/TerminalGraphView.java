@@ -5,8 +5,6 @@ import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphView;
 
-import java.util.List;
-
 public class TerminalGraphView implements GraphView {
 
     @Override

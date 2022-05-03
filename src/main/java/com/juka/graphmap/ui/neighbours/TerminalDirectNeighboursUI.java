@@ -60,7 +60,7 @@ public class TerminalDirectNeighboursUI implements DirectNeighboursUI {
                 view.displayLinkCharacteristics(characteristics);
                 this.interact();
             }
-            case '3' -> homeUI.interact();
+            default -> homeUI.interact();
         }
 
     }
