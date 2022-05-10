@@ -4,12 +4,13 @@ import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareView;
 
+import java.util.List;
 import java.util.Map;
 
 public class TerminalCompareView implements CompareView {
 
     @Override
-    public void display() {
+    public void display(List<Node> cities) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°5 - Comparaison de villes");

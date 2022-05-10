@@ -8,11 +8,15 @@ import com.juka.graphmap.domain.model.file.FilePath;
 import com.juka.graphmap.infrastructure.DefaultLinkRepository;
 import com.juka.graphmap.infrastructure.DefaultNodeRepository;
 import com.juka.graphmap.infrastructure.graph.FileGraphLoader;
+import com.juka.graphmap.ui.compare.CompareUI;
+import com.juka.graphmap.ui.compare.CompareView;
+import com.juka.graphmap.ui.compare.SwingCompareUI;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.graph.SwingGraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.home.SwingHomeUI;
+import com.juka.graphmap.view.compare.SwingCompareView;
 import com.juka.graphmap.view.fram.GraphMapJFrame;
 import com.juka.graphmap.view.home.SwingHomeView;
 
@@ -42,9 +46,11 @@ public class SwingGuiceModule extends AbstractModule {
         bind(GraphLoader.class).to(FileGraphLoader.class);
 
         bind(HomeView.class).to(SwingHomeView.class);
+        bind(CompareView.class).to(SwingCompareView.class);
 
         bind(HomeUI.class).to(SwingHomeUI.class);
         bind(GraphUI.class).to(SwingGraphUI.class);
+        bind(CompareUI.class).to(SwingCompareUI.class);
 
     }
 

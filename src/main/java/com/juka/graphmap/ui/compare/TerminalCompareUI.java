@@ -36,7 +36,7 @@ public class TerminalCompareUI implements CompareUI {
         Map<String, Boolean> comparaisonResult;
         char choice;
 
-        compareView.display();
+        compareView.display(nodeRepository.getAllNodes());
 
         choice = SCANNER.nextLine().charAt(0);
 
@@ -56,6 +56,11 @@ public class TerminalCompareUI implements CompareUI {
             }
             default -> homeUI.interact();
         }
+    }
+
+    @Override
+    public void compare(String city1, String city2) {
+
     }
 
     private String[] inputTwoNodesName() {

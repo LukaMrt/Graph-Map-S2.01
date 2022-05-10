@@ -1,20 +1,22 @@
 package com.juka.graphmap.view.home;
 
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
+import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeView;
+import com.juka.graphmap.view.SwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
 
-public class SwingHomeView implements HomeView {
+public class SwingHomeView extends SwingView implements HomeView {
 
     private final JFrame frame;
-    private final GraphUI graphUI;
+    private final CompareUI graphUI;
 
     @Inject
-    public SwingHomeView(JFrame frame, GraphUI graphUI) {
+    public SwingHomeView(JFrame frame, CompareUI graphUI) {
         this.frame = frame;
         this.graphUI = graphUI;
     }
@@ -35,30 +37,12 @@ public class SwingHomeView implements HomeView {
     }
 
     private JPanel buildNorthPanel(boolean error) {
-        JPanel panel = new JPanel();
-
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-        JLabel label = new JLabel("~ Écran n°1 ~");
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.BOLD, 40));
-        panel.add(label);
-
-        label = new JLabel("Accueil");
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.BOLD, 35));
-        panel.add(label);
-
+        JPanel panel = buildTitle("Accueil", 1);
 
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        String text = "Le graphe a été correctement chargé";
-        if (error) {
-            text = "Le graphe n'a pas pu être chargé correctement";
-        }
-        label = new JLabel(text);
+        String text = error ? "Le graphe n'a pas pu être chargé correctement" : "Le graphe a été correctement chargé";
+        JLabel label = new JLabel(text);
         label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
