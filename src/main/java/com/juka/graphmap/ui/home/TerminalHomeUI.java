@@ -46,7 +46,7 @@ public class TerminalHomeUI implements HomeUI {
 
     }
 
-    private void roadsInteract() {
+    private void roadsInteract() { // TODO : remove this
 
         System.out.println("Choisissez 3 nombres représentant le nombre de villes, de restaurants et de centre de" +
                 "loisirs traversés par une même route.");

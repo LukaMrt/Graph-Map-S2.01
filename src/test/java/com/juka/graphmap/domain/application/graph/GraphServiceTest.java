@@ -1,8 +1,6 @@
 package com.juka.graphmap.domain.application.graph;
 
-import com.juka.graphmap.domain.application.graph.GraphService;
-import com.juka.graphmap.domain.application.graph.LinkRepository;
-import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
@@ -33,10 +31,13 @@ public class GraphServiceTest {
     private LinkRepository linkRepository;
 
     @Mock
+    private LinkService linkService;
+
+    @Mock
     private GraphLoader loader;
     @BeforeEach
     void setUp() {
-        graphService = new GraphService(nodeRepository, linkRepository, loader);
+        graphService = new GraphService(linkService, nodeRepository, linkRepository, loader);
     }
 
     @Test

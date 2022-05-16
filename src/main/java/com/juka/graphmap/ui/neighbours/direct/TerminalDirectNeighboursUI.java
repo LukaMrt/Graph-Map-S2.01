@@ -6,8 +6,8 @@ import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.ui.graph.GraphUI;
-import com.juka.graphmap.ui.home.HomeUI;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -22,53 +22,42 @@ public class TerminalDirectNeighboursUI implements DirectNeighboursUI {
     private final LinkService linkService;
     private final DirectNeighboursView view;
     private final GraphUI graphUI;
-    private final HomeUI homeUI;
 
     @Inject
-    public TerminalDirectNeighboursUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighboursView view, GraphUI graphUI, HomeUI homeUI) {
+    public TerminalDirectNeighboursUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighboursView view, GraphUI graphUI) {
         this.graphService = graphService;
         this.nodeService = nodeService;
         this.linkService = linkService;
         this.view = view;
         this.graphUI = graphUI;
-        this.homeUI = homeUI;
     }
 
     @Override
-    public void interact() {
+    public void interact(Node node, Link link) {
 
-        view.display();
+        LinkCharacteristics characteristics = link != null ? linkService.getLinkCharacteristics(link.getRoadNameWithIndex()) : null;
+        NodeCharacteristics characteristics2 = node != null ? nodeService.getNodeCharacteristics(node.getName()) : null;
+        List<String> links = graphService.getAllLinks().stream().map(Link::getRoadNameWithIndex).toList();
+
+        view.display(graphService.getAllNodes(), links, characteristics2, characteristics);
 
         char choice = SCANNER.nextLine().charAt(0);
 
-        if (!"012".contains(String.valueOf(choice))) {
+        if (!"0123".contains(String.valueOf(choice))) {
             System.out.println("Entrée invalide. Veuillez réessayer.");
             choice = SCANNER.nextLine().charAt(0);
         }
 
         switch (choice) {
-            case '0' -> graphUI.interact();
-            case '1' -> {
-                String node = chooseLocation();
-                List<Node> neighbours = nodeService.getDirectNeighbours(node);
-                view.displayNeighbours(neighbours, node);
-                this.interact();
-            }
-            case '2' -> {
-                String link = chooseLink();
-                LinkCharacteristics characteristics = linkService.getLinkCharacteristics(link);
-                view.displayLinkCharacteristics(characteristics);
-                this.interact();
-            }
-            default -> homeUI.interact();
+            case '0' -> System.out.println("Au revoir");
+            case '1' -> this.interact(chooseLocation(), link);
+            case '2' -> this.interact(node, chooseLink());
+            default -> graphUI.interact();
         }
 
     }
 
-    private String chooseLocation() {
-
-        List<Node> nodes = graphService.getAllNodes();
-        view.displayNodes(nodes);
+    private Node chooseLocation() {
 
         System.out.println();
         String entry;
@@ -77,26 +66,19 @@ public class TerminalDirectNeighboursUI implements DirectNeighboursUI {
             entry = SCANNER.nextLine();
         } while (!graphService.nodeExist(entry));
 
-        return entry;
+        return nodeService.getNode(entry);
     }
 
-    private String chooseLink() {
-
-        List<String> links = graphService.getAllLinks().stream()
-                .map(Link::getRoadNameWithIndex)
-                .distinct()
-                .sorted()
-                .toList();
-        view.displayLinks(links);
+    private Link chooseLink() {
 
         System.out.println();
         String entry;
         do {
             System.out.println("Entrez le lien à étudier :");
             entry = SCANNER.nextLine();
-        } while (!linkService.linkExist(entry));
+        } while (!graphService.linkExist(entry));
 
-        return entry;
+        return linkService.getLink(entry);
     }
 
 }

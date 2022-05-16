@@ -5,6 +5,7 @@ import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.exception.LinkDoesntExistException;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
+import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
@@ -40,22 +41,19 @@ public class LinkService {
         return neighbor.get().getDistance();
     }
 
-    public LinkCharacteristics getLinkCharacteristics(String link) {
+    public LinkCharacteristics getLinkCharacteristics(String linkName) {
 
         List<Node> nodes = linkRepository.getAllLinks().stream()
-                .filter(l -> l.getName().contains(link + "."))
+                .filter(l -> l.getName().contains(linkName + "."))
                 .map(Link::getDestination)
                 .toList();
 
         if (nodes.size() != 2) {
-            return new LinkCharacteristics("", "", "", 0);
+            return new LinkCharacteristics("", "", "", LinkType.HIGHWAY, 0);
         }
 
-        return new LinkCharacteristics(getLink(link + ".1").getRoadName(), nodes.get(0).getName(), nodes.get(1).getName(), getLink(link + ".1").getDistance());
-    }
-
-    public boolean linkExist(String entry) {
-        return linkRepository.getLink(entry + ".1") != null;
+        Link link = getLink(linkName + ".1");
+        return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType(), link.getDistance());
     }
 
 }

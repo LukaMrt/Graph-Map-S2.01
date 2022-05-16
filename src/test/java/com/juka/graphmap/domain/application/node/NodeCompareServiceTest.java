@@ -1,7 +1,6 @@
 package com.juka.graphmap.domain.application.node;
 
 import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.application.node.NodeCompareService;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
@@ -59,8 +58,8 @@ public class NodeCompareServiceTest {
 
         Map<String, Boolean> results = nodeCompareService.nodeCompareCity("City1", "City2");
 
-        assertThat(results).containsEntry("open", true)
-                .containsEntry("cultural", false)
+        assertThat(results).containsEntry("ouverte", true)
+                .containsEntry("culturelle", false)
                 .containsEntry("gastronomic", false);
     }
 
@@ -86,9 +85,9 @@ public class NodeCompareServiceTest {
 
         Map<String, Boolean> results = nodeCompareService.nodeCompareCity("City1", "City2");
 
-        assertThat(results).containsEntry("open", true)
-                .containsEntry("cultural", true)
-                .containsEntry("gastronomic", false);
+        assertThat(results).containsEntry("ouverte", true)
+                .containsEntry("culturelle", true)
+                .containsEntry("gastronomique", false);
     }
 
     @Test

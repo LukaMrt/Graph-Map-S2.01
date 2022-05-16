@@ -3,6 +3,8 @@ package com.juka.graphmap.ui.neighbours.indirect;
 import com.google.inject.Inject;
 import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.node.NodeDistanceService;
+import com.juka.graphmap.domain.application.node.NodeService;
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 
@@ -14,23 +16,35 @@ public class TerminalIndirectNeighboursUI implements IndirectNeighboursUI {
 
     private final GraphService graphService;
     private final NodeDistanceService nodeDistanceService;
+    private final NodeService nodeService;
     private final GraphUI graphUI;
     private final HomeUI homeUI;
     private final IndirectNeighboursView view;
 
     @Inject
-    public TerminalIndirectNeighboursUI(GraphService graphService, NodeDistanceService nodeDistanceService, GraphUI graphUI, HomeUI homeUI, IndirectNeighboursView view) {
+    public TerminalIndirectNeighboursUI(GraphService graphService, NodeDistanceService nodeDistanceService, NodeService nodeService, GraphUI graphUI, HomeUI homeUI, IndirectNeighboursView view) {
         this.graphService = graphService;
         this.nodeDistanceService = nodeDistanceService;
+        this.nodeService = nodeService;
         this.graphUI = graphUI;
         this.homeUI = homeUI;
         this.view = view;
     }
 
     @Override
-    public void interact() {
+    public void interact(Node node1, Node node2) {
 
-        view.display();
+        boolean result = false;
+        String nodeName1 = null;
+        String nodeName2 = null;
+
+        if (node1 != null && node2 != null) {
+            nodeName1 = node1.getName();
+            nodeName2 = node2.getName();
+            result = nodeDistanceService.are2distance(nodeName1, nodeName2);
+        }
+
+        view.displayNodes(graphService.getAllNodes(), nodeName1, nodeName2, result);
 
         char choice = SCANNER.nextLine().charAt(0);
 
@@ -41,33 +55,22 @@ public class TerminalIndirectNeighboursUI implements IndirectNeighboursUI {
 
         switch (choice) {
             case '0' -> graphUI.interact();
-            case '1' -> {
-                String[] inputs = inputTwoNodesName();
-                boolean result = nodeDistanceService.are2distance(inputs[0], inputs[1]);
-                view.displayResult(inputs[0], inputs[1], result);
-                this.interact();
-            }
-            case '2' -> homeUI.interact();
+            case '1' -> this.interact(chooseLocation(1), chooseLocation(2));
+            default -> homeUI.interact();
         }
 
     }
 
-    private String[] inputTwoNodesName() {
+    private Node chooseLocation(int i) {
 
-        String[] inputs = new String[2];
-        view.displayNodes(graphService.getAllNodes());
+        System.out.println();
+        String entry;
+        do {
+            System.out.println("Entrez le noeud n°" + i + " à étudier :");
+            entry = SCANNER.nextLine();
+        } while (!graphService.nodeExist(entry));
 
-        for (int i = 0; i < 2; i++) {
-            System.out.println();
-            System.out.println("Entrez la ville n°" + (i + 1) + " :");
-            inputs[i] = SCANNER.nextLine();
-            while (!graphService.nodeExist(inputs[i])) {
-                System.out.println("Entrée invalide. Veuillez réessayer.");
-                inputs[i] = SCANNER.nextLine();
-            }
-        }
-
-        return inputs;
+        return nodeService.getNode(entry);
     }
 
 }

@@ -2,7 +2,6 @@ package com.juka.graphmap.view.home;
 
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 import com.juka.graphmap.ui.compare.CompareUI;
-import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.view.SwingView;
 
@@ -13,12 +12,12 @@ import java.awt.*;
 public class SwingHomeView extends SwingView implements HomeView {
 
     private final JFrame frame;
-    private final CompareUI graphUI;
+    private final CompareUI compareUI;
 
     @Inject
-    public SwingHomeView(JFrame frame, CompareUI graphUI) {
+    public SwingHomeView(JFrame frame, CompareUI compareUI) {
         this.frame = frame;
-        this.graphUI = graphUI;
+        this.compareUI = compareUI;
     }
 
     @Override
@@ -36,13 +35,12 @@ public class SwingHomeView extends SwingView implements HomeView {
         panel.updateUI();
     }
 
-    private JPanel buildNorthPanel(boolean error) {
+    private JPanel buildNorthPanel(String error) {
         JPanel panel = buildTitle("Accueil", 1);
 
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        String text = error ? "Le graphe n'a pas pu être chargé correctement" : "Le graphe a été correctement chargé";
-        JLabel label = new JLabel(text);
+        JLabel label = new JLabel(error);
         label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
@@ -98,7 +96,7 @@ public class SwingHomeView extends SwingView implements HomeView {
 
         panel.add(Box.createGlue());
 
-        if (!graph.error) {
+        if (!graph.error.contains("pas")) {
             ImageIcon image = new ImageIcon("graph.png");
             image.setImage(image.getImage().getScaledInstance(600, 600, Image.SCALE_SMOOTH));
             JLabel label = new JLabel(image);
@@ -124,15 +122,15 @@ public class SwingHomeView extends SwingView implements HomeView {
         label.setAlignmentX(JButton.CENTER_ALIGNMENT);
         panel.add(label);
 
-        label = new JLabel(" - " + Math.round(graph.highwayPercentage * 10000) / 100.0 + " % d'autoroutes");
+        label = new JLabel(" - " + graph.highwayPercentage + " % d'autoroutes");
         label.setAlignmentX(JButton.CENTER_ALIGNMENT);
         panel.add(label);
 
-        label = new JLabel(" - " + Math.round(graph.nationalPercentage * 10000) / 100.0 + " % de routes nationales");
+        label = new JLabel(" - " + graph.nationalPercentage + " % de routes nationales");
         label.setAlignmentX(JButton.CENTER_ALIGNMENT);
         panel.add(label);
 
-        label = new JLabel(" - " + Math.round(graph.departementalPercentage * 10000) / 100.0 + " % de routes départementales");
+        label = new JLabel(" - " + graph.departementalPercentage + " % de routes départementales");
         label.setAlignmentX(JButton.CENTER_ALIGNMENT);
         panel.add(label);
 
@@ -141,7 +139,7 @@ public class SwingHomeView extends SwingView implements HomeView {
         JButton button = new JButton("Écran n°2");
         button.setPreferredSize(new Dimension(200, 40));
         button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        button.addActionListener(e -> graphUI.interact());
+        button.addActionListener(e -> compareUI.interact(null, null));
         panel.add(button);
         panel.add(Box.createVerticalGlue());
 

@@ -1,9 +1,9 @@
 package com.juka.graphmap.ui.compare;
 
+import com.juka.graphmap.domain.model.node.Node;
+
 public interface CompareUI {
 
-    void interact();
-
-    void compare(String city1, String city2);
+    void interact(Node city1, Node city2);
 
 }

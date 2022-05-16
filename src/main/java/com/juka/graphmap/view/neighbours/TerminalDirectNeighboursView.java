@@ -2,6 +2,7 @@ package com.juka.graphmap.view.neighbours;
 
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighboursView;
 
 import java.util.List;
@@ -9,63 +10,47 @@ import java.util.List;
 public class TerminalDirectNeighboursView implements DirectNeighboursView {
 
     @Override
-    public void display() {
-
+    public void display(List<Node> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°3 - Voisinage direct");
-        System.out.println("0 - Retour à l'écran précédent");
-        System.out.println("1 - Choisissez 1 noeud à étudier");
-        System.out.println("2 - Choisissez 1 lien à étudier");
-        System.out.println("3 - Retour à l'écran principal");
-    }
-
-    @Override
-    public void displayNodes(List<Node> nodes) {
 
         System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°3 - Affichage des noeuds");
+        System.out.println("Liste des noeuds :");
         for (Node node : nodes) {
-            System.out.println(node.getName());
+            System.out.println("- " + node.getName());
         }
 
-    }
-
-    @Override
-    public void displayNeighbours(List<Node> neighbours, String nodeName) {
-
         System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°3 - Affichage des voisins directs de " + nodeName);
-        for (Node node : neighbours) {
-            System.out.println(node.getName() + " : " + node.getType());
-        }
-
-    }
-
-    @Override
-    public void displayLinks(List<String> links) {
-
-        System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°3 - Affichage des noeuds");
+        System.out.println("Liste des liens :");
         for (String link : links) {
             System.out.println(link);
         }
 
-    }
+        if (nodeCharacteristics != null) {
+            System.out.println();
+            System.out.println("Informations de " + nodeCharacteristics.name + " :");
+            System.out.println("\t- Type : " + nodeCharacteristics.type);
+            System.out.println("\t- Voisins directs : ");
+            for (String neighbor : nodeCharacteristics.neighbors) {
+                System.out.println("\t\t> " + neighbor);
+            }
+        }
 
-    @Override
-    public void displayLinkCharacteristics(LinkCharacteristics characteristics) {
+        if (linkCharacteristics != null) {
+            System.out.println();
+            System.out.println("Informations du lien " + linkCharacteristics.name + " :");
+            System.out.println("\t- Entre " + linkCharacteristics.start + " et " + linkCharacteristics.end);
+            System.out.println("\t- Type : " + linkCharacteristics.type);
+            System.out.println("\t- Distance : " + linkCharacteristics.distance + " km");
+        }
 
         System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°3 - Affichage des caractéristiques du lien " + characteristics.name);
-        System.out.println("Extrémité 1 : " + characteristics.start);
-        System.out.println("Extrémité 2 : " + characteristics.end);
-        System.out.println("Distance : " + characteristics.distance);
-
+        System.out.println("Que souhaitez-vous faire ?");
+        System.out.println("0 - Quitter");
+        System.out.println("1 - Choisir 1 noeud à étudier");
+        System.out.println("2 - Choisir 1 lien à étudier");
+        System.out.println("3 - Retour");
     }
 
 }

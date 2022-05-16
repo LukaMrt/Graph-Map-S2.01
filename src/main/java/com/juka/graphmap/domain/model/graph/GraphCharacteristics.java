@@ -12,18 +12,18 @@ public class GraphCharacteristics {
     public float highwayPercentage;
     public float nationalPercentage;
     public float departementalPercentage;
-    public boolean error;
+    public String error;
 
-    public GraphCharacteristics(GraphCharacteristicsBuilder graphCharacteristicsBuilder) {
-        this.locationCount = graphCharacteristicsBuilder.cityCount;
-        this.roadCount = graphCharacteristicsBuilder.roadCount;
-        this.cityPercentage = graphCharacteristicsBuilder.cityPercentage;
-        this.restaurantPercentage = graphCharacteristicsBuilder.restaurantPercentage;
-        this.recreationPercentage = graphCharacteristicsBuilder.recreationPercentage;
-        this.highwayPercentage = graphCharacteristicsBuilder.highwayPercentage;
-        this.nationalPercentage = graphCharacteristicsBuilder.nationalPercentage;
-        this.departementalPercentage = graphCharacteristicsBuilder.departementalPercentage;
-        this.error = graphCharacteristicsBuilder.error;
+    public GraphCharacteristics(GraphCharacteristicsBuilder builder) {
+        this.locationCount = builder.cityCount;
+        this.roadCount = builder.roadCount;
+        this.cityPercentage = Math.round(builder.cityPercentage * 10_000) / 100F;
+        this.restaurantPercentage = Math.round(builder.restaurantPercentage * 10_000) / 100F;
+        this.recreationPercentage = Math.round(builder.recreationPercentage * 10_000) / 100F;
+        this.highwayPercentage = Math.round(builder.highwayPercentage * 10_000) / 100F;
+        this.nationalPercentage = Math.round(builder.nationalPercentage * 10_000) / 100F;
+        this.departementalPercentage = Math.round(builder.departementalPercentage * 10_000) / 100F;
+        this.error = builder.error ? "Erreur détectée" : "Aucune erreur détectée";
     }
 
     @Override
@@ -31,7 +31,15 @@ public class GraphCharacteristics {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GraphCharacteristics that = (GraphCharacteristics) o;
-        return locationCount == that.locationCount && roadCount == that.roadCount && Float.compare(that.cityPercentage, cityPercentage) == 0 && Float.compare(that.restaurantPercentage, restaurantPercentage) == 0 && Float.compare(that.recreationPercentage, recreationPercentage) == 0 && Float.compare(that.highwayPercentage, highwayPercentage) == 0 && Float.compare(that.nationalPercentage, nationalPercentage) == 0 && Float.compare(that.departementalPercentage, departementalPercentage) == 0 && error == that.error;
+        return locationCount == that.locationCount
+                && roadCount == that.roadCount
+                && Float.compare(that.cityPercentage, cityPercentage) == 0
+                && Float.compare(that.restaurantPercentage, restaurantPercentage) == 0
+                && Float.compare(that.recreationPercentage, recreationPercentage) == 0
+                && Float.compare(that.highwayPercentage, highwayPercentage) == 0
+                && Float.compare(that.nationalPercentage, nationalPercentage) == 0
+                && Float.compare(that.departementalPercentage, departementalPercentage) == 0
+                && error.equals(that.error);
     }
 
     @Override

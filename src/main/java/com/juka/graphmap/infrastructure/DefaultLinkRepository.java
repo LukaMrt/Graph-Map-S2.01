@@ -23,7 +23,7 @@ public class DefaultLinkRepository implements LinkRepository {
     @Override
     public Link getLink(String name) {
         return links.stream()
-                .filter(link -> link.getName().equals(name))
+                .filter(link -> link.getName().startsWith(name))
                 .findFirst()
                 .orElse(null);
     }

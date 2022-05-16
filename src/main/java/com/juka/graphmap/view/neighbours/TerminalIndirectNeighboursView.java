@@ -8,37 +8,27 @@ import java.util.List;
 public class TerminalIndirectNeighboursView implements IndirectNeighboursView {
 
     @Override
-    public void display() {
+    public void displayNodes(List<Node> nodes, String location1, String location2, boolean result) {
 
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°4 - Voisinage indirect");
+
+        if (location1 != null && location2 != null) {
+            System.out.println();
+            System.out.println(location1 + " et " + location2 + (result ? " sont" : " ne sont pas") + " à 2-distance.");
+        }
+
+        System.out.println();
+        System.out.println("Liste des noeuds :");
+        for (Node node : nodes) {
+            System.out.println("- " + node.getName());
+        }
+
+        System.out.println();
         System.out.println("0 - Retour à l'écran précédent");
         System.out.println("1 - Choisissez 2 villes à étudier");
         System.out.println("2 - Retour à l'écran principal");
-
-    }
-
-    @Override
-    public void displayNodes(List<Node> nodes) {
-
-        System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°5 - Affichage des noeuds");
-        for (Node node : nodes) {
-            System.out.println(node.getName());
-        }
-
-    }
-
-    @Override
-    public void displayResult(String location1, String location2, boolean result) {
-
-        System.out.println();
-        System.out.println("------------------------------------------------------");
-        System.out.println("Écran n°6 - Résultat");
-        System.out.println(result ? location1 + " et " + location2 + " sont à 2-distance." : location1 + " et " + location2 + " ne sont pas à 2-distance.");
-
     }
 
 }

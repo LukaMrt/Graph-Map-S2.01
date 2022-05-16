@@ -32,16 +32,16 @@ public class NodeCompareService {
 
     public Map<String, Boolean> nodeCompareCity(String node1, String node2) {
         Map<String, Boolean> isMore = new HashMap<>();
-        isMore.put("open", false);
-        isMore.put("cultural", false);
-        isMore.put("gastronomic", false);
+        isMore.put("ouverte", false);
+        isMore.put("culturelle", false);
+        isMore.put("gastronomique", false);
 
         if (numberOfTypeAt2Distance(node1, NodeType.CITY) > numberOfTypeAt2Distance(node2, NodeType.CITY))
-            isMore.put("open", true);
+            isMore.put("ouverte", true);
         if (numberOfTypeAt2Distance(node1, NodeType.RECREATION_CENTER) > numberOfTypeAt2Distance(node2, NodeType.RECREATION_CENTER))
-            isMore.put("cultural", true);
+            isMore.put("culturelle", true);
         if (numberOfTypeAt2Distance(node1, NodeType.RESTAURANT) > numberOfTypeAt2Distance(node2, NodeType.RESTAURANT))
-            isMore.put("gastronomic", true);
+            isMore.put("gastronomique", true);
 
         return isMore;
     }

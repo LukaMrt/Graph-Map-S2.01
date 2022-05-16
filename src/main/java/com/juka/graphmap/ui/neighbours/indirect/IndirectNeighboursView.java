@@ -6,10 +6,6 @@ import java.util.List;
 
 public interface IndirectNeighboursView {
 
-    void display();
-
-    void displayNodes(List<Node> nodes);
-
-    void displayResult(String location1, String location2, boolean result);
+    void displayNodes(List<Node> nodes, String location1, String location2, boolean result);
 
 }

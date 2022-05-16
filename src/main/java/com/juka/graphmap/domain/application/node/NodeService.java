@@ -3,6 +3,7 @@ package com.juka.graphmap.domain.application.node;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.domain.model.node.NodeType;
 
 import javax.inject.Inject;
@@ -31,6 +32,16 @@ public class NodeService {
 
     public Node getNode(String name) {
         return nodeRepository.getNode(name);
+    }
+
+    public NodeCharacteristics getNodeCharacteristics(String name) {
+        Node node = getNode(name);
+        List<String> neighbors = node.getNeighbors().stream()
+                .map(Node::getName)
+                .distinct()
+                .toList();
+
+        return new NodeCharacteristics(node.getName(), node.getType(), neighbors);
     }
 
 }
