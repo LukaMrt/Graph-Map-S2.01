@@ -1,4 +1,4 @@
-package com.juka.graphmap.view.fram;
+package com.juka.graphmap.view.frame;
 
 import javax.swing.*;
 

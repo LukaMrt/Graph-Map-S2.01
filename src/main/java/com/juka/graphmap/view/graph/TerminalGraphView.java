@@ -18,7 +18,7 @@ public class TerminalGraphView implements GraphView {
         System.out.println("Liste des noeuds :");
         for (Node node : nodes) {
             System.out.println("- " + node.getName());
-            System.out.println("\tType : " + node.getType());
+            System.out.println("\t> Type : " + node.getType());
         }
         System.out.println();
 
@@ -29,8 +29,8 @@ public class TerminalGraphView implements GraphView {
             System.out.println("\t> Type : " + link.type);
             System.out.println("\t> Distance : " + link.distance + " km");
         }
-        System.out.println();
 
+        System.out.println();
         System.out.println("Que souhaitez-vous faire ?");
         System.out.println("0 - Retour");
         System.out.println("1 - Comparer 2 villes");

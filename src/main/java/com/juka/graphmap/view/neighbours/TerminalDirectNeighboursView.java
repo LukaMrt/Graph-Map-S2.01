@@ -24,7 +24,7 @@ public class TerminalDirectNeighboursView implements DirectNeighboursView {
         System.out.println();
         System.out.println("Liste des liens :");
         for (String link : links) {
-            System.out.println(link);
+            System.out.println("- " + link);
         }
 
         if (nodeCharacteristics != null) {

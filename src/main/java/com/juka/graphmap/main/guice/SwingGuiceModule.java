@@ -17,7 +17,7 @@ import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.home.SwingHomeUI;
 import com.juka.graphmap.view.compare.SwingCompareView;
-import com.juka.graphmap.view.fram.GraphMapJFrame;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
 import com.juka.graphmap.view.home.SwingHomeView;
 
 import javax.swing.*;

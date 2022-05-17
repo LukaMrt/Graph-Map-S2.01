@@ -14,11 +14,6 @@ public class TerminalIndirectNeighboursView implements IndirectNeighboursView {
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°4 - Voisinage indirect");
 
-        if (location1 != null && location2 != null) {
-            System.out.println();
-            System.out.println(location1 + " et " + location2 + (result ? " sont" : " ne sont pas") + " à 2-distance.");
-        }
-
         System.out.println();
         System.out.println("Liste des noeuds :");
         for (Node node : nodes) {
@@ -26,6 +21,13 @@ public class TerminalIndirectNeighboursView implements IndirectNeighboursView {
         }
 
         System.out.println();
+        if (location1 != null && location2 != null) {
+            System.out.println();
+            System.out.println(location1 + " et " + location2 + (result ? " sont" : " ne sont pas") + " à 2-distance.");
+        }
+
+        System.out.println();
+        System.out.println("Que souhaitez-vous faire ?");
         System.out.println("0 - Retour à l'écran précédent");
         System.out.println("1 - Choisissez 2 villes à étudier");
         System.out.println("2 - Retour à l'écran principal");

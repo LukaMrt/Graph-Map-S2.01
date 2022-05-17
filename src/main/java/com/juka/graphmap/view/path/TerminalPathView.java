@@ -35,6 +35,7 @@ public class TerminalPathView implements PathView {
         }
 
         System.out.println();
+        System.out.println("Que souhaitez-vous faire ?");
         System.out.println("0 - Retour");
         System.out.println("1 - Rechercher un chemin");
         System.out.println("2 - Retour à l'écran principal");

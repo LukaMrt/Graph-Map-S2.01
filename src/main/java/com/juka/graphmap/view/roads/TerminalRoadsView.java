@@ -27,8 +27,8 @@ public class TerminalRoadsView implements RoadsView {
                     + " restaurants, " + road.countRecreationCenters() + " centres de loisirs)");
         }
 
-        System.out.println("------------------------------------------------------");
-
+        System.out.println();
+        System.out.println("Que souhaitez-vous faire ?");
         System.out.println("0 - Quitter");
         System.out.println("1 - Écran n°1 (accueil)");
 
