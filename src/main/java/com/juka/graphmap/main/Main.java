@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Injector injector = Guice.createInjector(new TerminalGuiceModule("graph.csv"));
+        Injector injector = Guice.createInjector(new SwingGuiceModule("graph.csv"));
         injector.getInstance(GraphService.class).load();
         injector.getInstance(HomeUI.class).interact();
 

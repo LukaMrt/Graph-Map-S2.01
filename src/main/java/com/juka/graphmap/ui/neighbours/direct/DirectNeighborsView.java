@@ -6,7 +6,7 @@ import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 
 import java.util.List;
 
-public interface DirectNeighboursView {
+public interface DirectNeighborsView {
 
     void display(List<Node> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics);
 

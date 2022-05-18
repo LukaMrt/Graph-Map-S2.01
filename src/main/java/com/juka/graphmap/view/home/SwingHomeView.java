@@ -1,8 +1,9 @@
 package com.juka.graphmap.view.home;
 
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
-import com.juka.graphmap.ui.compare.CompareUI;
+import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeView;
+import com.juka.graphmap.ui.roads.RoadsUI;
 import com.juka.graphmap.view.SwingView;
 
 import javax.inject.Inject;
@@ -12,12 +13,14 @@ import java.awt.*;
 public class SwingHomeView extends SwingView implements HomeView {
 
     private final JFrame frame;
-    private final CompareUI compareUI;
+    private final GraphUI graphUI;
+    private final RoadsUI roadsUI;
 
     @Inject
-    public SwingHomeView(JFrame frame, CompareUI compareUI) {
+    public SwingHomeView(JFrame frame, GraphUI graphUI, RoadsUI roadsUI) {
         this.frame = frame;
-        this.compareUI = compareUI;
+        this.graphUI = graphUI;
+        this.roadsUI = roadsUI;
     }
 
     @Override
@@ -63,24 +66,24 @@ public class SwingHomeView extends SwingView implements HomeView {
         label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         panel.add(label);
 
-        label = new JLabel("   - " + Math.round(graph.cityPercentage * 10000) / 100.0 + " % de villes");
+        label = new JLabel("   - " + graph.cityPercentage + " % de villes");
         label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         panel.add(label);
 
-        label = new JLabel("   - " + Math.round(graph.restaurantPercentage * 10000) / 100.0 + " % de restaurants");
+        label = new JLabel("   - " + graph.restaurantPercentage + " % de restaurants");
         label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         panel.add(label);
 
-        label = new JLabel("   - " + Math.round(graph.recreationPercentage * 10000) / 100.0 + " % de centres de loisirs");
+        label = new JLabel("   - " + graph.recreationPercentage + " % de centres de loisirs");
         label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         panel.add(label);
 
         panel.add(Box.createVerticalGlue());
 
-        JButton button = new JButton("Quitter");
+        JButton button = new JButton("Afficher le graphe");
         button.setPreferredSize(new Dimension(200, 40));
         button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        button.addActionListener(e -> System.exit(0));
+        button.addActionListener(e -> graphUI.interact());
         panel.add(button);
         panel.add(Box.createVerticalGlue());
 
@@ -136,10 +139,10 @@ public class SwingHomeView extends SwingView implements HomeView {
 
         panel.add(Box.createVerticalGlue());
 
-        JButton button = new JButton("Écran n°2");
+        JButton button = new JButton("Rechercher des routes");
         button.setPreferredSize(new Dimension(200, 40));
         button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        button.addActionListener(e -> compareUI.interact(null, null));
+        button.addActionListener(e -> roadsUI.interact(0, 0, 0));
         panel.add(button);
         panel.add(Box.createVerticalGlue());
 

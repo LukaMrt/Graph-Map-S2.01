@@ -13,18 +13,18 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Scanner;
 
-public class TerminalDirectNeighboursUI implements DirectNeighboursUI {
+public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
     private final GraphService graphService;
     private final NodeService nodeService;
     private final LinkService linkService;
-    private final DirectNeighboursView view;
+    private final DirectNeighborsView view;
     private final GraphUI graphUI;
 
     @Inject
-    public TerminalDirectNeighboursUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighboursView view, GraphUI graphUI) {
+    public TerminalDirectNeighborsUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighborsView view, GraphUI graphUI) {
         this.graphService = graphService;
         this.nodeService = nodeService;
         this.linkService = linkService;

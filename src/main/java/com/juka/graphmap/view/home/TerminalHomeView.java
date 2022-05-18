@@ -27,8 +27,8 @@ public class TerminalHomeView implements HomeView {
         System.out.println();
         System.out.println("Que souhaitez-vous faire ?");
         System.out.println("0 - Quitter");
-        System.out.println("1 - Écran n°2 (affichage complet du graphe)");
-        System.out.println("2 - Écran n°7 (recherche de route)");
+        System.out.println("1 - Afficher le graphe complet");
+        System.out.println("2 - Rechercher des routes");
     }
 
 }

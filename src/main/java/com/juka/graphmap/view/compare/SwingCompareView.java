@@ -1,7 +1,6 @@
 package com.juka.graphmap.view.compare;
 
 import com.google.inject.Inject;
-import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareUI;
@@ -9,9 +8,7 @@ import com.juka.graphmap.ui.compare.CompareView;
 import com.juka.graphmap.view.SwingView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
-import java.util.Map;
 
 public class SwingCompareView extends SwingView implements CompareView {
 

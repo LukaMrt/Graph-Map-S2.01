@@ -4,7 +4,7 @@ import com.juka.graphmap.domain.model.node.Node;
 
 import java.util.List;
 
-public interface IndirectNeighboursView {
+public interface IndirectNeighborsView {
 
     void displayNodes(List<Node> nodes, String location1, String location2, boolean result);
 

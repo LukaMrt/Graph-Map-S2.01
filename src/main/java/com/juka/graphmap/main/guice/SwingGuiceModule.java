@@ -12,14 +12,25 @@ import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.compare.CompareView;
 import com.juka.graphmap.ui.compare.SwingCompareUI;
 import com.juka.graphmap.ui.graph.GraphUI;
+import com.juka.graphmap.ui.graph.GraphView;
 import com.juka.graphmap.ui.graph.SwingGraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.home.SwingHomeUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.direct.SwingDirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.indirect.SwingIndirectNeighborsUI;
+import com.juka.graphmap.ui.path.PathUI;
+import com.juka.graphmap.ui.path.SwingPathUI;
+import com.juka.graphmap.ui.roads.RoadsUI;
+import com.juka.graphmap.ui.roads.SwingRoadsUI;
 import com.juka.graphmap.view.compare.SwingCompareView;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.graph.SwingGraphView;
 import com.juka.graphmap.view.home.SwingHomeView;
 
+import javax.inject.Singleton;
 import javax.swing.*;
 
 public class SwingGuiceModule extends AbstractModule {
@@ -35,22 +46,23 @@ public class SwingGuiceModule extends AbstractModule {
 
         bind(FilePath.class).toInstance(path);
 
-        NodeRepository nodeRepository = new DefaultNodeRepository();
-        LinkRepository linkRepository = new DefaultLinkRepository();
-        JFrame frame = new GraphMapJFrame();
+        bind(JFrame.class).to(GraphMapJFrame.class).in(Singleton.class);
 
-        bind(JFrame.class).toInstance(frame);
-
-        bind(NodeRepository.class).toInstance(nodeRepository);
-        bind(LinkRepository.class).toInstance(linkRepository);
+        bind(NodeRepository.class).to(DefaultNodeRepository.class).in(Singleton.class);
+        bind(LinkRepository.class).to(DefaultLinkRepository.class).in(Singleton.class);
         bind(GraphLoader.class).to(FileGraphLoader.class);
 
         bind(HomeView.class).to(SwingHomeView.class);
+        bind(GraphView.class).to(SwingGraphView.class);
         bind(CompareView.class).to(SwingCompareView.class);
 
         bind(HomeUI.class).to(SwingHomeUI.class);
         bind(GraphUI.class).to(SwingGraphUI.class);
         bind(CompareUI.class).to(SwingCompareUI.class);
+        bind(DirectNeighborsUI.class).to(SwingDirectNeighborsUI.class);
+        bind(IndirectNeighborsUI.class).to(SwingIndirectNeighborsUI.class);
+        bind(PathUI.class).to(SwingPathUI.class);
+        bind(RoadsUI.class).to(SwingRoadsUI.class);
 
     }
 

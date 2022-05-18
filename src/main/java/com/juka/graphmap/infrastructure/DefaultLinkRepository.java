@@ -3,9 +3,12 @@ package com.juka.graphmap.infrastructure;
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.model.link.Link;
 
+import javax.inject.Singleton;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+@Singleton
 public class DefaultLinkRepository implements LinkRepository {
 
     private final List<Link> links = new ArrayList<>();
@@ -17,7 +20,9 @@ public class DefaultLinkRepository implements LinkRepository {
 
     @Override
     public List<Link> getAllLinks() {
-        return new ArrayList<>(links);
+        ArrayList<Link> links1 = new ArrayList<>(this.links);
+        links1.sort(Comparator.comparing(Link::getRoadNameWithIndex));
+        return links1;
     }
 
     @Override

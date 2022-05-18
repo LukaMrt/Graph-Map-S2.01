@@ -1,11 +1,11 @@
 package com.juka.graphmap.view.neighbours;
 
 import com.juka.graphmap.domain.model.node.Node;
-import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighboursView;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;
 
 import java.util.List;
 
-public class TerminalIndirectNeighboursView implements IndirectNeighboursView {
+public class TerminalIndirectNeighborsView implements IndirectNeighborsView {
 
     @Override
     public void displayNodes(List<Node> nodes, String location1, String location2, boolean result) {

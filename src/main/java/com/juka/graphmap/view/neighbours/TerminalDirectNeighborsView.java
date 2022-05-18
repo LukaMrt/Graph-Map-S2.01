@@ -3,11 +3,11 @@ package com.juka.graphmap.view.neighbours;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
-import com.juka.graphmap.ui.neighbours.direct.DirectNeighboursView;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsView;
 
 import java.util.List;
 
-public class TerminalDirectNeighboursView implements DirectNeighboursView {
+public class TerminalDirectNeighborsView implements DirectNeighborsView {
 
     @Override
     public void display(List<Node> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {

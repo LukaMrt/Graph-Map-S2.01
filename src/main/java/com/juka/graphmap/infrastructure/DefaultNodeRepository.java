@@ -3,9 +3,12 @@ package com.juka.graphmap.infrastructure;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.node.Node;
 
+import javax.inject.Singleton;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+@Singleton
 public class DefaultNodeRepository implements NodeRepository {
 
     private final List<Node> nodes = new ArrayList<>();
@@ -23,7 +26,9 @@ public class DefaultNodeRepository implements NodeRepository {
 
     @Override
     public List<Node> getAllNodes() {
-        return new ArrayList<>(nodes);
+        ArrayList<Node> nodes = new ArrayList<>(this.nodes);
+        nodes.sort(Comparator.comparing(Node::getName));
+        return nodes;
     }
 
     @Override

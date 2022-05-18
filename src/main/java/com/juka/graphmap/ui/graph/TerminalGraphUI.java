@@ -2,12 +2,15 @@ package com.juka.graphmap.ui.graph;
 
 import com.google.inject.Inject;
 import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.home.HomeUI;
-import com.juka.graphmap.ui.neighbours.direct.DirectNeighboursUI;
-import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighboursUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.path.PathUI;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TerminalGraphUI implements GraphUI {
@@ -19,25 +22,33 @@ public class TerminalGraphUI implements GraphUI {
     private final HomeUI homeUI;
     private final CompareUI compareUI;
     private final PathUI pathUI;
-    private final DirectNeighboursUI directNeighboursUI;
-    private final IndirectNeighboursUI indirectNeighboursUI;
+    private final DirectNeighborsUI directNeighborsUI;
+    private final IndirectNeighborsUI indirectNeighborsUI;
 
     @Inject
-    public TerminalGraphUI(GraphService graphService, GraphView graphView, HomeUI homeUI, CompareUI compareUI, PathUI pathUI, DirectNeighboursUI directNeighboursUI, IndirectNeighboursUI indirectNeighboursUI) {
+    public TerminalGraphUI(GraphService graphService, GraphView graphView, HomeUI homeUI, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI) {
         this.graphService = graphService;
         this.graphView = graphView;
         this.homeUI = homeUI;
         this.compareUI = compareUI;
         this.pathUI = pathUI;
-        this.directNeighboursUI = directNeighboursUI;
-        this.indirectNeighboursUI = indirectNeighboursUI;
+        this.directNeighborsUI = directNeighborsUI;
+        this.indirectNeighborsUI = indirectNeighborsUI;
     }
 
     @Override
     public void interact() {
         char entry;
 
-        graphView.display(graphService.getAllNodes(), graphService.getAllLinksCharacteristics());
+        List<String> nodes = graphService.getAllNodes().stream()
+                .map(Node::getName)
+                .toList();
+
+        List<String> links = graphService.getAllLinks().stream()
+                .map(Link::getRoadNameWithIndex)
+                .toList();
+
+        graphView.display(nodes, links);
 
         entry = scanner.nextLine().charAt(0);
 
@@ -49,8 +60,8 @@ public class TerminalGraphUI implements GraphUI {
         switch (entry) {
             case '1' -> compareUI.interact(null, null);
             case '2' -> pathUI.interact(null, null);
-            case '3' -> directNeighboursUI.interact(null, null);
-            case '4' -> indirectNeighboursUI.interact(null, null);
+            case '3' -> directNeighborsUI.interact(null, null);
+            case '4' -> indirectNeighborsUI.interact(null, null);
             case '5' -> System.out.println("Au revoir.");
             default -> homeUI.interact();
         }

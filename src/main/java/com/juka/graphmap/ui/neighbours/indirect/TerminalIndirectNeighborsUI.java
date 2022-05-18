@@ -10,7 +10,7 @@ import com.juka.graphmap.ui.home.HomeUI;
 
 import java.util.Scanner;
 
-public class TerminalIndirectNeighboursUI implements IndirectNeighboursUI {
+public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -19,10 +19,10 @@ public class TerminalIndirectNeighboursUI implements IndirectNeighboursUI {
     private final NodeService nodeService;
     private final GraphUI graphUI;
     private final HomeUI homeUI;
-    private final IndirectNeighboursView view;
+    private final IndirectNeighborsView view;
 
     @Inject
-    public TerminalIndirectNeighboursUI(GraphService graphService, NodeDistanceService nodeDistanceService, NodeService nodeService, GraphUI graphUI, HomeUI homeUI, IndirectNeighboursView view) {
+    public TerminalIndirectNeighborsUI(GraphService graphService, NodeDistanceService nodeDistanceService, NodeService nodeService, GraphUI graphUI, HomeUI homeUI, IndirectNeighborsView view) {
         this.graphService = graphService;
         this.nodeDistanceService = nodeDistanceService;
         this.nodeService = nodeService;

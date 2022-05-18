@@ -9,25 +9,21 @@ import java.util.List;
 public class TerminalGraphView implements GraphView {
 
     @Override
-    public void display(List<Node> nodes, List<LinkCharacteristics> links) {
+    public void display(List<String> nodes, List<String> links) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°2 - Choix des informations à afficher");
         System.out.println();
 
         System.out.println("Liste des noeuds :");
-        for (Node node : nodes) {
-            System.out.println("- " + node.getName());
-            System.out.println("\t> Type : " + node.getType());
+        for (String node : nodes) {
+            System.out.println("- " + node);
         }
         System.out.println();
 
         System.out.println("Liste des routes :");
-        for (LinkCharacteristics link : links) {
-            System.out.println("- " + link.name);
-            System.out.println("\t> Entre " + link.start + " et " + link.end);
-            System.out.println("\t> Type : " + link.type);
-            System.out.println("\t> Distance : " + link.distance + " km");
+        for (String link : links) {
+            System.out.println("- " + link);
         }
 
         System.out.println();
