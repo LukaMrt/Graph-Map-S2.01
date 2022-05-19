@@ -18,6 +18,7 @@ import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.home.SwingHomeUI;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsView;
 import com.juka.graphmap.ui.neighbours.direct.SwingDirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.SwingIndirectNeighborsUI;
@@ -29,6 +30,7 @@ import com.juka.graphmap.view.compare.SwingCompareView;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
 import com.juka.graphmap.view.graph.SwingGraphView;
 import com.juka.graphmap.view.home.SwingHomeView;
+import com.juka.graphmap.view.neighbours.direct.SwingDirectNeighborsView;
 
 import javax.inject.Singleton;
 import javax.swing.*;
@@ -55,6 +57,7 @@ public class SwingGuiceModule extends AbstractModule {
         bind(HomeView.class).to(SwingHomeView.class);
         bind(GraphView.class).to(SwingGraphView.class);
         bind(CompareView.class).to(SwingCompareView.class);
+        bind(DirectNeighborsView.class).to(SwingDirectNeighborsView.class);
 
         bind(HomeUI.class).to(SwingHomeUI.class);
         bind(GraphUI.class).to(SwingGraphUI.class);

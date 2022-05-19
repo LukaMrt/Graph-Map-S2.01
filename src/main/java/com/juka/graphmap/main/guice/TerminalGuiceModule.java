@@ -32,8 +32,8 @@ import com.juka.graphmap.ui.roads.TerminalRoadsUI;
 import com.juka.graphmap.view.compare.TerminalCompareView;
 import com.juka.graphmap.view.graph.TerminalGraphView;
 import com.juka.graphmap.view.home.TerminalHomeView;
-import com.juka.graphmap.view.neighbours.TerminalDirectNeighborsView;
-import com.juka.graphmap.view.neighbours.TerminalIndirectNeighborsView;
+import com.juka.graphmap.view.neighbours.direct.TerminalDirectNeighborsView;
+import com.juka.graphmap.view.neighbours.indirect.TerminalIndirectNeighborsView;
 import com.juka.graphmap.view.path.TerminalPathView;
 import com.juka.graphmap.view.roads.TerminalRoadsView;
 

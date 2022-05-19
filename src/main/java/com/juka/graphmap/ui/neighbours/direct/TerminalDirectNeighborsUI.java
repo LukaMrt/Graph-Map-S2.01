@@ -33,13 +33,15 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
     }
 
     @Override
-    public void interact(Node node, Link link) {
+    public void interact(String node, String link) {
 
-        LinkCharacteristics characteristics = link != null ? linkService.getLinkCharacteristics(link.getRoadNameWithIndex()) : null;
-        NodeCharacteristics characteristics2 = node != null ? nodeService.getNodeCharacteristics(node.getName()) : null;
-        List<String> links = graphService.getAllLinks().stream().map(Link::getRoadNameWithIndex).toList();
+        // TODO : review conditions
+        LinkCharacteristics characteristics = link != null && !link.isEmpty() ? linkService.getLinkCharacteristics(linkService.getLink(link).getRoadNameWithIndex()) : LinkCharacteristics.empty();
+        NodeCharacteristics characteristics2 = node != null && !node.isEmpty() ? nodeService.getNodeCharacteristics(nodeService.getNode(node).getName()) : NodeCharacteristics.empty();
+        List<String> links = graphService.getAllLinks().stream().map(Link::getRoadNameWithIndex).distinct().toList();
+        List<String> nodes = graphService.getAllNodes().stream().map(Node::getName).toList();
 
-        view.display(graphService.getAllNodes(), links, characteristics2, characteristics);
+        view.display(nodes, links, characteristics2, characteristics);
 
         char choice = SCANNER.nextLine().charAt(0);
 
@@ -57,7 +59,7 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
 
     }
 
-    private Node chooseLocation() {
+    private String chooseLocation() {
 
         System.out.println();
         String entry;
@@ -66,10 +68,10 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
             entry = SCANNER.nextLine();
         } while (!graphService.nodeExist(entry));
 
-        return nodeService.getNode(entry);
+        return entry;
     }
 
-    private Link chooseLink() {
+    private String chooseLink() {
 
         System.out.println();
         String entry;
@@ -78,7 +80,7 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
             entry = SCANNER.nextLine();
         } while (!graphService.linkExist(entry));
 
-        return linkService.getLink(entry);
+        return entry;
     }
 
 }

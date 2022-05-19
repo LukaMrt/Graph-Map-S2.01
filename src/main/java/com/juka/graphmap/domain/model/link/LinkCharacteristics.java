@@ -5,10 +5,10 @@ public class LinkCharacteristics {
     public final String name;
     public final String start;
     public final String end;
-    public final LinkType type;
+    public final String type;
     public final int distance;
 
-    public LinkCharacteristics(String name, String start, String end, LinkType type, int distance) {
+    public LinkCharacteristics(String name, String start, String end, String type, int distance) {
         this.name = name;
         this.start = start;
         this.end = end;
@@ -17,7 +17,7 @@ public class LinkCharacteristics {
     }
 
     public static LinkCharacteristics empty() {
-        return new LinkCharacteristics("", "", "", LinkType.HIGHWAY, 0);
+        return new LinkCharacteristics("", "", "", "", 0);
     }
 
 }

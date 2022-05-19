@@ -36,12 +36,17 @@ public class NodeService {
 
     public NodeCharacteristics getNodeCharacteristics(String name) {
         Node node = getNode(name);
+
+        if (node == null) {
+            return NodeCharacteristics.empty();
+        }
+
         List<String> neighbors = node.getNeighbors().stream()
                 .map(Node::getName)
                 .distinct()
                 .toList();
 
-        return new NodeCharacteristics(node.getName(), node.getType(), neighbors);
+        return new NodeCharacteristics(node.getName(), node.getType().toString(), neighbors);
     }
 
 }

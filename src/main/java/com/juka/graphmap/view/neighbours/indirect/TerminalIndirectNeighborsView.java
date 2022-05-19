@@ -1,4 +1,4 @@
-package com.juka.graphmap.view.neighbours;
+package com.juka.graphmap.view.neighbours.indirect;
 
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;

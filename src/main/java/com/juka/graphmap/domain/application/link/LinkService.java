@@ -5,7 +5,6 @@ import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.exception.LinkDoesntExistException;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
-import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
@@ -49,11 +48,11 @@ public class LinkService {
                 .toList();
 
         if (nodes.size() != 2) {
-            return new LinkCharacteristics("", "", "", LinkType.HIGHWAY, 0);
+            return LinkCharacteristics.empty();
         }
 
         Link link = getLink(linkName + ".1");
-        return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType(), link.getDistance());
+        return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType().toString(), link.getDistance());
     }
 
 }
