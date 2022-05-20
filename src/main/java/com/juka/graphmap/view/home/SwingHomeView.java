@@ -63,26 +63,32 @@ public class SwingHomeView extends SwingView implements HomeView {
         panel.add(Box.createVerticalGlue());
 
         JLabel label = new JLabel("Le graphe contient " + graph.locationCount + " lieux dont :");
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         label = new JLabel("   - " + graph.cityPercentage + " % de villes");
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         label = new JLabel("   - " + graph.restaurantPercentage + " % de restaurants");
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         label = new JLabel("   - " + graph.recreationPercentage + " % de centres de loisirs");
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         panel.add(Box.createVerticalGlue());
 
         JButton button = new JButton("Afficher le graphe");
-        button.setPreferredSize(new Dimension(200, 40));
-        button.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        button.setPreferredSize(new Dimension(300, 50));
+        button.setMinimumSize(new Dimension(300, 50));
+        button.setSize(new Dimension(300, 50));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.addActionListener(e -> graphUI.interact());
         panel.add(button);
         panel.add(Box.createVerticalGlue());
@@ -122,26 +128,32 @@ public class SwingHomeView extends SwingView implements HomeView {
         panel.add(Box.createVerticalGlue());
 
         JLabel label = new JLabel("Le graphe contient " + graph.roadCount + " routes dont :");
-        label.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         label = new JLabel(" - " + graph.highwayPercentage + " % d'autoroutes");
-        label.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         label = new JLabel(" - " + graph.nationalPercentage + " % de routes nationales");
-        label.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         label = new JLabel(" - " + graph.departementalPercentage + " % de routes départementales");
-        label.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setFont(new Font("Arial", Font.PLAIN, 17));
         panel.add(label);
 
         panel.add(Box.createVerticalGlue());
 
         JButton button = new JButton("Rechercher des routes");
-        button.setPreferredSize(new Dimension(200, 40));
-        button.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        button.setPreferredSize(new Dimension(200, 50));
+        button.setMinimumSize(new Dimension(200, 50));
+        button.setSize(new Dimension(200, 50));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.addActionListener(e -> roadsUI.interact(0, 0, 0));
         panel.add(button);
         panel.add(Box.createVerticalGlue());

@@ -57,6 +57,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         panel.add(nodeList);
         nodeList.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -57,6 +57,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 

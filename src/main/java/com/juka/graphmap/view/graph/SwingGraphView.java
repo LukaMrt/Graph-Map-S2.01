@@ -59,6 +59,7 @@ public class SwingGraphView extends SwingView implements GraphView {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         JList<String> list = new JList<>();
         list.setListData(nodes.toArray(new String[0]));
@@ -129,6 +130,7 @@ public class SwingGraphView extends SwingView implements GraphView {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         JList<String> list = new JList<>();
         list.setListData(links.toArray(new String[0]));
