@@ -60,7 +60,7 @@ public class NodeCompareServiceTest {
 
         assertThat(results).containsEntry("ouverte", true)
                 .containsEntry("culturelle", false)
-                .containsEntry("gastronomic", false);
+                .containsEntry("gastronomique", false);
     }
 
     @Test
