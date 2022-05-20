@@ -1,9 +1,8 @@
 package com.juka.graphmap.ui.neighbours.indirect;
 
-import com.juka.graphmap.domain.model.node.Node;
 
 public interface IndirectNeighborsUI {
 
-    void interact(Node node1, Node node2);
+    void interact(String node1, String node2);
 
 }

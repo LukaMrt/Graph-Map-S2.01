@@ -32,19 +32,15 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
     }
 
     @Override
-    public void interact(Node node1, Node node2) {
+    public void interact(String nodeName1, String nodeName2) {
 
         boolean result = false;
-        String nodeName1 = null;
-        String nodeName2 = null;
 
-        if (node1 != null && node2 != null) {
-            nodeName1 = node1.getName();
-            nodeName2 = node2.getName();
+        if (nodeName1 != null && nodeName2 != null) {
             result = nodeDistanceService.are2distance(nodeName1, nodeName2);
         }
 
-        view.displayNodes(graphService.getAllNodes(), nodeName1, nodeName2, result);
+        view.display(graphService.getAllNodes(), nodeName1, nodeName2, result);
 
         char choice = SCANNER.nextLine().charAt(0);
 
@@ -55,7 +51,7 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
 
         switch (choice) {
             case '0' -> graphUI.interact();
-            case '1' -> this.interact(chooseLocation(1), chooseLocation(2));
+            case '1' -> this.interact(chooseLocation(1).getName(), chooseLocation(2).getName());
             default -> homeUI.interact();
         }
 
