@@ -9,7 +9,6 @@ import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
 
 import javax.inject.Inject;
-
 import java.util.List;
 
 import static com.juka.graphmap.domain.model.graph.GraphCharacteristicsBuilder.aGraphCharacteristics;

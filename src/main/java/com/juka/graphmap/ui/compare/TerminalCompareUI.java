@@ -9,7 +9,9 @@ import com.juka.graphmap.domain.model.node.NodeType;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class TerminalCompareUI implements CompareUI {

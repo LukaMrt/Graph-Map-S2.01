@@ -4,7 +4,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.main.guice.SwingGuiceModule;
-import com.juka.graphmap.main.guice.TerminalGuiceModule;
 import com.juka.graphmap.ui.home.HomeUI;
 
 public class Main {

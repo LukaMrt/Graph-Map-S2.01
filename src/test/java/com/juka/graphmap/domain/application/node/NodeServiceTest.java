@@ -1,7 +1,6 @@
 package com.juka.graphmap.domain.application.node;
 
 import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
