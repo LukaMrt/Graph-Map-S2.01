@@ -32,7 +32,7 @@ import com.juka.graphmap.view.compare.SwingCompareView;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
 import com.juka.graphmap.view.graph.SwingGraphView;
 import com.juka.graphmap.view.home.SwingHomeView;
-import com.juka.graphmap.view.neighbours.SwingIndirectNeighborsView;
+import com.juka.graphmap.view.neighbours.indirect.SwingIndirectNeighborsView;
 import com.juka.graphmap.view.neighbours.direct.SwingDirectNeighborsView;
 import com.juka.graphmap.view.path.SwingPathView;
 
