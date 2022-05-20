@@ -193,7 +193,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        label = new JLabel("Liste des noeuds :");
+        label = new JLabel("Liste des liens :");
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
