@@ -1,7 +1,6 @@
 package com.juka.graphmap.view.compare;
 
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
-import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareView;
 
 import java.util.List;

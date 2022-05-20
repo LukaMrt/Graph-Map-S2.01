@@ -22,7 +22,7 @@ public class GraphMapJFrame extends JFrame {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         this.setJMenuBar(buildJMenuBar(homeUI));
