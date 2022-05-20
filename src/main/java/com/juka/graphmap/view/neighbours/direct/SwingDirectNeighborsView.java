@@ -48,7 +48,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         superPanel.setMinimumSize(new Dimension(650, 700));
         superPanel.setMaximumSize(new Dimension(650, 700));
 
-        superPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        superPanel.add(Box.createRigidArea(new Dimension(40, 0)));
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -112,7 +112,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         label.setFont(new Font("Arial", Font.PLAIN, 15));
         panel.add(label);
 
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         JList<String> list2 = new JList<>();
         list2.setListData(nodeCharacteristics.neighbors.toArray(new String[0]));
@@ -142,6 +142,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         superPanel.setPreferredSize(new Dimension(650, 700));
         superPanel.setMinimumSize(new Dimension(650, 700));
         superPanel.setMaximumSize(new Dimension(650, 700));
+        superPanel.add(Box.createRigidArea(new Dimension(60, 0)));
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -220,8 +221,6 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         panel.add(scrollPane);
 
         superPanel.add(panel);
-
-        superPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
         return superPanel;
     }
