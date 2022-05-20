@@ -57,8 +57,6 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         label.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         JList<String> list = new JList<>();
@@ -82,7 +80,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         panel.add(scrollPane);
 
         superPanel.add(panel);
-        superPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        superPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -190,7 +188,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         superPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
         superPanel.add(panel);
-        superPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        superPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
