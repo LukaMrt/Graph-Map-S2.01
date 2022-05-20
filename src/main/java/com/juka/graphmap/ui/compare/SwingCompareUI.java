@@ -4,6 +4,7 @@ import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.node.NodeCompareService;
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -23,18 +24,23 @@ public class SwingCompareUI implements CompareUI {
     }
 
     @Override
-    public void interact(Node city1, Node city2) {
+    public void interact(String city1, String city2) {
 
         List<Comparaison> result = new ArrayList<>();
 
         if (city1 != null && city2 != null) {
-            nodeCompareService.nodeCompareCity(city1.getName(), city2.getName())
+            nodeCompareService.nodeCompareCity(city1, city2)
                     .entrySet().stream()
-                    .map(entry -> new Comparaison(entry.getKey(), entry.getValue() ? city1.getName() : city2.getName(), entry.getValue() ? city2.getName() : city1.getName()))
+                    .map(entry -> new Comparaison(entry.getKey(), entry.getValue() ? city1 : city2, entry.getValue() ? city2 : city1))
                     .forEach(result::add);
         }
 
-        view.display(graphService.getAllNodes(), result);
+        List<String> nodes = graphService.getAllNodes().stream()
+                .filter(node -> node.getType() == NodeType.CITY)
+                .map(Node::getName)
+                .toList();
+
+        view.display(nodes, result);
 
     }
 

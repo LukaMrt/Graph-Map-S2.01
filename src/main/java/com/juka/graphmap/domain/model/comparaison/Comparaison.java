@@ -12,4 +12,8 @@ public class Comparaison {
         this.worst = worst;
     }
 
+    @Override
+    public String toString() {
+        return best + " est plus " + name + " que " + worst;
+    }
 }

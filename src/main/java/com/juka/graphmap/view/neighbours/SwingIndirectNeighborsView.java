@@ -30,6 +30,15 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
         this.graphUI = graphUI;
     }
 
+    @Override
+    public void display(List<Node> nodes, String location1, String location2, boolean result) {
+        if (location1 == null || location2 == null) {
+            displayPanels(nodes);
+        } else {
+            displayResult(location1, location2, result);
+        }
+    }
+
     private JPanel buildSidePanel(List<String> nodes, boolean isLeftPanel) {
         JPanel containerPanel = new JPanel();
         JPanel panel = new JPanel();
@@ -130,12 +139,4 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
         }
     }
 
-    @Override
-    public void display(List<Node> nodes, String location1, String location2, boolean result) {
-        if (location1 == null && location2 == null) {
-            displayPanels(nodes);
-        } else {
-            displayResult(location1, location2, result);
-        }
-    }
 }

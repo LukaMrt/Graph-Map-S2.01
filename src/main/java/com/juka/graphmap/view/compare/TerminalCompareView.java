@@ -9,15 +9,15 @@ import java.util.List;
 public class TerminalCompareView implements CompareView {
 
     @Override
-    public void display(List<Node> cities, List<Comparaison> result) {
+    public void display(List<String> cities, List<Comparaison> result) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°5 - Comparaison de villes");
         System.out.println();
 
         System.out.println("Liste des noeuds :");
-        for (Node city : cities) {
-            System.out.println("- " + city.getName());
+        for (String city : cities) {
+            System.out.println("- " + city);
         }
 
         System.out.println();
