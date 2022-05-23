@@ -3,7 +3,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'jacoco'
     id 'application'
-    id 'info.solidsoft.pitest' version '1.7.4'
 }
 
 group 'com.juka'
@@ -28,16 +27,11 @@ test {
     useJUnitPlatform {
         includeEngines 'junit-jupiter', 'junit-vintage'
     }
-    dependsOn 'pitest'
     finalizedBy jacocoTestReport
 }
 
 jacocoTestReport {
     dependsOn test
-}
-
-build {
-    dependsOn 'pitest'
 }
 
 repositories {
