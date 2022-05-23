@@ -40,41 +40,10 @@ public class TerminalHomeUI implements HomeUI {
 
         switch (entry) {
             case '1' -> graphUI.interact();
-            case '2' -> roadsInteract();
+            case '2' -> roadsUI.interact(null, null, null);
             default -> System.out.println("Au revoir.");
         }
 
-    }
-
-    private void roadsInteract() { // TODO : remove this
-
-        System.out.println("Choisissez 3 nombres représentant le nombre de villes, de restaurants et de centre de" +
-                "loisirs traversés par une même route.");
-
-        int x;
-        int y;
-        int z;
-        String entry;
-
-        System.out.print("Nombre de villes : ");
-        do {
-            entry = SCANNER.nextLine();
-        } while (!entry.matches("[0-9]+"));
-        x = Integer.parseInt(entry);
-
-        System.out.print("Nombre de restaurants : ");
-        do {
-            entry = SCANNER.nextLine();
-        } while (!entry.matches("[0-9]+"));
-        y = Integer.parseInt(entry);
-
-        System.out.print("Nombre de centre de loisirs : ");
-        do {
-            entry = SCANNER.nextLine();
-        } while (!entry.matches("[0-9]+"));
-        z = Integer.parseInt(entry);
-
-        roadsUI.interact(x, y, z);
     }
 
 }

@@ -3,6 +3,9 @@ package com.juka.graphmap.infrastructure.path;
 import com.juka.graphmap.domain.application.path.FloydWarshallDistancesRepository;
 import com.juka.graphmap.domain.model.path.FloydWarshallStep;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class DefaultFloydWarshallDistancesRepository implements FloydWarshallDistancesRepository {
 
     private FloydWarshallStep[][] distances;

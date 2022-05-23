@@ -154,7 +154,7 @@ public class SwingHomeView extends SwingView implements HomeView {
         button.setMinimumSize(new Dimension(200, 50));
         button.setSize(new Dimension(200, 50));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.addActionListener(e -> roadsUI.interact(0, 0, 0));
+        button.addActionListener(e -> roadsUI.interact(null, null, null));
         panel.add(button);
         panel.add(Box.createVerticalGlue());
 

@@ -1,7 +1,9 @@
 package com.juka.graphmap.ui.roads;
 
+import java.util.List;
+
 public interface RoadsUI {
 
-    void interact(int cities, int restaurants, int recreationCenters);
+    void interact(String start, List<String> steps, String end);
 
 }

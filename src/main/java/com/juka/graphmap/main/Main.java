@@ -5,16 +5,17 @@ import com.google.inject.Injector;
 import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.path.PathService;
 import com.juka.graphmap.main.guice.SwingGuiceModule;
+import com.juka.graphmap.main.guice.TerminalGuiceModule;
 import com.juka.graphmap.ui.home.HomeUI;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Injector injector = Guice.createInjector(new SwingGuiceModule("graph.csv"));
+        Injector injector = Guice.createInjector(new TerminalGuiceModule("graph.csv"));
         injector.getInstance(GraphService.class).load();
-        injector.getInstance(HomeUI.class).interact();
         injector.getInstance(PathService.class).computeFloydWarshall();
+        injector.getInstance(HomeUI.class).interact();
 
     }
 

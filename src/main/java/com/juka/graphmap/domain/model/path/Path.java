@@ -1,5 +1,6 @@
 package com.juka.graphmap.domain.model.path;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +55,15 @@ public class Path {
         if (o == null || getClass() != o.getClass()) return false;
         Path that = (Path) o;
         return path.equals(that.path) && Objects.equals(distance, that.distance);
+    }
+
+    public Path merge(Path path2) {
+
+        path2.getPath().remove(0);
+
+        List<Step> mergedPath = new ArrayList<>(this.getPath());
+        mergedPath.addAll(path2.getPath());
+        return new Path(mergedPath, this.getDistance() + path2.getDistance());
     }
 
 }

@@ -1,9 +1,11 @@
 package com.juka.graphmap.ui.roads;
 
+import java.util.List;
+
 public class SwingRoadsUI implements RoadsUI {
 
     @Override
-    public void interact(int cities, int restaurants, int recreationCenters) {
+    public void interact(String start, List<String> steps, String end) {
 
     }
 
