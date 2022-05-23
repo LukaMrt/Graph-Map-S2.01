@@ -8,10 +8,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
+ * Node class represents a node in a graph.
+ *
  * @author Luka Maret
  * @since 0.1.0
- *
- * Node class represents a node in a graph.
  */
 public class Node implements Comparable<Node> {
 
@@ -19,6 +19,12 @@ public class Node implements Comparable<Node> {
     private final String name;
     private final NodeType type;
 
+    /**
+     * Constructor of the node.
+     *
+     * @param name name of the node
+     * @param type type of the node
+     */
     public Node(String name, NodeType type) {
         this.name = name;
         this.type = type;

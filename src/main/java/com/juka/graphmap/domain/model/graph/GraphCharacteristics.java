@@ -2,6 +2,12 @@ package com.juka.graphmap.domain.model.graph;
 
 import java.util.Objects;
 
+/**
+ * Represents the characteristics of a graph.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class GraphCharacteristics {
 
     public int locationCount;
@@ -14,6 +20,11 @@ public class GraphCharacteristics {
     public float departementalPercentage;
     public String error;
 
+    /**
+     * Constructor of the GraphCharacteristics object.
+     *
+     * @param builder the builder of the characteristics
+     */
     public GraphCharacteristics(GraphCharacteristicsBuilder builder) {
         this.locationCount = builder.cityCount;
         this.roadCount = builder.roadCount;
@@ -26,6 +37,12 @@ public class GraphCharacteristics {
         this.error = builder.error ? "Erreur détectée" : "Aucune erreur détectée";
     }
 
+    /**
+     * Check if the object is equal to the current object.
+     *
+     * @param o the object to compare
+     * @return true if the object is equal to the current object, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,6 +59,11 @@ public class GraphCharacteristics {
                 && error.equals(that.error);
     }
 
+    /**
+     * Return the hash code of the object.
+     *
+     * @return the hash code of the object
+     */
     @Override
     public int hashCode() {
         return Objects.hash(locationCount, roadCount, cityPercentage, restaurantPercentage, recreationPercentage, highwayPercentage, nationalPercentage, departementalPercentage, error);

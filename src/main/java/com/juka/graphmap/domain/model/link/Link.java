@@ -3,10 +3,9 @@ package com.juka.graphmap.domain.model.link;
 import com.juka.graphmap.domain.model.node.Node;
 
 /**
- * @author Luka Maret
- * @since 0.1.0
- *
  * Link class represents a link between two nodes.
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
  */
 public class Link {
 
@@ -15,6 +14,14 @@ public class Link {
     private final LinkType type;
     private final int distance;
 
+    /**
+     * Constructor of a link.
+     *
+     * @param name name of the link
+     * @param destination destination node
+     * @param type type of the link
+     * @param distance distance between the two nodes
+     */
     public Link(String name, Node destination, LinkType type, int distance) {
         this.name = name;
         this.destination = destination;
