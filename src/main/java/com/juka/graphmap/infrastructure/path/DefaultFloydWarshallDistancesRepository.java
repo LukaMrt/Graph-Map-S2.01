@@ -1,4 +1,4 @@
-package com.juka.graphmap.domain.infrastructure.path;
+package com.juka.graphmap.infrastructure.path;
 
 import com.juka.graphmap.domain.application.path.FloydWarshallDistancesRepository;
 import com.juka.graphmap.domain.model.path.FloydWarshallStep;

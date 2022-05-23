@@ -5,7 +5,7 @@ import com.juka.graphmap.domain.application.graph.GraphLoader;
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.application.path.FloydWarshallDistancesRepository;
-import com.juka.graphmap.domain.infrastructure.path.DefaultFloydWarshallDistancesRepository;
+import com.juka.graphmap.infrastructure.path.DefaultFloydWarshallDistancesRepository;
 import com.juka.graphmap.domain.model.file.FilePath;
 import com.juka.graphmap.infrastructure.DefaultLinkRepository;
 import com.juka.graphmap.infrastructure.DefaultNodeRepository;
