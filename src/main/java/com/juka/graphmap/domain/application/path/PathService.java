@@ -30,42 +30,50 @@ public class PathService implements RoadsFinderService {
 
         for (Node node : nodes) {
 
-            int index = nodes.indexOf(node);
-
-            for (int i = 0; i < nodes.size(); i++) {
-                steps[index][i] = new FloydWarshallStep(1_000_000, null, null);
-            }
-
-            steps[index][index] = new FloydWarshallStep(0, node, null);
-
-            for (Link link : node.getNeighborsLinks()) {
-
-                Node destination = link.getDestination();
-                int distance = link.getDistance();
-
-                steps[index][nodes.indexOf(destination)] = new FloydWarshallStep(distance, node, link);
-
-            }
+            initializeSteps(steps, node, nodes);
 
         }
 
         for (int k = 0; k < nodes.size(); k++) {
             for (int i = 0; i < nodes.size(); i++) {
-                for (int j = 0; j < nodes.size(); j++) {
-                    int newDistance = steps[i][k].distance + steps[k][j].distance;
-                    if (newDistance < steps[i][j].distance) {
-                        int finalJ = j;
-                        Link link1 = steps[k][j].previous.getNeighborsLinks().stream()
-                                .filter(link -> link.getDestination().equals(nodes.get(finalJ)))
-                                .findFirst()
-                                .orElse(new Link("", nodes.get(finalJ), LinkType.HIGHWAY, 0));
-                        steps[i][j] = new FloydWarshallStep(newDistance, steps[k][j].previous, link1);
-                    }
-                }
+                iteration(nodes, steps, k, i);
             }
         }
 
         distanceRepository.storeDistances(steps);
+    }
+
+    private void initializeSteps(FloydWarshallStep[][] steps, Node node, List<Node> nodes) {
+        int index = nodes.indexOf(node);
+
+        for (int i = 0; i < nodes.size(); i++) {
+            steps[index][i] = new FloydWarshallStep(1_000_000, null, null);
+        }
+
+        steps[index][index] = new FloydWarshallStep(0, node, null);
+
+        for (Link link : node.getNeighborsLinks()) {
+
+            Node destination = link.getDestination();
+            int distance = link.getDistance();
+
+            steps[index][nodes.indexOf(destination)] = new FloydWarshallStep(distance, node, link);
+
+        }
+    }
+
+    private void iteration(List<Node> nodes, FloydWarshallStep[][] steps, int k, int i) {
+        for (int j = 0; j < nodes.size(); j++) {
+            int newDistance = steps[i][k].distance + steps[k][j].distance;
+            if (newDistance < steps[i][j].distance) {
+                int finalJ = j;
+                Link link1 = steps[k][j].previous.getNeighborsLinks().stream()
+                        .filter(link -> link.getDestination().equals(nodes.get(finalJ)))
+                        .findFirst()
+                        .orElse(new Link("", nodes.get(finalJ), LinkType.HIGHWAY, 0));
+                steps[i][j] = new FloydWarshallStep(newDistance, steps[k][j].previous, link1);
+            }
+        }
     }
 
     public Path getShortestPath(String originNodeName, String destinationNodeName) {
