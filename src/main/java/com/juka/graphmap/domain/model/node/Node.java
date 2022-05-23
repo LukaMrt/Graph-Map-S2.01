@@ -4,6 +4,7 @@ import com.juka.graphmap.domain.model.link.Link;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
  *
  * Node class represents a node in a graph.
  */
-public class Node {
+public class Node implements Comparable<Node> {
 
     private final List<Link> neighbors = new ArrayList<>();
     private final String name;
@@ -75,6 +76,24 @@ public class Node {
         return "Node{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return name.compareTo(o.name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return name.equals(node.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
 }

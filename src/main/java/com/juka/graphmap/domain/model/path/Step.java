@@ -1,4 +1,4 @@
-package com.juka.graphmap.domain.model.step;
+package com.juka.graphmap.domain.model.path;
 
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;

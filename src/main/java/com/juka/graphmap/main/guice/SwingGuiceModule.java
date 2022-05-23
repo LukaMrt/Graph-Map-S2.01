@@ -4,6 +4,8 @@ import com.google.inject.AbstractModule;
 import com.juka.graphmap.domain.application.graph.GraphLoader;
 import com.juka.graphmap.domain.application.graph.LinkRepository;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.application.path.FloydWarshallDistancesRepository;
+import com.juka.graphmap.domain.infrastructure.path.DefaultFloydWarshallDistancesRepository;
 import com.juka.graphmap.domain.model.file.FilePath;
 import com.juka.graphmap.infrastructure.DefaultLinkRepository;
 import com.juka.graphmap.infrastructure.DefaultNodeRepository;
@@ -56,6 +58,7 @@ public class SwingGuiceModule extends AbstractModule {
 
         bind(NodeRepository.class).to(DefaultNodeRepository.class).in(Singleton.class);
         bind(LinkRepository.class).to(DefaultLinkRepository.class).in(Singleton.class);
+        bind(FloydWarshallDistancesRepository.class).to(DefaultFloydWarshallDistancesRepository.class).in(Singleton.class);
         bind(GraphLoader.class).to(FileGraphLoader.class);
 
         bind(HomeView.class).to(SwingHomeView.class);

@@ -3,6 +3,7 @@ package com.juka.graphmap.main;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.domain.application.path.PathService;
 import com.juka.graphmap.main.guice.SwingGuiceModule;
 import com.juka.graphmap.ui.home.HomeUI;
 
@@ -13,6 +14,7 @@ public class Main {
         Injector injector = Guice.createInjector(new SwingGuiceModule("graph.csv"));
         injector.getInstance(GraphService.class).load();
         injector.getInstance(HomeUI.class).interact();
+        injector.getInstance(PathService.class).computeFloydWarshall();
 
     }
 

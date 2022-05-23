@@ -1,7 +1,7 @@
 package com.juka.graphmap.view.path;
 
 import com.juka.graphmap.domain.model.path.Path;
-import com.juka.graphmap.domain.model.step.Step;
+import com.juka.graphmap.domain.model.path.Step;
 import com.juka.graphmap.ui.path.PathView;
 
 import java.util.List;
