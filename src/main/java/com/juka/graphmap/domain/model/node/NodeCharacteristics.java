@@ -37,4 +37,16 @@ public class NodeCharacteristics {
         return new NodeCharacteristics("", "", new ArrayList<>());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NodeCharacteristics that = (NodeCharacteristics) o;
+
+        if (!name.equals(that.name)) return false;
+        if (!type.equals(that.type)) return false;
+        return neighbors.equals(that.neighbors);
+    }
+
 }

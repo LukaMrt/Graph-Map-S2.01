@@ -29,9 +29,7 @@ public class PathService implements RoadsFinderService {
         FloydWarshallStep[][] steps = new FloydWarshallStep[nodes.size()][nodes.size()];
 
         for (Node node : nodes) {
-
             initializeSteps(steps, node, nodes);
-
         }
 
         for (int k = 0; k < nodes.size(); k++) {
@@ -94,6 +92,10 @@ public class PathService implements RoadsFinderService {
             int currentNodeIndex = nodes.indexOf(currentNode);
             int previousNodeIndex = nodes.indexOf(distances[currentNodeIndex].previous);
             Link previousLink = distances[currentNodeIndex].previousLink;
+
+            if (distances[currentNodeIndex].distance >= 1_000_000) {
+                return new Path(new ArrayList<>(), Double.POSITIVE_INFINITY);
+            }
 
             distance += previousLink.getDistance();
             steps.add(new Step(currentNode, previousLink));

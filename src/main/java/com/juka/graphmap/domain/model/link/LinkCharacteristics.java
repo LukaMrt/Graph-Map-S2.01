@@ -1,5 +1,7 @@
 package com.juka.graphmap.domain.model.link;
 
+import java.util.Objects;
+
 /**
  * Represents the characteristics of a link.
  *
@@ -17,10 +19,10 @@ public class LinkCharacteristics {
     /**
      * Constructor of a LinkCharacteristics object.
      *
-     * @param name name of the link
-     * @param start start node
-     * @param end end node
-     * @param type type of the link
+     * @param name     name of the link
+     * @param start    start node
+     * @param end      end node
+     * @param type     type of the link
      * @param distance distance between the two nodes
      */
     public LinkCharacteristics(String name, String start, String end, String type, int distance) {
@@ -38,6 +40,30 @@ public class LinkCharacteristics {
      */
     public static LinkCharacteristics empty() {
         return new LinkCharacteristics("", "", "", "", 0);
+    }
+
+    @Override
+    public String toString() {
+        return "LinkCharacteristics{" +
+                "name='" + name + '\'' +
+                ", start='" + start + '\'' +
+                ", end='" + end + '\'' +
+                ", type='" + type + '\'' +
+                ", distance=" + distance +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkCharacteristics that = (LinkCharacteristics) o;
+        return distance == that.distance && Objects.equals(name, that.name) && Objects.equals(start, that.start) && Objects.equals(end, that.end) && Objects.equals(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, start, end, type, distance);
     }
 
 }

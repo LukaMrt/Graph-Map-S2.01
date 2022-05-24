@@ -4,6 +4,7 @@ import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.domain.model.node.NodeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,7 +75,6 @@ public class NodeServiceTest {
         assertThat(neighboursLinks).isEmpty();
     }
 
-
     @Test
     void getDirectNeighborsLinks_shouldReturnListWithOneElement_whenNodeHasOneNeighbor() {
         Node node = new Node("Node", NodeType.CITY);
@@ -84,6 +86,52 @@ public class NodeServiceTest {
         List<Link> neighboursLinks = nodeService.getDirectNeighborsLinks("Node");
 
         assertThat(neighboursLinks).hasSize(1);
+    }
+
+    @Test
+    void getNode_shouldReturnNode() {
+        Node node = new Node("Node", NodeType.CITY);
+
+        when(nodeRepository.getNode("Node")).thenReturn(node);
+
+        assertThat(nodeService.getNode("Node")).isEqualTo(node);
+    }
+
+    @Test
+    void getNode_shouldReturnNode2() {
+        Node node = new Node("Node2", NodeType.CITY);
+
+        when(nodeRepository.getNode("Node2")).thenReturn(node);
+
+        assertThat(nodeService.getNode("Node2")).isEqualTo(node);
+    }
+
+    @Test
+    void getNodeCharacteristics_shouldReturnNodeCharacteristics() {
+        Node node = new Node("Node", NodeType.CITY);
+
+        NodeCharacteristics expected = new NodeCharacteristics("Node", NodeType.CITY.toString(), Collections.emptyList());
+        when(nodeRepository.getNode("Node")).thenReturn(node);
+
+        assertThat(nodeService.getNodeCharacteristics("Node")).isEqualTo(expected);
+    }
+
+    @Test
+    void getNodeCharacteristics_shouldReturnEmptyNodeCharacteristics_whenNodeIsNull() {
+        assertThat(nodeService.getNodeCharacteristics(null)).isEqualTo(new NodeCharacteristics("", "", new ArrayList<>()));
+    }
+
+    @Test
+    void getNodeCharacteristics_shouldReturnNodeCharacteristics2() {
+        Node node = new Node("Node2", NodeType.RECREATION_CENTER);
+        Node neighbour = new Node("Neighbour", NodeType.CITY);
+        Link link = new Link("Link", neighbour, LinkType.HIGHWAY, 10);
+        node.addLink(link);
+
+        NodeCharacteristics expected = new NodeCharacteristics("Node2", NodeType.RECREATION_CENTER.toString(), List.of("Neighbour"));
+        when(nodeRepository.getNode("Node2")).thenReturn(node);
+
+        assertThat(nodeService.getNodeCharacteristics("Node2")).isEqualTo(expected);
     }
 
 }

@@ -18,8 +18,9 @@ public class NodeCompareService {
     }
 
     private int numberOfTypeAt2Distance(String node, NodeType nodeType) {
+
         Node currentNode = nodeRepository.getNode(node);
-        assert (currentNode.getType() == NodeType.CITY) : node + " is not a City";
+
         int counter = 0;
 
         for (Node pass : currentNode.getNeighbors()) {

@@ -1,6 +1,5 @@
 package com.juka.graphmap.domain.application.graph;
 
-import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
@@ -12,12 +11,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.juka.graphmap.domain.model.graph.GraphCharacteristicsBuilder.aGraphCharacteristics;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GraphServiceTest {
@@ -31,13 +30,11 @@ public class GraphServiceTest {
     private LinkRepository linkRepository;
 
     @Mock
-    private LinkService linkService;
-
-    @Mock
     private GraphLoader loader;
+
     @BeforeEach
     void setUp() {
-        graphService = new GraphService(linkService, nodeRepository, linkRepository, loader);
+        graphService = new GraphService(nodeRepository, linkRepository, loader);
     }
 
     @Test
@@ -255,6 +252,111 @@ public class GraphServiceTest {
         GraphCharacteristics result = mock.getGraphCharacteristics();
 
         assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void getAllNodes_shouldReturnAllNodes() {
+        Node node1 = new Node("node", NodeType.CITY);
+        Node node2 = new Node("node", NodeType.RECREATION_CENTER);
+
+        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2));
+
+        assertThat(nodeRepository.getAllNodes()).containsExactlyInAnyOrder(node1, node2);
+    }
+
+    @Test
+    void getAllNodes_shouldReturnAllNodes2() {
+
+        when(graphService.getAllNodes()).thenReturn(Collections.emptyList());
+
+        assertThat(graphService.getAllNodes()).isEmpty();
+    }
+
+    @Test
+    void getAlLinks_shouldReturnAllLinks() {
+        Link link1 = new Link("link", null, LinkType.HIGHWAY, 0);
+        Link link2 = new Link("lin2", null, LinkType.HIGHWAY, 0);
+
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2));
+
+        assertThat(graphService.getAllLinks()).containsExactlyInAnyOrder(link1, link2);
+    }
+
+    @Test
+    void getAllLinks_shouldReturnAllLinks2() {
+
+        when(linkRepository.getAllLinks()).thenReturn(Collections.emptyList());
+
+        assertThat(graphService.getAllLinks()).isEmpty();
+    }
+
+    @Test
+    void nodeExist_shouldReturnTrue_whenNodeExist() {
+        Node node = new Node("node", NodeType.CITY);
+
+        when(nodeRepository.getNode("node")).thenReturn(node);
+
+        assertThat(graphService.nodeExist("node")).isTrue();
+    }
+
+    @Test
+    void nodeExist_shouldReturnFalse_whenNodeDoesNotExist() {
+        when(nodeRepository.getNode("node")).thenReturn(null);
+
+        assertThat(graphService.nodeExist("node")).isFalse();
+    }
+
+    @Test
+    void linkExist_shouldReturnTrue_whenLinkExist() {
+        Link link = new Link("link", null, LinkType.HIGHWAY, 0);
+
+        when(linkRepository.getLink("link.1")).thenReturn(link);
+
+        assertThat(graphService.linkExist("link")).isTrue();
+    }
+
+    @Test
+    void linkExist_shouldReturnFalse_whenLinkDoesNotExist() {
+        when(linkRepository.getLink("link.1")).thenReturn(null);
+
+        assertThat(graphService.linkExist("link")).isFalse();
+    }
+
+    @Test
+    void load_shouldEncounterError_whenThereIsNoNode() {
+        when(loader.loadNodes()).thenReturn(null);
+
+        graphService.load();
+
+        verify(nodeRepository, only()).encounterError();
+    }
+
+    @Test
+    void load_shouldEncounterError_whenThereIsNoLink() {
+        when(loader.loadNodes()).thenReturn(Collections.emptyList());
+        when(loader.loadLinks(nodeRepository)).thenReturn(null);
+
+        graphService.load();
+
+        verify(nodeRepository, only()).encounterError();
+    }
+
+    @Test
+    void load_shouldStoreNodesAndLinks_whenThereAreNodesAndLinks() {
+        Node node = new Node("node", NodeType.CITY);
+        Node node2 = new Node("node2", NodeType.RECREATION_CENTER);
+        Node node3 = new Node("node3", NodeType.RESTAURANT);
+        Link link = new Link("link", node, LinkType.HIGHWAY, 0);
+        Link link2 = new Link("link2", node, LinkType.HIGHWAY, 0);
+
+        when(loader.loadNodes()).thenReturn(List.of(node, node2, node3));
+        when(loader.loadLinks(nodeRepository)).thenReturn(List.of(link, link2));
+        doNothing().when(nodeRepository).addNode(any());
+
+        graphService.load();
+
+        verify(nodeRepository, times(3)).addNode(any());
+        verify(linkRepository, times(2)).addLink(any());
     }
 
 }

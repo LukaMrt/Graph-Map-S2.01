@@ -84,6 +84,11 @@ public class Link {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Link && ((Link) obj).getName().equals(this.getName());
+    }
+
+    @Override
     public String toString() {
         return "Link{" +
                 "name='" + name + '\'' +

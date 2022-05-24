@@ -1,9 +1,7 @@
 package com.juka.graphmap.domain.application.graph;
 
-import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 import com.juka.graphmap.domain.model.link.Link;
-import com.juka.graphmap.domain.model.link.LinkCharacteristics;
 import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
@@ -15,14 +13,12 @@ import static com.juka.graphmap.domain.model.graph.GraphCharacteristicsBuilder.a
 
 public class GraphService {
 
-    private final LinkService linkService;
     private final NodeRepository nodeRepository;
     private final LinkRepository linkRepository;
     private final GraphLoader graphLoader;
 
     @Inject
-    public GraphService(LinkService linkService, NodeRepository nodeRepository, LinkRepository linkRepository, GraphLoader graphLoader) {
-        this.linkService = linkService;
+    public GraphService(NodeRepository nodeRepository, LinkRepository linkRepository, GraphLoader graphLoader) {
         this.nodeRepository = nodeRepository;
         this.linkRepository = linkRepository;
         this.graphLoader = graphLoader;
@@ -109,15 +105,6 @@ public class GraphService {
 
     public List<Link> getAllLinks() {
         return linkRepository.getAllLinks();
-    }
-
-    public List<LinkCharacteristics> getAllLinksCharacteristics() {
-
-        return getAllLinks().stream()
-                .map(Link::getRoadNameWithIndex)
-                .distinct()
-                .map(linkService::getLinkCharacteristics)
-                .toList();
     }
 
 }

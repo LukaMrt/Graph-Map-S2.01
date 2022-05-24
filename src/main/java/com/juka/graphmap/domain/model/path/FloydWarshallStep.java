@@ -3,6 +3,8 @@ package com.juka.graphmap.domain.model.path;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 
+import java.util.Objects;
+
 /**
  * Represents a step in the Floyd-Warshall algorithm.
  *
@@ -18,8 +20,8 @@ public class FloydWarshallStep {
     /**
      * Constructor of the Floyd and Warshall step.
      *
-     * @param distance The distance between the two nodes.
-     * @param previous The previous node in the path.
+     * @param distance     The distance between the two nodes.
+     * @param previous     The previous node in the path.
      * @param previousLink The previous link in the path.
      */
     public FloydWarshallStep(int distance, Node previous, Link previousLink) {
@@ -38,6 +40,18 @@ public class FloydWarshallStep {
         if (distance == 1_000_000) {
             return "[INF]";
         }
-        return "[" + distance + "/" + previous.getName() + "," + (previousLink == null ? "N" : "Y") + "]";
+        return "[" + distance + "/" + previous.getName() + "]";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        FloydWarshallStep other = (FloydWarshallStep) obj;
+        return this.distance == other.distance
+                && Objects.equals(this.previous, other.previous)
+                && Objects.equals(this.previousLink, other.previousLink);
+    }
+
 }

@@ -14,30 +14,14 @@ import java.util.Optional;
 public class LinkService {
 
     private final LinkRepository linkRepository;
-    private final NodeRepository nodeRepository;
 
     @Inject
-    public LinkService(NodeRepository nodeRepository, LinkRepository linkRepository) {
+    public LinkService(LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
-        this.nodeRepository = nodeRepository;
     }
 
     public Link getLink(String name) {
         return linkRepository.getLink(name);
-    }
-
-    public int getDistance(String node1, String node2) throws LinkDoesntExistException {
-        Optional<Link> neighbor = nodeRepository.getNode(node1)
-                .getNeighborsLinks()
-                .stream()
-                .filter(link -> link.getDestination().getName().equals(node2))
-                .findFirst();
-
-        if (neighbor.isEmpty()) {
-            throw new LinkDoesntExistException();
-        }
-
-        return neighbor.get().getDistance();
     }
 
     public LinkCharacteristics getLinkCharacteristics(String linkName) {
@@ -45,6 +29,7 @@ public class LinkService {
         List<Node> nodes = linkRepository.getAllLinks().stream()
                 .filter(l -> l.getName().contains(linkName + "."))
                 .map(Link::getDestination)
+                .sorted()
                 .toList();
 
         if (nodes.size() != 2) {
