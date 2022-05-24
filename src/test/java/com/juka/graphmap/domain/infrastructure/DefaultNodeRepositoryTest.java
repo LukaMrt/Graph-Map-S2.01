@@ -30,7 +30,7 @@ public class DefaultNodeRepositoryTest {
     @Test
     void getAllNodes_shouldReturnListWith1Element_when1NodeAdded() {
 
-        Node node = new Node("node1", NodeType.CITY);
+        Node node = new Node("node1", NodeType.CITY, 0, 0);
         nodeRepository.addNode(node);
 
         List<Node> nodes = nodeRepository.getAllNodes();
@@ -41,7 +41,7 @@ public class DefaultNodeRepositoryTest {
     @Test
     void getNode_shouldReturnNode_whenNodeAdded() {
 
-        Node node = new Node("node1", NodeType.CITY);
+        Node node = new Node("node1", NodeType.CITY, 0, 0);
         nodeRepository.addNode(node);
 
         Node foundNode = nodeRepository.getNode("node1");

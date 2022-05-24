@@ -30,7 +30,7 @@ public class NodeDistanceServiceTest {
     @Test
     void are2distance_shouldReturnFalse_when2NodesAreNotAt2Distance() {
 
-        Node node1 = new Node("Node1", NodeType.CITY);
+        Node node1 = new Node("Node1", NodeType.CITY, 0, 0);
         when(nodeRepository.getNode("Node1")).thenReturn(node1);
 
         boolean result = nodeDistanceService.are2distance("Node1", "Node2");
@@ -41,9 +41,9 @@ public class NodeDistanceServiceTest {
     @Test
     void are2distance_shouldReturnTrue_when2NodesAreAt2Distance() {
 
-        Node node1 = new Node("Node1", NodeType.CITY);
-        Node node2 = new Node("Node2", NodeType.CITY);
-        Node node3 = new Node("Node3", NodeType.CITY);
+        Node node1 = new Node("Node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("Node2", NodeType.CITY, 0, 0);
+        Node node3 = new Node("Node3", NodeType.CITY, 0, 0);
         Link link1 = new Link("Link1", node3, LinkType.HIGHWAY, 10);
         Link link2 = new Link("Link2", node2, LinkType.HIGHWAY, 10);
         node1.addLink(link1);

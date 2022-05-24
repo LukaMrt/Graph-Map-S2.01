@@ -38,8 +38,8 @@ public class PathServiceTest {
 
     @Test
     void getShortestPath_shouldReturnEmptyShortestPath_whenThereIsNoPathFromOriginNodeToDestinationNode() {
-        Node origin = new Node("Lyon", NodeType.CITY);
-        Node destination = new Node("New York", NodeType.CITY);
+        Node origin = new Node("Lyon", NodeType.CITY, 0, 0);
+        Node destination = new Node("New York", NodeType.CITY, 0, 0);
         FloydWarshallStep[] distances = {new FloydWarshallStep(0, origin, null), new FloydWarshallStep(1_000_000, null, null)};
 
         when(nodeRepository.getNode("Lyon")).thenReturn(origin);
@@ -55,10 +55,10 @@ public class PathServiceTest {
 
     @Test
     void getShortestPath_shouldReturnShortestPathWithFourNodes_whenTheLengthOfThePathIsFour() {
-        Node node1 = new Node("A", NodeType.RECREATION_CENTER);
-        Node node2 = new Node("B", NodeType.CITY);
-        Node node3 = new Node("C", NodeType.CITY);
-        Node node4 = new Node("D", NodeType.RESTAURANT);
+        Node node1 = new Node("A", NodeType.RECREATION_CENTER, 0, 0);
+        Node node2 = new Node("B", NodeType.CITY, 0, 0);
+        Node node3 = new Node("C", NodeType.CITY, 0, 0);
+        Node node4 = new Node("D", NodeType.RESTAURANT, 0, 0);
 
         Link linkLoop1 = new Link("A-B", node2, LinkType.DEPARTMENTAL, 6);
         Link linkLoop2 = new Link("B-A", node1, LinkType.HIGHWAY, 3);
@@ -100,10 +100,10 @@ public class PathServiceTest {
 
     @Test
     void computeFloydWarshall_shouldStoreInfinity_whenNodesAreNotLinked() {
-        Node node1 = new Node("A", NodeType.RECREATION_CENTER);
-        Node node2 = new Node("B", NodeType.CITY);
-        Node node3 = new Node("C", NodeType.CITY);
-        Node node4 = new Node("D", NodeType.RESTAURANT);
+        Node node1 = new Node("A", NodeType.RECREATION_CENTER, 0, 0);
+        Node node2 = new Node("B", NodeType.CITY, 0, 0);
+        Node node3 = new Node("C", NodeType.CITY, 0, 0);
+        Node node4 = new Node("D", NodeType.RESTAURANT, 0, 0);
 
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4));
 
@@ -121,10 +121,10 @@ public class PathServiceTest {
 
     @Test
     void computeFloydWarshall_shouldStoreDistances_whenNodesAreLinked() {
-        Node node1 = new Node("A", NodeType.RECREATION_CENTER);
-        Node node2 = new Node("B", NodeType.CITY);
-        Node node3 = new Node("C", NodeType.CITY);
-        Node node4 = new Node("D", NodeType.RESTAURANT);
+        Node node1 = new Node("A", NodeType.RECREATION_CENTER, 0, 0);
+        Node node2 = new Node("B", NodeType.CITY, 0, 0);
+        Node node3 = new Node("C", NodeType.CITY, 0, 0);
+        Node node4 = new Node("D", NodeType.RESTAURANT, 0, 0);
 
         Link linkLoop1 = new Link("A-B", node2, LinkType.NATIONAL, 1);
         Link linkLoop2 = new Link("B-A", node1, LinkType.NATIONAL, 1);
@@ -154,8 +154,8 @@ public class PathServiceTest {
 
     @Test
     void getPathsWithSpecificLocations_shouldReturnDirectPathFromStartToEnd_whenThereIsNoStep() {
-        Node node1 = new Node("A", NodeType.RECREATION_CENTER);
-        Node node2 = new Node("B", NodeType.CITY);
+        Node node1 = new Node("A", NodeType.RECREATION_CENTER, 0, 0);
+        Node node2 = new Node("B", NodeType.CITY, 0, 0);
 
         Link link1 = new Link("A-B", node2, LinkType.NATIONAL, 1);
 
@@ -173,9 +173,9 @@ public class PathServiceTest {
 
     @Test
     void getPathsWithSpecificLocations_shouldReturnPathFromStartToEndWithSteps_whenThereAreSteps() {
-        Node node1 = new Node("A", NodeType.RECREATION_CENTER);
-        Node node2 = new Node("B", NodeType.CITY);
-        Node node3 = new Node("C", NodeType.CITY);
+        Node node1 = new Node("A", NodeType.RECREATION_CENTER, 0, 0);
+        Node node2 = new Node("B", NodeType.CITY, 0, 0);
+        Node node3 = new Node("C", NodeType.CITY, 0, 0);
 
         Link link1 = new Link("A-B", node2, LinkType.NATIONAL, 1);
         Link link2 = new Link("B-C", node2, LinkType.NATIONAL, 1);

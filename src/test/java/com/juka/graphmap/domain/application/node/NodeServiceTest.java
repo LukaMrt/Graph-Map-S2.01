@@ -35,7 +35,7 @@ public class NodeServiceTest {
     @Test
     void getDirectNeighbours_shouldReturnEmptyList_whenNodeHasNoNeighbor() {
 
-        Node node = new Node("Node", NodeType.CITY);
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
         when(nodeRepository.getNode("Node")).thenReturn(node);
 
         List<Node> neighbours = nodeService.getDirectNeighbours("Node");
@@ -46,8 +46,8 @@ public class NodeServiceTest {
     @Test
     void getDirectNeighbours_shouldReturnListWithOneElement_whenNodeHasOneNeighbor() {
 
-        Node node = new Node("Node", NodeType.CITY);
-        Node neighbour = new Node("Neighbour", NodeType.CITY);
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
+        Node neighbour = new Node("Neighbour", NodeType.CITY, 0, 0);
         Link link = new Link("Link", neighbour, LinkType.HIGHWAY, 10);
         node.addLink(link);
         when(nodeRepository.getNode("Node")).thenReturn(node);
@@ -59,7 +59,7 @@ public class NodeServiceTest {
 
     @Test
     void getType_shouldReturnMatchingNodeType() {
-        Node node = new Node("Node", NodeType.RECREATION_CENTER);
+        Node node = new Node("Node", NodeType.RECREATION_CENTER, 0, 0);
         when(nodeRepository.getNode("Node")).thenReturn(node);
         assertThat(nodeService.getType("Node")).isEqualTo(NodeType.RECREATION_CENTER);
     }
@@ -67,7 +67,7 @@ public class NodeServiceTest {
     @Test
     void getDirectNeighborsLinks_shouldReturnEmptyList_whenNodeHasNoNeighbor() {
 
-        Node node = new Node("Node", NodeType.CITY);
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
         when(nodeRepository.getNode("Node")).thenReturn(node);
 
         List<Link> neighboursLinks = nodeService.getDirectNeighborsLinks("Node");
@@ -77,8 +77,8 @@ public class NodeServiceTest {
 
     @Test
     void getDirectNeighborsLinks_shouldReturnListWithOneElement_whenNodeHasOneNeighbor() {
-        Node node = new Node("Node", NodeType.CITY);
-        Node neighbour = new Node("Neighbour", NodeType.CITY);
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
+        Node neighbour = new Node("Neighbour", NodeType.CITY, 0, 0);
         Link link = new Link("Link", neighbour, LinkType.HIGHWAY, 10);
         node.addLink(link);
         when(nodeRepository.getNode("Node")).thenReturn(node);
@@ -90,7 +90,7 @@ public class NodeServiceTest {
 
     @Test
     void getNode_shouldReturnNode() {
-        Node node = new Node("Node", NodeType.CITY);
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
 
         when(nodeRepository.getNode("Node")).thenReturn(node);
 
@@ -99,7 +99,7 @@ public class NodeServiceTest {
 
     @Test
     void getNode_shouldReturnNode2() {
-        Node node = new Node("Node2", NodeType.CITY);
+        Node node = new Node("Node2", NodeType.CITY, 0, 0);
 
         when(nodeRepository.getNode("Node2")).thenReturn(node);
 
@@ -108,7 +108,7 @@ public class NodeServiceTest {
 
     @Test
     void getNodeCharacteristics_shouldReturnNodeCharacteristics() {
-        Node node = new Node("Node", NodeType.CITY);
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
 
         NodeCharacteristics expected = new NodeCharacteristics("Node", NodeType.CITY.toString(), Collections.emptyList());
         when(nodeRepository.getNode("Node")).thenReturn(node);
@@ -123,8 +123,8 @@ public class NodeServiceTest {
 
     @Test
     void getNodeCharacteristics_shouldReturnNodeCharacteristics2() {
-        Node node = new Node("Node2", NodeType.RECREATION_CENTER);
-        Node neighbour = new Node("Neighbour", NodeType.CITY);
+        Node node = new Node("Node2", NodeType.RECREATION_CENTER, 0, 0);
+        Node neighbour = new Node("Neighbour", NodeType.CITY, 0, 0);
         Link link = new Link("Link", neighbour, LinkType.HIGHWAY, 10);
         node.addLink(link);
 

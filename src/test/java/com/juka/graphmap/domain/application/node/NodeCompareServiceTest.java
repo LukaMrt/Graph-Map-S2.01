@@ -30,8 +30,8 @@ public class NodeCompareServiceTest {
 
     @Test
     void nodeCompare_shouldReturnMapFilledWithFalse_whenNode1HasNoNeighbor() {
-        Node node1 = new Node("Node1", NodeType.CITY);
-        Node node2 = new Node("Node2", NodeType.CITY);
+        Node node1 = new Node("Node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("Node2", NodeType.CITY, 0, 0);
         when(nodeRepository.getNode("Node1")).thenReturn(node1);
         when(nodeRepository.getNode("Node2")).thenReturn(node2);
 
@@ -42,10 +42,10 @@ public class NodeCompareServiceTest {
 
     @Test
     void nodeCompare_shouldReturnMapWithOpenTrue_whenNode1IsMoreOpen() {
-        Node node1 = new Node("City1", NodeType.CITY);
-        Node pass = new Node("Passage point", NodeType.RESTAURANT);
-        Node city = new Node("CityAt2Distance", NodeType.CITY);
-        Node node2 = new Node("City2", NodeType.CITY);
+        Node node1 = new Node("City1", NodeType.CITY, 0, 0);
+        Node pass = new Node("Passage point", NodeType.RESTAURANT, 0, 0);
+        Node city = new Node("CityAt2Distance", NodeType.CITY, 0, 0);
+        Node node2 = new Node("City2", NodeType.CITY, 0, 0);
 
         Link link1 = new Link("Link1", pass, LinkType.HIGHWAY, 10);
         Link link2 = new Link("Link2", city, LinkType.DEPARTMENTAL, 20);
@@ -65,12 +65,12 @@ public class NodeCompareServiceTest {
 
     @Test
     void nodeCompare_shouldReturnMapWithOpenTrueAndCulturalTrue_whenNode1IsMoreOpenAndMoreCultural() {
-        Node node1 = new Node("City1", NodeType.CITY);
-        Node pass = new Node("Passage point", NodeType.RESTAURANT);
-        Node city = new Node("CityAt2Distance", NodeType.CITY);
-        Node recreation = new Node("ParkAt2Distance", NodeType.RECREATION_CENTER);
+        Node node1 = new Node("City1", NodeType.CITY, 0, 0);
+        Node pass = new Node("Passage point", NodeType.RESTAURANT, 0, 0);
+        Node city = new Node("CityAt2Distance", NodeType.CITY, 0, 0);
+        Node recreation = new Node("ParkAt2Distance", NodeType.RECREATION_CENTER, 0, 0);
 
-        Node node2 = new Node("City2", NodeType.CITY);
+        Node node2 = new Node("City2", NodeType.CITY, 0, 0);
 
         Link link1 = new Link("Link1", pass, LinkType.HIGHWAY, 10);
         Link link2 = new Link("Link2", city, LinkType.DEPARTMENTAL, 20);
@@ -92,13 +92,13 @@ public class NodeCompareServiceTest {
 
     @Test
     void nodeCompare_ShouldReturnMapFilledWithTrue_whenNode1IsMoreOpenAndMoreCulturalAndMoreGastronomic() {
-        Node node1 = new Node("City1", NodeType.CITY);
-        Node pass = new Node("Passage point", NodeType.RESTAURANT);
-        Node city = new Node("CityAt2Distance", NodeType.CITY);
-        Node recreation = new Node("ParkAt2Distance", NodeType.RECREATION_CENTER);
-        Node restaurant = new Node("RestaurantAt2Distance", NodeType.RESTAURANT);
+        Node node1 = new Node("City1", NodeType.CITY, 0, 0);
+        Node pass = new Node("Passage point", NodeType.RESTAURANT, 0, 0);
+        Node city = new Node("CityAt2Distance", NodeType.CITY, 0, 0);
+        Node recreation = new Node("ParkAt2Distance", NodeType.RECREATION_CENTER, 0, 0);
+        Node restaurant = new Node("RestaurantAt2Distance", NodeType.RESTAURANT, 0, 0);
 
-        Node node2 = new Node("City2", NodeType.CITY);
+        Node node2 = new Node("City2", NodeType.CITY, 0, 0);
 
         Link link1 = new Link("Link1", pass, LinkType.HIGHWAY, 10);
         Link link2 = new Link("Link2", city, LinkType.DEPARTMENTAL, 20);

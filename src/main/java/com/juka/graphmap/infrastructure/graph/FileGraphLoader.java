@@ -53,11 +53,11 @@ public class FileGraphLoader implements GraphLoader {
                     .split(":")[0]
                     .split(",");
 
-            if (node.length != 2) {
+            if (node.length != 4) {
                 throw new InvalidNodeFormatException();
             }
 
-            nodes.add(new Node(node[1], NodeType.of(node[0])));
+            nodes.add(new Node(node[1], NodeType.of(node[0]), Integer.parseInt(node[2]), Integer.parseInt(node[3])));
         }
 
         reader.close();

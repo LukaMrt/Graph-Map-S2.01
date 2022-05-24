@@ -32,7 +32,7 @@ public class DefaultLinkRepositoryTest {
     @Test
     void getAllLinks_shouldReturnListWithOneLink_whenOneLinkAdded() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
         Link link = new Link("node", node1, LinkType.HIGHWAY, 10);
         linkRepository.addLink(link);
 
@@ -44,7 +44,7 @@ public class DefaultLinkRepositoryTest {
     @Test
     void getLink_shouldReturnLink_whenLinkAdded() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
         Link link = new Link("node", node1, LinkType.HIGHWAY, 10);
         linkRepository.addLink(link);
 

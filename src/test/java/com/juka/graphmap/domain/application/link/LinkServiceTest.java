@@ -51,8 +51,8 @@ public class LinkServiceTest {
 
     @Test
     void getLinkCharacteristics_shouldReturnLinkCharacteristics_whenLinkExists() {
-        Node node1 = new Node("node1", NodeType.CITY);
-        Node node2 = new Node("node2", NodeType.CITY);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("node2", NodeType.CITY, 0, 0);
 
         Link link = new Link("link.1", node2, LinkType.DEPARTMENTAL, 20);
         Link link2 = new Link("link.2", node1, LinkType.DEPARTMENTAL, 20);

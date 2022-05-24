@@ -40,7 +40,7 @@ public class GraphServiceTest {
     @Test
     void countCities_shouldReturn1_whenGraphHas1City() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node1));
 
         int result = graphService.countCities();
@@ -51,8 +51,8 @@ public class GraphServiceTest {
     @Test
     void countCities_shouldReturn2_whenGraphHas2Cities() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
-        Node node2 = new Node("node2", NodeType.CITY);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("node2", NodeType.CITY, 0, 0);
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2));
 
         int result = graphService.countCities();
@@ -63,7 +63,7 @@ public class GraphServiceTest {
     @Test
     void countRoads_shouldReturn1_whenGraphHas1Road() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
         Link link1 = new Link("link1", node1, LinkType.HIGHWAY, 1);
         Link link2 = new Link("link2", node1, LinkType.HIGHWAY, 1);
         when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2));
@@ -76,7 +76,7 @@ public class GraphServiceTest {
     @Test
     void countRoads_shouldReturn2_whenGraphHas2Roads() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
         Link link1 = new Link("link1", node1, LinkType.HIGHWAY, 1);
         Link link2 = new Link("link2", node1, LinkType.HIGHWAY, 1);
         Link link3 = new Link("link3", node1, LinkType.HIGHWAY, 1);
@@ -91,16 +91,16 @@ public class GraphServiceTest {
     @Test
     void getPercentageOfLocationType_shouldReturn10Percent_whenGraphHas10PercentOfCities() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
-        Node node2 = new Node("node2", NodeType.RECREATION_CENTER);
-        Node node3 = new Node("node3", NodeType.RECREATION_CENTER);
-        Node node4 = new Node("node4", NodeType.RECREATION_CENTER);
-        Node node5 = new Node("node5", NodeType.RECREATION_CENTER);
-        Node node6 = new Node("node6", NodeType.RECREATION_CENTER);
-        Node node7 = new Node("node7", NodeType.RECREATION_CENTER);
-        Node node8 = new Node("node8", NodeType.RECREATION_CENTER);
-        Node node9 = new Node("node9", NodeType.RECREATION_CENTER);
-        Node node10 = new Node("node10", NodeType.RECREATION_CENTER);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("node2", NodeType.RECREATION_CENTER, 0, 0);
+        Node node3 = new Node("node3", NodeType.RECREATION_CENTER, 0, 0);
+        Node node4 = new Node("node4", NodeType.RECREATION_CENTER, 0, 0);
+        Node node5 = new Node("node5", NodeType.RECREATION_CENTER, 0, 0);
+        Node node6 = new Node("node6", NodeType.RECREATION_CENTER, 0, 0);
+        Node node7 = new Node("node7", NodeType.RECREATION_CENTER, 0, 0);
+        Node node8 = new Node("node8", NodeType.RECREATION_CENTER, 0, 0);
+        Node node9 = new Node("node9", NodeType.RECREATION_CENTER, 0, 0);
+        Node node10 = new Node("node10", NodeType.RECREATION_CENTER, 0, 0);
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4, node5, node6, node7, node8, node9, node10));
 
         float result = graphService.getPercentageOfLocationType(NodeType.CITY);
@@ -111,16 +111,16 @@ public class GraphServiceTest {
     @Test
     void getPercentageOfLocationType_shouldReturn20Percent_whenGraphHas20PercentOfRestaurants() {
 
-        Node node1 = new Node("node1", NodeType.RESTAURANT);
-        Node node2 = new Node("node2", NodeType.RESTAURANT);
-        Node node3 = new Node("node3", NodeType.RECREATION_CENTER);
-        Node node4 = new Node("node4", NodeType.RECREATION_CENTER);
-        Node node5 = new Node("node5", NodeType.RECREATION_CENTER);
-        Node node6 = new Node("node6", NodeType.RECREATION_CENTER);
-        Node node7 = new Node("node7", NodeType.RECREATION_CENTER);
-        Node node8 = new Node("node8", NodeType.RECREATION_CENTER);
-        Node node9 = new Node("node9", NodeType.RECREATION_CENTER);
-        Node node10 = new Node("node10", NodeType.RECREATION_CENTER);
+        Node node1 = new Node("node1", NodeType.RESTAURANT, 0, 0);
+        Node node2 = new Node("node2", NodeType.RESTAURANT, 0, 0);
+        Node node3 = new Node("node3", NodeType.RECREATION_CENTER, 0, 0);
+        Node node4 = new Node("node4", NodeType.RECREATION_CENTER, 0, 0);
+        Node node5 = new Node("node5", NodeType.RECREATION_CENTER, 0, 0);
+        Node node6 = new Node("node6", NodeType.RECREATION_CENTER, 0, 0);
+        Node node7 = new Node("node7", NodeType.RECREATION_CENTER, 0, 0);
+        Node node8 = new Node("node8", NodeType.RECREATION_CENTER, 0, 0);
+        Node node9 = new Node("node9", NodeType.RECREATION_CENTER, 0, 0);
+        Node node10 = new Node("node10", NodeType.RECREATION_CENTER, 0, 0);
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4, node5, node6, node7, node8, node9, node10));
 
         float result = graphService.getPercentageOfLocationType(NodeType.RESTAURANT);
@@ -131,8 +131,8 @@ public class GraphServiceTest {
     @Test
     void getPercentageOfLinkType_shouldReturn10Percent_whenGraphHas10PercentOfHighways() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
-        Node node2 = new Node("node2", NodeType.RECREATION_CENTER);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("node2", NodeType.RECREATION_CENTER, 0, 0);
         Link link1 = new Link("link1", node1, LinkType.HIGHWAY, 1);
         Link link2 = new Link("link2", node2, LinkType.DEPARTMENTAL, 1);
         Link link3 = new Link("link3", node2, LinkType.DEPARTMENTAL, 1);
@@ -153,8 +153,8 @@ public class GraphServiceTest {
     @Test
     void getPercentageOfLinkType_shouldReturn20Percent_whenGraphHas20PercentOfNationals() {
 
-        Node node1 = new Node("node1", NodeType.CITY);
-        Node node2 = new Node("node2", NodeType.RECREATION_CENTER);
+        Node node1 = new Node("node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("node2", NodeType.RECREATION_CENTER, 0, 0);
         Link link1 = new Link("link1", node1, LinkType.NATIONAL, 1);
         Link link2 = new Link("link2", node2, LinkType.NATIONAL, 1);
         Link link3 = new Link("link3", node2, LinkType.DEPARTMENTAL, 1);
@@ -256,8 +256,8 @@ public class GraphServiceTest {
 
     @Test
     void getAllNodes_shouldReturnAllNodes() {
-        Node node1 = new Node("node", NodeType.CITY);
-        Node node2 = new Node("node", NodeType.RECREATION_CENTER);
+        Node node1 = new Node("node", NodeType.CITY, 0, 0);
+        Node node2 = new Node("node", NodeType.RECREATION_CENTER, 0, 0);
 
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2));
 
@@ -292,7 +292,7 @@ public class GraphServiceTest {
 
     @Test
     void nodeExist_shouldReturnTrue_whenNodeExist() {
-        Node node = new Node("node", NodeType.CITY);
+        Node node = new Node("node", NodeType.CITY, 0, 0);
 
         when(nodeRepository.getNode("node")).thenReturn(node);
 
@@ -343,9 +343,9 @@ public class GraphServiceTest {
 
     @Test
     void load_shouldStoreNodesAndLinks_whenThereAreNodesAndLinks() {
-        Node node = new Node("node", NodeType.CITY);
-        Node node2 = new Node("node2", NodeType.RECREATION_CENTER);
-        Node node3 = new Node("node3", NodeType.RESTAURANT);
+        Node node = new Node("node", NodeType.CITY, 0, 0);
+        Node node2 = new Node("node2", NodeType.RECREATION_CENTER, 0, 0);
+        Node node3 = new Node("node3", NodeType.RESTAURANT, 0, 0);
         Link link = new Link("link", node, LinkType.HIGHWAY, 0);
         Link link2 = new Link("link2", node, LinkType.HIGHWAY, 0);
 
