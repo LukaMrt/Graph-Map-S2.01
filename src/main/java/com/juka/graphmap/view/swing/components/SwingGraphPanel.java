@@ -13,6 +13,7 @@ import java.util.List;
 public class SwingGraphPanel extends JPanel {
 
     private final List<Node> nodes;
+    private final double nodeSize = 20;
 
     public SwingGraphPanel(List<Node> nodes) {
         super();
@@ -41,8 +42,8 @@ public class SwingGraphPanel extends JPanel {
                     case NATIONAL -> g2d.setColor(new Color(0,255,0));
                     case DEPARTMENTAL -> g2d.setColor(new Color(0,0,255));
                 }
-                g2d.draw(new Line2D.Double(nodeCoordinate.x() + 10, nodeCoordinate.y() + 10,
-                        neighborCoordinate.x()+ 10, neighborCoordinate.y() + 10));
+                g2d.draw(new Line2D.Double(nodeCoordinate.x() + nodeSize/2, nodeCoordinate.y() + nodeSize/2,
+                        neighborCoordinate.x() + nodeSize/2, neighborCoordinate.y() + nodeSize/2));
             }
 
         }
@@ -54,14 +55,16 @@ public class SwingGraphPanel extends JPanel {
             nodeCoordinate = node.getCoordinate();
 
             g2d.setColor(new Color(0,0,0));
-            g2d.drawString(node.getName(), (nodeCoordinate.x() - node.getName().length() * 3.3f), (nodeCoordinate.y() - 5));
+            g2d.drawString(node.getName(), (
+                    nodeCoordinate.x() - node.getName().length() * 3.3f),
+                    (float) (nodeCoordinate.y() - nodeSize/3));
 
             switch (node.getType()) {
                 case CITY -> g2d.setColor(new Color(0,255,0));
                 case RECREATION_CENTER -> g2d.setColor(new Color(0,0,255));
                 case RESTAURANT -> g2d.setColor(new Color(255,0,0));
             }
-            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), 20, 20));
+            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), nodeSize, nodeSize));
         }
     }
 }
