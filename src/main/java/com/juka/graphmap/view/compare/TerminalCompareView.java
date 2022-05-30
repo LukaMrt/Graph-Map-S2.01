@@ -1,6 +1,7 @@
 package com.juka.graphmap.view.compare;
 
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareView;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class TerminalCompareView implements CompareView {
 
     @Override
-    public void display(List<String> cities, List<Comparaison> result) {
+    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°5 - Comparaison de villes");

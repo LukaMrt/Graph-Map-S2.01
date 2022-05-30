@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.path;
 
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.path.Step;
 import com.juka.graphmap.ui.path.PathView;
@@ -9,7 +10,7 @@ import java.util.List;
 public class TerminalPathView implements PathView {
 
     @Override
-    public void display(List<String> nodes, String node1, String node2, Path path) {
+    public void display(List<Node> nodes, String node1, String node2, Path path) {
 
         System.out.println();
         System.out.println("------------------------------------------------------");
@@ -17,8 +18,8 @@ public class TerminalPathView implements PathView {
 
         System.out.println();
         System.out.println("Liste des noeuds :");
-        for (String node : nodes) {
-            System.out.println("- " + node);
+        for (Node node : nodes) {
+            System.out.println("- " + node.getName());
         }
 
         if (node1 != null && node2 != null) {

@@ -1,14 +1,16 @@
 package com.juka.graphmap.view.home;
 
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.roads.RoadsUI;
-import com.juka.graphmap.view.SwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class SwingHomeView extends SwingView implements HomeView {
 
@@ -24,16 +26,16 @@ public class SwingHomeView extends SwingView implements HomeView {
     }
 
     @Override
-    public void display(GraphCharacteristics graph) {
+    public void display(GraphCharacteristics graphCharacteristics, List<Node> nodes) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         this.frame.setContentPane(panel);
 
-        panel.add(buildNorthPanel(graph.error), BorderLayout.NORTH);
-        panel.add(buildLeftPanel(graph), BorderLayout.WEST);
-        panel.add(buildCenterPanel(graph), BorderLayout.CENTER);
-        panel.add(buildRightPanel(graph), BorderLayout.EAST);
+        panel.add(buildNorthPanel(graphCharacteristics.error), BorderLayout.NORTH);
+        panel.add(buildLeftPanel(graphCharacteristics), BorderLayout.WEST);
+        panel.add(buildCenterPanel(graphCharacteristics), BorderLayout.CENTER);
+        panel.add(buildRightPanel(graphCharacteristics), BorderLayout.EAST);
 
         panel.updateUI();
     }

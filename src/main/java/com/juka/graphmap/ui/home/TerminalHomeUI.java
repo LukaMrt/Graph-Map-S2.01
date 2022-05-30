@@ -29,7 +29,7 @@ public class TerminalHomeUI implements HomeUI {
     public void interact() {
 
         GraphCharacteristics graph = graphService.getGraphCharacteristics();
-        view.display(graph);
+        view.display(graph, graphService.getAllNodes());
 
         char entry = SCANNER.nextLine().charAt(0);
 

@@ -18,22 +18,32 @@ public class Node implements Comparable<Node> {
     private final List<Link> neighbors = new ArrayList<>();
     private final String name;
     private final NodeType type;
-    private final int x;
-    private final int y;
+    private final Coordinate coordinate;
 
     /**
-     * Constructor of the node.
+     * Constructor of the node with coordinate.
      *
      * @param name name of the node
      * @param type type of the node
      * @param x x coordinate of the node
      * @param y y coordinate of the node
      */
-    public Node(String name, NodeType type, int x, int y) {
+    public Node(String name, NodeType type, int abscissa, int ordinate) {
         this.name = name;
         this.type = type;
-        this.x = x;
-        this.y = y;
+        this.coordinate = new Coordinate(abscissa, ordinate);
+    }
+
+    /**
+     * Constructor of the node without coordinate.
+     *
+     * @param name name of the node
+     * @param type type of the node
+     */
+    public Node(String name, NodeType type) {
+        this.name = name;
+        this.type = type;
+        this.coordinate = null;
     }
 
     /**
@@ -84,21 +94,12 @@ public class Node implements Comparable<Node> {
     }
 
     /**
-     * Returns the x coordinate of the node.
+     * Returns the coordinate of the node.
      *
-     * @return the x coordinate of the node
+     * @return the coordinate of the node
      */
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * Returns the y coordinate of the node.
-     *
-     * @return the y coordinate of the node
-     */
-    public int getY() {
-        return y;
+    public Coordinate getCoordinate() {
+        return this.coordinate;
     }
 
     @Override

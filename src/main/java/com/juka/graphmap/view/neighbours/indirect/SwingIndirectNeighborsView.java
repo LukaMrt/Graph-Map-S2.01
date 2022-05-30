@@ -5,7 +5,7 @@ import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;
-import com.juka.graphmap.view.SwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,10 +1,11 @@
 package com.juka.graphmap.view.path;
 
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.path.PathUI;
 import com.juka.graphmap.ui.path.PathView;
-import com.juka.graphmap.view.SwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
@@ -25,14 +26,14 @@ public class SwingPathView extends SwingView implements PathView {
     }
 
     @Override
-    public void display(List<String> nodes, String node1, String node2, Path path) {
+    public void display(List<Node> nodes, String node1, String node2, Path path) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         this.frame.setContentPane(panel);
 
         panel.add(buildTitle("Plus court chemin", 6), BorderLayout.NORTH);
-        panel.add(buildCenterPanel(nodes, node1, node2, path), BorderLayout.CENTER);
+        panel.add(buildCenterPanel(nodes.stream().map(Node::getName).toList(), node1, node2, path), BorderLayout.CENTER);
         panel.add(buildBottomPanel(), BorderLayout.SOUTH);
 
         panel.updateUI();
@@ -123,7 +124,7 @@ public class SwingPathView extends SwingView implements PathView {
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         String[] steps = path.getPath().stream()
-                .map(step -> "=> " + step.getDestination().getName() + (step.getOriginLink() != null ? ", via " + step.getOriginLink().getRoadNameWithIndex() + " (" + step.getOriginLink().getDistance() + "km)" : ""))
+                .map(step -> "=> " + step.getDestination().getName() + (step.getOriginLink() != null ? ", via " + step.getOriginLink().getRoadNameWithIndex() + " (" + step.getOriginLink().getDistance() + " km)" : ""))
                 .toList()
                 .toArray(new String[0]);
         JList<String> pathList = new JList<>(steps);

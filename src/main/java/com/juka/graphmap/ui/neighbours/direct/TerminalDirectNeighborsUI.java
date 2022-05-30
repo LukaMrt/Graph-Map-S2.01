@@ -39,9 +39,8 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
         LinkCharacteristics characteristics = link != null && !link.isEmpty() ? linkService.getLinkCharacteristics(linkService.getLink(link).getRoadNameWithIndex()) : LinkCharacteristics.empty();
         NodeCharacteristics characteristics2 = node != null && !node.isEmpty() ? nodeService.getNodeCharacteristics(nodeService.getNode(node).getName()) : NodeCharacteristics.empty();
         List<String> links = graphService.getAllLinks().stream().map(Link::getRoadNameWithIndex).distinct().toList();
-        List<String> nodes = graphService.getAllNodes().stream().map(Node::getName).toList();
 
-        view.display(nodes, links, characteristics2, characteristics);
+        view.display(graphService.getAllNodes(), links, characteristics2, characteristics);
 
         char choice = SCANNER.nextLine().charAt(0);
 

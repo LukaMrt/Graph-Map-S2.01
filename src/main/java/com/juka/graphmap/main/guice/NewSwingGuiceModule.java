@@ -7,11 +7,11 @@ import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.application.path.FloydWarshallDistancesRepository;
 import com.juka.graphmap.domain.application.path.PathService;
 import com.juka.graphmap.domain.application.path.RoadsFinderService;
-import com.juka.graphmap.infrastructure.path.DefaultFloydWarshallDistancesRepository;
 import com.juka.graphmap.domain.model.file.FilePath;
 import com.juka.graphmap.infrastructure.DefaultLinkRepository;
 import com.juka.graphmap.infrastructure.DefaultNodeRepository;
 import com.juka.graphmap.infrastructure.graph.FileGraphLoader;
+import com.juka.graphmap.infrastructure.path.DefaultFloydWarshallDistancesRepository;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.compare.CompareView;
 import com.juka.graphmap.ui.compare.SwingCompareUI;
@@ -33,22 +33,23 @@ import com.juka.graphmap.ui.path.SwingPathUI;
 import com.juka.graphmap.ui.roads.RoadsUI;
 import com.juka.graphmap.ui.roads.RoadsView;
 import com.juka.graphmap.ui.roads.SwingRoadsUI;
-import com.juka.graphmap.view.compare.SwingCompareView;
+import com.juka.graphmap.view.compare.NewSwingCompareView;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
-import com.juka.graphmap.view.graph.SwingGraphView;
-import com.juka.graphmap.view.home.SwingHomeView;
-import com.juka.graphmap.view.neighbours.indirect.SwingIndirectNeighborsView;
-import com.juka.graphmap.view.path.SwingPathView;
-import com.juka.graphmap.view.roads.SwingRoadsView;
+import com.juka.graphmap.view.graph.NewSwingGraphView;
+import com.juka.graphmap.view.home.NewSwingHomeView;
+import com.juka.graphmap.view.neighbours.direct.NewSwingDirectNeighborsView;
+import com.juka.graphmap.view.neighbours.indirect.NewSwingIndirectNeighborsView;
+import com.juka.graphmap.view.path.NewSwingPathView;
+import com.juka.graphmap.view.roads.NewSwingRoadsView;
 
 import javax.inject.Singleton;
 import javax.swing.*;
 
-public class SwingGuiceModule extends AbstractModule {
+public class NewSwingGuiceModule extends AbstractModule {
 
     private final FilePath path;
 
-    public SwingGuiceModule(String path) {
+    public NewSwingGuiceModule(String path) {
         this.path = new FilePath(path);
     }
 
@@ -65,13 +66,13 @@ public class SwingGuiceModule extends AbstractModule {
         bind(GraphLoader.class).to(FileGraphLoader.class);
         bind(RoadsFinderService.class).to(PathService.class);
 
-        bind(HomeView.class).to(SwingHomeView.class);
-        bind(GraphView.class).to(SwingGraphView.class);
-        bind(CompareView.class).to(SwingCompareView.class);
-        bind(DirectNeighborsView.class).to(com.juka.graphmap.view.neighbours.direct.SwingDirectNeighborsView.class);
-        bind(IndirectNeighborsView.class).to(SwingIndirectNeighborsView.class);
-        bind(PathView.class).to(SwingPathView.class);
-        bind(RoadsView.class).to(SwingRoadsView.class);
+        bind(HomeView.class).to(NewSwingHomeView.class);
+        bind(GraphView.class).to(NewSwingGraphView.class);
+        bind(CompareView.class).to(NewSwingCompareView.class);
+        bind(DirectNeighborsView.class).to(NewSwingDirectNeighborsView.class);
+        bind(IndirectNeighborsView.class).to(NewSwingIndirectNeighborsView.class);
+        bind(PathView.class).to(NewSwingPathView.class);
+        bind(RoadsView.class).to(NewSwingRoadsView.class);
 
         bind(HomeUI.class).to(SwingHomeUI.class);
         bind(GraphUI.class).to(SwingGraphUI.class);

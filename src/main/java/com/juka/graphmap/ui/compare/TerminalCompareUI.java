@@ -50,7 +50,7 @@ public class TerminalCompareUI implements CompareUI {
                 .map(Node::getName)
                 .collect(Collectors.toList());
 
-        compareView.display(cities, result);
+        compareView.display(graphService.getAllNodes(), cities, result);
 
         char choice = SCANNER.nextLine().charAt(0);
 

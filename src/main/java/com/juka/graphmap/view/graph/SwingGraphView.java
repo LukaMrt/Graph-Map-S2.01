@@ -1,11 +1,12 @@
 package com.juka.graphmap.view.graph;
 
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.graph.GraphView;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.path.PathUI;
-import com.juka.graphmap.view.SwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
@@ -30,14 +31,14 @@ public class SwingGraphView extends SwingView implements GraphView {
     }
 
     @Override
-    public void display(List<String> nodes, List<String> links) {
+    public void display(List<Node> nodes, List<String> links) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         this.frame.setContentPane(panel);
 
         panel.add(buildTitle("Graphe", 2), BorderLayout.NORTH);
-        panel.add(buildLeftPanel(nodes), BorderLayout.WEST);
+        panel.add(buildLeftPanel(nodes.stream().map(Node::getName).toList()), BorderLayout.WEST);
         panel.add(buildCenterPanel(), BorderLayout.CENTER);
         panel.add(buildRightPanel(links), BorderLayout.EAST);
 

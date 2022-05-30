@@ -10,7 +10,6 @@ import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TerminalPathUI implements PathUI {
@@ -43,11 +42,7 @@ public class TerminalPathUI implements PathUI {
             path = pathService.getShortestPath(nodeName1, nodeName2);
         }
 
-        List<String> nodes = graphService.getAllNodes().stream()
-                .map(Node::getName)
-                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
-
-        pathView.display(nodes, nodeName1, nodeName2, path);
+        pathView.display(graphService.getAllNodes(), nodeName1, nodeName2, path);
 
         char choice = SCANNER.nextLine().charAt(0);
 

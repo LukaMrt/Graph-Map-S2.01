@@ -1,6 +1,7 @@
 package com.juka.graphmap.view.graph;
 
 
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphView;
 
 import java.util.List;
@@ -8,15 +9,15 @@ import java.util.List;
 public class TerminalGraphView implements GraphView {
 
     @Override
-    public void display(List<String> nodes, List<String> links) {
+    public void display(List<Node> nodes, List<String> links) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°2 - Choix des informations à afficher");
         System.out.println();
 
         System.out.println("Liste des noeuds :");
-        for (String node : nodes) {
-            System.out.println("- " + node);
+        for (Node node : nodes) {
+            System.out.println("- " + node.getName());
         }
         System.out.println();
 

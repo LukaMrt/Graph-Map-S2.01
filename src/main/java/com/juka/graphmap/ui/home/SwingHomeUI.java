@@ -20,7 +20,7 @@ public class SwingHomeUI implements HomeUI {
     public void interact() {
 
         GraphCharacteristics characteristics = graphService.getGraphCharacteristics();
-        view.display(characteristics);
+        view.display(characteristics, graphService.getAllNodes());
 
     }
 

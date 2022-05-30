@@ -33,4 +33,13 @@ public class Comparaison {
     public String toString() {
         return best + " est plus " + name + " que " + worst;
     }
+
+    /**
+     * Return a short description of the comparison.
+     * @return A short description of the comparison.
+     */
+    public String toShortString() {
+        return best + " est plus " + name;
+    }
+
 }

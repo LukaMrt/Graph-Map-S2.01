@@ -10,9 +10,7 @@ import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
 
 import javax.inject.Inject;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class FileGraphLoader implements GraphLoader {
         try {
             loadNodes(nodes);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Fichier non trouvé");
             return null;
         }
 
@@ -42,7 +40,13 @@ public class FileGraphLoader implements GraphLoader {
 
     private void loadNodes(List<Node> nodes) throws Exception {
 
-        BufferedReader reader = new BufferedReader(new FileReader(filePath.path));
+        File file = new File(filePath.path());
+
+        if (!file.exists()) {
+            throw new FileNotFoundException();
+        }
+
+        BufferedReader reader = new BufferedReader(new FileReader(filePath.path()));
 
         String line;
 
@@ -72,7 +76,7 @@ public class FileGraphLoader implements GraphLoader {
         try {
             loadLinks(nodeRepository, links);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Fichier non trouvé");
             return null;
         }
 
@@ -81,7 +85,13 @@ public class FileGraphLoader implements GraphLoader {
 
     private void loadLinks(NodeRepository nodeRepository, List<Link> links) throws IOException, RuntimeException {
 
-        BufferedReader reader = new BufferedReader(new FileReader(filePath.path));
+        File file = new File(filePath.path());
+
+        if (!file.exists()) {
+            throw new FileNotFoundException();
+        }
+
+        BufferedReader reader = new BufferedReader(new FileReader(filePath.path()));
 
         String line;
         String[] neighbors;

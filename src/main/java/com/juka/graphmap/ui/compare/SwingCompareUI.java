@@ -35,12 +35,12 @@ public class SwingCompareUI implements CompareUI {
                     .forEach(result::add);
         }
 
-        List<String> nodes = graphService.getAllNodes().stream()
+        List<String> cities = graphService.getAllNodes().stream()
                 .filter(node -> node.getType() == NodeType.CITY)
                 .map(Node::getName)
                 .toList();
 
-        view.display(nodes, result);
+        view.display(graphService.getAllNodes(), cities, result);
 
     }
 

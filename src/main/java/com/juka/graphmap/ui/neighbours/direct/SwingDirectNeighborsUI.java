@@ -46,11 +46,7 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
                 .distinct()
                 .toList();
 
-        List<String> nodes = graphService.getAllNodes().stream()
-                .map(Node::getName)
-                .toList();
-
-        view.display(nodes, links, nodeCharacteristics, linkCharacteristics);
+        view.display(graphService.getAllNodes(), links, nodeCharacteristics, linkCharacteristics);
 
     }
 

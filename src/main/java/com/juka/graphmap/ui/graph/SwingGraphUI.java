@@ -21,15 +21,11 @@ public class SwingGraphUI implements GraphUI {
     @Override
     public void interact() {
 
-        List<String> nodes = graphService.getAllNodes().stream()
-                .map(Node::getName)
-                .toList();
-
         List<String> links = graphService.getAllLinks().stream()
                 .map(Link::getRoadNameWithIndex)
                 .toList();
 
-        view.display(nodes, links);
+        view.display(graphService.getAllNodes(), links);
     }
 
 }

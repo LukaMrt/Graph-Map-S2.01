@@ -1,11 +1,12 @@
 package com.juka.graphmap.view.neighbours.direct;
 
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsView;
-import com.juka.graphmap.view.SwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
@@ -26,14 +27,14 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
     }
 
     @Override
-    public void display(List<String> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {
+    public void display(List<Node> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         this.frame.setContentPane(panel);
 
         panel.add(buildTitle("Voisinage direct", 3), BorderLayout.NORTH);
-        panel.add(buildLeftPanel(nodes, nodeCharacteristics, linkCharacteristics.name), BorderLayout.WEST);
+        panel.add(buildLeftPanel(nodes.stream().map(Node::getName).toList(), nodeCharacteristics, linkCharacteristics.name), BorderLayout.WEST);
         panel.add(buildRightPanel(links, linkCharacteristics, nodeCharacteristics.name), BorderLayout.EAST);
         panel.add(buildBottomPanel(), BorderLayout.SOUTH);
 

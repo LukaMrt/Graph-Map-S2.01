@@ -1,6 +1,7 @@
 package com.juka.graphmap.view.neighbours.direct;
 
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsView;
 
@@ -9,15 +10,15 @@ import java.util.List;
 public class TerminalDirectNeighborsView implements DirectNeighborsView {
 
     @Override
-    public void display(List<String> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {
+    public void display(List<Node> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°3 - Voisinage direct");
 
         System.out.println();
         System.out.println("Liste des noeuds :");
-        for (String node : nodes) {
-            System.out.println("- " + node);
+        for (Node node : nodes) {
+            System.out.println("- " + node.getName());
         }
 
         System.out.println();

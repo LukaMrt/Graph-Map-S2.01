@@ -2,10 +2,11 @@ package com.juka.graphmap.view.compare;
 
 import com.google.inject.Inject;
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
+import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.compare.CompareView;
 import com.juka.graphmap.ui.graph.GraphUI;
-import com.juka.graphmap.view.SwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +26,7 @@ public class SwingCompareView extends SwingView implements CompareView {
     }
 
     @Override
-    public void display(List<String> cities, List<Comparaison> result) {
+    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
