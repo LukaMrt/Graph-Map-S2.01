@@ -46,7 +46,7 @@ public class SwingPathUI implements PathUI {
             nodeService.select(end);
         }
 
-        linkService.unselectAll();
+        linkService.unSelectAll();
         for (Step step : path.getPath()) {
             nodeService.select(step.getDestination().getName());
             if (step.getOriginLink() != null) {

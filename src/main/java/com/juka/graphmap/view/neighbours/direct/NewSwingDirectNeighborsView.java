@@ -49,6 +49,11 @@ public class NewSwingDirectNeighborsView extends GlobalSwingView implements Dire
     }
 
     @Override
+    protected String getHelp() {
+        return "Clic gauche pour sélectionner un noeud ou un lien pour afficher ses caractéristiques.";
+    }
+
+    @Override
     protected Title getTitle() {
         return new Title("Voisinage direct", 3);
     }

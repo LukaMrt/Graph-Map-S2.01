@@ -1,6 +1,5 @@
 package com.juka.graphmap.view.graph;
 
-import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.compare.CompareUI;
@@ -47,6 +46,11 @@ public class NewSwingGraphView extends GlobalSwingView implements GraphView {
         this.nodes = nodes.stream().map(Node::getName).toList();
         this.links = links;
         super.display(nodes);
+    }
+
+    @Override
+    protected String getHelp() {
+        return "Aucune action n'est disponible sur cet écran.";
     }
 
     @Override

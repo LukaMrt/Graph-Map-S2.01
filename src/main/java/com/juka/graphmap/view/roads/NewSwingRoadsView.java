@@ -51,6 +51,11 @@ public class NewSwingRoadsView extends GlobalSwingView implements RoadsView {
     }
 
     @Override
+    protected String getHelp() {
+        return "Clic gauche pour sélectionner le départ, clic droit pour sélectionner l'arrivée et shift clic pour sélectionner et désélectionner une étape.";
+    }
+
+    @Override
     protected Title getTitle() {
         return new Title("Routes", 7);
     }

@@ -36,7 +36,7 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
 
         boolean result = false;
 
-        if (node1 != null && node2 != null) {
+        if (node1 != null && !node1.isEmpty() && node2 != null && !node2.isEmpty()) {
             result = distanceService.are2distance(node1, node2);
         }
 

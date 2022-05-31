@@ -3,6 +3,7 @@ package com.juka.graphmap.view.compare;
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.compare.CompareView;
@@ -43,6 +44,11 @@ public class NewSwingCompareView extends GlobalSwingView implements CompareView 
         super.display(nodes);
         this.city1 = city1;
         this.city2 = city2;
+    }
+
+    @Override
+    protected String getHelp() {
+        return "Clic droit pour sélectionner le premier lieu, clic gauche pour sélectionner le second lieu et les comparer.";
     }
 
     @Override
@@ -140,7 +146,11 @@ public class NewSwingCompareView extends GlobalSwingView implements CompareView 
     @Override
     public void leftClick(Node node, Link link) {
 
-        String newNode = node != null ? node.getName() : city2;
+        if (node != null && node.getType() != NodeType.CITY) {
+            compareUI.interact(city1, city2);
+        }
+
+        String newNode = node != null ? node.getName() : city1;
 
         compareUI.interact(newNode, city2);
     }
@@ -148,7 +158,11 @@ public class NewSwingCompareView extends GlobalSwingView implements CompareView 
     @Override
     public void rightClick(Node node, Link link) {
 
-        String newNode = node != null ? node.getName() : city1;
+        if (node != null && node.getType() != NodeType.CITY) {
+            compareUI.interact(city1, city2);
+        }
+
+        String newNode = node != null ? node.getName() : city2;
 
         compareUI.interact(city1, newNode);
     }

@@ -47,6 +47,11 @@ public class NewSwingPathView extends GlobalSwingView implements PathView {
     }
 
     @Override
+    protected String getHelp() {
+        return "Clic droit pour sélectionner le premier lieu, clic gauche pour sélectionner le second lieu et afficher le chemin le plus court.";
+    }
+
+    @Override
     protected Title getTitle() {
         return new Title("Plus court chemin", 6);
     }

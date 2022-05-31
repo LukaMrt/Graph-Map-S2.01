@@ -2,6 +2,7 @@ package com.juka.graphmap.view.neighbours.indirect;
 
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
@@ -43,6 +44,11 @@ public class NewSwingIndirectNeighborsView extends GlobalSwingView implements In
         this.location2 = location2 != null ? location2 : "";
         this.result = result;
         super.display(nodes);
+    }
+
+    @Override
+    protected String getHelp() {
+        return "Clic droit pour sélectionner la première ville, clic gauche pour sélectionner la seconde ville et savoir si elles sont à 2-distance.";
     }
 
     @Override
@@ -137,7 +143,7 @@ public class NewSwingIndirectNeighborsView extends GlobalSwingView implements In
 
         String newNode = node != null ? node.getName() : location1;
 
-        indirectNeighborsUI.interact(newNode, location1);
+        indirectNeighborsUI.interact(newNode, location2);
     }
 
     @Override

@@ -34,8 +34,19 @@ public abstract class GlobalSwingView {
                         .build()
         );
 
+        JMenu menu = this.frame.getJMenuBar().getMenu(2);
+        JMenuItem item = menu.getItem(0);
+
+        menu.remove(item);
+
+        item = new JMenuItem("Consignes de cet écran");
+        item.addActionListener(e -> JOptionPane.showMessageDialog(this.frame, this.getHelp(), "Aide", JOptionPane.INFORMATION_MESSAGE));
+        menu.add(item);
+
         ((JPanel) this.frame.getContentPane()).updateUI();
     }
+
+    protected abstract String getHelp();
 
     private JPanel buildSidePanel(JPanel panel) {
         return aPanel()
@@ -84,10 +95,13 @@ public abstract class GlobalSwingView {
 
     protected abstract JPanel buildRightPanel();
 
-    public void leftClick(Node node, Link link) {}
+    public void leftClick(Node node, Link link) {
+    }
 
-    public void rightClick(Node node, Link link) {}
+    public void rightClick(Node node, Link link) {
+    }
 
-    public void shiftClick(Node node, Link link) {}
+    public void shiftClick(Node node, Link link) {
+    }
 
 }

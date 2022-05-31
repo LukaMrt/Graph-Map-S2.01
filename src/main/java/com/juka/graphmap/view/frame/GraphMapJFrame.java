@@ -46,6 +46,11 @@ public class GraphMapJFrame extends JFrame {
         menu.add(item);
         jMenuBar.add(menu);
 
+        menu = new JMenu("Aide");
+        item = new JMenuItem("Consignes de cet écran");
+        menu.add(item);
+        jMenuBar.add(menu);
+
         return jMenuBar;
     }
 

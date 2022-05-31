@@ -40,7 +40,7 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
 
         if (link != null && !link.isEmpty()) {
             linkCharacteristics = linkService.getLinkCharacteristics(link);
-            linkService.unselectAll();
+            linkService.unSelectAll();
             linkService.select(link);
         }
 

@@ -60,7 +60,7 @@ public class LinkService {
         return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType().toString(), link.getDistance());
     }
 
-    public void unselectAll() {
+    public void unSelectAll() {
         linkRepository.getAllLinks().forEach(Link::unselect);
     }
 
