@@ -33,23 +33,12 @@ public class LabelBuilder {
         return withFont(new Font("Arial", Font.BOLD, 35));
     }
 
-    public LabelBuilder with20PlainFont() {
-        return withFont(new Font("Arial", Font.PLAIN, 20));
-    }
-
     public LabelBuilder isTitle() {
         return withFont(new Font("Arial", Font.PLAIN, 19));
     }
 
     public LabelBuilder isText() {
         return withFont(new Font("Arial", Font.PLAIN, 16));
-    }
-
-
-
-    public LabelBuilder withAlignmentX(float alignmentX) {
-        this.label.setAlignmentX(alignmentX);
-        return this;
     }
 
     public LabelBuilder isXCentered() {
@@ -59,6 +48,11 @@ public class LabelBuilder {
 
     public JLabel build() {
         return this.label;
+    }
+
+    public LabelBuilder withColor(Color color) {
+        this.label.setForeground(color);
+        return this;
     }
 
 }

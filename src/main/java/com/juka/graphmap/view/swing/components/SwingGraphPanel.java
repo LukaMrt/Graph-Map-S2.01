@@ -38,12 +38,12 @@ public class SwingGraphPanel extends JPanel {
                 neighborCoordinate = neighborLink.getDestination().getCoordinate();
 
                 switch (neighborLink.getType()) {
-                    case HIGHWAY -> g2d.setColor(new Color(255,0,0));
-                    case NATIONAL -> g2d.setColor(new Color(0,255,0));
-                    case DEPARTMENTAL -> g2d.setColor(new Color(0,0,255));
+                    case HIGHWAY -> g2d.setColor(new Color(255, 0, 0));
+                    case NATIONAL -> g2d.setColor(new Color(0, 255, 0));
+                    case DEPARTMENTAL -> g2d.setColor(new Color(0, 0, 255));
                 }
-                g2d.draw(new Line2D.Double(nodeCoordinate.x() + nodeSize/2, nodeCoordinate.y() + nodeSize/2,
-                        neighborCoordinate.x() + nodeSize/2, neighborCoordinate.y() + nodeSize/2));
+                g2d.draw(new Line2D.Double(nodeCoordinate.x() + nodeSize / 2, nodeCoordinate.y() + nodeSize / 2,
+                        neighborCoordinate.x() + nodeSize / 2, neighborCoordinate.y() + nodeSize / 2));
             }
 
         }
@@ -54,15 +54,15 @@ public class SwingGraphPanel extends JPanel {
         for (Node node : nodes) {
             nodeCoordinate = node.getCoordinate();
 
-            g2d.setColor(new Color(0,0,0));
+            g2d.setColor(new Color(0, 0, 0));
             g2d.drawString(node.getName(), (
-                    nodeCoordinate.x() - node.getName().length() * 3.3f),
-                    (float) (nodeCoordinate.y() - nodeSize/3));
+                            nodeCoordinate.x() - node.getName().length() * 3.3f),
+                    (float) (nodeCoordinate.y() - nodeSize / 3));
 
             switch (node.getType()) {
-                case CITY -> g2d.setColor(new Color(0,255,0));
-                case RECREATION_CENTER -> g2d.setColor(new Color(0,0,255));
-                case RESTAURANT -> g2d.setColor(new Color(255,0,0));
+                case CITY -> g2d.setColor(new Color(0, 255, 0));
+                case RECREATION_CENTER -> g2d.setColor(new Color(0, 0, 255));
+                case RESTAURANT -> g2d.setColor(new Color(255, 0, 0));
             }
             g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), nodeSize, nodeSize));
         }

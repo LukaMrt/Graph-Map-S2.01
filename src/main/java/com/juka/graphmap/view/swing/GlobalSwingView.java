@@ -61,6 +61,7 @@ public abstract class GlobalSwingView {
                         .isSubBigTitle()
                         .isXCentered()
                         .build())
+                .addRigidArea(0, 10)
                 .build();
     }
 
