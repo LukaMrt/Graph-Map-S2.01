@@ -14,6 +14,7 @@ public class SwingGraphPanel extends JPanel {
 
     private final List<Node> nodes;
     private final double nodeSize = 20;
+    private boolean graphDrawn = false;
 
     public SwingGraphPanel(List<Node> nodes) {
         super();
@@ -25,8 +26,15 @@ public class SwingGraphPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        drawLinks(g2d, nodes);
-        drawNodes(g2d, nodes);
+        if (!graphDrawn) {
+            drawLinks(g2d, nodes);
+            drawNodes(g2d, nodes);
+            graphDrawn = true;
+        } else {
+            for (Node node : nodes) {
+                if (node.isSelected()) drawSelectedNode(g2d, node);
+            }
+        }
     }
 
     private void drawLinks(Graphics2D g2d, List<Node> nodes) {
@@ -67,5 +75,10 @@ public class SwingGraphPanel extends JPanel {
             }
             g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), nodeSize, nodeSize));
         }
+    }
+
+    private void drawSelectedNode(Graphics2D g2d, Node node) {
+        g2d.setColor(new Color(255, 81, 0, 255));
+        g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), nodeSize, nodeSize));
     }
 }
