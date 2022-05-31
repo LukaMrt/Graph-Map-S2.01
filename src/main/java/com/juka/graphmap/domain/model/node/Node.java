@@ -19,19 +19,21 @@ public class Node implements Comparable<Node> {
     private final String name;
     private final NodeType type;
     private final Coordinate coordinate;
+    private boolean selected;
 
     /**
      * Constructor of the node with coordinate.
      *
      * @param name name of the node
      * @param type type of the node
-     * @param x x coordinate of the node
-     * @param y y coordinate of the node
+     * @param abscissa x coordinate of the node
+     * @param ordinate y coordinate of the node
      */
     public Node(String name, NodeType type, int abscissa, int ordinate) {
         this.name = name;
         this.type = type;
         this.coordinate = new Coordinate(abscissa, ordinate);
+        this.selected = false;
     }
 
     /**
@@ -100,6 +102,18 @@ public class Node implements Comparable<Node> {
      */
     public Coordinate getCoordinate() {
         return this.coordinate;
+    }
+
+    public boolean isSelected() {
+        return this.selected;
+    }
+
+    public void select() {
+        this.selected = true;
+    }
+
+    public void unselect() {
+        this.selected = false;
     }
 
     @Override
