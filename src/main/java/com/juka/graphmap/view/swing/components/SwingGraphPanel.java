@@ -30,7 +30,8 @@ public class SwingGraphPanel extends JPanel {
     }
 
     private void drawLinks(Graphics2D g2d, List<Node> nodes) {
-        Coordinate nodeCoordinate, neighborCoordinate;
+        Coordinate nodeCoordinate;
+        Coordinate neighborCoordinate;
         for (Node node : nodes) {
             nodeCoordinate = node.getCoordinate();
 

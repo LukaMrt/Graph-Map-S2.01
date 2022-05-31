@@ -5,7 +5,6 @@ import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
-import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.ui.graph.GraphUI;
 

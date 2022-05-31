@@ -3,7 +3,6 @@ package com.juka.graphmap.ui.graph;
 import com.google.inject.Inject;
 import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.model.link.Link;
-import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;

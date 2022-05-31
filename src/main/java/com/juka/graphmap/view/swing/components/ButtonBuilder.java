@@ -1,7 +1,5 @@
 package com.juka.graphmap.view.swing.components;
 
-import com.juka.graphmap.domain.model.graph.GraphCharacteristicsBuilder;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;

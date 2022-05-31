@@ -1,15 +1,12 @@
 package com.juka.graphmap.domain.application.link;
 
 import com.juka.graphmap.domain.application.graph.LinkRepository;
-import com.juka.graphmap.domain.application.graph.NodeRepository;
-import com.juka.graphmap.domain.model.exception.LinkDoesntExistException;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
 import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Optional;
 
 public class LinkService {
 

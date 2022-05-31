@@ -2,7 +2,6 @@ package com.juka.graphmap.ui.graph;
 
 import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.model.link.Link;
-import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.List;
