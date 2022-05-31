@@ -78,4 +78,25 @@ public class LinkServiceTest {
         assertThat(result).isEqualTo(new LinkCharacteristics("", "", "", "", 0));
     }
 
+    @Test
+    void unselectAll_shouldUnselectAllLinks_whenLinksAreSelected() {
+        Link link = new Link("Link", null, LinkType.DEPARTMENTAL, 20);
+        link.select();
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link));
+
+        linkService.unselectAll();
+
+        assertThat(link.isSelected()).isFalse();
+    }
+
+    @Test
+    void select_shouldSelectLink_whenNodeExist() {
+        Link link = new Link("Link", null, LinkType.DEPARTMENTAL, 20);
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link));
+
+        linkService.select("Link");
+
+        assertThat(link.isSelected()).isTrue();
+    }
+
 }

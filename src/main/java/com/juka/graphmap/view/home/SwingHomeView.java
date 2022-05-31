@@ -2,168 +2,92 @@ package com.juka.graphmap.view.home;
 
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.roads.RoadsUI;
-import com.juka.graphmap.view.swing.SwingView;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.GlobalSwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class SwingHomeView extends SwingView implements HomeView {
+import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
-    private final JFrame frame;
+public class SwingHomeView extends GlobalSwingView implements HomeView {
+
     private final GraphUI graphUI;
     private final RoadsUI roadsUI;
+    private GraphCharacteristics graphCharacteristics;
 
     @Inject
-    public SwingHomeView(JFrame frame, GraphUI graphUI, RoadsUI roadsUI) {
-        this.frame = frame;
+    public SwingHomeView(GraphMapJFrame frame, GraphUI graphUI, RoadsUI roadsUI) {
+        super(frame);
         this.graphUI = graphUI;
         this.roadsUI = roadsUI;
     }
 
     @Override
     public void display(GraphCharacteristics graphCharacteristics, List<Node> nodes) {
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        this.frame.setContentPane(panel);
-
-        panel.add(buildNorthPanel(graphCharacteristics.error), BorderLayout.NORTH);
-        panel.add(buildLeftPanel(graphCharacteristics), BorderLayout.WEST);
-        panel.add(buildCenterPanel(graphCharacteristics), BorderLayout.CENTER);
-        panel.add(buildRightPanel(graphCharacteristics), BorderLayout.EAST);
-
-        panel.updateUI();
+        this.graphCharacteristics = graphCharacteristics;
+        super.display(nodes);
     }
 
-    private JPanel buildNorthPanel(String error) {
-        JPanel panel = buildTitle("Accueil", 1);
-
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
-
-        JLabel label = new JLabel(error);
-        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 20));
-        panel.add(label);
-
-        return panel;
+    @Override
+    protected String getHelp() {
+        return "Aucune action n'est disponible sur cet écran";
     }
 
-    private JPanel buildLeftPanel(GraphCharacteristics graph) {
-
-        JPanel superPanel = new JPanel();
-        superPanel.setLayout(new BoxLayout(superPanel, BoxLayout.X_AXIS));
-
-        superPanel.add(Box.createRigidArea(new Dimension(40, 0)));
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(Box.createVerticalGlue());
-
-        JLabel label = new JLabel("Le graphe contient " + graph.locationCount + " lieux dont :");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        label = new JLabel("   - " + graph.cityPercentage + " % de villes");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        label = new JLabel("   - " + graph.restaurantPercentage + " % de restaurants");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        label = new JLabel("   - " + graph.recreationPercentage + " % de centres de loisirs");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        panel.add(Box.createVerticalGlue());
-
-        JButton button = new JButton("Afficher le graphe");
-        button.setPreferredSize(new Dimension(300, 50));
-        button.setMinimumSize(new Dimension(300, 50));
-        button.setSize(new Dimension(300, 50));
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.addActionListener(e -> graphUI.interact());
-        panel.add(button);
-        panel.add(Box.createVerticalGlue());
-
-        superPanel.add(panel);
-
-        return superPanel;
+    @Override
+    protected Title getTitle() {
+        return new Title("Accueil (" + graphCharacteristics.error + ")", 1);
     }
 
-    private JPanel buildCenterPanel(GraphCharacteristics graph) {
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-
-        panel.add(Box.createGlue());
-
-        if (!graph.error.contains("pas")) {
-            ImageIcon image = new ImageIcon("graph.png");
-            image.setImage(image.getImage().getScaledInstance(600, 600, Image.SCALE_SMOOTH));
-            JLabel label = new JLabel(image);
-            label.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(label);
-        }
-
-        panel.add(Box.createGlue());
-
-        return panel;
+    @Override
+    protected List<JButton> getButtons() {
+        return List.of(
+                aButton().withText("Graphe")
+                        .withSize(200, 50)
+                        .isYCentered()
+                        .withAction(e -> graphUI.interact())
+                        .build(),
+                aButton().withText("Routes")
+                        .withSize(200, 50)
+                        .isYCentered()
+                        .withAction(e -> roadsUI.interact(null, null, null))
+                        .build()
+        );
     }
 
-    private JPanel buildRightPanel(GraphCharacteristics graph) {
+    @Override
+    protected JPanel buildLeftPanel() {
+        return buildPanel(graphCharacteristics.locationCount + " lieux dont :",
+                " - " + graphCharacteristics.cityPercentage + " % de villes", Color.GREEN,
+                " - " + graphCharacteristics.restaurantPercentage + " % de restaurants", Color.RED,
+                " - " + graphCharacteristics.recreationPercentage + " % de centres de loisirs", Color.BLUE);
+    }
 
-        JPanel superPanel = new JPanel();
-        superPanel.setLayout(new BoxLayout(superPanel, BoxLayout.X_AXIS));
+    @Override
+    protected JPanel buildRightPanel() {
+        return buildPanel(graphCharacteristics.roadCount + " routes dont :",
+                " - " + graphCharacteristics.highwayPercentage + " % d'autoroutes", Color.RED,
+                " - " + graphCharacteristics.nationalPercentage + " % de routes nationales", Color.GREEN,
+                " - " + graphCharacteristics.departementalPercentage + " % de routes départementales", Color.BLUE);
+    }
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(Box.createVerticalGlue());
-
-        JLabel label = new JLabel("Le graphe contient " + graph.roadCount + " routes dont :");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        label = new JLabel(" - " + graph.highwayPercentage + " % d'autoroutes");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        label = new JLabel(" - " + graph.nationalPercentage + " % de routes nationales");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        label = new JLabel(" - " + graph.departementalPercentage + " % de routes départementales");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 17));
-        panel.add(label);
-
-        panel.add(Box.createVerticalGlue());
-
-        JButton button = new JButton("Rechercher des routes");
-        button.setPreferredSize(new Dimension(200, 50));
-        button.setMinimumSize(new Dimension(200, 50));
-        button.setSize(new Dimension(200, 50));
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.addActionListener(e -> roadsUI.interact(null, null, null));
-        panel.add(button);
-        panel.add(Box.createVerticalGlue());
-
-        superPanel.add(panel);
-        superPanel.add(Box.createRigidArea(new Dimension(40, 0)));
-
-        return superPanel;
+    private JPanel buildPanel(String text1, String text2, Color color2, String text3, Color color3, String text4, Color color4) {
+        return aPanel()
+                .withYBoxLayout()
+                .isXCentered()
+                .add(aLabel().withText(text1).isTitle().build())
+                .add(aLabel().withText(text2).withColor(color2).isText().build())
+                .add(aLabel().withText(text3).withColor(color3).isText().build())
+                .add(aLabel().withText(text4).withColor(color4).isText().build())
+                .build();
     }
 
 }

@@ -7,6 +7,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.*;
 
+import static com.juka.graphmap.view.swing.components.ItemBuilder.anItem;
+import static com.juka.graphmap.view.swing.components.MenuBarBuilder.aMenuBar;
+import static com.juka.graphmap.view.swing.components.MenuBuilder.aMenu;
+
 @Singleton
 public class GraphMapJFrame extends JFrame {
 
@@ -29,29 +33,19 @@ public class GraphMapJFrame extends JFrame {
     }
 
     private JMenuBar buildJMenuBar(HomeUI homeUI) {
-        JMenuBar jMenuBar = new JMenuBar();
 
-        JMenu menu = new JMenu("Quitter");
-        JMenuItem item = new JMenuItem("Revenir à l'accueil");
-        item.addActionListener(e -> homeUI.interact());
-        menu.add(item);
-        item = new JMenuItem("Quitter");
-        item.addActionListener(e -> System.exit(0));
-        menu.add(item);
-        jMenuBar.add(menu);
-
-        menu = new JMenu("À propos");
-        item = new JMenuItem("Auteurs");
-        item.addActionListener(e -> JOptionPane.showMessageDialog(this, "Projet réalisé par Julien LINGET et Luka MARET", "À propos", JOptionPane.INFORMATION_MESSAGE));
-        menu.add(item);
-        jMenuBar.add(menu);
-
-        menu = new JMenu("Aide");
-        item = new JMenuItem("Consignes de cet écran");
-        menu.add(item);
-        jMenuBar.add(menu);
-
-        return jMenuBar;
+        return aMenuBar()
+                .add(aMenu().withText("Allez à")
+                        .add(anItem().withText("Accueil").withListener(e -> homeUI.interact()).build())
+                        .add(anItem().withText("Quitter").withListener(e -> System.exit(0)).build())
+                        .build())
+                .add(aMenu().withText("À propos")
+                        .add(anItem().withText("Auteurs").withListener(e -> JOptionPane.showMessageDialog(this, "Projet réalisé par Julien LINGET et Luka MARET", "À propos", JOptionPane.INFORMATION_MESSAGE)).build())
+                        .build())
+                .add(aMenu().withText("Aide")
+                        .add(anItem().withText("Aide").build())
+                        .build())
+                .build();
     }
 
 }

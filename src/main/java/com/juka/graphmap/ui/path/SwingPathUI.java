@@ -32,7 +32,7 @@ public class SwingPathUI implements PathUI {
 
         Path path = new Path(new ArrayList<>(), 0.0);
 
-        nodeService.unSelectAll();
+        nodeService.unselectAll();
 
         if (start != null && end != null) {
             path = pathService.getShortestPath(start, end);
@@ -46,7 +46,7 @@ public class SwingPathUI implements PathUI {
             nodeService.select(end);
         }
 
-        linkService.unSelectAll();
+        linkService.unselectAll();
         for (Step step : path.getPath()) {
             nodeService.select(step.getDestination().getName());
             if (step.getOriginLink() != null) {

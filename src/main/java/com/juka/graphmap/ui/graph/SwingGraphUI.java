@@ -30,8 +30,8 @@ public class SwingGraphUI implements GraphUI {
                 .map(Link::getRoadNameWithIndex)
                 .toList();
 
-        nodeService.unSelectAll();
-        linkService.unSelectAll();
+        nodeService.unselectAll();
+        linkService.unselectAll();
 
         view.display(graphService.getAllNodes(), links);
     }

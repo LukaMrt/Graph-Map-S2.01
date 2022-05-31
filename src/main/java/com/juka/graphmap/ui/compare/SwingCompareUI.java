@@ -31,7 +31,7 @@ public class SwingCompareUI implements CompareUI {
 
         List<Comparaison> result = new ArrayList<>();
 
-        nodeService.unSelectAll();
+        nodeService.unselectAll();
 
         if (city1 != null && city2 != null) {
             nodeCompareService.nodeCompareCity(city1, city2)

@@ -134,4 +134,26 @@ public class NodeServiceTest {
         assertThat(nodeService.getNodeCharacteristics("Node2")).isEqualTo(expected);
     }
 
+    @Test
+    void unselectAll_shouldUnselectAllNodes_whenNodesAreSelected() {
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
+        node.select();
+        when(nodeRepository.getAllNodes()).thenReturn(List.of(node));
+
+        nodeService.unselectAll();
+
+        assertThat(node.isSelected()).isFalse();
+    }
+
+    @Test
+    void select_shouldSelectNode_whenNodeExist() {
+        Node node = new Node("Node", NodeType.CITY, 0, 0);
+
+        when(nodeRepository.getNode("Node")).thenReturn(node);
+
+        nodeService.select("Node");
+
+        assertThat(node.isSelected()).isTrue();
+    }
+
 }

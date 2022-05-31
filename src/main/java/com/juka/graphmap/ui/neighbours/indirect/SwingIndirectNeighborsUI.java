@@ -24,7 +24,7 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
     @Override
     public void interact(String node1, String node2) {
 
-        nodeService.unSelectAll();
+        nodeService.unselectAll();
 
         if (node1 != null && !node1.isEmpty()) {
             nodeService.select(node1);

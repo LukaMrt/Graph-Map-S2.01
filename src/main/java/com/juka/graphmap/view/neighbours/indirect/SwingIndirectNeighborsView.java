@@ -1,143 +1,156 @@
 package com.juka.graphmap.view.neighbours.indirect;
 
-import com.google.inject.Inject;
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;
-import com.juka.graphmap.view.swing.SwingView;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
+import javax.inject.Inject;
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
-/***
- * @author Julien Linget
- */
-public class SwingIndirectNeighborsView extends SwingView implements IndirectNeighborsView {
+import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
+import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
-    private final JFrame frame;
-    private final IndirectNeighborsUI indirectNeighborsUI;
+public class SwingIndirectNeighborsView extends GlobalSwingView implements IndirectNeighborsView {
+
     private final GraphUI graphUI;
-    private JLabel resultLabel;
-    private JList<String> leftList;
-    private JList<String> rightList;
+    private final IndirectNeighborsUI indirectNeighborsUI;
+
+    private List<String> nodes;
+    private String location1;
+    private String location2;
+    private boolean result;
 
     @Inject
-    public SwingIndirectNeighborsView(JFrame frame, IndirectNeighborsUI indirectNeighborsUI, GraphUI graphUI) {
-        this.indirectNeighborsUI = indirectNeighborsUI;
-        this.frame = frame;
+    public SwingIndirectNeighborsView(GraphMapJFrame frame, GraphUI graphUI, IndirectNeighborsUI indirectNeighborsUI) {
+        super(frame);
         this.graphUI = graphUI;
+        this.indirectNeighborsUI = indirectNeighborsUI;
     }
 
     @Override
     public void display(List<Node> nodes, String location1, String location2, boolean result) {
-        if (location1 == null || location2 == null) {
-            displayPanels(nodes);
-        } else {
-            displayResult(location1, location2, result);
+        this.nodes = nodes.stream().map(Node::getName).toList();
+        this.location1 = location1 != null ? location1 : "";
+        this.location2 = location2 != null ? location2 : "";
+        this.result = result;
+        super.display(nodes);
+    }
+
+    @Override
+    protected String getHelp() {
+        return "Clic droit pour sélectionner la première ville, clic gauche pour sélectionner la seconde ville et savoir si elles sont à 2-distance.";
+    }
+
+    @Override
+    protected Title getTitle() {
+        return new Title("Voisinage indirect", 4);
+    }
+
+    @Override
+    protected List<JButton> getButtons() {
+        return List.of(aButton()
+                .withText("Retour")
+                .withSize(200, 50)
+                .isYCentered()
+                .withAction(e -> graphUI.interact())
+                .build());
+    }
+
+    @Override
+    protected JPanel buildLeftPanel() {
+
+        ScrollPaneBuilder builder1 = anHorizontalList()
+                .withData(this.nodes)
+                .withSize(200, 200)
+                .withSingleSelection()
+                .withSelectedValue(location1)
+                .isYCentered()
+                .alwaysScrollVertical()
+                .neverScrollHorizontal();
+
+        JScrollPane nodeList1 = builder1
+                .build();
+
+        ScrollPaneBuilder builder2 = anHorizontalList()
+                .withData(this.nodes)
+                .withSize(200, 200)
+                .withSingleSelection()
+                .withSelectedValue(location2)
+                .isYCentered()
+                .alwaysScrollVertical()
+                .neverScrollHorizontal();
+
+        JScrollPane nodeList2 = builder2
+                .build();
+
+        JButton button = aButton()
+                .withText("Analyser")
+                .withSize(100, 40)
+                .isXCentered()
+                .withAction(e -> indirectNeighborsUI.interact(builder1.getSelectedValue(), builder2.getSelectedValue()))
+                .build();
+
+        return aPanel()
+                .withYBoxLayout()
+                .isXCentered()
+                .addRigidArea(0, 10)
+                .add(aLabel().withText("Premier noeud : ").isXCentered().isTitle().build())
+                .addRigidArea(0, 5)
+                .add(nodeList1)
+                .addVerticalGlue()
+                .add(aLabel().withText("Second noeud : ").isXCentered().isTitle().build())
+                .addRigidArea(0, 5)
+                .add(nodeList2)
+                .addVerticalGlue()
+                .add(button)
+                .addVerticalGlue()
+                .build();
+    }
+
+    @Override
+    protected JPanel buildRightPanel() {
+
+        String message = "ne sont pas à 2-distances.";
+
+        if (result) {
+            message = "sont à 2-distances.";
         }
+
+        return aPanel()
+                .withYBoxLayout()
+                .addVerticalGlue()
+                .add(aLabel().withText("Résultat :").isTitle().isXCentered().build())
+                .add(aLabel().withText(this.location1).isText().isXCentered().build())
+                .add(aLabel().withText("&").isText().isXCentered().build())
+                .add(aLabel().withText(this.location2).isText().isXCentered().build())
+                .add(aLabel().withText(message).isText().isXCentered().build())
+                .addVerticalGlue()
+                .build();
     }
 
-    private JPanel buildSidePanel(List<String> nodes, boolean isLeftPanel) {
-        JPanel containerPanel = new JPanel();
-        JPanel panel = new JPanel();
-        JList<String> nodeList = new JList<>(nodes.toArray(new String[0]));
-        if (isLeftPanel) {
-            leftList = nodeList;
-        } else  {
-            rightList = nodeList;
-        }
+    @Override
+    public void leftClick(Node node, Link link) {
 
-        containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.X_AXIS));
-        if (isLeftPanel) containerPanel.add(Box.createRigidArea(new Dimension(40, 0)));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        String newNode = node != null ? node.getName() : location1;
 
-        JLabel label = new JLabel("Liste des lieux : ");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 20));
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-
-        panel.add(nodeList);
-        nodeList.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nodeList.setAlignmentY(Component.CENTER_ALIGNMENT);
-
-        JScrollPane scrollPane = new JScrollPane(nodeList);
-        scrollPane.setPreferredSize(new Dimension(200, 400));
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        panel.add(scrollPane);
-
-        panel.add(Box.createVerticalGlue());
-
-        containerPanel.add(panel);
-        if (!isLeftPanel) containerPanel.add(Box.createRigidArea(new Dimension(40, 0)));
-
-        return containerPanel;
+        indirectNeighborsUI.interact(newNode, location2);
     }
 
-    private JPanel buildSouthPanel() {
-        JPanel southPanel = new JPanel();
-        JButton backButton = new JButton("Retour");
+    @Override
+    public void rightClick(Node node, Link link) {
 
-        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
-        southPanel.add(backButton);
+        String newNode = node != null ? node.getName() : location2;
 
-        backButton.setPreferredSize(new Dimension(200, 40));
-        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        backButton.addActionListener(e -> graphUI.interact());
-
-        return southPanel;
-    }
-
-    private JPanel buildCenterPanel() {
-        JPanel centerPanel = new JPanel();
-        JPanel topCenter = new JPanel();
-        JPanel bottomCenter = new JPanel();
-        JButton compareButton = new JButton("Étudier si les lieux sont à 2 distance");
-        compareButton.addActionListener(e ->
-                indirectNeighborsUI.interact(leftList.getSelectedValue(), rightList.getSelectedValue()));
-        resultLabel = new JLabel();
-
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-
-        topCenter.setLayout(new GridBagLayout());
-        topCenter.add(compareButton);
-
-        bottomCenter.setLayout(new GridBagLayout());
-        bottomCenter.add(resultLabel);
-
-        centerPanel.add(topCenter);
-        centerPanel.add(bottomCenter);
-
-        return centerPanel;
-    }
-
-    private void displayPanels(List<Node> nodes) {
-        JPanel panel = new JPanel();
-        List<String> nodeNames = nodes.stream().map(Node::getName).toList();
-        panel.setLayout(new BorderLayout());
-
-        panel.add(buildTitle("Voisinage indirect", 4), BorderLayout.NORTH);
-
-        panel.add(buildSidePanel(nodeNames, false), BorderLayout.EAST);
-        panel.add(buildSidePanel(nodeNames, true), BorderLayout.WEST);
-        panel.add(buildSouthPanel(), BorderLayout.SOUTH);
-        panel.add(buildCenterPanel(), BorderLayout.CENTER);
-
-        frame.setContentPane(panel);
-        panel.updateUI();
-    }
-
-    private void displayResult(String location1, String location2, boolean areAt2Distance) {
-        if (location1.equals(location2)) {
-            resultLabel.setText("Villes identiques");
-        } else if (areAt2Distance) {
-            resultLabel.setText(location1 + " et " + location2 + " sont à 2 distance");
-        } else {
-            resultLabel.setText(location1 + " et " + location2 + " ne sont pas à 2 distance");
-        }
+        indirectNeighborsUI.interact(location1, newNode);
     }
 
 }

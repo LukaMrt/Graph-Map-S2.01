@@ -32,7 +32,7 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
 
         if (node != null && !node.isEmpty()) {
             nodeCharacteristics = nodeService.getNodeCharacteristics(node);
-            nodeService.unSelectAll();
+            nodeService.unselectAll();
             nodeService.select(node);
         }
 
@@ -40,7 +40,7 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
 
         if (link != null && !link.isEmpty()) {
             linkCharacteristics = linkService.getLinkCharacteristics(link);
-            linkService.unSelectAll();
+            linkService.unselectAll();
             linkService.select(link);
         }
 

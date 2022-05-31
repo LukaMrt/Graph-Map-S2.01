@@ -37,7 +37,7 @@ public class SwingRoadsUI implements RoadsUI {
             path = roadsFinderService.getPathsWithSpecificLocations(start, steps, end);
         }
 
-        nodeService.unSelectAll();
+        nodeService.unselectAll();
 
         if (start != null && !start.isEmpty()) {
             nodeService.select(start);
@@ -47,7 +47,7 @@ public class SwingRoadsUI implements RoadsUI {
             nodeService.select(end);
         }
 
-        linkService.unSelectAll();
+        linkService.unselectAll();
         for (Step step : path.getPath()) {
             nodeService.select(step.getDestination().getName());
             if (step.getOriginLink() != null) {

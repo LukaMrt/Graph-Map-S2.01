@@ -1,175 +1,123 @@
 package com.juka.graphmap.view.graph;
 
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.graph.GraphView;
+import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.path.PathUI;
-import com.juka.graphmap.view.swing.SwingView;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.GlobalSwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
-public class SwingGraphView extends SwingView implements GraphView {
+import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
-    private final JFrame frame;
+public class SwingGraphView extends GlobalSwingView implements GraphView {
+
     private final CompareUI compareUI;
     private final PathUI pathUI;
     private final DirectNeighborsUI directNeighborsUI;
     private final IndirectNeighborsUI indirectNeighborsUI;
+    private final HomeUI homeUI;
+
+    private List<String> nodes;
+    private List<String> links;
 
     @Inject
-    public SwingGraphView(JFrame frame, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI) {
-        this.frame = frame;
+    public SwingGraphView(GraphMapJFrame frame, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI, HomeUI homeUI) {
+        super(frame);
         this.compareUI = compareUI;
         this.pathUI = pathUI;
         this.directNeighborsUI = directNeighborsUI;
         this.indirectNeighborsUI = indirectNeighborsUI;
+        this.homeUI = homeUI;
     }
 
     @Override
     public void display(List<Node> nodes, List<String> links) {
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        this.frame.setContentPane(panel);
-
-        panel.add(buildTitle("Graphe", 2), BorderLayout.NORTH);
-        panel.add(buildLeftPanel(nodes.stream().map(Node::getName).toList()), BorderLayout.WEST);
-        panel.add(buildCenterPanel(), BorderLayout.CENTER);
-        panel.add(buildRightPanel(links), BorderLayout.EAST);
-
-        panel.updateUI();
+        this.nodes = nodes.stream().map(Node::getName).toList();
+        this.links = links;
+        super.display(nodes);
     }
 
-    private JPanel buildLeftPanel(List<String> nodes) {
-
-        JPanel superPanel = new JPanel();
-        superPanel.setLayout(new BoxLayout(superPanel, BoxLayout.X_AXIS));
-
-        superPanel.add(Box.createRigidArea(new Dimension(40, 0)));
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(Box.createVerticalGlue());
-
-        JLabel label = new JLabel("Liste des lieux :");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 20));
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-
-        JList<String> list = new JList<>();
-        list.setListData(nodes.toArray(new String[0]));
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setLayoutOrientation(JList.VERTICAL);
-        list.setVisibleRowCount(-1);
-        list.setFixedCellWidth(200);
-        list.setFixedCellHeight(20);
-        list.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        JScrollPane scrollPane = new JScrollPane(list);
-        scrollPane.setPreferredSize(new Dimension(200, 400));
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        panel.add(scrollPane);
-
-        panel.add(Box.createVerticalGlue());
-
-        JButton button = new JButton("Comparer 2 villes");
-        button.setPreferredSize(new Dimension(200, 40));
-        button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        button.addActionListener(e -> compareUI.interact(null, null));
-        panel.add(button);
-
-        panel.add(Box.createVerticalGlue());
-
-        button = new JButton("Plus courts chemin");
-        button.setPreferredSize(new Dimension(200, 40));
-        button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        button.addActionListener(e -> pathUI.interact(null, null));
-        panel.add(button);
-
-        panel.add(Box.createVerticalGlue());
-
-        superPanel.add(panel);
-
-        return superPanel;
+    @Override
+    protected String getHelp() {
+        return "Aucune action n'est disponible sur cet écran.";
     }
 
-    private JPanel buildCenterPanel() {
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-
-        panel.add(Box.createGlue());
-
-        ImageIcon image = new ImageIcon("graph.png");
-        image.setImage(image.getImage().getScaledInstance(600, 600, Image.SCALE_SMOOTH));
-        JLabel label = new JLabel(image);
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(label);
-
-        panel.add(Box.createGlue());
-
-        return panel;
+    @Override
+    protected Title getTitle() {
+        return new Title("Graphe", 2);
     }
 
-    private JPanel buildRightPanel(List<String> links) {
+    @Override
+    protected List<JButton> getButtons() {
+        return List.of(
+                aButton().withText("Comparaison")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> compareUI.interact(null, null))
+                        .build(),
+                aButton().withText("Chemin")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> pathUI.interact(null, null))
+                        .build(),
+                aButton().withText("Retour")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> homeUI.interact())
+                        .build(),
+                aButton().withText("Description")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> directNeighborsUI.interact(null, null))
+                        .build(),
+                aButton().withText("2-distance")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> indirectNeighborsUI.interact(null, null))
+                        .build()
+        );
+    }
 
-        JPanel superPanel = new JPanel();
-        superPanel.setLayout(new BoxLayout(superPanel, BoxLayout.X_AXIS));
+    @Override
+    protected JPanel buildLeftPanel() {
+        return buildPanel(nodes, "Liste des noeuds :");
+    }
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(Box.createVerticalGlue());
+    @Override
+    protected JPanel buildRightPanel() {
+        return buildPanel(links, "Liste des liens :");
+    }
 
-        JLabel label = new JLabel("Liste des routes :");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.PLAIN, 20));
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+    private JPanel buildPanel(List<String> data, String title) {
+        JScrollPane scrollPane = anHorizontalList()
+                .withData(data)
+                .withSize(200, 400)
+                .withSingleSelection()
+                .isYCentered()
+                .alwaysScrollVertical()
+                .neverScrollHorizontal()
+                .build();
 
-        JList<String> list = new JList<>();
-        list.setListData(links.toArray(new String[0]));
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setLayoutOrientation(JList.VERTICAL);
-        list.setVisibleRowCount(-1);
-        list.setFixedCellWidth(200);
-        list.setFixedCellHeight(20);
-        list.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        JScrollPane scrollPane = new JScrollPane(list);
-        scrollPane.setPreferredSize(new Dimension(200, 400));
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        panel.add(scrollPane);
-
-        panel.add(Box.createVerticalGlue());
-
-        JButton button = new JButton("Lieu / lien");
-        button.setPreferredSize(new Dimension(200, 40));
-        button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        button.addActionListener(e -> directNeighborsUI.interact(null, null));
-        panel.add(button);
-
-        panel.add(Box.createVerticalGlue());
-
-        button = new JButton("2-distance");
-        button.setPreferredSize(new Dimension(200, 40));
-        button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        button.addActionListener(e -> indirectNeighborsUI.interact(null, null));
-        panel.add(button);
-
-        panel.add(Box.createVerticalGlue());
-
-        superPanel.add(panel);
-        superPanel.add(Box.createRigidArea(new Dimension(40, 0)));
-
-        return superPanel;
+        return aPanel()
+                .withYBoxLayout()
+                .isXCentered()
+                .addVerticalGlue()
+                .add(aLabel().withText(title).isXCentered().isTitle().build())
+                .addRigidArea(0, 5)
+                .add(scrollPane)
+                .addVerticalGlue()
+                .build();
     }
 
 }

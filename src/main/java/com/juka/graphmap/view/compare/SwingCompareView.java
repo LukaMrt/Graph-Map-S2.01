@@ -1,164 +1,170 @@
 package com.juka.graphmap.view.compare;
 
-import com.google.inject.Inject;
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
+import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.compare.CompareView;
 import com.juka.graphmap.ui.graph.GraphUI;
-import com.juka.graphmap.view.swing.SwingView;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
+import javax.inject.Inject;
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
-public class SwingCompareView extends SwingView implements CompareView {
+import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
+import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
-    private final JFrame frame;
-    private final CompareUI compareUI;
+public class SwingCompareView extends GlobalSwingView implements CompareView {
+
     private final GraphUI graphUI;
+    private final CompareUI compareUI;
+    private List<String> cities;
+    private List<Comparaison> result;
+    private String city1;
+    private String city2;
 
     @Inject
-    public SwingCompareView(JFrame frame, CompareUI compareUI, GraphUI graphUI) {
-        this.frame = frame;
-        this.compareUI = compareUI;
+    public SwingCompareView(GraphMapJFrame frame, GraphUI graphUI, CompareUI compareUI) {
+        super(frame);
         this.graphUI = graphUI;
+        this.compareUI = compareUI;
     }
 
     @Override
     public void display(List<Node> nodes, List<String> cities, List<Comparaison> result, String city1, String city2) {
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        this.frame.setContentPane(panel);
-
-        panel.add(buildTitle("Comparaison", 5), BorderLayout.NORTH);
-        panel.add(buildCenterPanel(cities, result), BorderLayout.CENTER);
-        panel.add(buildBottomPanel(), BorderLayout.SOUTH);
-
-        panel.updateUI();
+        this.cities = cities;
+        this.result = result;
+        super.display(nodes);
+        this.city1 = city1;
+        this.city2 = city2;
     }
 
-    private JPanel buildCenterPanel(List<String> cities, List<Comparaison> result) {
-
-        JPanel superPanel = new JPanel();
-        superPanel.setLayout(new BoxLayout(superPanel, BoxLayout.X_AXIS));
-
-        superPanel.add(Box.createHorizontalGlue());
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        JLabel label = new JLabel("Ville 1 :");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.BOLD, 20));
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-        JList<String> leftList = new JList<>(cities.toArray(new String[0]));
-        leftList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        leftList.setLayoutOrientation(JList.VERTICAL);
-        leftList.setVisibleRowCount(-1);
-        leftList.setFixedCellWidth(200);
-        leftList.setFixedCellHeight(20);
-        leftList.setFont(new Font("Arial", Font.PLAIN, 20));
-        if (!result.isEmpty()) {
-            leftList.setSelectedValue(result.get(0).best, true);
-        }
-        JScrollPane leftScrollPane = new JScrollPane(leftList);
-        leftScrollPane.setPreferredSize(new Dimension(250, 400));
-        leftScrollPane.setMaximumSize(new Dimension(250, 400));
-        leftScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        leftScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        leftScrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(leftScrollPane);
-        superPanel.add(panel);
-
-        JList<String> rightList = new JList<>(cities.toArray(new String[0]));
-        rightList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        rightList.setLayoutOrientation(JList.VERTICAL);
-        rightList.setVisibleRowCount(-1);
-        rightList.setFixedCellWidth(200);
-        rightList.setFixedCellHeight(20);
-        rightList.setFont(new Font("Arial", Font.PLAIN, 20));
-        if (!result.isEmpty()) {
-            rightList.setSelectedValue(result.get(0).worst, true);
-        }
-        JScrollPane rightScrollPane = new JScrollPane(rightList);
-        rightScrollPane.setPreferredSize(new Dimension(250, 400));
-        rightScrollPane.setMaximumSize(new Dimension(250, 400));
-        rightScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        rightScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-
-        superPanel.add(Box.createHorizontalGlue());
-
-        panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setPreferredSize(new Dimension(500, 650));
-        panel.setMaximumSize(new Dimension(500, 650));
-        panel.setMinimumSize(new Dimension(500, 650));
-
-        panel.add(Box.createVerticalGlue());
-        panel.add(Box.createVerticalGlue());
-        panel.add(Box.createVerticalGlue());
-
-        JButton button = new JButton("Comparer");
-        button.addActionListener(e -> compareUI.interact(leftList.getSelectedValue(), rightList.getSelectedValue()));
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setPreferredSize(new Dimension(200, 75));
-        button.setMinimumSize(new Dimension(200, 75));
-        button.setMaximumSize(new Dimension(200, 75));
-        button.setSize(new Dimension(200, 75));
-        button.setFont(new Font("Arial", Font.BOLD, 20));
-        panel.add(button);
-
-        panel.add(Box.createVerticalGlue());
-
-        for (Comparaison comparaison : result) {
-            label = new JLabel(comparaison.toString());
-            label.setAlignmentX(Component.CENTER_ALIGNMENT);
-            label.setFont(new Font("Arial", Font.PLAIN, 17));
-            panel.add(label);
-        }
-
-        panel.add(Box.createVerticalGlue());
-        panel.add(Box.createVerticalGlue());
-        panel.add(Box.createVerticalGlue());
-
-        superPanel.add(panel);
-
-        superPanel.add(Box.createHorizontalGlue());
-
-        panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        label = new JLabel("Ville 2 :");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.BOLD, 20));
-        panel.add(label);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-        panel.add(rightScrollPane);
-        superPanel.add(panel);
-
-        superPanel.add(Box.createHorizontalGlue());
-
-        return superPanel;
+    @Override
+    protected String getHelp() {
+        return "Clic droit pour sélectionner le premier lieu, clic gauche pour sélectionner le second lieu et les comparer.";
     }
 
-    private JPanel buildBottomPanel() {
+    @Override
+    protected Title getTitle() {
+        return new Title("Comparaison", 5);
+    }
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setPreferredSize(new Dimension(800, 80));
-        panel.setMinimumSize(new Dimension(650, 80));
-        panel.setMaximumSize(new Dimension(650, 80));
+    @Override
+    protected List<JButton> getButtons() {
+        return List.of(aButton()
+                .withText("Retour")
+                .withSize(200, 50)
+                .isYCentered()
+                .withAction(e -> graphUI.interact())
+                .build());
+    }
 
-        JButton button = new JButton("Retour");
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.addActionListener(e -> graphUI.interact());
-        button.setPreferredSize(new Dimension(200, 30));
-        button.setMaximumSize(new Dimension(200, 30));
-        panel.add(button);
+    @Override
+    protected JPanel buildLeftPanel() {
 
-        return panel;
+        String city1 = result.stream()
+                .findFirst()
+                .map(comparaison -> comparaison.best)
+                .orElse("");
+
+        String city2 = result.stream()
+                .findFirst()
+                .map(comparaison -> comparaison.worst)
+                .orElse("");
+
+        ScrollPaneBuilder builder1 = anHorizontalList()
+                .withData(this.cities)
+                .withSize(200, 200)
+                .withSingleSelection()
+                .withSelectedValue(city1)
+                .isYCentered()
+                .alwaysScrollVertical()
+                .neverScrollHorizontal();
+
+        JScrollPane nodeList1 = builder1
+                .build();
+
+        ScrollPaneBuilder builder2 = anHorizontalList()
+                .withData(this.cities)
+                .withSize(200, 200)
+                .withSingleSelection()
+                .withSelectedValue(city2)
+                .isYCentered()
+                .alwaysScrollVertical()
+                .neverScrollHorizontal();
+
+        JScrollPane nodeList2 = builder2
+                .build();
+
+        JButton button = aButton()
+                .withText("Analyser")
+                .withSize(100, 40)
+                .isXCentered()
+                .withAction(e -> compareUI.interact(builder1.getSelectedValue(), builder2.getSelectedValue()))
+                .build();
+
+        return aPanel()
+                .withYBoxLayout()
+                .isXCentered()
+                .addRigidArea(0, 10)
+                .add(aLabel().withText("Première ville : ").isXCentered().isTitle().build())
+                .addRigidArea(0, 5)
+                .add(nodeList1)
+                .addVerticalGlue()
+                .add(aLabel().withText("Seconde ville : ").isXCentered().isTitle().build())
+                .addRigidArea(0, 5)
+                .add(nodeList2)
+                .addVerticalGlue()
+                .add(button)
+                .addVerticalGlue()
+                .build();
+    }
+
+    @Override
+    protected JPanel buildRightPanel() {
+
+        List<JLabel> comparaisons = result.stream()
+                .map(comparaison -> aLabel().withText(comparaison.toShortString()).isText().isXCentered().build())
+                .toList();
+
+        return aPanel()
+                .withYBoxLayout()
+                .addVerticalGlue()
+                .add(aLabel().withText("Résultat :").isTitle().isXCentered().build())
+                .addAll(comparaisons)
+                .addVerticalGlue()
+                .build();
+    }
+
+    @Override
+    public void leftClick(Node node, Link link) {
+
+        if (node != null && node.getType() != NodeType.CITY) {
+            compareUI.interact(city1, city2);
+        }
+
+        String newNode = node != null ? node.getName() : city1;
+
+        compareUI.interact(newNode, city2);
+    }
+
+    @Override
+    public void rightClick(Node node, Link link) {
+
+        if (node != null && node.getType() != NodeType.CITY) {
+            compareUI.interact(city1, city2);
+        }
+
+        String newNode = node != null ? node.getName() : city2;
+
+        compareUI.interact(city1, newNode);
     }
 
 }

@@ -90,7 +90,7 @@ public class NodeService {
         return new NodeCharacteristics(node.getName(), node.getType().toString(), neighbors);
     }
 
-    public void unSelectAll() {
+    public void unselectAll() {
         nodeRepository.getAllNodes().forEach(Node::unselect);
     }
 
