@@ -1,6 +1,7 @@
 package com.juka.graphmap.view.compare;
 
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.compare.CompareUI;
@@ -25,6 +26,8 @@ public class NewSwingCompareView extends GlobalSwingView implements CompareView 
     private final CompareUI compareUI;
     private List<String> cities;
     private List<Comparaison> result;
+    private String city1;
+    private String city2;
 
     @Inject
     public NewSwingCompareView(GraphMapJFrame frame, GraphUI graphUI, CompareUI compareUI) {
@@ -34,10 +37,12 @@ public class NewSwingCompareView extends GlobalSwingView implements CompareView 
     }
 
     @Override
-    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result) {
+    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result, String city1, String city2) {
         this.cities = cities;
         this.result = result;
         super.display(nodes);
+        this.city1 = city1;
+        this.city2 = city2;
     }
 
     @Override
@@ -130,6 +135,22 @@ public class NewSwingCompareView extends GlobalSwingView implements CompareView 
                 .addAll(comparaisons)
                 .addVerticalGlue()
                 .build();
+    }
+
+    @Override
+    public void leftClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : city2;
+
+        compareUI.interact(newNode, city2);
+    }
+
+    @Override
+    public void rightClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : city1;
+
+        compareUI.interact(city1, newNode);
     }
 
 }

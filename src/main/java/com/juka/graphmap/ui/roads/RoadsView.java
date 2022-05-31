@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface RoadsView {
 
-    void display(List<Node> nodes, List<String> steps, Path path);
+    void display(List<Node> nodes, List<String> steps, Path path, String start, String end);
 
 }

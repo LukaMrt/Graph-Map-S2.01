@@ -152,4 +152,20 @@ public class NewSwingPathView extends GlobalSwingView implements PathView {
                 .build();
     }
 
+    @Override
+    public void leftClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : node1;
+
+        pathUI.interact(newNode, node2);
+    }
+
+    @Override
+    public void rightClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : node2;
+
+        pathUI.interact(node1, newNode);
+    }
+
 }

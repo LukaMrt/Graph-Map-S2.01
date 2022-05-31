@@ -14,6 +14,7 @@ public interface NodeRepository {
 
     /**
      * Add a node to the repository.
+     *
      * @param node the node to add
      */
     void addNode(Node node);
@@ -25,12 +26,14 @@ public interface NodeRepository {
 
     /**
      * Returns all nodes in the repository.
+     *
      * @return all nodes in the repository
      */
     List<Node> getAllNodes();
 
     /**
      * Returns the node with the given name
+     *
      * @param name the name of the node
      * @return the node with the given name
      */
@@ -38,6 +41,7 @@ public interface NodeRepository {
 
     /**
      * Returns true if the repository encountered an error.
+     *
      * @return true if the repository encountered an error
      */
     boolean hasEncounteredError();

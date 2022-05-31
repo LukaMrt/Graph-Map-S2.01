@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CompareView {
 
-    void display(List<Node> nodes, List<String> cities, List<Comparaison> result);
+    void display(List<Node> nodes, List<String> cities, List<Comparaison> result, String city1, String city2);
 
 }

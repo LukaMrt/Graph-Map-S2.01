@@ -10,7 +10,7 @@ import java.util.List;
 public class TerminalRoadsView implements RoadsView {
 
     @Override
-    public void display(List<Node> nodes, List<String> steps, Path path) {
+    public void display(List<Node> nodes, List<String> steps, Path path, String start, String end) {
 
         System.out.println();
         System.out.println("------------------------------------------------------");

@@ -9,7 +9,7 @@ import java.util.List;
 public class TerminalCompareView implements CompareView {
 
     @Override
-    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result) {
+    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result, String city1, String city2) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°5 - Comparaison de villes");

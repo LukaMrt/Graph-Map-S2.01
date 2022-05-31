@@ -15,12 +15,14 @@ public interface GraphLoader {
 
     /**
      * Loads all the nodes from the file.
+     *
      * @return The list of nodes.
      */
     List<Node> loadNodes();
 
     /**
      * Loads all the links from the file.
+     *
      * @return The list of links.
      */
     List<Link> loadLinks(NodeRepository nodeRepository);

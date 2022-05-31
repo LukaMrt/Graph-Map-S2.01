@@ -1,6 +1,7 @@
 package com.juka.graphmap.view.home;
 
 import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.graph.GraphUI;

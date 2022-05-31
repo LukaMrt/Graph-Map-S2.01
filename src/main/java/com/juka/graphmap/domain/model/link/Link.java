@@ -13,6 +13,7 @@ public class Link {
     private final Node destination;
     private final LinkType type;
     private final int distance;
+    private boolean selected;
 
     /**
      * Constructor of a link.
@@ -27,6 +28,7 @@ public class Link {
         this.destination = destination;
         this.type = type;
         this.distance = distance;
+        this.selected = false;
     }
 
     /**
@@ -81,6 +83,18 @@ public class Link {
      */
     public String getRoadNameWithIndex() {
         return name.substring(0, name.lastIndexOf("."));
+    }
+
+    public boolean isSelected() {
+        return this.selected;
+    }
+
+    public void select() {
+        this.selected = true;
+    }
+
+    public void unselect() {
+        this.selected = false;
     }
 
     @Override

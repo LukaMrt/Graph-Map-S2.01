@@ -37,7 +37,7 @@ public class TerminalRoadsUI implements RoadsUI {
             path = pathService.getPathsWithSpecificLocations(start, steps, end);
         }
 
-        view.display(graphService.getAllNodes(), steps, path);
+        view.display(graphService.getAllNodes(), steps, path, start, end);
 
         char entry = SCANNER.nextLine().charAt(0);
 

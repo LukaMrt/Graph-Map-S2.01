@@ -3,6 +3,7 @@ package com.juka.graphmap.view.swing.components;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Coordinate;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.view.swing.GlobalSwingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +15,11 @@ public class SwingGraphPanel extends JPanel {
 
     private final List<Node> nodes;
     private final double nodeSize = 20;
-    private boolean graphDrawn = false;
 
-    public SwingGraphPanel(List<Node> nodes) {
+    public SwingGraphPanel(List<Node> nodes, GlobalSwingView globalSwingView) {
         super();
         this.nodes = nodes;
+        addMouseListener(new MouseListener(nodes, globalSwingView));
         setSize(700, 600);
     }
 
@@ -26,15 +27,8 @@ public class SwingGraphPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        if (!graphDrawn) {
-            drawLinks(g2d, nodes);
-            drawNodes(g2d, nodes);
-            graphDrawn = true;
-        } else {
-            for (Node node : nodes) {
-                if (node.isSelected()) drawSelectedNode(g2d, node);
-            }
-        }
+        drawLinks(g2d, nodes);
+        drawNodes(g2d, nodes);
     }
 
     private void drawLinks(Graphics2D g2d, List<Node> nodes) {
@@ -51,6 +45,11 @@ public class SwingGraphPanel extends JPanel {
                     case NATIONAL -> g2d.setColor(new Color(0, 255, 0));
                     case DEPARTMENTAL -> g2d.setColor(new Color(0, 0, 255));
                 }
+
+                if (neighborLink.isSelected()) {
+                    g2d.setColor(new Color(0, 0, 0, 255));
+                }
+
                 g2d.draw(new Line2D.Double(nodeCoordinate.x() + nodeSize / 2, nodeCoordinate.y() + nodeSize / 2,
                         neighborCoordinate.x() + nodeSize / 2, neighborCoordinate.y() + nodeSize / 2));
             }
@@ -73,12 +72,13 @@ public class SwingGraphPanel extends JPanel {
                 case RECREATION_CENTER -> g2d.setColor(new Color(0, 0, 255));
                 case RESTAURANT -> g2d.setColor(new Color(255, 0, 0));
             }
+
+            if (node.isSelected()) {
+                g2d.setColor(new Color(0, 0, 0, 255));
+            }
+
             g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), nodeSize, nodeSize));
         }
     }
 
-    private void drawSelectedNode(Graphics2D g2d, Node node) {
-        g2d.setColor(new Color(255, 81, 0, 255));
-        g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), nodeSize, nodeSize));
-    }
 }

@@ -26,7 +26,7 @@ public class SwingCompareView extends SwingView implements CompareView {
     }
 
     @Override
-    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result) {
+    public void display(List<Node> nodes, List<String> cities, List<Comparaison> result, String city1, String city2) {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());

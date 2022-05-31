@@ -30,6 +30,8 @@ public class NewSwingRoadsView extends GlobalSwingView implements RoadsView {
     private List<String> steps;
     private Path path;
     private List<String> nodes;
+    private String end;
+    private String start;
 
     @Inject
     public NewSwingRoadsView(GraphMapJFrame frame, HomeUI homeUI, RoadsUI roadsUI) {
@@ -39,10 +41,12 @@ public class NewSwingRoadsView extends GlobalSwingView implements RoadsView {
     }
 
     @Override
-    public void display(List<Node> nodes, List<String> steps, Path path) {
+    public void display(List<Node> nodes, List<String> steps, Path path, String start, String end) {
         this.nodes = nodes.stream().map(Node::getName).toList();
         this.steps = steps != null ? steps : new ArrayList<>();
         this.path = path != null ? path : new Path(new ArrayList<>(), 0d);
+        this.start = start;
+        this.end = end;
         super.display(nodes);
     }
 
@@ -63,19 +67,6 @@ public class NewSwingRoadsView extends GlobalSwingView implements RoadsView {
 
     @Override
     protected JPanel buildLeftPanel() {
-
-        String start = "";
-
-        if (!path.getPath().isEmpty()) {
-            start = path.getPath().get(0).getDestination().getName();
-        }
-
-
-        String end = "";
-
-        if (!path.getPath().isEmpty()) {
-            end = path.getPath().get(path.getPath().size() - 1).getDestination().getName();
-        }
 
         ComboBoxBuilder startBuilder = aComboBox()
                 .withData(this.nodes)
@@ -164,6 +155,36 @@ public class NewSwingRoadsView extends GlobalSwingView implements RoadsView {
                         .build())
                 .addVerticalGlue()
                 .build();
+    }
+
+    @Override
+    public void leftClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : start;
+
+        roadsUI.interact(newNode, steps, end);
+    }
+
+    @Override
+    public void rightClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : end;
+
+        roadsUI.interact(start, steps, newNode);
+    }
+
+    @Override
+    public void shiftClick(Node node, Link link) {
+
+        if (node != null) {
+            if (steps.contains(node.getName())) {
+                steps.remove(node.getName());
+            } else {
+                steps.add(node.getName());
+            }
+        }
+
+        roadsUI.interact(start, steps, end);
     }
 
 }

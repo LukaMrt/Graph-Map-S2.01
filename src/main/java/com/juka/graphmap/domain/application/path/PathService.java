@@ -11,17 +11,32 @@ import com.juka.graphmap.domain.model.path.Step;
 
 import java.util.*;
 
+/**
+ * Service to find the shortest path between two nodes with checkpoints.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
 public class PathService implements RoadsFinderService {
 
     private final NodeRepository nodeRepository;
     private final FloydWarshallDistancesRepository distanceRepository;
 
+    /**
+     * Constructor of the path service.
+     *
+     * @param nodeRepository repository of nodes
+     * @param distanceRepository repository of distances
+     */
     @Inject
     public PathService(NodeRepository nodeRepository, FloydWarshallDistancesRepository distanceRepository) {
         this.nodeRepository = nodeRepository;
         this.distanceRepository = distanceRepository;
     }
 
+    /**
+     * Executes the Floyd-Warshall algorithm to fill the distances repository.
+     */
     public void computeFloydWarshall() {
 
         List<Node> nodes = nodeRepository.getAllNodes().stream().sorted().toList();
@@ -41,6 +56,13 @@ public class PathService implements RoadsFinderService {
         distanceRepository.storeDistances(steps);
     }
 
+    /**
+     * Initializes the steps of the Floyd-Warshall algorithm.
+     *
+     * @param steps matrix of steps
+     * @param node node to initialize
+     * @param nodes list of nodes
+     */
     private void initializeSteps(FloydWarshallStep[][] steps, Node node, List<Node> nodes) {
         int index = nodes.indexOf(node);
 
@@ -60,6 +82,14 @@ public class PathService implements RoadsFinderService {
         }
     }
 
+    /**
+     * Executes one iteration of the Floyd-Warshall algorithm.
+     *
+     * @param nodes list of nodes
+     * @param steps matrix of steps
+     * @param k index of the node
+     * @param i index of the node
+     */
     private void iteration(List<Node> nodes, FloydWarshallStep[][] steps, int k, int i) {
         for (int j = 0; j < nodes.size(); j++) {
             int newDistance = steps[i][k].distance + steps[k][j].distance;
@@ -74,6 +104,13 @@ public class PathService implements RoadsFinderService {
         }
     }
 
+    /**
+     * Returns the shortest path between two nodes.
+     *
+     * @param originNodeName name of the origin node
+     * @param destinationNodeName name of the destination node
+     * @return shortest path between two nodes
+     */
     public Path getShortestPath(String originNodeName, String destinationNodeName) {
 
         Node node = nodeRepository.getNode(originNodeName);
@@ -108,6 +145,7 @@ public class PathService implements RoadsFinderService {
 
         return new Path(steps, (double) distance);
     }
+
 
     @Override
     public Path getPathsWithSpecificLocations(String start, List<String> steps, String end) {

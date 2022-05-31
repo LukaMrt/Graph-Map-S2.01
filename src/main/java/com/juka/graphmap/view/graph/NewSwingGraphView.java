@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.graph;
 
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.compare.CompareUI;

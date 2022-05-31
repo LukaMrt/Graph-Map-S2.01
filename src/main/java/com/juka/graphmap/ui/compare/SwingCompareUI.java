@@ -2,6 +2,7 @@ package com.juka.graphmap.ui.compare;
 
 import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.node.NodeCompareService;
+import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
@@ -14,12 +15,14 @@ public class SwingCompareUI implements CompareUI {
 
     private final GraphService graphService;
     private final NodeCompareService nodeCompareService;
+    private final NodeService nodeService;
     private final CompareView view;
 
     @Inject
-    public SwingCompareUI(GraphService graphService, NodeCompareService nodeCompareService, CompareView view) {
+    public SwingCompareUI(GraphService graphService, NodeCompareService nodeCompareService, NodeService nodeService, CompareView view) {
         this.graphService = graphService;
         this.nodeCompareService = nodeCompareService;
+        this.nodeService = nodeService;
         this.view = view;
     }
 
@@ -28,6 +31,8 @@ public class SwingCompareUI implements CompareUI {
 
         List<Comparaison> result = new ArrayList<>();
 
+        nodeService.unSelectAll();
+
         if (city1 != null && city2 != null) {
             nodeCompareService.nodeCompareCity(city1, city2)
                     .entrySet().stream()
@@ -35,12 +40,20 @@ public class SwingCompareUI implements CompareUI {
                     .forEach(result::add);
         }
 
+        if (city1 != null) {
+            nodeService.select(city1);
+        }
+
+        if (city2 != null) {
+            nodeService.select(city2);
+        }
+
         List<String> cities = graphService.getAllNodes().stream()
                 .filter(node -> node.getType() == NodeType.CITY)
                 .map(Node::getName)
                 .toList();
 
-        view.display(graphService.getAllNodes(), cities, result);
+        view.display(graphService.getAllNodes(), cities, result, city1, city2);
 
     }
 

@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.neighbours.direct;
 
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
@@ -163,6 +164,15 @@ public class NewSwingDirectNeighborsView extends GlobalSwingView implements Dire
                 .add(descriptionPanel)
                 .addVerticalGlue()
                 .build();
+    }
+
+    @Override
+    public void leftClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : nodeCharacteristics.name;
+        String newLink = link != null ? link.getRoadNameWithIndex() : linkCharacteristics.name;
+
+        directNeighborsUI.interact(newNode, newLink);
     }
 
 }

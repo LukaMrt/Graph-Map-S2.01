@@ -25,6 +25,7 @@ public class GraphService {
 
     /**
      * Constructor of the service.
+     *
      * @param nodeRepository The node repository.
      * @param linkRepository The link repository.
      * @param graphLoader The graph loader.
@@ -38,6 +39,7 @@ public class GraphService {
 
     /**
      * Returns graph characteristics.
+     *
      * @return The graph characteristics.
      */
     public GraphCharacteristics getGraphCharacteristics() {
@@ -56,6 +58,7 @@ public class GraphService {
 
     /**
      * Returns the number of cities in the graph.
+     *
      * @return The number of cities in the graph.
      */
     public int countCities() {
@@ -64,6 +67,7 @@ public class GraphService {
 
     /**
      * Returns the number of roads in the graph.
+     *
      * @return The number of roads in the graph.
      */
     public int countRoads() {
@@ -72,6 +76,7 @@ public class GraphService {
 
     /**
      * Returns the percentage of nodes of the specified type.
+     *
      * @param type The type of nodes.
      * @return The percentage of nodes of the specified type.
      */
@@ -88,6 +93,7 @@ public class GraphService {
 
     /**
      * Returns the percentage of links of the specified type.
+     *
      * @param type The type of links.
      * @return The percentage of links of the specified type.
      */
@@ -104,6 +110,7 @@ public class GraphService {
 
     /**
      * Returns true if an error has been encountered during the loading of the graph.
+     *
      * @return True if an error has been encountered during the loading of the graph.
      */
     public boolean hasEncounteredError() {
@@ -134,6 +141,7 @@ public class GraphService {
 
     /**
      * Returns all the nodes in the graph.
+     *
      * @return All the nodes in the graph.
      */
     public List<Node> getAllNodes() {
@@ -142,6 +150,7 @@ public class GraphService {
 
     /**
      * Returns true if the graph contains the specified node, false otherwise.
+     *
      * @param entry The name of the node to check.
      * @return True if the graph contains the specified node, false otherwise.
      */
@@ -151,6 +160,7 @@ public class GraphService {
 
     /**
      * Returns the link with the specified name.
+     *
      * @param entry The name of the link.
      * @return True if the graph contains the specified link, false otherwise.
      */
@@ -160,6 +170,7 @@ public class GraphService {
 
     /**
      * Returns all the links in the graph.
+     *
      * @return All the links in the graph.
      */
     public List<Link> getAllLinks() {

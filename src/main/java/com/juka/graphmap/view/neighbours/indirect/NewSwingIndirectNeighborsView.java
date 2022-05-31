@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.neighbours.indirect;
 
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.graph.GraphUI;
@@ -129,6 +130,22 @@ public class NewSwingIndirectNeighborsView extends GlobalSwingView implements In
                 .add(aLabel().withText(message).isText().isXCentered().build())
                 .addVerticalGlue()
                 .build();
+    }
+
+    @Override
+    public void leftClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : location1;
+
+        indirectNeighborsUI.interact(newNode, location1);
+    }
+
+    @Override
+    public void rightClick(Node node, Link link) {
+
+        String newNode = node != null ? node.getName() : location2;
+
+        indirectNeighborsUI.interact(location1, newNode);
     }
 
 }

@@ -30,14 +30,18 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
 
         NodeCharacteristics nodeCharacteristics = NodeCharacteristics.empty();
 
-        if (node != null) {
+        if (node != null && !node.isEmpty()) {
             nodeCharacteristics = nodeService.getNodeCharacteristics(node);
+            nodeService.unSelectAll();
+            nodeService.select(node);
         }
 
         LinkCharacteristics linkCharacteristics = LinkCharacteristics.empty();
 
-        if (link != null) {
+        if (link != null && !link.isEmpty()) {
             linkCharacteristics = linkService.getLinkCharacteristics(link);
+            linkService.unselectAll();
+            linkService.select(link);
         }
 
         List<String> links = graphService.getAllLinks().stream()

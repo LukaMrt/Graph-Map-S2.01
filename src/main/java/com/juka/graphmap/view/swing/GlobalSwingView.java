@@ -1,5 +1,6 @@
 package com.juka.graphmap.view.swing;
 
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
@@ -27,7 +28,7 @@ public abstract class GlobalSwingView {
                 aPanel().withBorderLayout()
                         .add(buildTitle(), BorderLayout.NORTH)
                         .add(buildSidePanel(buildLeftPanel()), BorderLayout.WEST)
-                        .add(new SwingGraphPanel(nodes), BorderLayout.CENTER)
+                        .add(new SwingGraphPanel(nodes, this), BorderLayout.CENTER)
                         .add(buildSidePanel(buildRightPanel()), BorderLayout.EAST)
                         .add(buildBottomPanel(), BorderLayout.SOUTH)
                         .build()
@@ -82,5 +83,11 @@ public abstract class GlobalSwingView {
     protected abstract JPanel buildLeftPanel();
 
     protected abstract JPanel buildRightPanel();
+
+    public void leftClick(Node node, Link link) {}
+
+    public void rightClick(Node node, Link link) {}
+
+    public void shiftClick(Node node, Link link) {}
 
 }
