@@ -66,27 +66,27 @@ public class SwingHomeView extends GlobalSwingView implements HomeView {
     @Override
     protected JPanel buildLeftPanel() {
         return buildPanel(graphCharacteristics.locationCount + " lieux dont :",
-                " - " + graphCharacteristics.cityPercentage + " % de villes", Color.GREEN,
-                " - " + graphCharacteristics.restaurantPercentage + " % de restaurants", Color.RED,
-                " - " + graphCharacteristics.recreationPercentage + " % de centres de loisirs", Color.BLUE);
+                " - " + graphCharacteristics.cityPercentage + " % de villes",
+                " - " + graphCharacteristics.restaurantPercentage + " % de restaurants",
+                " - " + graphCharacteristics.recreationPercentage + " % de centres de loisirs");
     }
 
     @Override
     protected JPanel buildRightPanel() {
         return buildPanel(graphCharacteristics.roadCount + " routes dont :",
-                " - " + graphCharacteristics.highwayPercentage + " % d'autoroutes", Color.RED,
-                " - " + graphCharacteristics.nationalPercentage + " % de routes nationales", Color.GREEN,
-                " - " + graphCharacteristics.departementalPercentage + " % de routes départementales", Color.BLUE);
+                " - " + graphCharacteristics.highwayPercentage + " % d'autoroutes",
+                " - " + graphCharacteristics.nationalPercentage + " % de routes nationales",
+                " - " + graphCharacteristics.departementalPercentage + " % de routes départementales");
     }
 
-    private JPanel buildPanel(String text1, String text2, Color color2, String text3, Color color3, String text4, Color color4) {
+    private JPanel buildPanel(String text1, String text2, String text3, String text4) {
         return aPanel()
                 .withYBoxLayout()
                 .isXCentered()
                 .add(aLabel().withText(text1).isTitle().build())
-                .add(aLabel().withText(text2).withColor(color2).isText().build())
-                .add(aLabel().withText(text3).withColor(color3).isText().build())
-                .add(aLabel().withText(text4).withColor(color4).isText().build())
+                .add(aLabel().withText(text2).withColor(Color.GREEN).isText().build())
+                .add(aLabel().withText(text3).withColor(Color.RED).isText().build())
+                .add(aLabel().withText(text4).withColor(Color.BLUE).isText().build())
                 .build();
     }
 

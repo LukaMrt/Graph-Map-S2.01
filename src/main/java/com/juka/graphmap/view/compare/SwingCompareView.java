@@ -146,11 +146,11 @@ public class SwingCompareView extends GlobalSwingView implements CompareView {
     @Override
     public void leftClick(Node node, Link link) {
 
-        if (node != null && node.getType() != NodeType.CITY) {
-            compareUI.interact(city1, city2);
-        }
+        String newNode = city1;
 
-        String newNode = node != null ? node.getName() : city1;
+        if ((node != null && node.getType() == NodeType.CITY)) {
+            newNode = node.getName();
+        }
 
         compareUI.interact(newNode, city2);
     }
@@ -158,11 +158,11 @@ public class SwingCompareView extends GlobalSwingView implements CompareView {
     @Override
     public void rightClick(Node node, Link link) {
 
-        if (node != null && node.getType() != NodeType.CITY) {
-            compareUI.interact(city1, city2);
-        }
+        String newNode = city2;
 
-        String newNode = node != null ? node.getName() : city2;
+        if ((node != null && node.getType() == NodeType.CITY)) {
+            newNode = node.getName();
+        }
 
         compareUI.interact(city1, newNode);
     }

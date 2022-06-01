@@ -41,8 +41,8 @@ public class SwingGraphPanel extends JPanel {
                 neighborCoordinate = neighborLink.getDestination().getCoordinate();
 
                 switch (neighborLink.getType()) {
-                    case HIGHWAY -> g2d.setColor(new Color(255, 0, 0));
-                    case NATIONAL -> g2d.setColor(new Color(0, 255, 0));
+                    case NATIONAL -> g2d.setColor(new Color(255, 0, 0));
+                    case HIGHWAY -> g2d.setColor(new Color(0, 255, 0));
                     case DEPARTMENTAL -> g2d.setColor(new Color(0, 0, 255));
                 }
 
