@@ -7,27 +7,30 @@ import com.juka.graphmap.domain.application.path.PathService;
 import com.juka.graphmap.main.guice.SwingGuiceModule;
 import com.juka.graphmap.main.guice.TerminalGuiceModule;
 import com.juka.graphmap.ui.home.HomeUI;
-
-import javax.swing.*;
+import com.juka.graphmap.view.welcome.StartFrame;
+import com.juka.graphmap.view.welcome.ViewType;
 
 public class Main {
 
     public static void main(String[] args) {
+        new Main().setUp();
+    }
 
-        String file = JOptionPane.showInputDialog(null, "Entrez le nom du fichier du graphe", "Graphe", JOptionPane.QUESTION_MESSAGE);
+    private void setUp() {
+        new StartFrame(this).display();
+    }
 
-        int i = JOptionPane.showOptionDialog(null, "Choisissez votre mode d'affichage", "GraphMap", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Terminal", "Interface graphique"}, "Terminal");
+    public void start(ViewType choice, String file) {
 
         Injector injector = Guice.createInjector(new TerminalGuiceModule(file));
 
-        if (i == 1) {
+        if (choice == ViewType.GRAPHICAL_INTERFACE) {
             injector = Guice.createInjector(new SwingGuiceModule(file));
         }
 
         injector.getInstance(GraphService.class).load();
         injector.getInstance(PathService.class).computeFloydWarshall();
         injector.getInstance(HomeUI.class).interact();
-
     }
 
 }
