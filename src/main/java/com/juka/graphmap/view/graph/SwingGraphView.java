@@ -40,12 +40,12 @@ public class SwingGraphView extends SwingView implements GraphView {
     /**
      * Constructor.
      *
-     * @param frame the frame of the application
-     * @param compareUI the compare UI
-     * @param pathUI the path UI
-     * @param directNeighborsUI the direct neighbors UI
+     * @param frame               the frame of the application
+     * @param compareUI           the compare UI
+     * @param pathUI              the path UI
+     * @param directNeighborsUI   the direct neighbors UI
      * @param indirectNeighborsUI the indirect neighbors UI
-     * @param homeUI the home UI
+     * @param homeUI              the home UI
      */
     @Inject
     public SwingGraphView(GraphMapJFrame frame, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI, HomeUI homeUI) {
@@ -78,21 +78,6 @@ public class SwingGraphView extends SwingView implements GraphView {
     @Override
     protected List<JButton> getButtons() {
         return List.of(
-                aButton().withText("Comparaison")
-                        .withSize(180, 50)
-                        .isYCentered()
-                        .withAction(e -> compareUI.interact(null, null))
-                        .build(),
-                aButton().withText("Chemin")
-                        .withSize(180, 50)
-                        .isYCentered()
-                        .withAction(e -> pathUI.interact(null, null))
-                        .build(),
-                aButton().withText("Retour")
-                        .withSize(180, 50)
-                        .isYCentered()
-                        .withAction(e -> homeUI.interact())
-                        .build(),
                 aButton().withText("Description")
                         .withSize(180, 50)
                         .isYCentered()
@@ -102,6 +87,21 @@ public class SwingGraphView extends SwingView implements GraphView {
                         .withSize(180, 50)
                         .isYCentered()
                         .withAction(e -> indirectNeighborsUI.interact(null, null))
+                        .build(),
+                aButton().withText("Retour")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> homeUI.interact())
+                        .build(),
+                aButton().withText("Comparaison")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> compareUI.interact(null, null))
+                        .build(),
+                aButton().withText("Chemin")
+                        .withSize(180, 50)
+                        .isYCentered()
+                        .withAction(e -> pathUI.interact(null, null))
                         .build()
         );
     }

@@ -57,6 +57,7 @@ public class SwingGraphPanel extends JPanel {
             nodeCoordinate = node.getCoordinate();
 
             for (Link neighborLink : node.getNeighborsLinks()) {
+                g2d.setStroke(new BasicStroke(1.5f));
                 neighborCoordinate = neighborLink.getDestination().getCoordinate();
 
                 switch (neighborLink.getType()) {
@@ -66,7 +67,8 @@ public class SwingGraphPanel extends JPanel {
                 }
 
                 if (neighborLink.isSelected()) {
-                    g2d.setColor(new Color(0, 0, 0, 255));
+                    g2d.setColor(new Color(0, 255, 255, 255));
+                    g2d.setStroke(new BasicStroke(5.5f));
                 }
 
                 g2d.draw(new Line2D.Double(nodeCoordinate.x() + NODE_SIZE / 2, nodeCoordinate.y() + NODE_SIZE / 2,
@@ -79,12 +81,17 @@ public class SwingGraphPanel extends JPanel {
     private void drawNodes(Graphics2D g2d, List<Node> nodes) {
         Coordinate nodeCoordinate;
         for (Node node : nodes) {
+            double size = NODE_SIZE;
             nodeCoordinate = node.getCoordinate();
+
+            if (node.isSelected()) {
+                size = NODE_SIZE * 1.5;
+            }
 
             g2d.setColor(new Color(0, 0, 0));
             g2d.drawString(node.getName(), (
                             nodeCoordinate.x() - node.getName().length() * 3.3f),
-                    (float) (nodeCoordinate.y() - NODE_SIZE / 3));
+                    (float) (nodeCoordinate.y() - size / 3));
 
             switch (node.getType()) {
                 case CITY -> g2d.setColor(new Color(0, 255, 0));
@@ -93,10 +100,10 @@ public class SwingGraphPanel extends JPanel {
             }
 
             if (node.isSelected()) {
-                g2d.setColor(new Color(0, 0, 0, 255));
+                g2d.setColor(new Color(0, 255, 255, 255));
             }
 
-            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), NODE_SIZE, NODE_SIZE));
+            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x() - (size - NODE_SIZE) * 0.5, node.getCoordinate().y() - (size - NODE_SIZE) * 0.5, size, size));
         }
     }
 

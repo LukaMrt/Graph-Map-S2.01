@@ -4,8 +4,10 @@ import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -26,9 +28,9 @@ public class SwingGraphUI implements GraphUI {
      * Constructor of the SwingGraphUI.
      *
      * @param graphService the graph service
-     * @param nodeService the node service
-     * @param linkService the link service
-     * @param view        the view
+     * @param nodeService  the node service
+     * @param linkService  the link service
+     * @param view         the view
      */
     @Inject
     public SwingGraphUI(GraphService graphService, NodeService nodeService, LinkService linkService, GraphView view) {
@@ -42,13 +44,18 @@ public class SwingGraphUI implements GraphUI {
     public void interact() {
 
         List<String> links = graphService.getAllLinks().stream()
+                .sorted(Comparator.comparing(Link::getType))
                 .map(Link::getRoadNameWithIndex)
                 .toList();
 
         nodeService.unselectAll();
         linkService.unselectAll();
 
-        view.display(graphService.getAllNodes(), links);
+        List<Node> nodes = graphService.getAllNodes().stream()
+                .sorted(Comparator.comparing(Node::getType))
+                .toList();
+
+        view.display(nodes, links);
     }
 
 }
