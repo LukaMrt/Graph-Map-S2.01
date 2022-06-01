@@ -9,7 +9,7 @@ import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.compare.CompareView;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
-import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.SwingView;
 import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
-public class SwingCompareView extends GlobalSwingView implements CompareView {
+public class SwingCompareView extends SwingView implements CompareView {
 
     private final GraphUI graphUI;
     private final CompareUI compareUI;

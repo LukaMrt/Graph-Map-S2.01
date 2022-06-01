@@ -7,7 +7,7 @@ import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
-import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.SwingView;
 import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
-public class SwingIndirectNeighborsView extends GlobalSwingView implements IndirectNeighborsView {
+public class SwingIndirectNeighborsView extends SwingView implements IndirectNeighborsView {
 
     private final GraphUI graphUI;
     private final IndirectNeighborsUI indirectNeighborsUI;

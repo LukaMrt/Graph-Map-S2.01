@@ -8,7 +8,7 @@ import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.path.PathUI;
 import com.juka.graphmap.ui.path.PathView;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
-import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.SwingView;
 import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
-public class SwingPathView extends GlobalSwingView implements PathView {
+public class SwingPathView extends SwingView implements PathView {
 
     private final GraphUI graphUI;
     private final PathUI pathUI;

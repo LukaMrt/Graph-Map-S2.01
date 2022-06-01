@@ -1,27 +1,107 @@
 package com.juka.graphmap.view.swing;
 
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.view.Title;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.components.SwingGraphPanel;
+
 import javax.swing.*;
+
 import java.awt.*;
+import java.util.List;
 
-public class SwingView {
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
-    protected JPanel buildTitle(String title, int screenNumber) {
-        JPanel panel = new JPanel();
+public abstract class SwingView {
 
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    protected final GraphMapJFrame frame;
 
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    protected SwingView(GraphMapJFrame frame) {
+        this.frame = frame;
+    }
 
-        JLabel label = new JLabel("~ Écran n°" + screenNumber + " ~");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.BOLD, 40));
-        panel.add(label);
-        label = new JLabel(title);
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setFont(new Font("Arial", Font.BOLD, 35));
-        panel.add(label);
+    public void display(List<Node> nodes) {
 
-        return panel;
+        this.frame.setContentPane(
+                aPanel().withBorderLayout()
+                        .add(buildTitle(), BorderLayout.NORTH)
+                        .add(buildSidePanel(buildLeftPanel()), BorderLayout.WEST)
+                        .add(new SwingGraphPanel(nodes, this), BorderLayout.CENTER)
+                        .add(buildSidePanel(buildRightPanel()), BorderLayout.EAST)
+                        .add(buildBottomPanel(), BorderLayout.SOUTH)
+                        .build()
+        );
+
+        JMenu menu = this.frame.getJMenuBar().getMenu(2);
+        JMenuItem item = menu.getItem(0);
+
+        menu.remove(item);
+
+        item = new JMenuItem("Consignes de cet écran");
+        item.addActionListener(e -> JOptionPane.showMessageDialog(this.frame, this.getHelp(), "Aide", JOptionPane.INFORMATION_MESSAGE));
+        menu.add(item);
+
+        ((JPanel) this.frame.getContentPane()).updateUI();
+    }
+
+    protected abstract String getHelp();
+
+    private JPanel buildSidePanel(JPanel panel) {
+        return aPanel()
+                .withSize(300, 600)
+                .withXBoxLayout()
+                .isYCentered()
+                .addHorizontalGlue()
+                .add(panel)
+                .addHorizontalGlue()
+                .build();
+    }
+
+    protected JPanel buildTitle() {
+
+        return aPanel()
+                .withYBoxLayout()
+                .addRigidArea(0, 10)
+                .isXCentered()
+                .add(aLabel().withText("~ Écran n°" + getTitle().screenNumber + " ~")
+                        .isBigTitle()
+                        .isXCentered()
+                        .build())
+                .add(aLabel().withText(getTitle().title)
+                        .isSubBigTitle()
+                        .isXCentered()
+                        .build())
+                .addRigidArea(0, 10)
+                .build();
+    }
+
+    private JPanel buildBottomPanel() {
+        return aPanel()
+                .withSize(1300, 100)
+                .withXBoxLayout()
+                .addHorizontalGlue()
+                .isYCentered()
+                .addAllFollowedByHorizontalGlue(getButtons())
+                .build();
+    }
+
+    protected abstract Title getTitle();
+
+    protected abstract List<JButton> getButtons();
+
+    protected abstract JPanel buildLeftPanel();
+
+    protected abstract JPanel buildRightPanel();
+
+    public void leftClick(Node node, Link link) {
+    }
+
+    public void rightClick(Node node, Link link) {
+    }
+
+    public void shiftClick(Node node, Link link) {
     }
 
 }

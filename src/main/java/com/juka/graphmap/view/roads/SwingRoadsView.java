@@ -9,7 +9,7 @@ import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.roads.RoadsUI;
 import com.juka.graphmap.ui.roads.RoadsView;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
-import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.SwingView;
 import com.juka.graphmap.view.swing.components.ComboBoxBuilder;
 import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
@@ -23,7 +23,7 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
-public class SwingRoadsView extends GlobalSwingView implements RoadsView {
+public class SwingRoadsView extends SwingView implements RoadsView {
 
     private final HomeUI homeUI;
     private final RoadsUI roadsUI;

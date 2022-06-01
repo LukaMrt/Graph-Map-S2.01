@@ -3,7 +3,7 @@ package com.juka.graphmap.view.swing.components;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Coordinate;
 import com.juka.graphmap.domain.model.node.Node;
-import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +16,10 @@ public class SwingGraphPanel extends JPanel {
     private final List<Node> nodes;
     private final double nodeSize = 20;
 
-    public SwingGraphPanel(List<Node> nodes, GlobalSwingView globalSwingView) {
+    public SwingGraphPanel(List<Node> nodes, SwingView swingView) {
         super();
         this.nodes = nodes;
-        addMouseListener(new MouseListener(nodes, globalSwingView));
+        addMouseListener(new MouseListener(nodes, swingView));
         setSize(700, 600);
     }
 

@@ -3,7 +3,7 @@ package com.juka.graphmap.view.swing.components;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Coordinate;
 import com.juka.graphmap.domain.model.node.Node;
-import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -18,11 +18,11 @@ import static java.lang.Math.min;
 public class MouseListener implements java.awt.event.MouseListener {
 
     private final List<Node> nodes;
-    private final GlobalSwingView globalSwingView;
+    private final SwingView swingView;
 
-    public MouseListener(List<Node> nodes, GlobalSwingView globalSwingView) {
+    public MouseListener(List<Node> nodes, SwingView swingView) {
         this.nodes = nodes;
-        this.globalSwingView = globalSwingView;
+        this.swingView = swingView;
     }
 
     @Override
@@ -38,14 +38,14 @@ public class MouseListener implements java.awt.event.MouseListener {
                 .findFirst()
                 .orElse(new Link2(null, null));
 
-        BiConsumer<Node, Link> action = (node, link) -> globalSwingView.leftClick(clickedNode, clickedLink.link);
+        BiConsumer<Node, Link> action = (node, link) -> swingView.leftClick(clickedNode, clickedLink.link);
 
         if (SwingUtilities.isRightMouseButton(event)) {
-            action = (node, link) -> globalSwingView.rightClick(clickedNode, clickedLink.link);
+            action = (node, link) -> swingView.rightClick(clickedNode, clickedLink.link);
         }
 
         if (event.isShiftDown()) {
-            action = (node, link) -> globalSwingView.shiftClick(clickedNode, clickedLink.link);
+            action = (node, link) -> swingView.shiftClick(clickedNode, clickedLink.link);
         }
 
         action.accept(clickedNode, clickedLink.link);

@@ -7,7 +7,7 @@ import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeView;
 import com.juka.graphmap.ui.roads.RoadsUI;
 import com.juka.graphmap.view.frame.GraphMapJFrame;
-import com.juka.graphmap.view.swing.GlobalSwingView;
+import com.juka.graphmap.view.swing.SwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
@@ -18,7 +18,9 @@ import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
-public class SwingHomeView extends GlobalSwingView implements HomeView {
+public class SwingHomeView extends SwingView implements HomeView {
+
+    private static boolean firstTime = true;
 
     private final GraphUI graphUI;
     private final RoadsUI roadsUI;
@@ -35,6 +37,14 @@ public class SwingHomeView extends GlobalSwingView implements HomeView {
     public void display(GraphCharacteristics graphCharacteristics, List<Node> nodes) {
         this.graphCharacteristics = graphCharacteristics;
         super.display(nodes);
+
+        if (firstTime) {
+            String message = "Bienvenue sur le GraphMap ! Une aide est disponible dans la barre en " +
+                    "haut à gauche de l'écran pour expliquer le fonctionnement de chaque écran.";
+            JOptionPane.showMessageDialog(super.frame, message, "Welcome to GraphMap", JOptionPane.INFORMATION_MESSAGE);
+            firstTime = false;
+        }
+
     }
 
     @Override
