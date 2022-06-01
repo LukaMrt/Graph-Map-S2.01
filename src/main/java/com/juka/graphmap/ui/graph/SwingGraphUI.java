@@ -43,9 +43,9 @@ public class SwingGraphUI implements GraphUI {
     @Override
     public void interact() {
 
-        List<String> links = graphService.getAllLinks().stream()
+        List<Link> links = graphService.getAllLinks().stream()
                 .sorted(Comparator.comparing(Link::getType))
-                .map(Link::getRoadNameWithIndex)
+                .filter(link -> link.getName().endsWith(".1"))
                 .toList();
 
         nodeService.unselectAll();

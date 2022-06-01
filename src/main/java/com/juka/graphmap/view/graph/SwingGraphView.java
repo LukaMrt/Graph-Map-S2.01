@@ -1,6 +1,9 @@
 package com.juka.graphmap.view.graph;
 
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkType;
 import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
 import com.juka.graphmap.domain.model.view.Title;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.graph.GraphView;
@@ -13,6 +16,7 @@ import com.juka.graphmap.view.swing.SwingView;
 
 import javax.inject.Inject;
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
@@ -58,9 +62,35 @@ public class SwingGraphView extends SwingView implements GraphView {
     }
 
     @Override
-    public void display(List<Node> nodes, List<String> links) {
-        this.nodes = nodes.stream().map(Node::getName).toList();
-        this.links = links;
+    public void display(List<Node> nodes, List<Link> links) {
+
+        this.nodes = new ArrayList<>();
+
+        this.nodes.add(" => Villes :");
+        nodes.stream().filter(node -> node.getType().equals(NodeType.CITY)).forEach(node -> this.nodes.add(node.getName()));
+
+        this.nodes.add("");
+        this.nodes.add(" => Restaurants :");
+        nodes.stream().filter(node -> node.getType().equals(NodeType.RESTAURANT)).forEach(node -> this.nodes.add(node.getName()));
+
+        this.nodes.add("");
+        this.nodes.add(" => Centre de loisir :");
+        nodes.stream().filter(node -> node.getType().equals(NodeType.RECREATION_CENTER)).forEach(node -> this.nodes.add(node.getName()));
+
+
+        this.links = new ArrayList<>();
+
+        this.links.add(" => Autoroutes :");
+        links.stream().filter(link -> link.getType().equals(LinkType.HIGHWAY)).forEach(link -> this.links.add(link.getRoadNameWithIndex()));
+
+        this.links.add("");
+        this.links.add(" => Routes nationales :");
+        links.stream().filter(link -> link.getType().equals(LinkType.NATIONAL)).forEach(link -> this.links.add(link.getRoadNameWithIndex()));
+
+        this.links.add("");
+        this.links.add(" => Routes départementales :");
+        links.stream().filter(link -> link.getType().equals(LinkType.DEPARTMENTAL)).forEach(link -> this.links.add(link.getRoadNameWithIndex()));
+
         super.display(nodes);
     }
 

@@ -1,6 +1,7 @@
 package com.juka.graphmap.view.graph;
 
 
+import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphView;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class TerminalGraphView implements GraphView {
 
     @Override
-    public void display(List<Node> nodes, List<String> links) {
+    public void display(List<Node> nodes, List<Link> links) {
         System.out.println();
         System.out.println("------------------------------------------------------");
         System.out.println("Écran n°2 - Choix des informations à afficher");
@@ -28,8 +29,8 @@ public class TerminalGraphView implements GraphView {
         System.out.println();
 
         System.out.println("Liste des routes :");
-        for (String link : links) {
-            System.out.println("- " + link);
+        for (Link link : links) {
+            System.out.println("- " + link.getRoadNameWithIndex());
         }
 
         System.out.println();

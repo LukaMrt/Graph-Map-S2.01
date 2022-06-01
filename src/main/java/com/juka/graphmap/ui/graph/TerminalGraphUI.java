@@ -56,11 +56,7 @@ public class TerminalGraphUI implements GraphUI {
     public void interact() {
         char entry;
 
-        List<String> links = graphService.getAllLinks().stream()
-                .map(Link::getRoadNameWithIndex)
-                .toList();
-
-        graphView.display(graphService.getAllNodes(), links);
+        graphView.display(graphService.getAllNodes(), graphService.getAllLinks());
 
         entry = scanner.nextLine().charAt(0);
 
