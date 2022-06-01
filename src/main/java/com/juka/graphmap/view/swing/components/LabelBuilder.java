@@ -95,6 +95,16 @@ public class LabelBuilder {
     }
 
     /**
+     * Center the label in Y axis.
+     *
+     * @return the LabelBuilder
+     */
+    public LabelBuilder isYCentered() {
+        this.label.setAlignmentY(Component.CENTER_ALIGNMENT);
+        return this;
+    }
+
+    /**
      * Set the color of the label.
      *
      * @param color the new color of the label
@@ -102,6 +112,21 @@ public class LabelBuilder {
      */
     public LabelBuilder withColor(Color color) {
         this.label.setForeground(color);
+        return this;
+    }
+
+    /**
+     * Set the size of the label.
+     *
+     * @param width the width of the label
+     * @param height the height of the label
+     * @return the LabelBuilder
+     */
+    public LabelBuilder withSize(int width, int height) {
+        this.label.setPreferredSize(new Dimension(width, height));
+        this.label.setSize(new Dimension(width, height));
+        this.label.setMinimumSize(new Dimension(width, height));
+        this.label.setMaximumSize(new Dimension(width, height));
         return this;
     }
 

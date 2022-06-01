@@ -49,13 +49,35 @@ public class StartFrame extends JFrame {
                 .withDirectory(".")
                 .build();
 
+        JLabel label = aLabel()
+                .withText("<Aucun fichier sélectionné>")
+                .isYCentered()
+                .withSize(200, 60)
+                .isText()
+                .build();
+
         this.setContentPane(aPanel()
                 .withYBoxLayout()
                 .addVerticalGlue()
                 .add(aLabel().withText("Bienvenue sur le GraphMap").isBigTitle().isXCentered().build())
                 .add(aLabel().withText("Choisissez le fichier du graphe et le mode d'affichage").isTitle().isXCentered().build())
                 .addVerticalGlue()
-                .add(fileChooser)
+                .add(aPanel()
+                        .isXCentered()
+                        .addHorizontalGlue()
+                        .add(aButton()
+                                .withText("Charger")
+                                .withSize(150, 40)
+                                .isYCentered()
+                                .withAction(e -> {
+                            fileChooser.showOpenDialog(null);
+                            label.setText(fileChooser.getSelectedFile().getName());
+                        }).build())
+                        .addRigidArea(50, 0)
+                        .add(label)
+                        .addHorizontalGlue()
+                        .addHorizontalGlue()
+                        .build())
                 .addVerticalGlue()
                 .add(aPanel()
                         .withXBoxLayout()
