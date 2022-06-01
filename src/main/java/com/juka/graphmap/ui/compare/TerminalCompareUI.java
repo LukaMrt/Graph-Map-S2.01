@@ -14,6 +14,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Terminal implementation for the compare UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalCompareUI implements CompareUI {
 
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -24,6 +30,15 @@ public class TerminalCompareUI implements CompareUI {
     private final HomeUI homeUI;
     private final GraphUI graphUI;
 
+    /**
+     * The constructor of the terminal compare UI.
+     *
+     * @param nodeCompareService    The node compare service.
+     * @param graphService          The graph service.
+     * @param compareView           The compare view.
+     * @param homeUI                The home UI.
+     * @param graphUI               The graph UI.
+     */
     @Inject
     public TerminalCompareUI(NodeCompareService nodeCompareService, GraphService graphService, CompareView compareView, HomeUI homeUI, GraphUI graphUI) {
         this.nodeCompareService = nodeCompareService;
@@ -66,6 +81,12 @@ public class TerminalCompareUI implements CompareUI {
         }
     }
 
+    /**
+     * Asks the user to choose a location.
+     *
+     * @param i The number of the node. (1 or 2)
+     * @return The name of the location.
+     */
     private String chooseLocation(int i) {
 
         System.out.println();

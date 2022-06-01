@@ -11,14 +11,31 @@ import static com.juka.graphmap.view.swing.components.FileChooserBuilder.aFileCh
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
+/**
+ * Start frame, displayed when the application is started to choose the view type
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class StartFrame extends JFrame {
 
+    /**
+     * The main class
+     */
     private final Main main;
 
+    /**
+     * Constructor.
+     *
+     * @param main the main class
+     */
     public StartFrame(Main main) {
         this.main = main;
     }
 
+    /**
+     * Display the start frame.
+     */
     public void display() {
 
         this.setTitle("GraphMap");
@@ -49,7 +66,7 @@ public class StartFrame extends JFrame {
                                 .withText("Terminal")
                                 .isYCentered()
                                 .withSize(200, 60)
-                                .withAction(getAction(ViewType.TERMINAl, fileChooser))
+                                .withAction(getAction(ViewType.TERMINAL, fileChooser))
                                 .build())
                         .addHorizontalGlue()
                         .add(aButton()

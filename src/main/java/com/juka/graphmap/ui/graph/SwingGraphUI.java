@@ -8,6 +8,12 @@ import com.juka.graphmap.domain.model.link.Link;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Swing implementation of the Graph UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingGraphUI implements GraphUI {
 
     private final GraphService graphService;
@@ -15,6 +21,15 @@ public class SwingGraphUI implements GraphUI {
     private final LinkService linkService;
     private final GraphView view;
 
+
+    /**
+     * Constructor of the SwingGraphUI.
+     *
+     * @param graphService the graph service
+     * @param nodeService the node service
+     * @param linkService the link service
+     * @param view        the view
+     */
     @Inject
     public SwingGraphUI(GraphService graphService, NodeService nodeService, LinkService linkService, GraphView view) {
         this.graphService = graphService;

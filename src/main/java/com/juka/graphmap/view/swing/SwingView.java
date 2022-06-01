@@ -14,14 +14,33 @@ import java.util.List;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
+/**
+ * Global swing view. Regroup all the methods to build any view.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public abstract class SwingView {
 
+    /**
+     * The frame of the application.
+     */
     protected final GraphMapJFrame frame;
 
+    /**
+     * Constructor.
+     *
+     * @param frame the frame of the application
+     */
     protected SwingView(GraphMapJFrame frame) {
         this.frame = frame;
     }
 
+    /**
+     * Display the view.
+     *
+     * @param nodes the nodes of the graph
+     */
     public void display(List<Node> nodes) {
 
         this.frame.setContentPane(
@@ -46,6 +65,11 @@ public abstract class SwingView {
         ((JPanel) this.frame.getContentPane()).updateUI();
     }
 
+    /**
+     * Get the help message of the screen.
+     *
+     * @return the help message
+     */
     protected abstract String getHelp();
 
     private JPanel buildSidePanel(JPanel panel) {
@@ -59,6 +83,11 @@ public abstract class SwingView {
                 .build();
     }
 
+    /**
+     * Build the title of the screen.
+     *
+     * @return the title panel of the screen
+     */
     protected JPanel buildTitle() {
 
         return aPanel()
@@ -87,20 +116,58 @@ public abstract class SwingView {
                 .build();
     }
 
+    /**
+     * Get the Title of the screen.
+     *
+     * @return the title of the screen
+     */
     protected abstract Title getTitle();
 
+    /**
+     * Get the buttons of the screen.
+     *
+     * @return the buttons of the screen
+     */
     protected abstract List<JButton> getButtons();
 
+    /**
+     * Build the left panel of the screen.
+     *
+     * @return the left panel of the screen
+     */
     protected abstract JPanel buildLeftPanel();
 
+    /**
+     * Build the right panel of the screen.
+     *
+     * @return the right panel of the screen
+     */
     protected abstract JPanel buildRightPanel();
 
+    /**
+     * Action to perform when the left mouse button is clicked.
+     *
+     * @param node the clicked node
+     * @param link the clicked link
+     */
     public void leftClick(Node node, Link link) {
     }
 
+    /**
+     * Action to perform when the right mouse button is clicked.
+     *
+     * @param node the clicked node
+     * @param link the clicked link
+     */
     public void rightClick(Node node, Link link) {
     }
 
+    /**
+     * Action to perform when the left mouse button is clicked with the shift key pressed.
+     *
+     * @param node the clicked node
+     * @param link the clicked link
+     */
     public void shiftClick(Node node, Link link) {
     }
 

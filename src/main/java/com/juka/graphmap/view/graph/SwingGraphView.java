@@ -20,6 +20,12 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
+/**
+ * The graph view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingGraphView extends SwingView implements GraphView {
 
     private final CompareUI compareUI;
@@ -31,6 +37,16 @@ public class SwingGraphView extends SwingView implements GraphView {
     private List<String> nodes;
     private List<String> links;
 
+    /**
+     * Constructor.
+     *
+     * @param frame the frame of the application
+     * @param compareUI the compare UI
+     * @param pathUI the path UI
+     * @param directNeighborsUI the direct neighbors UI
+     * @param indirectNeighborsUI the indirect neighbors UI
+     * @param homeUI the home UI
+     */
     @Inject
     public SwingGraphView(GraphMapJFrame frame, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI, HomeUI homeUI) {
         super(frame);

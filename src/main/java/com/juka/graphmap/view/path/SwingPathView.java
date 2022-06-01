@@ -21,6 +21,12 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
+/**
+ * The path view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingPathView extends SwingView implements PathView {
 
     private final GraphUI graphUI;
@@ -30,6 +36,13 @@ public class SwingPathView extends SwingView implements PathView {
     private String node2;
     private Path path;
 
+    /**
+     * Constructor.
+     *
+     * @param frame the frame of the application
+     * @param graphUI the graph UI
+     * @param pathUI the path UI
+     */
     @Inject
     public SwingPathView(GraphMapJFrame frame, GraphUI graphUI, PathUI pathUI) {
         super(frame);

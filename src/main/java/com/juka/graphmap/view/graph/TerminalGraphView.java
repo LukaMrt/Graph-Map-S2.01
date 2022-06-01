@@ -6,6 +6,12 @@ import com.juka.graphmap.ui.graph.GraphView;
 
 import java.util.List;
 
+/**
+ * The graph view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalGraphView implements GraphView {
 
     @Override

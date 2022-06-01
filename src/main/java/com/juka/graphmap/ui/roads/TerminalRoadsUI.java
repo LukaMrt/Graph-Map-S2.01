@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Terminal implementation of the roads UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalRoadsUI implements RoadsUI {
 
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -20,6 +26,14 @@ public class TerminalRoadsUI implements RoadsUI {
     private final RoadsView view;
     private final HomeUI homeUI;
 
+    /**
+     * Constructor of the terminal roads UI.
+     *
+     * @param graphService          The graph service.
+     * @param pathService           The path service.
+     * @param view                  The roads view.
+     * @param homeUI                The home UI.
+     */
     @Inject
     public TerminalRoadsUI(GraphService graphService, PathService pathService, RoadsView view, HomeUI homeUI) {
         this.graphService = graphService;
@@ -54,6 +68,12 @@ public class TerminalRoadsUI implements RoadsUI {
 
     }
 
+    /**
+     * Asks a user to choose a location.
+     *
+     * @param text The text to display to the user.
+     * @return The location chosen by the user.
+     */
     private String chooseLocation(String text) {
 
         System.out.println();
@@ -66,6 +86,11 @@ public class TerminalRoadsUI implements RoadsUI {
         return entry;
     }
 
+    /**
+     * Asks a user to choose a list of steps.
+     * 
+     * @return The list of steps chosen by the user.
+     */
     private List<String> chooseSteps() {
 
         System.out.println();

@@ -19,6 +19,12 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
+/**
+ * The indirect neighbors view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingIndirectNeighborsView extends SwingView implements IndirectNeighborsView {
 
     private final GraphUI graphUI;
@@ -29,6 +35,13 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     private String location2;
     private boolean result;
 
+    /**
+     * Constructor.
+     *
+     * @param frame the frame of the application
+     * @param graphUI the graph UI
+     * @param indirectNeighborsUI the indirect neighbors UI
+     */
     @Inject
     public SwingIndirectNeighborsView(GraphMapJFrame frame, GraphUI graphUI, IndirectNeighborsUI indirectNeighborsUI) {
         super(frame);

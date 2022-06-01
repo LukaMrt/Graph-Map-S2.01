@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Default implementation of LinkRepository with an ArrayList.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
 @Singleton
 public class DefaultLinkRepository implements LinkRepository {
 

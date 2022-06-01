@@ -10,16 +10,36 @@ import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.view.welcome.StartFrame;
 import com.juka.graphmap.view.welcome.ViewType;
 
+/**
+ * Main class of the application.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
 public class Main {
 
+    /**
+     * Main method of the application.
+     *
+     * @param args arguments of the application
+     */
     public static void main(String[] args) {
         new Main().setUp();
     }
 
+    /**
+     * Sets up the frame to choose the view.
+     */
     private void setUp() {
         new StartFrame(this).display();
     }
 
+    /**
+     * Starts the application with the given view.
+     *
+     * @param choice choice of the view
+     * @param file   path to the graph file
+     */
     public void start(ViewType choice, String file) {
 
         Injector injector = Guice.createInjector(new TerminalGuiceModule(file));

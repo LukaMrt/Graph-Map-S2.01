@@ -12,6 +12,12 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Terminal implementation for the DirectNeighborsUI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
 
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -22,6 +28,15 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
     private final DirectNeighborsView view;
     private final GraphUI graphUI;
 
+    /**
+     * Constructor of the TerminalDirectNeighborsUI.
+     *
+     * @param graphService The graph service
+     * @param nodeService  The node service
+     * @param linkService  The link service
+     * @param view         The view
+     * @param graphUI      The graph UI
+     */
     @Inject
     public TerminalDirectNeighborsUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighborsView view, GraphUI graphUI) {
         this.graphService = graphService;
@@ -34,7 +49,6 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
     @Override
     public void interact(String node, String link) {
 
-        // TODO : review conditions
         LinkCharacteristics characteristics = link != null && !link.isEmpty() ? linkService.getLinkCharacteristics(linkService.getLink(link).getRoadNameWithIndex()) : LinkCharacteristics.empty();
         NodeCharacteristics characteristics2 = node != null && !node.isEmpty() ? nodeService.getNodeCharacteristics(nodeService.getNode(node).getName()) : NodeCharacteristics.empty();
         List<String> links = graphService.getAllLinks().stream().map(Link::getRoadNameWithIndex).distinct().toList();
@@ -57,6 +71,11 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
 
     }
 
+    /**
+     * Asks the user to choose a location.
+     *
+     * @return The name of the node chosen by the user
+     */
     private String chooseLocation() {
 
         System.out.println();
@@ -69,6 +88,11 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
         return entry;
     }
 
+    /**
+     * Asks the user to choose a link.
+     *
+     * @return The name of the link chosen by the user
+     */
     private String chooseLink() {
 
         System.out.println();

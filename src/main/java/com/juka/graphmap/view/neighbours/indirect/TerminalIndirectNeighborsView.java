@@ -5,6 +5,12 @@ import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;
 
 import java.util.List;
 
+/**
+ * The indirect neighbors view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalIndirectNeighborsView implements IndirectNeighborsView {
 
     @Override

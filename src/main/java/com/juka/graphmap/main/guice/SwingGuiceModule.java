@@ -45,10 +45,21 @@ import com.juka.graphmap.view.roads.SwingRoadsView;
 import javax.inject.Singleton;
 import javax.swing.*;
 
+/**
+ * Guice module for Swing UI.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
 public class SwingGuiceModule extends AbstractModule {
 
     private final FilePath path;
 
+    /**
+     * Constructor of the swing module.
+     *
+     * @param path path to the graph file
+     */
     public SwingGuiceModule(String path) {
         this.path = new FilePath(path);
     }

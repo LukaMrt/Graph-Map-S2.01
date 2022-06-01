@@ -5,6 +5,12 @@ import com.juka.graphmap.domain.model.path.FloydWarshallStep;
 
 import javax.inject.Singleton;
 
+/**
+ * Default implementation of FloydWarshallDistancesRepository.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
 @Singleton
 public class DefaultFloydWarshallDistancesRepository implements FloydWarshallDistancesRepository {
 

@@ -7,6 +7,12 @@ import com.juka.graphmap.ui.path.PathView;
 
 import java.util.List;
 
+/**
+ * The path view with temrinal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalPathView implements PathView {
 
     @Override

@@ -23,6 +23,12 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
+/**
+ * The roads view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingRoadsView extends SwingView implements RoadsView {
 
     private final HomeUI homeUI;
@@ -33,6 +39,13 @@ public class SwingRoadsView extends SwingView implements RoadsView {
     private String end;
     private String start;
 
+    /**
+     * Constructor.
+     *
+     * @param frame   the frame
+     * @param homeUI  the home UI
+     * @param roadsUI the roads UI
+     */
     @Inject
     public SwingRoadsView(GraphMapJFrame frame, HomeUI homeUI, RoadsUI roadsUI) {
         super(frame);

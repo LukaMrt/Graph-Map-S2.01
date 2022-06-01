@@ -60,10 +60,18 @@ public class LinkService {
         return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType().toString(), link.getDistance());
     }
 
+    /**
+     * Sets all the links to unselected.
+     */
     public void unselectAll() {
         linkRepository.getAllLinks().forEach(Link::unselect);
     }
 
+    /**
+     * Sets the link with the given name to selected.
+     *
+     * @param link The link to select.
+     */
     public void select(String link) {
         linkRepository.getAllLinks().stream()
                 .filter(l -> l.getName().equals(link + ".1") || l.getName().equals(link + ".2"))

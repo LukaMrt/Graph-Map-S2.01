@@ -21,6 +21,12 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
+/**
+ * The compare view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingCompareView extends SwingView implements CompareView {
 
     private final GraphUI graphUI;
@@ -30,6 +36,13 @@ public class SwingCompareView extends SwingView implements CompareView {
     private String city1;
     private String city2;
 
+    /**
+     * Constructor.
+     *
+     * @param frame the fram of the application
+     * @param graphUI the graph ui
+     * @param compareUI the compare ui
+     */
     @Inject
     public SwingCompareView(GraphMapJFrame frame, GraphUI graphUI, CompareUI compareUI) {
         super(frame);

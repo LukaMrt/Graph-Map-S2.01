@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Default implementation of NodeRepository with an ArrayList.
+ */
 @Singleton
 public class DefaultNodeRepository implements NodeRepository {
 

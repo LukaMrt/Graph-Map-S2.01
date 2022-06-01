@@ -11,8 +11,17 @@ import java.util.List;
  */
 public class NodeCharacteristics {
 
+    /**
+     * The name of the node.
+     */
     public final String name;
+    /**
+     * The type of the node.
+     */
     public final String type;
+    /**
+     * The list of the node's neighbors.
+     */
     public final List<String> neighbors;
 
     /**

@@ -10,6 +10,12 @@ import com.juka.graphmap.ui.home.HomeUI;
 
 import java.util.Scanner;
 
+/**
+ * Terminal implementation of the Indirect neighbors UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
 
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -21,6 +27,16 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
     private final HomeUI homeUI;
     private final IndirectNeighborsView view;
 
+    /**
+     * Constructor.
+     *
+     * @param graphService        Graph service
+     * @param nodeDistanceService Node distance service
+     * @param nodeService         Node service
+     * @param graphUI             Graph UI
+     * @param homeUI              Home UI
+     * @param view                Indirect neighbors view
+     */
     @Inject
     public TerminalIndirectNeighborsUI(GraphService graphService, NodeDistanceService nodeDistanceService, NodeService nodeService, GraphUI graphUI, HomeUI homeUI, IndirectNeighborsView view) {
         this.graphService = graphService;

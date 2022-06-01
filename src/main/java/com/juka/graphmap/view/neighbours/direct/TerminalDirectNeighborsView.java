@@ -7,6 +7,12 @@ import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsView;
 
 import java.util.List;
 
+/**
+ * The Direct neighbors view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalDirectNeighborsView implements DirectNeighborsView {
 
     @Override

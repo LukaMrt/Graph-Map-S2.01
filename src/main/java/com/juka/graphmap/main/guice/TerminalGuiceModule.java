@@ -41,10 +41,21 @@ import com.juka.graphmap.view.roads.TerminalRoadsView;
 
 import javax.inject.Singleton;
 
+/**
+ * Guice module for terminal application.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
 public class TerminalGuiceModule extends AbstractModule {
 
     private final FilePath path;
 
+    /**
+     * Constructor of the terminal module.
+     *
+     * @param path path to the graph file
+     */
     public TerminalGuiceModule(String path) {
         this.path = new FilePath(path);
     }

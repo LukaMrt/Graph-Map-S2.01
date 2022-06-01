@@ -12,9 +12,15 @@ import com.juka.graphmap.ui.path.PathUI;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Terminal implementation of the Graph UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalGraphUI implements GraphUI {
 
-    public static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     private final GraphService graphService;
     private final GraphView graphView;
@@ -24,6 +30,17 @@ public class TerminalGraphUI implements GraphUI {
     private final DirectNeighborsUI directNeighborsUI;
     private final IndirectNeighborsUI indirectNeighborsUI;
 
+    /**
+     * Constructor of the TerminalGraphUI.
+     *
+     * @param graphService          the graph service
+     * @param graphView             the graph view
+     * @param homeUI                the home UI
+     * @param compareUI             the compare UI
+     * @param pathUI                the path UI
+     * @param directNeighborsUI     the direct neighbors UI
+     * @param indirectNeighborsUI   the indirect neighbors UI
+     */
     @Inject
     public TerminalGraphUI(GraphService graphService, GraphView graphView, HomeUI homeUI, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI) {
         this.graphService = graphService;

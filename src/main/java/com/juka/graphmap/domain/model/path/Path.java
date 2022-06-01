@@ -57,6 +57,12 @@ public class Path {
         return path.equals(that.path) && Objects.equals(distance, that.distance);
     }
 
+    /**
+     * Merge two paths.
+     *
+     * @param path2 The path to merge.
+     * @return The merged path.
+     */
     public Path merge(Path path2) {
 
         path2.getPath().remove(0);

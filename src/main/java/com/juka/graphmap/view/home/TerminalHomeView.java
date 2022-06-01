@@ -6,6 +6,12 @@ import com.juka.graphmap.ui.home.HomeView;
 
 import java.util.List;
 
+/**
+ * The home view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalHomeView implements HomeView {
 
     @Override

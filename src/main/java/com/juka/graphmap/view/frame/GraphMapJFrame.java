@@ -11,9 +11,20 @@ import static com.juka.graphmap.view.swing.components.ItemBuilder.anItem;
 import static com.juka.graphmap.view.swing.components.MenuBarBuilder.aMenuBar;
 import static com.juka.graphmap.view.swing.components.MenuBuilder.aMenu;
 
+/**
+ * The frame of the application.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 @Singleton
 public class GraphMapJFrame extends JFrame {
 
+    /**
+     * Constructor.
+     *
+     * @param homeUI the home UI
+     */
     @Inject
     public GraphMapJFrame(HomeUI homeUI) {
         this.setTitle("GraphMap");

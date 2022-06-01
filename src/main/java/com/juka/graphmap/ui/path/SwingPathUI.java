@@ -10,6 +10,12 @@ import com.juka.graphmap.domain.model.path.Step;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
+/**
+ * Swing implementation of the path UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingPathUI implements PathUI {
 
     private final GraphService graphService;
@@ -18,6 +24,15 @@ public class SwingPathUI implements PathUI {
     private final LinkService linkService;
     private final PathView view;
 
+    /**
+     * Constructor of the SwingPathUI.
+     *
+     * @param graphService the graph service
+     * @param pathService  the path service
+     * @param nodeService  the node service
+     * @param linkService  the link service
+     * @param view         the view
+     */
     @Inject
     public SwingPathUI(GraphService graphService, PathService pathService, NodeService nodeService, LinkService linkService, PathView view) {
         this.graphService = graphService;

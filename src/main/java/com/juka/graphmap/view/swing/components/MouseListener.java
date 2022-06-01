@@ -15,11 +15,23 @@ import java.util.function.BiConsumer;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+/**
+ * Custom MouseListener to handle mouse events on the graph and perform actions.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class MouseListener implements java.awt.event.MouseListener {
 
     private final List<Node> nodes;
     private final SwingView swingView;
 
+    /**
+     * Constructor.
+     *
+     * @param nodes     List of nodes to handle mouse events on.
+     * @param swingView SwingView to update.
+     */
     public MouseListener(List<Node> nodes, SwingView swingView) {
         this.nodes = nodes;
         this.swingView = swingView;

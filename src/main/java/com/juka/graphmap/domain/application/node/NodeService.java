@@ -90,10 +90,18 @@ public class NodeService {
         return new NodeCharacteristics(node.getName(), node.getType().toString(), neighbors);
     }
 
+    /**
+     * Unselects all the nodes.
+     */
     public void unselectAll() {
         nodeRepository.getAllNodes().forEach(Node::unselect);
     }
 
+    /**
+     * Select the specified node.
+     *
+     * @param node Name of the node.
+     */
     public void select(String node) {
         nodeRepository.getNode(node).select();
     }

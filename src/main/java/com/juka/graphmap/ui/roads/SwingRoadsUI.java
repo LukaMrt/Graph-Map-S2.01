@@ -11,6 +11,12 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Swing implementation of the roads UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingRoadsUI implements RoadsUI {
 
     private final GraphService graphService;
@@ -19,6 +25,15 @@ public class SwingRoadsUI implements RoadsUI {
     private final RoadsView roadsView;
     private final RoadsFinderService roadsFinderService;
 
+    /**
+     * Constructor the the swing roads UI.
+     *
+     * @param roadsView             The roads view.
+     * @param graphService          The graph service.
+     * @param nodeService           The node service.
+     * @param linkService           The link service.
+     * @param roadsFinderService    The roads finder service.
+     */
     @Inject
     public SwingRoadsUI(RoadsView roadsView, GraphService graphService, NodeService nodeService, LinkService linkService, RoadsFinderService roadsFinderService) {
         this.roadsView = roadsView;

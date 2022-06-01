@@ -8,10 +8,22 @@ package com.juka.graphmap.domain.model.link;
  */
 public enum LinkType {
 
+    /**
+     * Type representing a Highway.
+     */
     HIGHWAY("Autoroute"),
+    /**
+     * Type representing a national road.
+     */
     NATIONAL("Route nationale"),
+    /**
+     * Type representing a departmental road.
+     */
     DEPARTMENTAL("Route départementale");
 
+    /**
+     * The string representation of the link type.
+     */
     private final String type;
 
     /**

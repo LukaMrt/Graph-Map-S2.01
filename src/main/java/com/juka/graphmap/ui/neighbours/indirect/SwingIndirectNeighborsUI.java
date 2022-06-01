@@ -6,6 +6,12 @@ import com.juka.graphmap.domain.application.node.NodeService;
 
 import javax.inject.Inject;
 
+/**
+ * Swing implementation of the indirect neighbours UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
 
     private final NodeDistanceService distanceService;
@@ -13,6 +19,14 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
     private final IndirectNeighborsView view;
     private final NodeRepository nodeRepository;
 
+    /**
+     * Constructor of the SwingIndirectNeighborsUI.
+     *
+     * @param view                  the view of the indirect neighbours
+     * @param nodeRepository        the node repository
+     * @param nodeDistanceService   the node distance service
+     * @param nodeService           the node service
+     */
     @Inject
     public SwingIndirectNeighborsUI(IndirectNeighborsView view, NodeRepository nodeRepository, NodeDistanceService nodeDistanceService, NodeService nodeService) {
         this.view = view;

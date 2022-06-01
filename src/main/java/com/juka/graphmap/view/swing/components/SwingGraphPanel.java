@@ -11,11 +11,30 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.List;
 
+/**
+ * Panel where the graph is drawn.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingGraphPanel extends JPanel {
 
-    private final List<Node> nodes;
-    private final double nodeSize = 20;
+    /**
+     * The list of links.
+     */
+    private static final double NODE_SIZE = 20;
 
+    /**
+     * The list of nodes.
+     */
+    private final List<Node> nodes;
+
+    /**
+     * Constructor.
+     *
+     * @param nodes the nodes to draw
+     * @param swingView the screen
+     */
     public SwingGraphPanel(List<Node> nodes, SwingView swingView) {
         super();
         this.nodes = nodes;
@@ -50,8 +69,8 @@ public class SwingGraphPanel extends JPanel {
                     g2d.setColor(new Color(0, 0, 0, 255));
                 }
 
-                g2d.draw(new Line2D.Double(nodeCoordinate.x() + nodeSize / 2, nodeCoordinate.y() + nodeSize / 2,
-                        neighborCoordinate.x() + nodeSize / 2, neighborCoordinate.y() + nodeSize / 2));
+                g2d.draw(new Line2D.Double(nodeCoordinate.x() + NODE_SIZE / 2, nodeCoordinate.y() + NODE_SIZE / 2,
+                        neighborCoordinate.x() + NODE_SIZE / 2, neighborCoordinate.y() + NODE_SIZE / 2));
             }
 
         }
@@ -65,7 +84,7 @@ public class SwingGraphPanel extends JPanel {
             g2d.setColor(new Color(0, 0, 0));
             g2d.drawString(node.getName(), (
                             nodeCoordinate.x() - node.getName().length() * 3.3f),
-                    (float) (nodeCoordinate.y() - nodeSize / 3));
+                    (float) (nodeCoordinate.y() - NODE_SIZE / 3));
 
             switch (node.getType()) {
                 case CITY -> g2d.setColor(new Color(0, 255, 0));
@@ -77,7 +96,7 @@ public class SwingGraphPanel extends JPanel {
                 g2d.setColor(new Color(0, 0, 0, 255));
             }
 
-            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), nodeSize, nodeSize));
+            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x(), node.getCoordinate().y(), NODE_SIZE, NODE_SIZE));
         }
     }
 

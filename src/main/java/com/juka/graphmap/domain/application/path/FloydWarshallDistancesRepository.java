@@ -20,6 +20,7 @@ public interface FloydWarshallDistancesRepository {
     /**
      * Returns the distance from a matrix.
      *
+     * @param index index of the node
      * @return Line of distances of the Floyd-Warshall algorithm
      */
     FloydWarshallStep[] getDistances(int index);

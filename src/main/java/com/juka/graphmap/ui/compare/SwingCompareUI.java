@@ -11,6 +11,12 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Swing implementation for the compare UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingCompareUI implements CompareUI {
 
     private final GraphService graphService;
@@ -18,6 +24,14 @@ public class SwingCompareUI implements CompareUI {
     private final NodeService nodeService;
     private final CompareView view;
 
+    /**
+     * Constructor of the Swing compare UI.
+     *
+     * @param graphService          The graph service.
+     * @param nodeCompareService    The node compare service.
+     * @param nodeService           The node service.
+     * @param view                  The view.
+     */
     @Inject
     public SwingCompareUI(GraphService graphService, NodeCompareService nodeCompareService, NodeService nodeService, CompareView view) {
         this.graphService = graphService;

@@ -7,6 +7,12 @@ import com.juka.graphmap.ui.roads.RoadsView;
 
 import java.util.List;
 
+/**
+ * The roads view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalRoadsView implements RoadsView {
 
     @Override

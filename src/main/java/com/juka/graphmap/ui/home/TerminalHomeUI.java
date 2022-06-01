@@ -8,6 +8,12 @@ import com.juka.graphmap.ui.roads.RoadsUI;
 import javax.inject.Inject;
 import java.util.Scanner;
 
+/**
+ * Terminal implementation for the home UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalHomeUI implements HomeUI {
 
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -17,6 +23,14 @@ public class TerminalHomeUI implements HomeUI {
     private final GraphUI graphUI;
     private final RoadsUI roadsUI;
 
+    /**
+     * Constructor of the TerminalHomeUI.
+     *
+     * @param graphService the graph service
+     * @param view         the home view
+     * @param graphUI      the graph UI
+     * @param roadsUI      the roads UI
+     */
     @Inject
     public TerminalHomeUI(GraphService graphService, HomeView view, GraphUI graphUI, RoadsUI roadsUI) {
         this.graphService = graphService;

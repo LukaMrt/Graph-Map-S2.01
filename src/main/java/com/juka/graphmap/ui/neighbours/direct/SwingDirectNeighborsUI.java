@@ -10,6 +10,9 @@ import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Swing implementation for the DirectNeighborsUI.
+ */
 public class SwingDirectNeighborsUI implements DirectNeighborsUI {
 
     private final GraphService graphService;
@@ -17,6 +20,14 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
     private final LinkService linkService;
     private final DirectNeighborsView view;
 
+    /**
+     * Constructor of the SwingDirectNeighborsUI.
+     *
+     * @param graphService The graph service
+     * @param nodeService  The node service
+     * @param linkService  The link service
+     * @param view         The view
+     */
     @Inject
     public SwingDirectNeighborsUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighborsView view) {
         this.graphService = graphService;

@@ -85,14 +85,25 @@ public class Link {
         return name.substring(0, name.lastIndexOf("."));
     }
 
+    /**
+     * Returns true if the link is selected, false otherwise.
+     *
+     * @return true if the link is selected, false otherwise
+     */
     public boolean isSelected() {
         return this.selected;
     }
 
+    /**
+     * Sets the state of the link to selected.
+     */
     public void select() {
         this.selected = true;
     }
 
+    /**
+     * Sets the state of the link to unselected.
+     */
     public void unselect() {
         this.selected = false;
     }

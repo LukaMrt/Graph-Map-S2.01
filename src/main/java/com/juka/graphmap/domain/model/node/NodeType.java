@@ -7,9 +7,18 @@ package com.juka.graphmap.domain.model.node;
  * @since 0.1.0
  */
 public enum NodeType {
-    
+
+    /**
+     * Type representing a city.
+     */
     CITY("Ville"),
+    /**
+     * Type representing a restaurant.
+     */
     RESTAURANT("Restaurant"),
+    /**
+     * Type representing a recreation center.
+     */
     RECREATION_CENTER("Centre de loisirs");
 
     private final String type;

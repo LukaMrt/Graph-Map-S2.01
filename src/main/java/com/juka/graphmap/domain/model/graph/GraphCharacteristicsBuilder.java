@@ -8,14 +8,41 @@ package com.juka.graphmap.domain.model.graph;
  */
 public class GraphCharacteristicsBuilder {
 
+    /**
+     * The number of locations in the graph.
+     */
     public int cityCount;
+    /**
+     * The number of roads in the graph.
+     */
     public int roadCount;
+    /**
+     * The percentage of city in the graph.
+     */
     public float cityPercentage;
+    /**
+     * The percentage of restaurant in the graph.
+     */
     public float restaurantPercentage;
+    /**
+     * The percentage of recreation center in the graph.
+     */
     public float recreationPercentage;
+    /**
+     * The percentage of highway in the graph.
+     */
     public float highwayPercentage;
+    /**
+     * The percentage of national road in the graph.
+     */
     public float nationalPercentage;
+    /**
+     * The percentage of departemental road in the graph.
+     */
     public float departementalPercentage;
+    /**
+     * The error message.
+     */
     public boolean error;
 
     /**

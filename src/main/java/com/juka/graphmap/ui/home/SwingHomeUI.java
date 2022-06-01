@@ -5,11 +5,23 @@ import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
 
 import javax.inject.Inject;
 
+/**
+ * Swing implementation for the home UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingHomeUI implements HomeUI {
 
     private final GraphService graphService;
     private final HomeView view;
 
+    /**
+     * Constructor of the SwingHomeUI.
+     *
+     * @param graphService the graph service
+     * @param view         the home view
+     */
     @Inject
     public SwingHomeUI(GraphService graphService, HomeView view) {
         this.graphService = graphService;

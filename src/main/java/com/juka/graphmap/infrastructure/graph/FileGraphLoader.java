@@ -14,10 +14,21 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of GraphLoader from a file.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class FileGraphLoader implements GraphLoader {
 
     private final FilePath filePath;
 
+    /**
+     * Constructor of the FileGraphLoader.
+     *
+     * @param filePath the path of the file to load
+     */
     @Inject
     public FileGraphLoader(FilePath filePath) {
         this.filePath = filePath;
@@ -38,6 +49,12 @@ public class FileGraphLoader implements GraphLoader {
         return nodes;
     }
 
+    /**
+     * Load all the nodes from the file.
+     *
+     * @param nodes the list of nodes to fill
+     * @throws Exception if the file doesn't exist of if the file format is incorrect
+     */
     private void loadNodes(List<Node> nodes) throws Exception {
 
         File file = new File(filePath.path());
@@ -83,6 +100,14 @@ public class FileGraphLoader implements GraphLoader {
         return links;
     }
 
+    /**
+     * Load all the links from the file.
+     *
+     * @param nodeRepository        the repository of nodes
+     * @param links                 the list of links to fill
+     * @throws IOException          if the file doesn't exist of if the file format is incorrect
+     * @throws RuntimeException     if the node doesn't exist
+     */
     private void loadLinks(NodeRepository nodeRepository, List<Link> links) throws IOException, RuntimeException {
 
         File file = new File(filePath.path());

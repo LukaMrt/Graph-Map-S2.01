@@ -8,6 +8,9 @@ package com.juka.graphmap.domain.model.exception;
  */
 public class LinkAlreadyExistException extends RuntimeException {
 
+    /**
+     * The link that raised the exception.
+     */
     private final String link;
 
     /**

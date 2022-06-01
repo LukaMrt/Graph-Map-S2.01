@@ -10,10 +10,25 @@ import java.util.Objects;
  */
 public class LinkCharacteristics {
 
+    /**
+     * The name of the link.
+     */
     public final String name;
+    /**
+     * The start node name of the link.
+     */
     public final String start;
+    /**
+     * The end node name of the link.
+     */
     public final String end;
+    /**
+     * The type of the link
+     */
     public final String type;
+    /**
+     * The distance of the link.
+     */
     public final int distance;
 
     /**

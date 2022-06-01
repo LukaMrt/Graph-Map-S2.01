@@ -18,6 +18,12 @@ import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 
+/**
+ * The home view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingHomeView extends SwingView implements HomeView {
 
     private static boolean firstTime = true;
@@ -26,6 +32,13 @@ public class SwingHomeView extends SwingView implements HomeView {
     private final RoadsUI roadsUI;
     private GraphCharacteristics graphCharacteristics;
 
+    /**
+     * Constructor.
+     *
+     * @param frame the frame of the application
+     * @param graphUI the graph view
+     * @param roadsUI the roads view
+     */
     @Inject
     public SwingHomeView(GraphMapJFrame frame, GraphUI graphUI, RoadsUI roadsUI) {
         super(frame);

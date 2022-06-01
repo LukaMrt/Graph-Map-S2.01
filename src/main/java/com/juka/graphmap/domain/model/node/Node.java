@@ -104,14 +104,25 @@ public class Node implements Comparable<Node> {
         return this.coordinate;
     }
 
+    /**
+     * Returns true if the node is selected.
+     *
+     * @return true if the node is selected
+     */
     public boolean isSelected() {
         return this.selected;
     }
 
+    /**
+     * Sets the node to selected.
+     */
     public void select() {
         this.selected = true;
     }
 
+    /**
+     * Sets the node to unselected.
+     */
     public void unselect() {
         this.selected = false;
     }

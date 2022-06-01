@@ -12,9 +12,15 @@ import com.juka.graphmap.ui.home.HomeUI;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Terminal implementation of the path UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class TerminalPathUI implements PathUI {
 
-    public static final Scanner SCANNER = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     private final PathService pathService;
     private final GraphService graphService;
@@ -23,6 +29,16 @@ public class TerminalPathUI implements PathUI {
     private final HomeUI homeUI;
     private final GraphUI graphUI;
 
+    /**
+     * Constructor of the TerminalPathUI.
+     *
+     * @param pathView     the path view
+     * @param homeUI       the home UI
+     * @param graphUI      the graph UI
+     * @param pathService  the path service
+     * @param graphService the graph service
+     * @param nodeService  the node service
+     */
     @Inject
     public TerminalPathUI(PathView pathView, HomeUI homeUI, GraphUI graphUI, PathService pathService, GraphService graphService, NodeService nodeService) {
         this.graphService = graphService;
@@ -59,6 +75,12 @@ public class TerminalPathUI implements PathUI {
 
     }
 
+    /**
+     * Asks the user to choose a location.
+     *
+     * @param i the number of the location.
+     * @return the chosen location.
+     */
     private Node chooseLocation(int i) {
 
         System.out.println();

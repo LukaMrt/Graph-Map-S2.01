@@ -22,6 +22,12 @@ import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
+/**
+ * The direct neighbors view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
 public class SwingDirectNeighborsView extends SwingView implements DirectNeighborsView {
 
     private final DirectNeighborsUI directNeighborsUI;
@@ -32,6 +38,13 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
     private NodeCharacteristics nodeCharacteristics;
     private LinkCharacteristics linkCharacteristics;
 
+    /**
+     * Constructor.
+     *
+     * @param frame the fram of the application
+     * @param directNeighborsUI the direct neighbors ui
+     * @param graphUI the graph ui
+     */
     @Inject
     public SwingDirectNeighborsView(GraphMapJFrame frame, DirectNeighborsUI directNeighborsUI, GraphUI graphUI) {
         super(frame);
