@@ -10,14 +10,49 @@ import java.util.Objects;
  */
 public class GraphCharacteristics {
 
+    /**
+     * The number of locations
+     */
     public int locationCount;
+
+    /**
+     * The number of roads
+     */
     public int roadCount;
+
+    /**
+     * The percentage of cities
+     */
     public float cityPercentage;
+
+    /**
+     * The percentage of restaurants
+     */
     public float restaurantPercentage;
+
+    /**
+     * The percentage of recreation location
+     */
     public float recreationPercentage;
+
+    /**
+     * The percentage of highways
+     */
     public float highwayPercentage;
+
+    /**
+     * The percentage of national roads
+     */
     public float nationalPercentage;
+
+    /**
+     * The percentage of departemental roads
+     */
     public float departementalPercentage;
+
+    /**
+     * The error message
+     */
     public String error;
 
     /**

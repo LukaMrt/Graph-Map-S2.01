@@ -29,6 +29,8 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingPathView extends SwingView implements PathView {
 
+    private static boolean firstTime = true;
+
     private final GraphUI graphUI;
     private final PathUI pathUI;
     private List<String> nodes;
@@ -189,6 +191,15 @@ public class SwingPathView extends SwingView implements PathView {
         String newNode = node != null ? node.getName() : node2;
 
         pathUI.interact(node1, newNode);
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+        if (firstTime) {
+            firstTime = false;
+            return true;
+        }
+        return false;
     }
 
 }

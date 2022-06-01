@@ -27,6 +27,8 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingIndirectNeighborsView extends SwingView implements IndirectNeighborsView {
 
+    private static boolean firstTime = true;
+
     private final GraphUI graphUI;
     private final IndirectNeighborsUI indirectNeighborsUI;
 
@@ -169,6 +171,15 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
         String newNode = node != null ? node.getName() : location2;
 
         indirectNeighborsUI.interact(location1, newNode);
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+        if (firstTime) {
+            firstTime = false;
+            return true;
+        }
+        return false;
     }
 
 }

@@ -31,6 +31,8 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingRoadsView extends SwingView implements RoadsView {
 
+    private static boolean firstTime = true;
+
     private final HomeUI homeUI;
     private final RoadsUI roadsUI;
     private List<String> steps;
@@ -210,6 +212,15 @@ public class SwingRoadsView extends SwingView implements RoadsView {
         }
 
         roadsUI.interact(start, steps, end);
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+        if (firstTime) {
+            firstTime = false;
+            return true;
+        }
+        return false;
     }
 
 }

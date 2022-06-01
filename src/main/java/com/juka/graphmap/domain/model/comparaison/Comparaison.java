@@ -8,8 +8,19 @@ package com.juka.graphmap.domain.model.comparaison;
  */
 public class Comparaison {
 
+    /**
+     * Name of the comparaison's characteristic.
+     */
     public final String name;
+
+    /**
+     * Name of the best city regarding characteristic.
+     */
     public final String best;
+
+    /**
+     * Name of the worst city regarding characteristic.
+     */
     public final String worst;
 
     /**

@@ -30,6 +30,8 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingDirectNeighborsView extends SwingView implements DirectNeighborsView {
 
+    private static boolean firstTime = true;
+
     private final DirectNeighborsUI directNeighborsUI;
     private final GraphUI graphUI;
 
@@ -196,6 +198,15 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
         String newLink = link != null ? link.getRoadNameWithIndex() : linkCharacteristics.name;
 
         directNeighborsUI.interact(newNode, newLink);
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+        if (firstTime) {
+            firstTime = false;
+            return true;
+        }
+        return false;
     }
 
 }

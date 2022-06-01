@@ -50,14 +50,6 @@ public class SwingHomeView extends SwingView implements HomeView {
     public void display(GraphCharacteristics graphCharacteristics, List<Node> nodes) {
         this.graphCharacteristics = graphCharacteristics;
         super.display(nodes);
-
-        if (firstTime) {
-            String message = "Bienvenue sur le GraphMap ! Une aide est disponible dans la barre en " +
-                    "haut à gauche de l'écran pour expliquer le fonctionnement de chaque écran.";
-            JOptionPane.showMessageDialog(super.frame, message, "Welcome to GraphMap", JOptionPane.INFORMATION_MESSAGE);
-            firstTime = false;
-        }
-
     }
 
     @Override
@@ -113,6 +105,15 @@ public class SwingHomeView extends SwingView implements HomeView {
                 .add(aLabel().withText(text3).withColor(Color.RED).isText().build())
                 .add(aLabel().withText(text4).withColor(Color.BLUE).isText().build())
                 .build();
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+        if (firstTime) {
+            firstTime = false;
+            return true;
+        }
+        return false;
     }
 
 }

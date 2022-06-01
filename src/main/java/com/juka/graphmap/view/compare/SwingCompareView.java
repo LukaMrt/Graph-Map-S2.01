@@ -29,6 +29,8 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingCompareView extends SwingView implements CompareView {
 
+    private static boolean firstTime = true;
+
     private final GraphUI graphUI;
     private final CompareUI compareUI;
     private List<String> cities;
@@ -186,6 +188,15 @@ public class SwingCompareView extends SwingView implements CompareView {
         }
 
         compareUI.interact(city1, newNode);
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+        if (firstTime) {
+            firstTime = false;
+            return true;
+        }
+        return false;
     }
 
 }

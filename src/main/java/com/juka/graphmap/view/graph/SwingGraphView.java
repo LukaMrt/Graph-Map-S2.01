@@ -32,6 +32,8 @@ import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
  */
 public class SwingGraphView extends SwingView implements GraphView {
 
+    private static boolean firstTime = true;
+
     private final CompareUI compareUI;
     private final PathUI pathUI;
     private final DirectNeighborsUI directNeighborsUI;
@@ -144,6 +146,15 @@ public class SwingGraphView extends SwingView implements GraphView {
     @Override
     protected JPanel buildRightPanel() {
         return buildPanel(links, "Liste des liens :");
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+        if (firstTime) {
+            firstTime = false;
+            return true;
+        }
+        return false;
     }
 
     private JPanel buildPanel(List<String> data, String title) {

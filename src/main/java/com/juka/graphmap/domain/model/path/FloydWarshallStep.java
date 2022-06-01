@@ -13,8 +13,19 @@ import java.util.Objects;
  */
 public class FloydWarshallStep {
 
+    /**
+     * The distance between the two nodes.
+     */
     public final int distance;
+
+    /**
+     * The previous node.
+     */
     public final Node previous;
+
+    /**
+     * The last link of the path
+     */
     public final Link previousLink;
 
     /**

@@ -63,6 +63,10 @@ public abstract class SwingView {
         menu.add(item);
 
         ((JPanel) this.frame.getContentPane()).updateUI();
+
+        if (isFirstTime()) {
+            JOptionPane.showMessageDialog(frame, getHelp(), "Aide", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     /**
@@ -170,5 +174,12 @@ public abstract class SwingView {
      */
     public void shiftClick(Node node, Link link) {
     }
+
+    /**
+     * Check if it's the first time on the screen.
+     *
+     * @return true if it's the first time, false otherwise
+     */
+    protected abstract boolean isFirstTime();
 
 }

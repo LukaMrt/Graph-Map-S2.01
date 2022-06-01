@@ -23,6 +23,7 @@ public interface GraphLoader {
     /**
      * Loads all the links from the file.
      *
+     * @param nodeRepository the repository of nodes.
      * @return The list of links.
      */
     List<Link> loadLinks(NodeRepository nodeRepository);
