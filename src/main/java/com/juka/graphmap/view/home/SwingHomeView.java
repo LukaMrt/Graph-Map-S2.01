@@ -49,7 +49,9 @@ public class SwingHomeView extends SwingView implements HomeView {
 
     @Override
     protected String getHelp() {
-        return "Aucune action n'est disponible sur cet écran";
+        return "Cet écran décrit le graphe en donnant le nombre d'éléments et le pourcentage de" +
+                "chaque type de noeud et de lien par rapport à l'ensemble des éléments. " +
+                "Aucune action n'est disponible ici.";
     }
 
     @Override

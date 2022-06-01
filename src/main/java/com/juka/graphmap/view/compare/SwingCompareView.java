@@ -48,7 +48,15 @@ public class SwingCompareView extends SwingView implements CompareView {
 
     @Override
     protected String getHelp() {
-        return "Clic droit pour sélectionner le premier lieu, clic gauche pour sélectionner le second lieu et les comparer.";
+        return "Cet écran propose de comparer 2 villes (et uniquement des villes) selon " +
+                "les lieux présents autour d'elles. Si une villes a plus d'autres villes à " +
+                "2 distances d'elle que l'autre, alors elle est plus ouverte, si elle a plus " +
+                "de restaurants elle est plus gastronomique et si elle a plus de lieux de loisirs " +
+                "elle est plus culturelle. Vous pouvez sélectionner les villes dans la liste à gauche " +
+                "et cliquer sur le bouton Analyser.\n\n" +
+                "Pour l'interface graphique, les contrôles sont les suivants :\n" +
+                "- Clic droit pour sélectionner le premier lieu\n" +
+                "- Clic gauche pour sélectionner le second lieu";
     }
 
     @Override

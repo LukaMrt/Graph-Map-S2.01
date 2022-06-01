@@ -47,7 +47,12 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
 
     @Override
     protected String getHelp() {
-        return "Clic droit pour sélectionner la première ville, clic gauche pour sélectionner la seconde ville et savoir si elles sont à 2-distance.";
+        return "Cet écran permet de déterminer si 2 lieux sont à 2-distance ou non. 2 lieux sont " +
+                "à 2-distance si l'on peut passer de l'un à l'autre en 2 étapes. Vous pouvez " +
+                "sélectionner les 2 lieux à gauche puis afficher le résultat avec le bouton Analyser.\n\n" +
+                "Pour l'interface graphique, les contrôles sont les suivants :\n" +
+                "- Clic gauche pour sélectionner la première ville\n" +
+                "- Clic droit pour sélectionner la seconde ville";
     }
 
     @Override

@@ -48,7 +48,12 @@ public class SwingPathView extends SwingView implements PathView {
 
     @Override
     protected String getHelp() {
-        return "Clic droit pour sélectionner le premier lieu, clic gauche pour sélectionner le second lieu et afficher le chemin le plus court.";
+        return "Cet écran permet de déterminer le chemin le plus court entre 2 lieux. Vous pouvez " +
+                "sélectionner le départ et l'arrivé à gauche puis afficher le chemin avec le bouton " +
+                "Analyser.\n\n" +
+                "Pour l'interface graphique, les contrôles sont les suivants :\n" +
+                "- Clic gauche pour sélectionner le premier lieu\n " +
+                "- Clic droit pour sélectionner le second lieu";
     }
 
     @Override

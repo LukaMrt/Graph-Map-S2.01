@@ -50,7 +50,8 @@ public class SwingGraphView extends SwingView implements GraphView {
 
     @Override
     protected String getHelp() {
-        return "Aucune action n'est disponible sur cet écran.";
+        return "Cet écran décrit le graphe en donnant la liste des noeuds et la liste des liens. " +
+                "Aucune action n'est disponible ici.";
     }
 
     @Override

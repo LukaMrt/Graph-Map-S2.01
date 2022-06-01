@@ -50,7 +50,12 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
 
     @Override
     protected String getHelp() {
-        return "Clic gauche pour sélectionner un noeud ou un lien pour afficher ses caractéristiques.";
+        return "Cet écran permet de connaître les caractéristiques d'un noeud ou d'un lien " +
+                "en donnant le nom, le type et les voisins directs pour un noeud et le nom, le type, " +
+                "les extrémités et la distance pour un lien. Vous pouvez " +
+                "sélectionner les noeuds à gauche pour les étudier et les liens à droite.\n\n" +
+                "Pour l'interface graphique, les contrôles sont les suivants :\n" +
+                "- Clic gauche pour sélectionner un noeud ou un lien et afficher ses caractéristiques.";
     }
 
     @Override

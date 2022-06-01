@@ -66,7 +66,7 @@ public class LinkService {
 
     public void select(String link) {
         linkRepository.getAllLinks().stream()
-                .filter(l -> l.getName().startsWith(link))
+                .filter(l -> l.getName().equals(link + ".1") || l.getName().equals(link + ".2"))
                 .forEach(Link::select);
     }
 

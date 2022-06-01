@@ -43,7 +43,7 @@ public class SwingRoadsView extends SwingView implements RoadsView {
     @Override
     public void display(List<Node> nodes, List<String> steps, Path path, String start, String end) {
         this.nodes = nodes.stream().map(Node::getName).toList();
-        this.steps = steps != null ? steps : new ArrayList<>();
+        this.steps = steps != null ? new ArrayList<>(steps) : new ArrayList<>();
         this.path = path != null ? path : new Path(new ArrayList<>(), 0d);
         this.start = start;
         this.end = end;
@@ -52,7 +52,14 @@ public class SwingRoadsView extends SwingView implements RoadsView {
 
     @Override
     protected String getHelp() {
-        return "Clic gauche pour sélectionner le départ, clic droit pour sélectionner l'arrivée et shift clic pour sélectionner et désélectionner une étape.";
+        return "Cet écran permet de déterminer un chemin entre 2 lieux et passant par " +
+                "des étapes intermédiaires données. Vous pouvez sélectionner les extrémités du " +
+                "chemin et les étapes intermédiaires à gauche puis afficher le chemin (Ctrl ou Cmd " +
+                "clic pour choisir plusieurs étapes dans la liste).\n\n" +
+                "Pour l'interface graphique, les contrôles sont les suivants :\n" +
+                "- Clic gauche pour sélectionner le départ lieu\n " +
+                "- Clic droit pour sélectionner l'arrivée lieu\n" +
+                "- Shift clic pour sélectionner et désélectionner une étape intermédiaire";
     }
 
     @Override

@@ -91,12 +91,14 @@ public class LinkServiceTest {
 
     @Test
     void select_shouldSelectLink_whenNodeExist() {
-        Link link = new Link("Link", null, LinkType.DEPARTMENTAL, 20);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link));
+        Link link = new Link("Link.1.1", null, LinkType.DEPARTMENTAL, 20);
+        Link link2 = new Link("Link.2.1", null, LinkType.DEPARTMENTAL, 20);
+        when(linkRepository.getAllLinks()).thenReturn(List.of(link, link2));
 
-        linkService.select("Link");
+        linkService.select("Link.1");
 
         assertThat(link.isSelected()).isTrue();
+        assertThat(link2.isSelected()).isFalse();
     }
 
 }
