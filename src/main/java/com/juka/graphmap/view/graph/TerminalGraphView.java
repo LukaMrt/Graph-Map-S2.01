@@ -39,7 +39,7 @@ public class TerminalGraphView implements GraphView {
         System.out.println("1 - Comparer 2 villes");
         System.out.println("2 - Afficher le plus court chemin entre 2 noeuds");
         System.out.println("3 - Afficher les caractéristiques d'un noeud ou d'un lien");
-        System.out.println("4 - Étudier si oui ou non 2 lieux sont à 2-distance");
+        System.out.println("4 - Étudier si oui ou non 2 lieux sont à n-distance");
         System.out.println("5 - Quitter");
     }
 

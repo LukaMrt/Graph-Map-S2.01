@@ -99,7 +99,7 @@ public class SwingRoadsView extends SwingView implements RoadsView {
                 .withData(this.nodes)
                 .withSize(200, 40)
                 .withSelectedValue(start)
-                .isYCentered();
+                .isXCentered();
 
         ScrollPaneBuilder stepsBuilder = anHorizontalList()
                 .withData(this.nodes)
@@ -114,7 +114,7 @@ public class SwingRoadsView extends SwingView implements RoadsView {
                 .withData(this.nodes)
                 .withSize(200, 40)
                 .withSelectedValue(end)
-                .isYCentered();
+                .isXCentered();
 
         JButton button = aButton()
                 .withText("Analyser")

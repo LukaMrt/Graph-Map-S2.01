@@ -36,7 +36,7 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
     }
 
     @Override
-    public void interact(String node1, String node2) {
+    public void interact(String node1, String node2, int distance) {
 
         nodeService.unselectAll();
 
@@ -51,10 +51,10 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
         boolean result = false;
 
         if (node1 != null && !node1.isEmpty() && node2 != null && !node2.isEmpty()) {
-            result = distanceService.are2distance(node1, node2);
+            result = distanceService.areNDistance(node1, node2, distance);
         }
 
-        view.display(nodeRepository.getAllNodes(), node1, node2, result);
+        view.display(nodeRepository.getAllNodes(), node1, node2, distance, result);
     }
 
 }

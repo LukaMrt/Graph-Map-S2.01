@@ -14,7 +14,7 @@ import java.util.List;
 public class TerminalIndirectNeighborsView implements IndirectNeighborsView {
 
     @Override
-    public void display(List<Node> nodes, String location1, String location2, boolean result) {
+    public void display(List<Node> nodes, String location1, String location2, int distance, boolean result) {
 
         System.out.println();
         System.out.println("------------------------------------------------------");

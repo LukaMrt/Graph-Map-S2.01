@@ -2,14 +2,12 @@ package com.juka.graphmap.ui.graph;
 
 import com.google.inject.Inject;
 import com.juka.graphmap.domain.application.graph.GraphService;
-import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.ui.compare.CompareUI;
 import com.juka.graphmap.ui.home.HomeUI;
 import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
 import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
 import com.juka.graphmap.ui.path.PathUI;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -69,7 +67,7 @@ public class TerminalGraphUI implements GraphUI {
             case '1' -> compareUI.interact(null, null);
             case '2' -> pathUI.interact(null, null);
             case '3' -> directNeighborsUI.interact(null, null);
-            case '4' -> indirectNeighborsUI.interact(null, null);
+            case '4' -> indirectNeighborsUI.interact(null, null, 2);
             case '5' -> System.out.println("Au revoir.");
             default -> homeUI.interact();
         }

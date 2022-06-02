@@ -20,6 +20,6 @@ public interface IndirectNeighborsView {
      * @param location2     the name of the second node
      * @param result        the result of the indirect neighbours search
      */
-    void display(List<Node> nodes, String location1, String location2, boolean result);
+    void display(List<Node> nodes, String location1, String location2, int distance, boolean result);
 
 }

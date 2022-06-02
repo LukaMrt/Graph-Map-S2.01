@@ -66,11 +66,11 @@ public class ComboBoxBuilder {
     }
 
     /**
-     * Centers the ComboBox in the Y axis.
+     * Centers the ComboBox in the X axis.
      *
      * @return the ComboBoxBuilder
      */
-    public ComboBoxBuilder isYCentered() {
+    public ComboBoxBuilder isXCentered() {
         comboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         return this;
     }

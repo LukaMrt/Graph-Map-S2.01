@@ -5,6 +5,7 @@ import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 /**
  * Service to check if two nodes are at 2 distance.
@@ -31,17 +32,18 @@ public class NodeDistanceService {
      *
      * @param node1 name of the first node.
      * @param node2 name of the second node.
+     * @param n     distance.
      * @return true if the node1 is at 2 distance of the node2.
      */
-    public boolean are2distance(String node1, String node2) {
+    public boolean areNDistance(String node1, String node2, int n) {
 
-        return nodeRepository.getNode(node1)
-                .getNeighbors()
-                .stream()
-                .map(Node::getNeighbors)
-                .flatMap(Collection::stream)
-                .map(Node::getName)
-                .anyMatch(node2::equals);
+        Stream<Node> stream = nodeRepository.getNode(node1).getNeighbors().stream();
+
+        for (int i = 0; i < n - 1; i++) {
+            stream = stream.map(Node::getNeighbors).flatMap(Collection::stream).distinct();
+        }
+
+        return stream.map(Node::getName).anyMatch(node2::equals);
     }
 
 }

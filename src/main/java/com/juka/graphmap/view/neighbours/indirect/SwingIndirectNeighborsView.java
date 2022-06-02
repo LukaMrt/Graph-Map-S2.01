@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.util.List;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
+import static com.juka.graphmap.view.swing.components.ComboBoxBuilder.aComboBox;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
@@ -35,6 +36,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     private List<String> nodes;
     private String location1;
     private String location2;
+    private int distance;
     private boolean result;
 
     /**
@@ -52,19 +54,20 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     }
 
     @Override
-    public void display(List<Node> nodes, String location1, String location2, boolean result) {
+    public void display(List<Node> nodes, String location1, String location2, int distance, boolean result) {
         this.nodes = nodes.stream().map(Node::getName).toList();
         this.location1 = location1 != null ? location1 : "";
         this.location2 = location2 != null ? location2 : "";
         this.result = result;
+        this.distance = distance;
         super.display(nodes);
     }
 
     @Override
     protected String getHelp() {
-        return "Cet écran permet de déterminer si 2 lieux sont à 2-distance ou non. 2 lieux sont " +
-                "à 2-distance si l'on peut passer de l'un à l'autre en 2 étapes. Vous pouvez " +
-                "sélectionner les 2 lieux à gauche puis afficher le résultat avec le bouton Analyser.\n\n" +
+        return "Cet écran permet de déterminer si 2 lieux sont à n-distance ou non. 2 lieux sont " +
+                "à n-distance si l'on peut passer de l'un à l'autre en n étapes. Vous pouvez " +
+                "sélectionner les 2 lieux et la distance à gauche puis afficher le résultat avec le bouton Analyser.\n\n" +
                 "Pour l'interface graphique, les contrôles sont les suivants :\n" +
                 "- Clic gauche pour sélectionner la première ville\n" +
                 "- Clic droit pour sélectionner la seconde ville";
@@ -90,7 +93,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
 
         ScrollPaneBuilder builder1 = anHorizontalList()
                 .withData(this.nodes)
-                .withSize(200, 200)
+                .withSize(200, 150)
                 .withSingleSelection()
                 .withSelectedValue(location1)
                 .isYCentered()
@@ -102,12 +105,19 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
 
         ScrollPaneBuilder builder2 = anHorizontalList()
                 .withData(this.nodes)
-                .withSize(200, 200)
+                .withSize(200, 150)
                 .withSingleSelection()
                 .withSelectedValue(location2)
                 .isYCentered()
                 .alwaysScrollVertical()
                 .neverScrollHorizontal();
+
+        JComboBox<String> comboBox = aComboBox()
+                .withData(List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
+                .isXCentered()
+                .withSize(200, 50)
+                .withSelectedValue(String.valueOf(distance))
+                .build();
 
         JScrollPane nodeList2 = builder2
                 .build();
@@ -116,7 +126,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
                 .withText("Analyser")
                 .withSize(100, 40)
                 .isXCentered()
-                .withAction(e -> indirectNeighborsUI.interact(builder1.getSelectedValue(), builder2.getSelectedValue()))
+                .withAction(e -> indirectNeighborsUI.interact(builder1.getSelectedValue(), builder2.getSelectedValue(), Integer.parseInt((String) comboBox.getSelectedItem())))
                 .build();
 
         return aPanel()
@@ -131,6 +141,8 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
                 .addRigidArea(0, 5)
                 .add(nodeList2)
                 .addVerticalGlue()
+                .add(comboBox)
+                .addVerticalGlue()
                 .add(button)
                 .addVerticalGlue()
                 .build();
@@ -139,10 +151,10 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     @Override
     protected JPanel buildRightPanel() {
 
-        String message = "ne sont pas à 2-distances.";
+        String message = "ne sont pas à " + distance + "-distance.";
 
         if (result) {
-            message = "sont à 2-distances.";
+            message = "sont à " + distance + "-distance.";
         }
 
         return aPanel()
@@ -162,7 +174,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
 
         String newNode = node != null ? node.getName() : location1;
 
-        indirectNeighborsUI.interact(newNode, location2);
+        indirectNeighborsUI.interact(newNode, location2, distance);
     }
 
     @Override
@@ -170,7 +182,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
 
         String newNode = node != null ? node.getName() : location2;
 
-        indirectNeighborsUI.interact(location1, newNode);
+        indirectNeighborsUI.interact(location1, newNode, distance);
     }
 
     @Override
