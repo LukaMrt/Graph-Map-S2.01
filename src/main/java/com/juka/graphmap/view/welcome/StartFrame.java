@@ -5,6 +5,7 @@ import com.juka.graphmap.main.Main;
 import javax.swing.*;
 
 import java.awt.event.ActionListener;
+import java.util.function.BiFunction;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.FileChooserBuilder.aFileChooser;
@@ -36,7 +37,7 @@ public class StartFrame extends JFrame {
     /**
      * Display the start frame.
      */
-    public void display() {
+    public void display(BiFunction<ViewType, String, Thread> thread) {
 
         this.setTitle("GraphMap");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,8 +51,8 @@ public class StartFrame extends JFrame {
                 .build();
 
         JLabel label = aLabel()
-                .withText("<Aucun fichier sélectionné>")
-                .isYCentered()
+                .withText("")
+                .isXCentered()
                 .withSize(200, 60)
                 .isText()
                 .build();
@@ -62,42 +63,33 @@ public class StartFrame extends JFrame {
                 .add(aLabel().withText("Bienvenue sur le GraphMap").isBigTitle().isXCentered().build())
                 .add(aLabel().withText("Choisissez le fichier du graphe et le mode d'affichage").isTitle().isXCentered().build())
                 .addVerticalGlue()
-                .add(aPanel()
+                .add(aButton()
+                        .withText("Charger")
+                        .withSize(150, 40)
                         .isXCentered()
-                        .addHorizontalGlue()
-                        .add(aButton()
-                                .withText("Charger")
-                                .withSize(150, 40)
-                                .isYCentered()
-                                .withAction(e -> {
+                        .withAction(e -> {
                             fileChooser.showOpenDialog(null);
                             label.setText(fileChooser.getSelectedFile().getName());
                         }).build())
-                        .addRigidArea(50, 0)
-                        .add(label)
-                        .addHorizontalGlue()
-                        .addHorizontalGlue()
-                        .build())
+                .add(label)
                 .addVerticalGlue()
                 .add(aPanel()
                         .withXBoxLayout()
                         .isXCentered()
                         .addHorizontalGlue()
-                        .addHorizontalGlue()
                         .add(aButton()
                                 .withText("Terminal")
                                 .isYCentered()
                                 .withSize(200, 60)
-                                .withAction(getAction(ViewType.TERMINAL, fileChooser))
+                                .withAction(getAction(thread, ViewType.TERMINAL, fileChooser))
                                 .build())
                         .addHorizontalGlue()
                         .add(aButton()
                                 .withText("Interface graphique")
                                 .isYCentered()
                                 .withSize(200, 60)
-                                .withAction(getAction(ViewType.GRAPHICAL_INTERFACE, fileChooser))
+                                .withAction(getAction(thread, ViewType.GRAPHICAL_INTERFACE, fileChooser))
                                 .build())
-                        .addHorizontalGlue()
                         .addHorizontalGlue()
                         .build())
                 .addVerticalGlue()
@@ -106,10 +98,10 @@ public class StartFrame extends JFrame {
         this.setVisible(true);
     }
 
-    private ActionListener getAction(ViewType choice, JFileChooser fileChooser) {
+    private ActionListener getAction(BiFunction<ViewType, String, Thread> thread, ViewType choice, JFileChooser fileChooser) {
         return e -> {
             super.dispose();
-            main.start(choice, fileChooser.getSelectedFile().getAbsolutePath());
+            thread.apply(choice, fileChooser.getSelectedFile().getAbsolutePath()).start();
         };
     }
 

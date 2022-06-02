@@ -24,14 +24,14 @@ public class Main {
      * @param args arguments of the application
      */
     public static void main(String[] args) {
-        new Main().setUp();
+        new Main().launchStartScreen();
     }
 
     /**
      * Sets up the frame to choose the view.
      */
-    private void setUp() {
-        new StartFrame(this).display();
+    private void launchStartScreen() {
+        new StartFrame(this).display((viewType, file) -> new Thread(() -> this.start(viewType, file)));
     }
 
     /**
