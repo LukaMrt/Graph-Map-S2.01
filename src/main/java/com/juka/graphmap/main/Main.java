@@ -31,7 +31,7 @@ public class Main {
      * Sets up the frame to choose the view.
      */
     private void launchStartScreen() {
-        new StartFrame(this).display((viewType, file) -> new Thread(() -> this.start(viewType, file)));
+        new StartFrame().display((viewType, file) -> new Thread(() -> this.start(viewType, file)));
     }
 
     /**

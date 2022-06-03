@@ -1,7 +1,5 @@
 package com.juka.graphmap.view.welcome;
 
-import com.juka.graphmap.main.Main;
-
 import javax.swing.*;
 
 import java.awt.event.ActionListener;
@@ -21,21 +19,9 @@ import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
 public class StartFrame extends JFrame {
 
     /**
-     * The main class
-     */
-    private final Main main;
-
-    /**
-     * Constructor.
-     *
-     * @param main the main class
-     */
-    public StartFrame(Main main) {
-        this.main = main;
-    }
-
-    /**
      * Display the start frame.
+     *
+     * @param thread the thread to start if user choose terminal
      */
     public void display(BiFunction<ViewType, String, Thread> thread) {
 

@@ -17,6 +17,7 @@ public interface IndirectNeighborsView {
      *
      * @param nodes      the nodes to display
      * @param node       the name of the first node
+     * @param distance   distance of the neighbors
      * @param neighbours the result of the indirect neighbours search
      */
     void display(List<Node> nodes, String node, int distance, List<Node> neighbours);

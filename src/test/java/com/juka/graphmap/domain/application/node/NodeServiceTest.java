@@ -3,9 +3,11 @@ package com.juka.graphmap.domain.application.node;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkType;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.domain.model.node.NodeType;
+import com.juka.graphmap.main.Main;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -137,12 +139,12 @@ public class NodeServiceTest {
     @Test
     void unselectAll_shouldUnselectAllNodes_whenNodesAreSelected() {
         Node node = new Node("Node", NodeType.CITY, 0, 0);
-        node.flag();
+        node.flag(Flag.MAIN);
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node));
 
         nodeService.unselectAll();
 
-        assertThat(node.getFlag()).isFalse();
+        assertThat(node.getFlag()).isEqualTo(Flag.NONE);
     }
 
     @Test
@@ -151,9 +153,9 @@ public class NodeServiceTest {
 
         when(nodeRepository.getNode("Node")).thenReturn(node);
 
-        nodeService.select("Node");
+        nodeService.select("Node", Flag.SECONDARY);
 
-        assertThat(node.getFlag()).isTrue();
+        assertThat(node.getFlag()).isEqualTo(Flag.MAIN);
     }
 
 }

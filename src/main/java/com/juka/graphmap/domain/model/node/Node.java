@@ -115,6 +115,8 @@ public class Node implements Comparable<Node> {
 
     /**
      * Sets the node to selected.
+     *
+     * @param flag flag to set
      */
     public void flag(Flag flag) {
         this.flag = flag;
