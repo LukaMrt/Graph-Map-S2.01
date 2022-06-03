@@ -13,7 +13,7 @@ import com.juka.graphmap.view.welcome.ViewType;
 /**
  * Main class of the application.
  *
- * @author Luka Maret
+ * @author Luka Maret and Julien Linget
  * @since 0.1.0
  */
 public class Main {
