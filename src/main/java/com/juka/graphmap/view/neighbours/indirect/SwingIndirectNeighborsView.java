@@ -34,10 +34,9 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     private final IndirectNeighborsUI indirectNeighborsUI;
 
     private List<String> nodes;
-    private String location1;
-    private String location2;
+    private String node;
     private int distance;
-    private boolean result;
+    private List<Node> result;
 
     /**
      * Constructor.
@@ -54,10 +53,9 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     }
 
     @Override
-    public void display(List<Node> nodes, String location1, String location2, int distance, boolean result) {
+    public void display(List<Node> nodes, String node, int distance, List<Node> result) {
         this.nodes = nodes.stream().map(Node::getName).toList();
-        this.location1 = location1 != null ? location1 : "";
-        this.location2 = location2 != null ? location2 : "";
+        this.node = node != null ? node : "";
         this.result = result;
         this.distance = distance;
         super.display(nodes);
@@ -95,22 +93,13 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
                 .withData(this.nodes)
                 .withSize(200, 150)
                 .withSingleSelection()
-                .withSelectedValue(location1)
+                .withSelectedValue(node)
                 .isYCentered()
                 .alwaysScrollVertical()
                 .neverScrollHorizontal();
 
         JScrollPane nodeList1 = builder1
                 .build();
-
-        ScrollPaneBuilder builder2 = anHorizontalList()
-                .withData(this.nodes)
-                .withSize(200, 150)
-                .withSingleSelection()
-                .withSelectedValue(location2)
-                .isYCentered()
-                .alwaysScrollVertical()
-                .neverScrollHorizontal();
 
         JComboBox<String> comboBox = aComboBox()
                 .withData(List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
@@ -119,27 +108,20 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
                 .withSelectedValue(String.valueOf(distance))
                 .build();
 
-        JScrollPane nodeList2 = builder2
-                .build();
-
         JButton button = aButton()
                 .withText("Analyser")
                 .withSize(100, 40)
                 .isXCentered()
-                .withAction(e -> indirectNeighborsUI.interact(builder1.getSelectedValue(), builder2.getSelectedValue(), Integer.parseInt((String) comboBox.getSelectedItem())))
+                .withAction(e -> indirectNeighborsUI.interact(builder1.getSelectedValue(), Integer.parseInt((String) comboBox.getSelectedItem())))
                 .build();
 
         return aPanel()
                 .withYBoxLayout()
                 .isXCentered()
                 .addRigidArea(0, 10)
-                .add(aLabel().withText("Premier noeud : ").isXCentered().isTitle().build())
+                .add(aLabel().withText("Noeud à étudier : ").isXCentered().isTitle().build())
                 .addRigidArea(0, 5)
                 .add(nodeList1)
-                .addVerticalGlue()
-                .add(aLabel().withText("Second noeud : ").isXCentered().isTitle().build())
-                .addRigidArea(0, 5)
-                .add(nodeList2)
                 .addVerticalGlue()
                 .add(comboBox)
                 .addVerticalGlue()
@@ -151,38 +133,33 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     @Override
     protected JPanel buildRightPanel() {
 
-        String message = "ne sont pas à " + distance + "-distance.";
-
-        if (result) {
-            message = "sont à " + distance + "-distance.";
-        }
+        JScrollPane scrollPane = anHorizontalList()
+                .withData(this.result.stream().map(Node::getName).toList())
+                .withSize(200, 200)
+                .withSingleSelection()
+                .isYCentered()
+                .alwaysScrollVertical()
+                .neverScrollHorizontal()
+                .build();
 
         return aPanel()
                 .withYBoxLayout()
-                .addVerticalGlue()
+                .isXCentered()
+                .addRigidArea(0, 10)
                 .add(aLabel().withText("Résultat :").isTitle().isXCentered().build())
-                .add(aLabel().withText(this.location1).isText().isXCentered().build())
-                .add(aLabel().withText("&").isText().isXCentered().build())
-                .add(aLabel().withText(this.location2).isText().isXCentered().build())
-                .add(aLabel().withText(message).isText().isXCentered().build())
-                .addVerticalGlue()
+                .add(aLabel().withText("Les " + result.size() + " noeuds à " + distance + "-distance de ").isText().isXCentered().build())
+                .add(aLabel().withText(node + " sont :").isText().isXCentered().build())
+                .addRigidArea(0, 10)
+                .add(scrollPane)
                 .build();
     }
 
     @Override
     public void leftClick(Node node, Link link) {
 
-        String newNode = node != null ? node.getName() : location1;
+        String newNode = node != null ? node.getName() : this.node;
 
-        indirectNeighborsUI.interact(newNode, location2, distance);
-    }
-
-    @Override
-    public void rightClick(Node node, Link link) {
-
-        String newNode = node != null ? node.getName() : location2;
-
-        indirectNeighborsUI.interact(location1, newNode, distance);
+        indirectNeighborsUI.interact(newNode, distance);
     }
 
     @Override

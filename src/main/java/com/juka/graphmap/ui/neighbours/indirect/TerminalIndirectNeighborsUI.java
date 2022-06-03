@@ -8,6 +8,8 @@ import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.ui.graph.GraphUI;
 import com.juka.graphmap.ui.home.HomeUI;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -48,15 +50,15 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
     }
 
     @Override
-    public void interact(String nodeName1, String nodeName2, int distance) {
+    public void interact(String node, int distance) {
 
-        boolean result = false;
+        List<Node> result = new ArrayList<>();
 
-        if (nodeName1 != null && nodeName2 != null) {
-            result = nodeDistanceService.areNDistance(nodeName1, nodeName2, distance);
+        if (node != null) {
+            result = nodeDistanceService.getNDistanceNeighbors(node, distance);
         }
 
-        view.display(graphService.getAllNodes(), nodeName1, nodeName2, distance, result);
+        view.display(graphService.getAllNodes(), node, distance, result);
 
         char choice = SCANNER.nextLine().charAt(0);
 
@@ -68,7 +70,7 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
         switch (choice) {
             case '0' -> graphUI.interact();
             case '1' ->
-                    this.interact(chooseLocation(1).getName(), chooseLocation(2).getName(), chooseDistance());
+                    this.interact(chooseLocation().getName(), chooseDistance());
             default -> homeUI.interact();
         }
 
@@ -87,12 +89,12 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
         return Integer.parseInt(entry);
     }
 
-    private Node chooseLocation(int i) {
+    private Node chooseLocation() {
 
         System.out.println();
         String entry;
         do {
-            System.out.println("Entrez le noeud n°" + i + " à étudier :");
+            System.out.println("Entrez le noeud à étudier :");
             entry = SCANNER.nextLine();
         } while (!graphService.nodeExist(entry));
 

@@ -14,7 +14,7 @@ import java.util.List;
 public class TerminalIndirectNeighborsView implements IndirectNeighborsView {
 
     @Override
-    public void display(List<Node> nodes, String location1, String location2, int distance, boolean result) {
+    public void display(List<Node> nodes, String node, int distance, List<Node> result) {
 
         System.out.println();
         System.out.println("------------------------------------------------------");
@@ -22,14 +22,17 @@ public class TerminalIndirectNeighborsView implements IndirectNeighborsView {
 
         System.out.println();
         System.out.println("Liste des noeuds :");
-        for (Node node : nodes) {
-            System.out.println("- " + node.getName());
+        for (Node node1 : nodes) {
+            System.out.println("- " + node1.getName());
         }
 
         System.out.println();
-        if (location1 != null && location2 != null) {
+        if (node != null) {
             System.out.println();
-            System.out.println(location1 + " et " + location2 + (result ? " sont" : " ne sont pas") + " à 2-distance.");
+            System.out.println("Les noeuds à " + distance + "-distance de " + node + " sont :");
+            for (Node node1 : result) {
+                System.out.println("- " + node1.getName());
+            }
         }
 
         System.out.println();

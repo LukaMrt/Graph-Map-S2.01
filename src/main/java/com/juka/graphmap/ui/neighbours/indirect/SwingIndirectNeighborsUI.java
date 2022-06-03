@@ -3,8 +3,11 @@ package com.juka.graphmap.ui.neighbours.indirect;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.application.node.NodeDistanceService;
 import com.juka.graphmap.domain.application.node.NodeService;
+import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Swing implementation of the indirect neighbours UI.
@@ -36,25 +39,23 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
     }
 
     @Override
-    public void interact(String node1, String node2, int distance) {
+    public void interact(String node, int distance) {
 
         nodeService.unselectAll();
 
-        if (node1 != null && !node1.isEmpty()) {
-            nodeService.select(node1);
+        if (node != null && !node.isEmpty()) {
+            nodeService.select(node);
         }
 
-        if (node2 != null && !node2.isEmpty()) {
-            nodeService.select(node2);
+        List<Node> result = new ArrayList<>();
+
+        if (node != null && !node.isEmpty()) {
+            result = distanceService.getNDistanceNeighbors(node, distance);
         }
 
-        boolean result = false;
+        result.stream().map(Node::getName).forEach(nodeService::select);
 
-        if (node1 != null && !node1.isEmpty() && node2 != null && !node2.isEmpty()) {
-            result = distanceService.areNDistance(node1, node2, distance);
-        }
-
-        view.display(nodeRepository.getAllNodes(), node1, node2, distance, result);
+        view.display(nodeRepository.getAllNodes(), node, distance, result);
     }
 
 }

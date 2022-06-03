@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -28,34 +30,43 @@ public class NodeDistanceServiceTest {
     }
 
     @Test
-    void areNDistance_shouldReturnFalse_whenNodesAreNotAt2Distance() {
-
-        Node node1 = new Node("Node1", NodeType.CITY, 0, 0);
-        when(nodeRepository.getNode("Node1")).thenReturn(node1);
-
-        boolean result = nodeDistanceService.areNDistance("Node1", "Node2", 2);
-
-        assertThat(result).isFalse();
-    }
-
-    @Test
-    void areNDistance_shouldReturnTrue_whenNodesAreAt3Distance() {
+    void getNDistanceNeighbors_shouldReturn2DirectNeighbors_whenNodeHas2DirectNeighbors() {
 
         Node node1 = new Node("Node1", NodeType.CITY, 0, 0);
         Node node2 = new Node("Node2", NodeType.CITY, 0, 0);
         Node node3 = new Node("Node3", NodeType.CITY, 0, 0);
-        Node node4 = new Node("Node4", NodeType.CITY, 0, 0);
-        Link link1 = new Link("Link1", node3, LinkType.HIGHWAY, 10);
-        Link link2 = new Link("Link2", node2, LinkType.HIGHWAY, 10);
-        Link link3 = new Link("Link3", node4, LinkType.HIGHWAY, 10);
+
+        Link link1 = new Link("Link1", node2, LinkType.HIGHWAY, 0);
+        Link link2 = new Link("Link2", node3, LinkType.HIGHWAY, 0);
+
         node1.addLink(link1);
-        node3.addLink(link2);
-        node2.addLink(link3);
+        node1.addLink(link2);
+
         when(nodeRepository.getNode("Node1")).thenReturn(node1);
 
-        boolean result = nodeDistanceService.areNDistance("Node1", "Node4", 3);
+        List<Node> result = nodeDistanceService.getNDistanceNeighbors("Node1", 1);
 
-        assertThat(result).isTrue();
+        assertThat(result).containsExactly(node2, node3);
+    }
+
+    @Test
+    void getNDistanceNeighbors_shouldReturn1NeighbourIn2Distance_whenNodeHas1NeighbourAt2Distance() {
+
+        Node node1 = new Node("Node1", NodeType.CITY, 0, 0);
+        Node node2 = new Node("Node2", NodeType.CITY, 0, 0);
+        Node node3 = new Node("Node3", NodeType.CITY, 0, 0);
+
+        Link link1 = new Link("Link1", node2, LinkType.HIGHWAY, 0);
+        Link link2 = new Link("Link2", node3, LinkType.HIGHWAY, 0);
+
+        node1.addLink(link1);
+        node2.addLink(link2);
+
+        when(nodeRepository.getNode("Node1")).thenReturn(node1);
+
+        List<Node> result = nodeDistanceService.getNDistanceNeighbors("Node1", 2);
+
+        assertThat(result).containsExactly(node3);
     }
 
 }

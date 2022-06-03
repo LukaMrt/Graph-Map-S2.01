@@ -67,7 +67,7 @@ public class TerminalGraphUI implements GraphUI {
             case '1' -> compareUI.interact(null, null);
             case '2' -> pathUI.interact(null, null);
             case '3' -> directNeighborsUI.interact(null, null);
-            case '4' -> indirectNeighborsUI.interact(null, null, 2);
+            case '4' -> indirectNeighborsUI.interact(null, 2);
             case '5' -> System.out.println("Au revoir.");
             default -> homeUI.interact();
         }

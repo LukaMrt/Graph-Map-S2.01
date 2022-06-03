@@ -15,11 +15,10 @@ public interface IndirectNeighborsView {
     /**
      * Displays the indirect neighbours view.
      *
-     * @param nodes         the nodes to display
-     * @param location1     the name of the first node
-     * @param location2     the name of the second node
-     * @param result        the result of the indirect neighbours search
+     * @param nodes      the nodes to display
+     * @param node       the name of the first node
+     * @param neighbours the result of the indirect neighbours search
      */
-    void display(List<Node> nodes, String location1, String location2, int distance, boolean result);
+    void display(List<Node> nodes, String node, int distance, List<Node> neighbours);
 
 }

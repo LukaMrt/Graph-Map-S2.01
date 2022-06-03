@@ -118,7 +118,7 @@ public class SwingGraphView extends SwingView implements GraphView {
                 aButton().withText("n-distance")
                         .withSize(180, 50)
                         .isYCentered()
-                        .withAction(e -> indirectNeighborsUI.interact(null, null, 2))
+                        .withAction(e -> indirectNeighborsUI.interact(null, 2))
                         .build(),
                 aButton().withText("Retour")
                         .withSize(180, 50)

@@ -5,6 +5,7 @@ import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -28,22 +29,21 @@ public class NodeDistanceService {
     }
 
     /**
-     * Returns true if the node1 is at 2 distance of the node2.
+     * Get all the neighbors of the node at given distance.
      *
-     * @param node1 name of the first node.
-     * @param node2 name of the second node.
-     * @param n     distance.
-     * @return true if the node1 is at 2 distance of the node2.
+     * @param node     name of the node.
+     * @param distance distance of the neighbors.
+     * @return all the neighbors of the node at given distance.
      */
-    public boolean areNDistance(String node1, String node2, int n) {
+    public List<Node> getNDistanceNeighbors(String node, int distance) {
 
-        Stream<Node> stream = nodeRepository.getNode(node1).getNeighbors().stream();
 
-        for (int i = 0; i < n - 1; i++) {
+        Stream<Node> stream = nodeRepository.getNode(node).getNeighbors().stream();
+
+        for (int i = 0; i < distance - 1; i++) {
             stream = stream.map(Node::getNeighbors).flatMap(Collection::stream).distinct();
         }
 
-        return stream.map(Node::getName).anyMatch(node2::equals);
+        return stream.toList();
     }
-
 }
