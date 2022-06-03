@@ -1,7 +1,6 @@
 package com.juka.graphmap.view.welcome;
 
 import javax.swing.*;
-
 import java.awt.event.ActionListener;
 import java.util.function.BiFunction;
 
@@ -37,9 +36,9 @@ public class StartFrame extends JFrame {
                 .build();
 
         JLabel label = aLabel()
-                .withText("")
+                .withText("<fichier>")
                 .isXCentered()
-                .withSize(200, 60)
+                .withSize(150, 50)
                 .isText()
                 .build();
 
@@ -49,15 +48,22 @@ public class StartFrame extends JFrame {
                 .add(aLabel().withText("Bienvenue sur le GraphMap").isBigTitle().isXCentered().build())
                 .add(aLabel().withText("Choisissez le fichier du graphe et le mode d'affichage").isTitle().isXCentered().build())
                 .addVerticalGlue()
-                .add(aButton()
-                        .withText("Charger")
-                        .withSize(150, 40)
+                .add(aPanel()
+                        .withXBoxLayout()
                         .isXCentered()
-                        .withAction(e -> {
-                            fileChooser.showOpenDialog(null);
-                            label.setText(fileChooser.getSelectedFile().getName());
-                        }).build())
-                .add(label)
+                        .addHorizontalGlue()
+                        .add(aButton()
+                                .withText("Charger")
+                                .withSize(150, 50)
+                                .isXCentered()
+                                .withAction(e -> {
+                                    fileChooser.showOpenDialog(null);
+                                    label.setText(fileChooser.getSelectedFile().getName());
+                                }).build())
+                        .addRigidArea(30, 0)
+                        .add(label)
+                        .addHorizontalGlue()
+                        .build())
                 .addVerticalGlue()
                 .add(aPanel()
                         .withXBoxLayout()
