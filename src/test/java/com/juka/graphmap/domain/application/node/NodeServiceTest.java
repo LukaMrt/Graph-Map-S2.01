@@ -150,12 +150,11 @@ public class NodeServiceTest {
     @Test
     void select_shouldSelectNode_whenNodeExist() {
         Node node = new Node("Node", NodeType.CITY, 0, 0);
-
         when(nodeRepository.getNode("Node")).thenReturn(node);
 
         nodeService.select("Node", Flag.SECONDARY);
 
-        assertThat(node.getFlag()).isEqualTo(Flag.MAIN);
+        assertThat(node.getFlag()).isEqualTo(Flag.SECONDARY);
     }
 
 }
