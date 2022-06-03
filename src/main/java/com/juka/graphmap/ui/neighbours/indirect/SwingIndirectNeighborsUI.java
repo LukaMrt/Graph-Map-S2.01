@@ -44,10 +44,6 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
 
         nodeService.unselectAll();
 
-        if (node != null && !node.isEmpty()) {
-            nodeService.select(node, Flag.MAIN);
-        }
-
         List<Node> result = new ArrayList<>();
 
         if (node != null && !node.isEmpty()) {
@@ -55,6 +51,10 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
         }
 
         result.stream().map(Node::getName).forEach(name -> nodeService.select(name, Flag.SECONDARY));
+
+        if (node != null && !node.isEmpty()) {
+            nodeService.select(node, Flag.MAIN);
+        }
 
         view.display(nodeRepository.getAllNodes(), node, distance, result);
     }
