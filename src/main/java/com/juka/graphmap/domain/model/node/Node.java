@@ -19,7 +19,7 @@ public class Node implements Comparable<Node> {
     private final String name;
     private final NodeType type;
     private final Coordinate coordinate;
-    private boolean selected;
+    private Flag flag;
 
     /**
      * Constructor of the node with coordinate.
@@ -33,7 +33,7 @@ public class Node implements Comparable<Node> {
         this.name = name;
         this.type = type;
         this.coordinate = new Coordinate(abscissa, ordinate);
-        this.selected = false;
+        this.flag = Flag.NONE;
     }
 
     /**
@@ -109,22 +109,22 @@ public class Node implements Comparable<Node> {
      *
      * @return true if the node is selected
      */
-    public boolean isSelected() {
-        return this.selected;
+    public Flag getFlag() {
+        return this.flag;
     }
 
     /**
      * Sets the node to selected.
      */
-    public void select() {
-        this.selected = true;
+    public void flag(Flag flag) {
+        this.flag = flag;
     }
 
     /**
      * Sets the node to unselected.
      */
-    public void unselect() {
-        this.selected = false;
+    public void unFlag() {
+        this.flag = Flag.NONE;
     }
 
     @Override

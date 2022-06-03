@@ -3,6 +3,7 @@ package com.juka.graphmap.ui.neighbours.indirect;
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.application.node.NodeDistanceService;
 import com.juka.graphmap.domain.application.node.NodeService;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
@@ -44,7 +45,7 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
         nodeService.unselectAll();
 
         if (node != null && !node.isEmpty()) {
-            nodeService.select(node);
+            nodeService.select(node, Flag.MAIN);
         }
 
         List<Node> result = new ArrayList<>();
@@ -53,7 +54,7 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
             result = distanceService.getNDistanceNeighbors(node, distance);
         }
 
-        result.stream().map(Node::getName).forEach(nodeService::select);
+        result.stream().map(Node::getName).forEach(name -> nodeService.select(name, Flag.SECONDARY));
 
         view.display(nodeRepository.getAllNodes(), node, distance, result);
     }

@@ -5,6 +5,7 @@ import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.link.LinkCharacteristics;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 
 import javax.inject.Inject;
@@ -44,7 +45,7 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
         if (node != null && !node.isEmpty()) {
             nodeCharacteristics = nodeService.getNodeCharacteristics(node);
             nodeService.unselectAll();
-            nodeService.select(node);
+            nodeService.select(node, Flag.MAIN);
         }
 
         LinkCharacteristics linkCharacteristics = LinkCharacteristics.empty();

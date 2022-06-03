@@ -4,6 +4,7 @@ import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.node.NodeCompareService;
 import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.model.comparaison.Comparaison;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeType;
 
@@ -55,11 +56,11 @@ public class SwingCompareUI implements CompareUI {
         }
 
         if (city1 != null) {
-            nodeService.select(city1);
+            nodeService.select(city1, Flag.MAIN);
         }
 
         if (city2 != null) {
-            nodeService.select(city2);
+            nodeService.select(city2, Flag.MAIN);
         }
 
         List<String> cities = graphService.getAllNodes().stream()

@@ -137,12 +137,12 @@ public class NodeServiceTest {
     @Test
     void unselectAll_shouldUnselectAllNodes_whenNodesAreSelected() {
         Node node = new Node("Node", NodeType.CITY, 0, 0);
-        node.select();
+        node.flag();
         when(nodeRepository.getAllNodes()).thenReturn(List.of(node));
 
         nodeService.unselectAll();
 
-        assertThat(node.isSelected()).isFalse();
+        assertThat(node.getFlag()).isFalse();
     }
 
     @Test
@@ -153,7 +153,7 @@ public class NodeServiceTest {
 
         nodeService.select("Node");
 
-        assertThat(node.isSelected()).isTrue();
+        assertThat(node.getFlag()).isTrue();
     }
 
 }

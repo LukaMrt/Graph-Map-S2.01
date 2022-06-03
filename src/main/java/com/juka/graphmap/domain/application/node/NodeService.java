@@ -2,6 +2,7 @@ package com.juka.graphmap.domain.application.node;
 
 import com.juka.graphmap.domain.application.graph.NodeRepository;
 import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.domain.model.node.NodeType;
@@ -94,16 +95,17 @@ public class NodeService {
      * Unselects all the nodes.
      */
     public void unselectAll() {
-        nodeRepository.getAllNodes().forEach(Node::unselect);
+        nodeRepository.getAllNodes().forEach(Node::unFlag);
     }
 
     /**
      * Select the specified node.
      *
      * @param node Name of the node.
+     * @param flag Flag to set on the node.
      */
-    public void select(String node) {
-        nodeRepository.getNode(node).select();
+    public void select(String node, Flag flag) {
+        nodeRepository.getNode(node).flag(flag);
     }
 
 }

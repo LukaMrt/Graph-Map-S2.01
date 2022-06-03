@@ -4,6 +4,7 @@ import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.application.path.PathService;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.path.Step;
 
@@ -54,16 +55,16 @@ public class SwingPathUI implements PathUI {
         }
 
         if (start != null && !start.isEmpty()) {
-            nodeService.select(start);
+            nodeService.select(start, Flag.MAIN);
         }
 
         if (end != null && !end.isEmpty()) {
-            nodeService.select(end);
+            nodeService.select(end, Flag.MAIN);
         }
 
         linkService.unselectAll();
         for (Step step : path.getPath()) {
-            nodeService.select(step.getDestination().getName());
+            nodeService.select(step.getDestination().getName(), Flag.SECONDARY);
             if (step.getOriginLink() != null) {
                 linkService.select(step.getOriginLink().getRoadNameWithIndex());
             }

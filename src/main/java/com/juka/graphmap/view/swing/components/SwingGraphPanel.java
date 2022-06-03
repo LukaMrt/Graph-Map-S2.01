@@ -2,6 +2,7 @@ package com.juka.graphmap.view.swing.components;
 
 import com.juka.graphmap.domain.model.link.Link;
 import com.juka.graphmap.domain.model.node.Coordinate;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.view.swing.SwingView;
 
@@ -84,7 +85,7 @@ public class SwingGraphPanel extends JPanel {
             double size = NODE_SIZE;
             nodeCoordinate = node.getCoordinate();
 
-            if (node.isSelected()) {
+            if (node.getFlag() != Flag.NONE) {
                 size = NODE_SIZE * 1.5;
             }
 
@@ -99,8 +100,12 @@ public class SwingGraphPanel extends JPanel {
                 case RESTAURANT -> g2d.setColor(new Color(255, 0, 0));
             }
 
-            if (node.isSelected()) {
+            if (node.getFlag() == Flag.MAIN) {
                 g2d.setColor(new Color(0, 255, 255, 255));
+            }
+
+            if (node.getFlag() == Flag.SECONDARY) {
+                g2d.setColor(new Color(255, 140, 60, 255));
             }
 
             g2d.fill(new Ellipse2D.Double(node.getCoordinate().x() - (size - NODE_SIZE) * 0.5, node.getCoordinate().y() - (size - NODE_SIZE) * 0.5, size, size));

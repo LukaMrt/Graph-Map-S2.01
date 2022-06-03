@@ -4,6 +4,7 @@ import com.juka.graphmap.domain.application.graph.GraphService;
 import com.juka.graphmap.domain.application.link.LinkService;
 import com.juka.graphmap.domain.application.node.NodeService;
 import com.juka.graphmap.domain.application.path.RoadsFinderService;
+import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.path.Step;
 
@@ -54,20 +55,20 @@ public class SwingRoadsUI implements RoadsUI {
 
         nodeService.unselectAll();
 
-        if (start != null && !start.isEmpty()) {
-            nodeService.select(start);
-        }
-
-        if (end != null && !end.isEmpty()) {
-            nodeService.select(end);
-        }
-
         linkService.unselectAll();
         for (Step step : path.getPath()) {
-            nodeService.select(step.getDestination().getName());
+            nodeService.select(step.getDestination().getName(), Flag.SECONDARY);
             if (step.getOriginLink() != null) {
                 linkService.select(step.getOriginLink().getRoadNameWithIndex());
             }
+        }
+
+        if (start != null && !start.isEmpty()) {
+            nodeService.select(start, Flag.MAIN);
+        }
+
+        if (end != null && !end.isEmpty()) {
+            nodeService.select(end, Flag.MAIN);
         }
 
         roadsView.display(graphService.getAllNodes(), steps, path, start, end);
