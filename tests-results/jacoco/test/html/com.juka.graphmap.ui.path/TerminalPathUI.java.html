@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalPathUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.ui.path</a> &gt; <span class="el_source">TerminalPathUI.java</span></div><h1>TerminalPathUI.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.ui.path;
+
+import com.google.inject.Inject;
+import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.domain.application.node.NodeService;
+import com.juka.graphmap.domain.application.path.PathService;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.path.Path;
+import com.juka.graphmap.ui.graph.GraphUI;
+import com.juka.graphmap.ui.home.HomeUI;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Terminal implementation of the path UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class TerminalPathUI implements PathUI {
+
+<span class="nc" id="L23">    private static final Scanner SCANNER = new Scanner(System.in);</span>
+
+    private final PathService pathService;
+    private final GraphService graphService;
+    private final NodeService nodeService;
+    private final PathView pathView;
+    private final HomeUI homeUI;
+    private final GraphUI graphUI;
+
+    /**
+     * Constructor of the TerminalPathUI.
+     *
+     * @param pathView     the path view
+     * @param homeUI       the home UI
+     * @param graphUI      the graph UI
+     * @param pathService  the path service
+     * @param graphService the graph service
+     * @param nodeService  the node service
+     */
+    @Inject
+<span class="nc" id="L43">    public TerminalPathUI(PathView pathView, HomeUI homeUI, GraphUI graphUI, PathService pathService, GraphService graphService, NodeService nodeService) {</span>
+<span class="nc" id="L44">        this.graphService = graphService;</span>
+<span class="nc" id="L45">        this.pathView = pathView;</span>
+<span class="nc" id="L46">        this.homeUI = homeUI;</span>
+<span class="nc" id="L47">        this.graphUI = graphUI;</span>
+<span class="nc" id="L48">        this.pathService = pathService;</span>
+<span class="nc" id="L49">        this.nodeService = nodeService;</span>
+<span class="nc" id="L50">    }</span>
+
+    @Override
+    public void interact(String nodeName1, String nodeName2) {
+
+<span class="nc" id="L55">        Path path = new Path(new ArrayList&lt;&gt;(), 0.0);</span>
+
+<span class="nc bnc" id="L57" title="All 4 branches missed.">        if (nodeName1 != null &amp;&amp; nodeName2 != null) {</span>
+<span class="nc" id="L58">            path = pathService.getShortestPath(nodeName1, nodeName2);</span>
+        }
+
+<span class="nc" id="L61">        pathView.display(graphService.getAllNodes(), nodeName1, nodeName2, path);</span>
+
+<span class="nc" id="L63">        char choice = SCANNER.nextLine().charAt(0);</span>
+
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        while (!&quot;012&quot;.contains(String.valueOf(choice))) {</span>
+<span class="nc" id="L66">            System.out.println(&quot;Entrée invalide. Veuillez réessayer.&quot;);</span>
+<span class="nc" id="L67">            choice = SCANNER.nextLine().charAt(0);</span>
+        }
+
+<span class="nc bnc" id="L70" title="All 3 branches missed.">        switch (choice) {</span>
+<span class="nc" id="L71">            case '0' -&gt; graphUI.interact();</span>
+<span class="nc" id="L72">            case '1' -&gt; this.interact(chooseLocation(1).getName(), chooseLocation(2).getName());</span>
+<span class="nc" id="L73">            default -&gt; homeUI.interact();</span>
+        }
+
+<span class="nc" id="L76">    }</span>
+
+    /**
+     * Asks the user to choose a location.
+     *
+     * @param i the number of the location.
+     * @return the chosen location.
+     */
+    private Node chooseLocation(int i) {
+
+<span class="nc" id="L86">        System.out.println();</span>
+        String entry;
+        do {
+<span class="nc" id="L89">            System.out.println(&quot;Entrez le noeud n°&quot; + i + &quot; à étudier :&quot;);</span>
+<span class="nc" id="L90">            entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
+
+<span class="nc" id="L93">        return nodeService.getNode(entry);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

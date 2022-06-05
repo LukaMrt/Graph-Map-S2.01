@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalIndirectNeighborsView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.neighbours.indirect</a> &gt; <span class="el_source">TerminalIndirectNeighborsView.java</span></div><h1>TerminalIndirectNeighborsView.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.neighbours.indirect;
+
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;
+
+import java.util.List;
+
+/**
+ * The indirect neighbors view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+<span class="nc" id="L14">public class TerminalIndirectNeighborsView implements IndirectNeighborsView {</span>
+
+    @Override
+    public void display(List&lt;Node&gt; nodes, String node, int distance, List&lt;Node&gt; result) {
+
+<span class="nc" id="L19">        System.out.println();</span>
+<span class="nc" id="L20">        System.out.println(&quot;------------------------------------------------------&quot;);</span>
+<span class="nc" id="L21">        System.out.println(&quot;Écran n°4 - Voisinage indirect&quot;);</span>
+
+<span class="nc" id="L23">        System.out.println();</span>
+<span class="nc" id="L24">        System.out.println(&quot;Liste des noeuds :&quot;);</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        for (Node node1 : nodes) {</span>
+<span class="nc" id="L26">            System.out.println(&quot;- &quot; + node1.getName());</span>
+<span class="nc" id="L27">        }</span>
+
+<span class="nc" id="L29">        System.out.println();</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (node != null) {</span>
+<span class="nc" id="L31">            System.out.println();</span>
+<span class="nc" id="L32">            System.out.println(&quot;Les noeuds à &quot; + distance + &quot;-distance de &quot; + node + &quot; sont :&quot;);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            for (Node node1 : result) {</span>
+<span class="nc" id="L34">                System.out.println(&quot;- &quot; + node1.getName());</span>
+<span class="nc" id="L35">            }</span>
+        }
+
+<span class="nc" id="L38">        System.out.println();</span>
+<span class="nc" id="L39">        System.out.println(&quot;Que souhaitez-vous faire ?&quot;);</span>
+<span class="nc" id="L40">        System.out.println(&quot;0 - Retour à l'écran précédent&quot;);</span>
+<span class="nc" id="L41">        System.out.println(&quot;1 - Choisissez 2 villes à étudier&quot;);</span>
+<span class="nc" id="L42">        System.out.println(&quot;2 - Retour à l'écran principal&quot;);</span>
+<span class="nc" id="L43">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

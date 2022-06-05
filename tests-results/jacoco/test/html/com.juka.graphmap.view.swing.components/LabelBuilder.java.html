@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LabelBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing.components</a> &gt; <span class="el_source">LabelBuilder.java</span></div><h1>LabelBuilder.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing.components;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Swing JLabel builder.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class LabelBuilder {
+
+    private final JLabel label;
+
+<span class="nc" id="L16">    private LabelBuilder() {</span>
+<span class="nc" id="L17">        this.label = new JLabel();</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * Creates a new LabelBuilder.
+     *
+     * @return a new LabelBuilder
+     */
+    public static LabelBuilder aLabel() {
+<span class="nc" id="L26">        return new LabelBuilder();</span>
+    }
+
+    /**
+     * Set the text of the label.
+     *
+     * @param text the text of the label
+     * @return the LabelBuilder
+     */
+    public LabelBuilder withText(String text) {
+<span class="nc" id="L36">        this.label.setText(text);</span>
+<span class="nc" id="L37">        return this;</span>
+    }
+
+    /**
+     * Set the font of the label.
+     *
+     * @param font the font of the label
+     * @return the LabelBuilder
+     */
+    public LabelBuilder withFont(Font font) {
+<span class="nc" id="L47">        this.label.setFont(font);</span>
+<span class="nc" id="L48">        return this;</span>
+    }
+
+    /**
+     * Set the font with big title size.
+     *
+     * @return the LabelBuilder
+     */
+    public LabelBuilder isBigTitle() {
+<span class="nc" id="L57">        return withFont(new Font(&quot;Arial&quot;, Font.PLAIN, 35));</span>
+    }
+
+    /**
+     * Set the font with subtitle of big title size.
+     *
+     * @return the LabelBuilder
+     */
+    public LabelBuilder isSubBigTitle() {
+<span class="nc" id="L66">        return withFont(new Font(&quot;Arial&quot;, Font.BOLD, 35));</span>
+    }
+
+    /**
+     * Set the font with title size.
+     *
+     * @return the LabelBuilder
+     */
+    public LabelBuilder isTitle() {
+<span class="nc" id="L75">        return withFont(new Font(&quot;Arial&quot;, Font.PLAIN, 19));</span>
+    }
+
+    /**
+     * Set the font with text size.
+     *
+     * @return the LabelBuilder
+     */
+    public LabelBuilder isText() {
+<span class="nc" id="L84">        return withFont(new Font(&quot;Arial&quot;, Font.PLAIN, 16));</span>
+    }
+
+    /**
+     * Center the label in X axis.
+     *
+     * @return the LabelBuilder
+     */
+    public LabelBuilder isXCentered() {
+<span class="nc" id="L93">        this.label.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L94">        return this;</span>
+    }
+
+    /**
+     * Center the label in Y axis.
+     *
+     * @return the LabelBuilder
+     */
+    public LabelBuilder isYCentered() {
+<span class="nc" id="L103">        this.label.setAlignmentY(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L104">        return this;</span>
+    }
+
+    /**
+     * Set the color of the label.
+     *
+     * @param color the new color of the label
+     * @return the LabelBuilder
+     */
+    public LabelBuilder withColor(Color color) {
+<span class="nc" id="L114">        this.label.setForeground(color);</span>
+<span class="nc" id="L115">        return this;</span>
+    }
+
+    /**
+     * Set the size of the label.
+     *
+     * @param width  the width of the label
+     * @param height the height of the label
+     * @return the LabelBuilder
+     */
+    public LabelBuilder withSize(int width, int height) {
+<span class="nc" id="L126">        this.label.setPreferredSize(new Dimension(width, height));</span>
+<span class="nc" id="L127">        this.label.setSize(new Dimension(width, height));</span>
+<span class="nc" id="L128">        this.label.setMinimumSize(new Dimension(width, height));</span>
+<span class="nc" id="L129">        this.label.setMaximumSize(new Dimension(width, height));</span>
+<span class="nc" id="L130">        return this;</span>
+    }
+
+    /**
+     * Build the final JLabel.
+     *
+     * @return the final JLabel
+     */
+    public JLabel build() {
+<span class="nc" id="L139">        return this.label;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

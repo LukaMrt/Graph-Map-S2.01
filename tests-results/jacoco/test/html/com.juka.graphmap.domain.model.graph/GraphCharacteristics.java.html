@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GraphCharacteristics.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.model.graph</a> &gt; <span class="el_source">GraphCharacteristics.java</span></div><h1>GraphCharacteristics.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.model.graph;
+
+import java.util.Objects;
+
+/**
+ * Represents the characteristics of a graph.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class GraphCharacteristics {
+
+    /**
+     * The number of locations
+     */
+    public int locationCount;
+
+    /**
+     * The number of roads
+     */
+    public int roadCount;
+
+    /**
+     * The percentage of cities
+     */
+    public float cityPercentage;
+
+    /**
+     * The percentage of restaurants
+     */
+    public float restaurantPercentage;
+
+    /**
+     * The percentage of recreation location
+     */
+    public float recreationPercentage;
+
+    /**
+     * The percentage of highways
+     */
+    public float highwayPercentage;
+
+    /**
+     * The percentage of national roads
+     */
+    public float nationalPercentage;
+
+    /**
+     * The percentage of departemental roads
+     */
+    public float departementalPercentage;
+
+    /**
+     * The error message
+     */
+    public String error;
+
+    /**
+     * Constructor of the GraphCharacteristics object.
+     *
+     * @param builder the builder of the characteristics
+     */
+<span class="fc" id="L63">    public GraphCharacteristics(GraphCharacteristicsBuilder builder) {</span>
+<span class="fc" id="L64">        this.locationCount = builder.cityCount;</span>
+<span class="fc" id="L65">        this.roadCount = builder.roadCount;</span>
+<span class="fc" id="L66">        this.cityPercentage = Math.round(builder.cityPercentage * 10_000) / 100F;</span>
+<span class="fc" id="L67">        this.restaurantPercentage = Math.round(builder.restaurantPercentage * 10_000) / 100F;</span>
+<span class="fc" id="L68">        this.recreationPercentage = Math.round(builder.recreationPercentage * 10_000) / 100F;</span>
+<span class="fc" id="L69">        this.highwayPercentage = Math.round(builder.highwayPercentage * 10_000) / 100F;</span>
+<span class="fc" id="L70">        this.nationalPercentage = Math.round(builder.nationalPercentage * 10_000) / 100F;</span>
+<span class="fc" id="L71">        this.departementalPercentage = Math.round(builder.departementalPercentage * 10_000) / 100F;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        this.error = builder.error ? &quot;Erreur détectée&quot; : &quot;Aucune erreur détectée&quot;;</span>
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * Check if the object is equal to the current object.
+     *
+     * @param o the object to compare
+     * @return true if the object is equal to the current object, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L84" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L85">        GraphCharacteristics that = (GraphCharacteristics) o;</span>
+<span class="pc bpc" id="L86" title="2 of 4 branches missed.">        return locationCount == that.locationCount</span>
+                &amp;&amp; roadCount == that.roadCount
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">                &amp;&amp; Float.compare(that.cityPercentage, cityPercentage) == 0</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">                &amp;&amp; Float.compare(that.restaurantPercentage, restaurantPercentage) == 0</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">                &amp;&amp; Float.compare(that.recreationPercentage, recreationPercentage) == 0</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">                &amp;&amp; Float.compare(that.highwayPercentage, highwayPercentage) == 0</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">                &amp;&amp; Float.compare(that.nationalPercentage, nationalPercentage) == 0</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">                &amp;&amp; Float.compare(that.departementalPercentage, departementalPercentage) == 0</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">                &amp;&amp; error.equals(that.error);</span>
+    }
+
+    /**
+     * Return the hash code of the object.
+     *
+     * @return the hash code of the object
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L104">        return Objects.hash(locationCount, roadCount, cityPercentage, restaurantPercentage, recreationPercentage, highwayPercentage, nationalPercentage, departementalPercentage, error);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

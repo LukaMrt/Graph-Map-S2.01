@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwingGraphUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.ui.graph</a> &gt; <span class="el_source">SwingGraphUI.java</span></div><h1>SwingGraphUI.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.ui.graph;
+
+import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.domain.application.link.LinkService;
+import com.juka.graphmap.domain.application.node.NodeService;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Node;
+
+import javax.inject.Inject;
+import java.util.Comparator;
+import java.util.List;
+
+/**
+ * Swing implementation of the Graph UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class SwingGraphUI implements GraphUI {
+
+    private final GraphService graphService;
+    private final NodeService nodeService;
+    private final LinkService linkService;
+    private final GraphView view;
+
+
+    /**
+     * Constructor of the SwingGraphUI.
+     *
+     * @param graphService the graph service
+     * @param nodeService  the node service
+     * @param linkService  the link service
+     * @param view         the view
+     */
+    @Inject
+<span class="nc" id="L36">    public SwingGraphUI(GraphService graphService, NodeService nodeService, LinkService linkService, GraphView view) {</span>
+<span class="nc" id="L37">        this.graphService = graphService;</span>
+<span class="nc" id="L38">        this.nodeService = nodeService;</span>
+<span class="nc" id="L39">        this.linkService = linkService;</span>
+<span class="nc" id="L40">        this.view = view;</span>
+<span class="nc" id="L41">    }</span>
+
+    @Override
+    public void interact() {
+
+<span class="nc" id="L46">        List&lt;Link&gt; links = graphService.getAllLinks().stream()</span>
+<span class="nc" id="L47">                .sorted(Comparator.comparing(Link::getType))</span>
+<span class="nc" id="L48">                .filter(link -&gt; link.getName().endsWith(&quot;.1&quot;))</span>
+<span class="nc" id="L49">                .toList();</span>
+
+<span class="nc" id="L51">        nodeService.unselectAll();</span>
+<span class="nc" id="L52">        linkService.unselectAll();</span>
+
+<span class="nc" id="L54">        List&lt;Node&gt; nodes = graphService.getAllNodes().stream()</span>
+<span class="nc" id="L55">                .sorted(Comparator.comparing(Node::getType))</span>
+<span class="nc" id="L56">                .toList();</span>
+
+<span class="nc" id="L58">        view.display(nodes, links);</span>
+<span class="nc" id="L59">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PathService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.application.path</a> &gt; <span class="el_source">PathService.java</span></div><h1>PathService.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.application.path;
+
+import com.google.inject.Inject;
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkType;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.path.FloydWarshallStep;
+import com.juka.graphmap.domain.model.path.Path;
+import com.juka.graphmap.domain.model.path.Step;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Service to find the shortest path between two nodes with checkpoints.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
+public class PathService implements RoadsFinderService {
+
+    private final NodeRepository nodeRepository;
+    private final FloydWarshallDistancesRepository distanceRepository;
+
+    /**
+     * Constructor of the path service.
+     *
+     * @param nodeRepository     repository of nodes
+     * @param distanceRepository repository of distances
+     */
+    @Inject
+<span class="fc" id="L34">    public PathService(NodeRepository nodeRepository, FloydWarshallDistancesRepository distanceRepository) {</span>
+<span class="fc" id="L35">        this.nodeRepository = nodeRepository;</span>
+<span class="fc" id="L36">        this.distanceRepository = distanceRepository;</span>
+<span class="fc" id="L37">    }</span>
+
+    /**
+     * Executes the Floyd-Warshall algorithm to fill the distances repository.
+     */
+    public void computeFloydWarshall() {
+
+<span class="fc" id="L44">        List&lt;Node&gt; nodes = nodeRepository.getAllNodes().stream().sorted().toList();</span>
+
+<span class="fc" id="L46">        FloydWarshallStep[][] steps = new FloydWarshallStep[nodes.size()][nodes.size()];</span>
+
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for (Node node : nodes) {</span>
+<span class="fc" id="L49">            initializeSteps(steps, node, nodes);</span>
+<span class="fc" id="L50">        }</span>
+
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (int k = 0; k &lt; nodes.size(); k++) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">            for (int i = 0; i &lt; nodes.size(); i++) {</span>
+<span class="fc" id="L54">                iteration(nodes, steps, k, i);</span>
+            }
+        }
+
+<span class="fc" id="L58">        distanceRepository.storeDistances(steps);</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Initializes the steps of the Floyd-Warshall algorithm.
+     *
+     * @param steps matrix of steps
+     * @param node  node to initialize
+     * @param nodes list of nodes
+     */
+    private void initializeSteps(FloydWarshallStep[][] steps, Node node, List&lt;Node&gt; nodes) {
+<span class="fc" id="L69">        int index = nodes.indexOf(node);</span>
+
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        for (int i = 0; i &lt; nodes.size(); i++) {</span>
+<span class="fc" id="L72">            steps[index][i] = new FloydWarshallStep(1_000_000, null, null);</span>
+        }
+
+<span class="fc" id="L75">        steps[index][index] = new FloydWarshallStep(0, node, null);</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (Link link : node.getNeighborsLinks()) {</span>
+
+<span class="fc" id="L79">            Node destination = link.getDestination();</span>
+<span class="fc" id="L80">            int distance = link.getDistance();</span>
+
+<span class="fc" id="L82">            steps[index][nodes.indexOf(destination)] = new FloydWarshallStep(distance, node, link);</span>
+
+<span class="fc" id="L84">        }</span>
+<span class="fc" id="L85">    }</span>
+
+    /**
+     * Executes one iteration of the Floyd-Warshall algorithm.
+     *
+     * @param nodes list of nodes
+     * @param steps matrix of steps
+     * @param k     index of the node
+     * @param i     index of the node
+     */
+    private void iteration(List&lt;Node&gt; nodes, FloydWarshallStep[][] steps, int k, int i) {
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        for (int j = 0; j &lt; nodes.size(); j++) {</span>
+<span class="fc" id="L97">            int newDistance = steps[i][k].distance + steps[k][j].distance;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (newDistance &lt; steps[i][j].distance) {</span>
+<span class="fc" id="L99">                int finalJ = j;</span>
+<span class="fc" id="L100">                Link link1 = steps[k][j].previous.getNeighborsLinks().stream()</span>
+<span class="fc" id="L101">                        .filter(link -&gt; link.getDestination().equals(nodes.get(finalJ)))</span>
+<span class="fc" id="L102">                        .findFirst()</span>
+<span class="fc" id="L103">                        .orElse(new Link(&quot;&quot;, nodes.get(finalJ), LinkType.HIGHWAY, 0));</span>
+<span class="fc" id="L104">                steps[i][j] = new FloydWarshallStep(newDistance, steps[k][j].previous, link1);</span>
+            }
+        }
+<span class="fc" id="L107">    }</span>
+
+    /**
+     * Returns the shortest path between two nodes.
+     *
+     * @param originNodeName      name of the origin node
+     * @param destinationNodeName name of the destination node
+     * @return shortest path between two nodes
+     */
+    public Path getShortestPath(String originNodeName, String destinationNodeName) {
+
+<span class="fc" id="L118">        Node node = nodeRepository.getNode(originNodeName);</span>
+<span class="fc" id="L119">        Node destination = nodeRepository.getNode(destinationNodeName);</span>
+
+<span class="fc" id="L121">        List&lt;Node&gt; nodes = nodeRepository.getAllNodes().stream().sorted().toList();</span>
+
+<span class="fc" id="L123">        FloydWarshallStep[] distances = distanceRepository.getDistances(nodes.indexOf(node));</span>
+
+<span class="fc" id="L125">        int distance = distances[nodes.indexOf(node)].distance;</span>
+<span class="fc" id="L126">        List&lt;Step&gt; steps = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L128">        Node currentNode = destination;</span>
+
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        while (currentNode != node) {</span>
+<span class="fc" id="L131">            int currentNodeIndex = nodes.indexOf(currentNode);</span>
+<span class="fc" id="L132">            int previousNodeIndex = nodes.indexOf(distances[currentNodeIndex].previous);</span>
+<span class="fc" id="L133">            Link previousLink = distances[currentNodeIndex].previousLink;</span>
+
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            if (distances[currentNodeIndex].distance &gt;= 1_000_000) {</span>
+<span class="fc" id="L136">                return new Path(new ArrayList&lt;&gt;(), Double.POSITIVE_INFINITY);</span>
+            }
+
+<span class="fc" id="L139">            distance += previousLink.getDistance();</span>
+<span class="fc" id="L140">            steps.add(new Step(currentNode, previousLink));</span>
+
+<span class="fc" id="L142">            currentNode = nodes.get(previousNodeIndex);</span>
+<span class="fc" id="L143">        }</span>
+
+<span class="fc" id="L145">        steps.add(new Step(node, null));</span>
+<span class="fc" id="L146">        Collections.reverse(steps);</span>
+
+<span class="fc" id="L148">        return new Path(steps, (double) distance);</span>
+    }
+
+
+    @Override
+    public Path getPathsWithSpecificLocations(String start, List&lt;String&gt; steps, String end) {
+
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (steps.size() == 0) {</span>
+<span class="fc" id="L156">            return getShortestPath(start, end);</span>
+        }
+
+<span class="fc" id="L159">        Path path = getShortestPath(start, steps.get(0));</span>
+
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        for (int i = 1; i &lt; steps.size(); i++) {</span>
+<span class="fc" id="L162">            Path path2 = getShortestPath(steps.get(i - 1), steps.get(i));</span>
+<span class="fc" id="L163">            path = path.merge(path2);</span>
+        }
+
+<span class="fc" id="L166">        Path path3 = getShortestPath(steps.get(steps.size() - 1), end);</span>
+<span class="fc" id="L167">        path = path.merge(path3);</span>
+
+<span class="fc" id="L169">        return path;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NodeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.application.node</a> &gt; <span class="el_source">NodeService.java</span></div><h1>NodeService.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.application.node;
+
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Flag;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeCharacteristics;
+import com.juka.graphmap.domain.model.node.NodeType;
+
+import javax.inject.Inject;
+import java.util.List;
+
+/**
+ * Service to get Node neighbors and characteristics.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class NodeService {
+
+    private final NodeRepository nodeRepository;
+
+    /**
+     * Constructor of the NodeService.
+     *
+     * @param nodeRepository NodeRepository of the graph.
+     */
+    @Inject
+<span class="fc" id="L29">    public NodeService(NodeRepository nodeRepository) {</span>
+<span class="fc" id="L30">        this.nodeRepository = nodeRepository;</span>
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * Get the direct neighbors of a node.
+     *
+     * @param node Name of the node.
+     * @return list of neighbors of the node.
+     */
+    public List&lt;Node&gt; getDirectNeighbours(String node) {
+<span class="fc" id="L40">        return nodeRepository.getNode(node).getNeighbors();</span>
+    }
+
+    /**
+     * Get the direct neighbors links of a node.
+     *
+     * @param node Name of the node.
+     * @return list of neighbors links of the node.
+     */
+    public List&lt;Link&gt; getDirectNeighborsLinks(String node) {
+<span class="fc" id="L50">        return nodeRepository.getNode(node).getNeighborsLinks();</span>
+    }
+
+    /**
+     * Returns the type of the node with the given name.
+     *
+     * @param node Name of the node.
+     * @return Type of the node.
+     */
+    public NodeType getType(String node) {
+<span class="fc" id="L60">        return nodeRepository.getNode(node).getType();</span>
+    }
+
+    /**
+     * Returns the node with the given name.
+     *
+     * @param name Name of the node.
+     * @return Node with the given name.
+     */
+    public Node getNode(String name) {
+<span class="fc" id="L70">        return nodeRepository.getNode(name);</span>
+    }
+
+    /**
+     * Returns the node characteristics of a given node name.
+     *
+     * @param name Name of the node.
+     * @return Node characteristics of the node.
+     */
+    public NodeCharacteristics getNodeCharacteristics(String name) {
+<span class="fc" id="L80">        Node node = getNode(name);</span>
+
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (node == null) {</span>
+<span class="fc" id="L83">            return NodeCharacteristics.empty();</span>
+        }
+
+<span class="fc" id="L86">        List&lt;String&gt; neighbors = node.getNeighbors().stream()</span>
+<span class="fc" id="L87">                .map(Node::getName)</span>
+<span class="fc" id="L88">                .distinct()</span>
+<span class="fc" id="L89">                .toList();</span>
+
+<span class="fc" id="L91">        return new NodeCharacteristics(node.getName(), node.getType().toString(), neighbors);</span>
+    }
+
+    /**
+     * Unselects all the nodes.
+     */
+    public void unselectAll() {
+<span class="fc" id="L98">        nodeRepository.getAllNodes().forEach(Node::unFlag);</span>
+<span class="fc" id="L99">    }</span>
+
+    /**
+     * Select the specified node.
+     *
+     * @param node Name of the node.
+     * @param flag Flag to set on the node.
+     */
+    public void select(String node, Flag flag) {
+<span class="fc" id="L108">        nodeRepository.getNode(node).flag(flag);</span>
+<span class="fc" id="L109">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

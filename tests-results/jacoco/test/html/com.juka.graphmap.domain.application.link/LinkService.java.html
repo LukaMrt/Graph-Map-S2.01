@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LinkService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.application.link</a> &gt; <span class="el_source">LinkService.java</span></div><h1>LinkService.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.application.link;
+
+import com.juka.graphmap.domain.application.graph.LinkRepository;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
+
+import javax.inject.Inject;
+import java.util.List;
+
+/**
+ * Service to get Link characteristics.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class LinkService {
+
+    private final LinkRepository linkRepository;
+
+    /**
+     * Constructor of the LinkService.
+     *
+     * @param linkRepository LinkRepository to get Link characteristics.
+     */
+    @Inject
+<span class="fc" id="L27">    public LinkService(LinkRepository linkRepository) {</span>
+<span class="fc" id="L28">        this.linkRepository = linkRepository;</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Get a link with a given name.
+     *
+     * @param name Name of the link.
+     * @return Link with the given name.
+     */
+    public Link getLink(String name) {
+<span class="fc" id="L38">        return linkRepository.getLink(name);</span>
+    }
+
+    /**
+     * Returns the link characteristics of a given link name.
+     *
+     * @param linkName Name of the link.
+     * @return Link characteristics of the given link name.
+     */
+    public LinkCharacteristics getLinkCharacteristics(String linkName) {
+
+<span class="fc" id="L49">        List&lt;Node&gt; nodes = linkRepository.getAllLinks().stream()</span>
+<span class="fc" id="L50">                .filter(l -&gt; l.getName().contains(linkName + &quot;.&quot;))</span>
+<span class="fc" id="L51">                .map(Link::getDestination)</span>
+<span class="fc" id="L52">                .sorted()</span>
+<span class="fc" id="L53">                .toList();</span>
+
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (nodes.size() != 2) {</span>
+<span class="fc" id="L56">            return LinkCharacteristics.empty();</span>
+        }
+
+<span class="fc" id="L59">        Link link = getLink(linkName + &quot;.1&quot;);</span>
+<span class="fc" id="L60">        return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType().toString(), link.getDistance());</span>
+    }
+
+    /**
+     * Sets all the links to unselected.
+     */
+    public void unselectAll() {
+<span class="fc" id="L67">        linkRepository.getAllLinks().forEach(Link::unselect);</span>
+<span class="fc" id="L68">    }</span>
+
+    /**
+     * Sets the link with the given name to selected.
+     *
+     * @param link The link to select.
+     */
+    public void select(String link) {
+<span class="fc" id="L76">        linkRepository.getAllLinks().stream()</span>
+<span class="pc bpc" id="L77" title="1 of 4 branches missed.">                .filter(l -&gt; l.getName().equals(link + &quot;.1&quot;) || l.getName().equals(link + &quot;.2&quot;))</span>
+<span class="fc" id="L78">                .forEach(Link::select);</span>
+<span class="fc" id="L79">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

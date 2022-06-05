@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwingView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing</a> &gt; <span class="el_source">SwingView.java</span></div><h1>SwingView.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing;
+
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.view.Title;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.components.SwingGraphPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
+
+/**
+ * Global swing view. Regroup all the methods to build any view.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public abstract class SwingView {
+
+    /**
+     * The frame of the application.
+     */
+    protected final GraphMapJFrame frame;
+
+    /**
+     * Constructor.
+     *
+     * @param frame the frame of the application
+     */
+<span class="nc" id="L34">    protected SwingView(GraphMapJFrame frame) {</span>
+<span class="nc" id="L35">        this.frame = frame;</span>
+<span class="nc" id="L36">    }</span>
+
+    /**
+     * Display the view.
+     *
+     * @param nodes the nodes of the graph
+     */
+    public void display(List&lt;Node&gt; nodes) {
+
+<span class="nc" id="L45">        this.frame.setContentPane(</span>
+<span class="nc" id="L46">                aPanel().withBorderLayout()</span>
+<span class="nc" id="L47">                        .add(buildTitle(), BorderLayout.NORTH)</span>
+<span class="nc" id="L48">                        .add(buildSidePanel(buildLeftPanel()), BorderLayout.WEST)</span>
+<span class="nc" id="L49">                        .add(new SwingGraphPanel(nodes, this), BorderLayout.CENTER)</span>
+<span class="nc" id="L50">                        .add(buildSidePanel(buildRightPanel()), BorderLayout.EAST)</span>
+<span class="nc" id="L51">                        .add(buildBottomPanel(), BorderLayout.SOUTH)</span>
+<span class="nc" id="L52">                        .build()</span>
+        );
+
+<span class="nc" id="L55">        JMenu menu = this.frame.getJMenuBar().getMenu(2);</span>
+<span class="nc" id="L56">        JMenuItem item = menu.getItem(0);</span>
+
+<span class="nc" id="L58">        menu.remove(item);</span>
+
+<span class="nc" id="L60">        item = new JMenuItem(&quot;Consignes de cet écran&quot;);</span>
+<span class="nc" id="L61">        item.addActionListener(e -&gt; JOptionPane.showMessageDialog(this.frame, this.getHelp(), &quot;Aide&quot;, JOptionPane.INFORMATION_MESSAGE));</span>
+<span class="nc" id="L62">        menu.add(item);</span>
+
+<span class="nc" id="L64">        ((JPanel) this.frame.getContentPane()).updateUI();</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if (isFirstTime()) {</span>
+<span class="nc" id="L67">            JOptionPane.showMessageDialog(frame, getHelp(), &quot;Aide&quot;, JOptionPane.INFORMATION_MESSAGE);</span>
+        }
+<span class="nc" id="L69">    }</span>
+
+    /**
+     * Get the help message of the screen.
+     *
+     * @return the help message
+     */
+    protected abstract String getHelp();
+
+    private JPanel buildSidePanel(JPanel panel) {
+<span class="nc" id="L79">        return aPanel()</span>
+<span class="nc" id="L80">                .withSize(300, 600)</span>
+<span class="nc" id="L81">                .withXBoxLayout()</span>
+<span class="nc" id="L82">                .isYCentered()</span>
+<span class="nc" id="L83">                .addHorizontalGlue()</span>
+<span class="nc" id="L84">                .add(panel)</span>
+<span class="nc" id="L85">                .addHorizontalGlue()</span>
+<span class="nc" id="L86">                .build();</span>
+    }
+
+    /**
+     * Build the title of the screen.
+     *
+     * @return the title panel of the screen
+     */
+    protected JPanel buildTitle() {
+
+<span class="nc" id="L96">        return aPanel()</span>
+<span class="nc" id="L97">                .withYBoxLayout()</span>
+<span class="nc" id="L98">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L99">                .isXCentered()</span>
+<span class="nc" id="L100">                .add(aLabel().withText(&quot;~ Écran n°&quot; + getTitle().screenNumber + &quot; ~&quot;)</span>
+<span class="nc" id="L101">                        .isBigTitle()</span>
+<span class="nc" id="L102">                        .isXCentered()</span>
+<span class="nc" id="L103">                        .build())</span>
+<span class="nc" id="L104">                .add(aLabel().withText(getTitle().title)</span>
+<span class="nc" id="L105">                        .isSubBigTitle()</span>
+<span class="nc" id="L106">                        .isXCentered()</span>
+<span class="nc" id="L107">                        .build())</span>
+<span class="nc" id="L108">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L109">                .build();</span>
+    }
+
+    private JPanel buildBottomPanel() {
+<span class="nc" id="L113">        return aPanel()</span>
+<span class="nc" id="L114">                .withSize(1300, 100)</span>
+<span class="nc" id="L115">                .withXBoxLayout()</span>
+<span class="nc" id="L116">                .addHorizontalGlue()</span>
+<span class="nc" id="L117">                .isYCentered()</span>
+<span class="nc" id="L118">                .addAllFollowedByHorizontalGlue(getButtons())</span>
+<span class="nc" id="L119">                .build();</span>
+    }
+
+    /**
+     * Get the Title of the screen.
+     *
+     * @return the title of the screen
+     */
+    protected abstract Title getTitle();
+
+    /**
+     * Get the buttons of the screen.
+     *
+     * @return the buttons of the screen
+     */
+    protected abstract List&lt;JButton&gt; getButtons();
+
+    /**
+     * Build the left panel of the screen.
+     *
+     * @return the left panel of the screen
+     */
+    protected abstract JPanel buildLeftPanel();
+
+    /**
+     * Build the right panel of the screen.
+     *
+     * @return the right panel of the screen
+     */
+    protected abstract JPanel buildRightPanel();
+
+    /**
+     * Action to perform when the left mouse button is clicked.
+     *
+     * @param node the clicked node
+     * @param link the clicked link
+     */
+    public void leftClick(Node node, Link link) {
+<span class="nc" id="L157">    }</span>
+
+    /**
+     * Action to perform when the right mouse button is clicked.
+     *
+     * @param node the clicked node
+     * @param link the clicked link
+     */
+    public void rightClick(Node node, Link link) {
+<span class="nc" id="L166">    }</span>
+
+    /**
+     * Action to perform when the left mouse button is clicked with the shift key pressed.
+     *
+     * @param node the clicked node
+     * @param link the clicked link
+     */
+    public void shiftClick(Node node, Link link) {
+<span class="nc" id="L175">    }</span>
+
+    /**
+     * Check if it's the first time on the screen.
+     *
+     * @return true if it's the first time, false otherwise
+     */
+    protected abstract boolean isFirstTime();
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

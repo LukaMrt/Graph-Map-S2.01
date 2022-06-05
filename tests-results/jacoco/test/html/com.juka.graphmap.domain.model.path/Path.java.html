@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Path.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.model.path</a> &gt; <span class="el_source">Path.java</span></div><h1>Path.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.model.path;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * Represents a path between two nodes.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class Path {
+
+    private final List&lt;Step&gt; path;
+    private final Double distance;
+
+    /**
+     * Constructor of the path.
+     *
+     * @param path     The path.
+     * @param distance The distance between the two nodes.
+     */
+<span class="fc" id="L24">    public Path(List&lt;Step&gt; path, Double distance) {</span>
+<span class="fc" id="L25">        this.path = path;</span>
+<span class="fc" id="L26">        this.distance = distance;</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Returns the path.
+     *
+     * @return The path.
+     */
+    public List&lt;Step&gt; getPath() {
+<span class="fc" id="L35">        return path;</span>
+    }
+
+    /**
+     * Returns the distance between the two nodes.
+     *
+     * @return The distance between the two nodes.
+     */
+    public Double getDistance() {
+<span class="fc" id="L44">        return distance;</span>
+    }
+
+    /**
+     * Returns the string representation of this path.
+     *
+     * @return The string representation of this path.
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L55" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L56">        Path that = (Path) o;</span>
+<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        return path.equals(that.path) &amp;&amp; Objects.equals(distance, that.distance);</span>
+    }
+
+    /**
+     * Merge two paths.
+     *
+     * @param path2 The path to merge.
+     * @return The merged path.
+     */
+    public Path merge(Path path2) {
+
+<span class="fc" id="L68">        path2.getPath().remove(0);</span>
+
+<span class="fc" id="L70">        List&lt;Step&gt; mergedPath = new ArrayList&lt;&gt;(this.getPath());</span>
+<span class="fc" id="L71">        mergedPath.addAll(path2.getPath());</span>
+<span class="fc" id="L72">        return new Path(mergedPath, this.getDistance() + path2.getDistance());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PanelBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing.components</a> &gt; <span class="el_source">PanelBuilder.java</span></div><h1>PanelBuilder.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing.components;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+
+/**
+ * Swing JPanel builder.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class PanelBuilder {
+
+    private final JPanel panel;
+
+<span class="nc" id="L17">    private PanelBuilder() {</span>
+<span class="nc" id="L18">        this.panel = new JPanel();</span>
+<span class="nc" id="L19">    }</span>
+
+<span class="nc" id="L21">    private PanelBuilder(JPanel panel) {</span>
+<span class="nc" id="L22">        this.panel = panel;</span>
+<span class="nc" id="L23">    }</span>
+
+    /**
+     * Creates a new PanelBuilder.
+     *
+     * @return a PanelBuilder
+     */
+    public static PanelBuilder aPanel() {
+<span class="nc" id="L31">        return new PanelBuilder();</span>
+    }
+
+    /**
+     * Creates a new PanelBuilder based on an existing Panel.
+     *
+     * @param panel the base Panel
+     * @return a PanelBuilder
+     */
+    public static PanelBuilder aPanel(JPanel panel) {
+<span class="nc" id="L41">        return new PanelBuilder(panel);</span>
+    }
+
+    private PanelBuilder withLayout(LayoutManager layout) {
+<span class="nc" id="L45">        this.panel.setLayout(layout);</span>
+<span class="nc" id="L46">        return this;</span>
+    }
+
+    /**
+     * Set the layout of the Panel to BorderLayout.
+     *
+     * @return the PanelBuilder
+     */
+    public PanelBuilder withBorderLayout() {
+<span class="nc" id="L55">        return withLayout(new BorderLayout());</span>
+    }
+
+    /**
+     * Set the layout of the Panel to Y based BoxLayout.
+     *
+     * @return the PanelBuilder
+     */
+    public PanelBuilder withYBoxLayout() {
+<span class="nc" id="L64">        return withLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));</span>
+    }
+
+    /**
+     * Set the layout of the Panel to X based BoxLayout.
+     *
+     * @return the PanelBuilder
+     */
+    public PanelBuilder withXBoxLayout() {
+<span class="nc" id="L73">        return withLayout(new BoxLayout(panel, BoxLayout.X_AXIS));</span>
+    }
+
+    /**
+     * Center the Panel in the X axis.
+     *
+     * @return the PanelBuilder
+     */
+    public PanelBuilder isXCentered() {
+<span class="nc" id="L82">        this.panel.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L83">        return this;</span>
+    }
+
+    /**
+     * Center the Panel in the Y axis.
+     *
+     * @return the PanelBuilder
+     */
+    public PanelBuilder isYCentered() {
+<span class="nc" id="L92">        this.panel.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L93">        return this;</span>
+    }
+
+    /**
+     * Add an horizontal glue to the Panel.
+     *
+     * @return the PanelBuilder
+     */
+    public PanelBuilder addHorizontalGlue() {
+<span class="nc" id="L102">        this.panel.add(Box.createHorizontalGlue());</span>
+<span class="nc" id="L103">        return this;</span>
+    }
+
+    /**
+     * Add a vertical glue to the Panel.
+     *
+     * @return the PanelBuilder
+     */
+    public PanelBuilder addVerticalGlue() {
+<span class="nc" id="L112">        this.panel.add(Box.createVerticalGlue());</span>
+<span class="nc" id="L113">        return this;</span>
+    }
+
+    /**
+     * Add a rigid area to the Panel.
+     *
+     * @param width  the width of the area
+     * @param height the height of the area
+     * @return the PanelBuilder
+     */
+    public PanelBuilder addRigidArea(int width, int height) {
+<span class="nc" id="L124">        this.panel.add(Box.createRigidArea(new Dimension(width, height)));</span>
+<span class="nc" id="L125">        return this;</span>
+    }
+
+    /**
+     * Add a component to the Panel.
+     *
+     * @param component the component to add
+     * @return the PanelBuilder
+     */
+    public PanelBuilder add(Component component) {
+<span class="nc" id="L135">        this.panel.add(component);</span>
+<span class="nc" id="L136">        return this;</span>
+    }
+
+    /**
+     * Add a component with a specific location to the Panel.
+     *
+     * @param component the component to add
+     * @param location  the location of the component
+     * @return the PanelBuilder
+     */
+    public PanelBuilder add(Component component, String location) {
+<span class="nc" id="L147">        this.panel.add(component, location);</span>
+<span class="nc" id="L148">        return this;</span>
+    }
+
+    /**
+     * Add a list of components to the Panel.
+     *
+     * @param components the components to add
+     * @return the PanelBuilder
+     */
+    public PanelBuilder addAll(List&lt;? extends Component&gt; components) {
+<span class="nc" id="L158">        components.forEach(this::add);</span>
+<span class="nc" id="L159">        return this;</span>
+    }
+
+    /**
+     * Add a list of components to the Panel with an horizontal glue after each component.
+     *
+     * @param components the components to add
+     * @return the PanelBuilder
+     */
+    public PanelBuilder addAllFollowedByHorizontalGlue(List&lt;? extends Component&gt; components) {
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        for (Component component : components) {</span>
+<span class="nc" id="L170">            add(component).addHorizontalGlue();</span>
+<span class="nc" id="L171">        }</span>
+<span class="nc" id="L172">        return this;</span>
+    }
+
+    /**
+     * Set the size of the Panel.
+     *
+     * @param width  the width of the Panel
+     * @param height the height of the Panel
+     * @return the PanelBuilder
+     */
+    public PanelBuilder withSize(int width, int height) {
+<span class="nc" id="L183">        this.panel.setPreferredSize(new Dimension(width, height));</span>
+<span class="nc" id="L184">        this.panel.setMinimumSize(new Dimension(width, height));</span>
+<span class="nc" id="L185">        this.panel.setMaximumSize(new Dimension(width, height));</span>
+<span class="nc" id="L186">        this.panel.setSize(new Dimension(width, height));</span>
+<span class="nc" id="L187">        return this;</span>
+    }
+
+    /**
+     * Build the final Panel.
+     *
+     * @return the Panel
+     */
+    public JPanel build() {
+<span class="nc" id="L196">        return this.panel;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

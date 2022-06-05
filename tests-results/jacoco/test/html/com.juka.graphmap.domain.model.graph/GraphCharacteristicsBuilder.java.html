@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GraphCharacteristicsBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.model.graph</a> &gt; <span class="el_source">GraphCharacteristicsBuilder.java</span></div><h1>GraphCharacteristicsBuilder.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.model.graph;
+
+/**
+ * Builder of the characteristics of a graph.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class GraphCharacteristicsBuilder {
+
+    /**
+     * The number of locations in the graph.
+     */
+    public int cityCount;
+    /**
+     * The number of roads in the graph.
+     */
+    public int roadCount;
+    /**
+     * The percentage of city in the graph.
+     */
+    public float cityPercentage;
+    /**
+     * The percentage of restaurant in the graph.
+     */
+    public float restaurantPercentage;
+    /**
+     * The percentage of recreation center in the graph.
+     */
+    public float recreationPercentage;
+    /**
+     * The percentage of highway in the graph.
+     */
+    public float highwayPercentage;
+    /**
+     * The percentage of national road in the graph.
+     */
+    public float nationalPercentage;
+    /**
+     * The percentage of departemental road in the graph.
+     */
+    public float departementalPercentage;
+    /**
+     * The error message.
+     */
+    public boolean error;
+
+    /**
+     * Prevents the instantiation of this class with the default constructor from a different class.
+     */
+    private GraphCharacteristicsBuilder() {
+    }
+
+    /**
+     * Builds the GraphCharacteristicsBuilder object.
+     *
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public static GraphCharacteristicsBuilder aGraphCharacteristics() {
+<span class="fc" id="L60">        return new GraphCharacteristicsBuilder();</span>
+    }
+
+    /**
+     * Sets the city count.
+     *
+     * @param cityCount the city count
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withCityCount(int cityCount) {
+<span class="fc" id="L70">        this.cityCount = cityCount;</span>
+<span class="fc" id="L71">        return this;</span>
+    }
+
+    /**
+     * Sets the road count.
+     *
+     * @param roadCount the road count
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withRoadCount(int roadCount) {
+<span class="fc" id="L81">        this.roadCount = roadCount;</span>
+<span class="fc" id="L82">        return this;</span>
+    }
+
+    /**
+     * Sets the city percentage.
+     *
+     * @param cityPercentage the city percentage
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withCityPercentage(float cityPercentage) {
+<span class="fc" id="L92">        this.cityPercentage = cityPercentage;</span>
+<span class="fc" id="L93">        return this;</span>
+    }
+
+    /**
+     * Sets the restaurant percentage.
+     *
+     * @param restaurantPercentage the restaurant percentage
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withRestaurantPercentage(float restaurantPercentage) {
+<span class="fc" id="L103">        this.restaurantPercentage = restaurantPercentage;</span>
+<span class="fc" id="L104">        return this;</span>
+    }
+
+    /**
+     * Sets the recreation center percentage.
+     *
+     * @param recreationPercentage the recreation center percentage
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withRecreationPercentage(float recreationPercentage) {
+<span class="fc" id="L114">        this.recreationPercentage = recreationPercentage;</span>
+<span class="fc" id="L115">        return this;</span>
+    }
+
+    /**
+     * Sets the highway percentage.
+     *
+     * @param highwayPercentage the highway percentage
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withHighwayPercentage(float highwayPercentage) {
+<span class="fc" id="L125">        this.highwayPercentage = highwayPercentage;</span>
+<span class="fc" id="L126">        return this;</span>
+    }
+
+    /**
+     * Sets the national road percentage.
+     *
+     * @param nationalPercentage the national road percentage
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withNationalPercentage(float nationalPercentage) {
+<span class="fc" id="L136">        this.nationalPercentage = nationalPercentage;</span>
+<span class="fc" id="L137">        return this;</span>
+    }
+
+    /**
+     * Sets the departemental road percentage.
+     *
+     * @param departementalPercentage the departemental road percentage
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withDepartementalPercentage(float departementalPercentage) {
+<span class="fc" id="L147">        this.departementalPercentage = departementalPercentage;</span>
+<span class="fc" id="L148">        return this;</span>
+    }
+
+    /**
+     * Sets the error flag.
+     *
+     * @param error the error flag
+     * @return the GraphCharacteristicsBuilder object
+     */
+    public GraphCharacteristicsBuilder withError(boolean error) {
+<span class="fc" id="L158">        this.error = error;</span>
+<span class="fc" id="L159">        return this;</span>
+    }
+
+    /**
+     * Builds the GraphCharacteristics object.
+     *
+     * @return the GraphCharacteristics object
+     */
+    public GraphCharacteristics build() {
+<span class="fc" id="L168">        return new GraphCharacteristics(this);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

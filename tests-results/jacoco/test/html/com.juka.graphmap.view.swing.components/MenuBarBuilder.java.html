@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuBarBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing.components</a> &gt; <span class="el_source">MenuBarBuilder.java</span></div><h1>MenuBarBuilder.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing.components;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Swing JMenuBar builder.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class MenuBarBuilder {
+
+    private final JMenuBar menuBar;
+
+<span class="nc" id="L16">    private MenuBarBuilder() {</span>
+<span class="nc" id="L17">        menuBar = new JMenuBar();</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * Creates a new MenuBarBuilder.
+     *
+     * @return a new MenuBarBuilder
+     */
+    public static MenuBarBuilder aMenuBar() {
+<span class="nc" id="L26">        return new MenuBarBuilder();</span>
+    }
+
+    /**
+     * Add a component to the menu bar.
+     *
+     * @param component the component to add
+     * @return the MenuBarBuilder
+     */
+    public MenuBarBuilder add(Component component) {
+<span class="nc" id="L36">        menuBar.add(component);</span>
+<span class="nc" id="L37">        return this;</span>
+    }
+
+    /**
+     * Build the final JMenuBar.
+     *
+     * @return the final JMenuBar
+     */
+    public JMenuBar build() {
+<span class="nc" id="L46">        return menuBar;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

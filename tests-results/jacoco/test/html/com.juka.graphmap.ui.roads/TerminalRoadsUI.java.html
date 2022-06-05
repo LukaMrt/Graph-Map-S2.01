@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalRoadsUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.ui.roads</a> &gt; <span class="el_source">TerminalRoadsUI.java</span></div><h1>TerminalRoadsUI.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.ui.roads;
+
+import com.google.inject.Inject;
+import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.domain.application.path.PathService;
+import com.juka.graphmap.domain.application.path.RoadsFinderService;
+import com.juka.graphmap.domain.model.path.Path;
+import com.juka.graphmap.ui.home.HomeUI;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * Terminal implementation of the roads UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class TerminalRoadsUI implements RoadsUI {
+
+<span class="nc" id="L22">    private static final Scanner SCANNER = new Scanner(System.in);</span>
+
+    private final GraphService graphService;
+    private final RoadsFinderService pathService;
+    private final RoadsView view;
+    private final HomeUI homeUI;
+
+    /**
+     * Constructor of the terminal roads UI.
+     *
+     * @param graphService The graph service.
+     * @param pathService  The path service.
+     * @param view         The roads view.
+     * @param homeUI       The home UI.
+     */
+    @Inject
+<span class="nc" id="L38">    public TerminalRoadsUI(GraphService graphService, PathService pathService, RoadsView view, HomeUI homeUI) {</span>
+<span class="nc" id="L39">        this.graphService = graphService;</span>
+<span class="nc" id="L40">        this.pathService = pathService;</span>
+<span class="nc" id="L41">        this.view = view;</span>
+<span class="nc" id="L42">        this.homeUI = homeUI;</span>
+<span class="nc" id="L43">    }</span>
+
+    @Override
+    public void interact(String start, List&lt;String&gt; steps, String end) {
+
+<span class="nc" id="L48">        Path path = null;</span>
+
+<span class="nc bnc" id="L50" title="All 4 branches missed.">        if (start != null &amp;&amp; end != null) {</span>
+<span class="nc" id="L51">            path = pathService.getPathsWithSpecificLocations(start, steps, end);</span>
+        }
+
+<span class="nc" id="L54">        view.display(graphService.getAllNodes(), steps, path, start, end);</span>
+
+<span class="nc" id="L56">        char entry = SCANNER.nextLine().charAt(0);</span>
+
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        while (!&quot;012&quot;.contains(String.valueOf(entry))) {</span>
+<span class="nc" id="L59">            System.out.println(&quot;Entrée invalide. Veuillez réessayer (0, 1 ou 2).&quot;);</span>
+<span class="nc" id="L60">            SCANNER.nextLine();</span>
+        }
+
+<span class="nc bnc" id="L63" title="All 4 branches missed.">        switch (entry) {</span>
+<span class="nc" id="L64">            case '0' -&gt; System.out.println(&quot;Au revoir.&quot;);</span>
+<span class="nc" id="L65">            case '1' -&gt; this.interact(chooseLocation(&quot;le départ&quot;), chooseSteps(), chooseLocation(&quot;la destination&quot;));</span>
+<span class="nc" id="L66">            case '2' -&gt; homeUI.interact();</span>
+        }
+
+<span class="nc" id="L69">    }</span>
+
+    /**
+     * Asks a user to choose a location.
+     *
+     * @param text The text to display to the user.
+     * @return The location chosen by the user.
+     */
+    private String chooseLocation(String text) {
+
+<span class="nc" id="L79">        System.out.println();</span>
+        String entry;
+        do {
+<span class="nc" id="L82">            System.out.println(&quot;Choisissez &quot; + text + &quot; :&quot;);</span>
+<span class="nc" id="L83">            entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
+
+<span class="nc" id="L86">        return entry;</span>
+    }
+
+    /**
+     * Asks a user to choose a list of steps.
+     *
+     * @return The list of steps chosen by the user.
+     */
+    private List&lt;String&gt; chooseSteps() {
+
+<span class="nc" id="L96">        System.out.println();</span>
+<span class="nc" id="L97">        String entry = &quot;.&quot;;</span>
+
+<span class="nc" id="L99">        List&lt;String&gt; steps = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        while (!entry.isEmpty()) {</span>
+
+            do {
+<span class="nc" id="L104">                System.out.println(&quot;Choisissez une étape (entrée pour terminer) :&quot;);</span>
+<span class="nc" id="L105">                entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L106" title="All 4 branches missed.">            } while (!graphService.nodeExist(entry) &amp;&amp; !entry.isEmpty());</span>
+
+<span class="nc bnc" id="L108" title="All 2 branches missed.">            if (!entry.isEmpty()) {</span>
+<span class="nc" id="L109">                steps.add(entry);</span>
+            }
+
+        }
+
+<span class="nc" id="L114">        return steps;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

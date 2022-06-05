@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing.components</a> &gt; <span class="el_source">ItemBuilder.java</span></div><h1>ItemBuilder.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing.components;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
+/**
+ * Swing JMenuItem builder.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class ItemBuilder {
+
+    private final JMenuItem item;
+
+<span class="nc" id="L16">    private ItemBuilder() {</span>
+<span class="nc" id="L17">        item = new JMenuItem();</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * Creates a new JMenuItem builder.
+     *
+     * @return a new JMenuItem builder
+     */
+    public static ItemBuilder anItem() {
+<span class="nc" id="L26">        return new ItemBuilder();</span>
+    }
+
+    /**
+     * Set the text of the MenuItem.
+     *
+     * @param title the text of the JMenuItem
+     * @return the MenuItemBuilder
+     */
+    public ItemBuilder withText(String title) {
+<span class="nc" id="L36">        item.setText(title);</span>
+<span class="nc" id="L37">        return this;</span>
+    }
+
+    /**
+     * Set the action of the MenuItem.
+     *
+     * @param actionListener the action of the JMenuItem
+     * @return the MenuItemBuilder
+     */
+    public ItemBuilder withListener(ActionListener actionListener) {
+<span class="nc" id="L47">        item.addActionListener(actionListener);</span>
+<span class="nc" id="L48">        return this;</span>
+    }
+
+    /**
+     * Build the final JMenuItem.
+     *
+     * @return the final JMenuItem
+     */
+    public JMenuItem build() {
+<span class="nc" id="L57">        return item;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

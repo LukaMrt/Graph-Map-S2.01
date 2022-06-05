@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Step.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.model.path</a> &gt; <span class="el_source">Step.java</span></div><h1>Step.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.model.path;
+
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Node;
+
+import java.util.Objects;
+
+/**
+ * Represents a step in the Dijkstra algorithm.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class Step {
+    private final Node destination;
+    private final Link originLink;
+
+    /**
+     * Constructor of a step.
+     *
+     * @param destination The destination node.
+     * @param originLink  The origin link.
+     */
+<span class="fc" id="L24">    public Step(Node destination, Link originLink) {</span>
+<span class="fc" id="L25">        this.destination = destination;</span>
+<span class="fc" id="L26">        this.originLink = originLink;</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Returns the destination node.
+     *
+     * @return The destination node.
+     */
+    public Node getDestination() {
+<span class="nc" id="L35">        return destination;</span>
+    }
+
+    /**
+     * Returns the origin link.
+     *
+     * @return The origin link.
+     */
+    public Link getOriginLink() {
+<span class="nc" id="L44">        return originLink;</span>
+    }
+
+    /**
+     * Returns the string representation of this step.
+     *
+     * @return The string representation of this step.
+     */
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L55" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L57">        Step step = (Step) o;</span>
+
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (!Objects.equals(destination, step.destination)) return false;</span>
+<span class="fc" id="L60">        return Objects.equals(originLink, step.originLink);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
