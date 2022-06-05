@@ -35,7 +35,7 @@ public class SwingHomeView extends SwingView implements HomeView {
     /**
      * Constructor.
      *
-     * @param frame the frame of the application
+     * @param frame   the frame of the application
      * @param graphUI the graph view
      * @param roadsUI the roads view
      */

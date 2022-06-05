@@ -41,8 +41,8 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     /**
      * Constructor.
      *
-     * @param frame the frame of the application
-     * @param graphUI the graph UI
+     * @param frame               the frame of the application
+     * @param graphUI             the graph UI
      * @param indirectNeighborsUI the indirect neighbors UI
      */
     @Inject

@@ -33,5 +33,5 @@ public interface LinkRepository {
      * @return The link with the given name.
      */
     Link getLink(String name);
-    
+
 }

@@ -24,6 +24,7 @@ public class LinkAlreadyExistException extends RuntimeException {
 
     /**
      * Returns error message.
+     *
      * @return Error message.
      */
     @Override

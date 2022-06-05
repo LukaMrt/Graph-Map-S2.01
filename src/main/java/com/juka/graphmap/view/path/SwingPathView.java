@@ -41,9 +41,9 @@ public class SwingPathView extends SwingView implements PathView {
     /**
      * Constructor.
      *
-     * @param frame the frame of the application
+     * @param frame   the frame of the application
      * @param graphUI the graph UI
-     * @param pathUI the path UI
+     * @param pathUI  the path UI
      */
     @Inject
     public SwingPathView(GraphMapJFrame frame, GraphUI graphUI, PathUI pathUI) {

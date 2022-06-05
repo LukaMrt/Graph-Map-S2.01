@@ -15,6 +15,7 @@ public class NodeNotFountException extends RuntimeException {
 
     /**
      * Constructor of the NodeNotFountException.
+     *
      * @param node name of the unfound node
      */
     public NodeNotFountException(String node) {

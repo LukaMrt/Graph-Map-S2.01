@@ -43,9 +43,9 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
     /**
      * Constructor.
      *
-     * @param frame the fram of the application
+     * @param frame             the fram of the application
      * @param directNeighborsUI the direct neighbors ui
-     * @param graphUI the graph ui
+     * @param graphUI           the graph ui
      */
     @Inject
     public SwingDirectNeighborsView(GraphMapJFrame frame, DirectNeighborsUI directNeighborsUI, GraphUI graphUI) {

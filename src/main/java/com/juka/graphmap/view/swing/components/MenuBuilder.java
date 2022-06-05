@@ -50,6 +50,7 @@ public class MenuBuilder {
 
     /**
      * Build the final JMenu.
+     *
      * @return the final JMenu
      */
     public JMenu build() {

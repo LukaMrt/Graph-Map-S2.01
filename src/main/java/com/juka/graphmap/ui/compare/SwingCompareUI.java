@@ -28,10 +28,10 @@ public class SwingCompareUI implements CompareUI {
     /**
      * Constructor of the Swing compare UI.
      *
-     * @param graphService          The graph service.
-     * @param nodeCompareService    The node compare service.
-     * @param nodeService           The node service.
-     * @param view                  The view.
+     * @param graphService       The graph service.
+     * @param nodeCompareService The node compare service.
+     * @param nodeService        The node service.
+     * @param view               The view.
      */
     @Inject
     public SwingCompareUI(GraphService graphService, NodeCompareService nodeCompareService, NodeService nodeService, CompareView view) {

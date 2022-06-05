@@ -28,7 +28,7 @@ public class GraphService {
      *
      * @param nodeRepository The node repository.
      * @param linkRepository The link repository.
-     * @param graphLoader The graph loader.
+     * @param graphLoader    The graph loader.
      */
     @Inject
     public GraphService(NodeRepository nodeRepository, LinkRepository linkRepository, GraphLoader graphLoader) {

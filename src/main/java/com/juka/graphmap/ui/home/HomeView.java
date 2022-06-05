@@ -17,7 +17,7 @@ public interface HomeView {
      * Displays the home view.
      *
      * @param graphCharacteristics the graph characteristics
-     * @param nodes the nodes to display
+     * @param nodes                the nodes to display
      */
     void display(GraphCharacteristics graphCharacteristics, List<Node> nodes);
 

@@ -33,11 +33,11 @@ public class TerminalCompareUI implements CompareUI {
     /**
      * The constructor of the terminal compare UI.
      *
-     * @param nodeCompareService    The node compare service.
-     * @param graphService          The graph service.
-     * @param compareView           The compare view.
-     * @param homeUI                The home UI.
-     * @param graphUI               The graph UI.
+     * @param nodeCompareService The node compare service.
+     * @param graphService       The graph service.
+     * @param compareView        The compare view.
+     * @param homeUI             The home UI.
+     * @param graphUI            The graph UI.
      */
     @Inject
     public TerminalCompareUI(NodeCompareService nodeCompareService, GraphService graphService, CompareView compareView, HomeUI homeUI, GraphUI graphUI) {

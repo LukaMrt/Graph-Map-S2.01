@@ -27,8 +27,8 @@ public class NodeCharacteristics {
     /**
      * Constructor of the NodeCharacteristics.
      *
-     * @param name name of the node
-     * @param type type of the node
+     * @param name      name of the node
+     * @param type      type of the node
      * @param neighbors list of neighbors
      */
     public NodeCharacteristics(String name, String type, List<String> neighbors) {

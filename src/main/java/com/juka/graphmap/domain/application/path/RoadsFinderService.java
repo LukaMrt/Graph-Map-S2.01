@@ -14,7 +14,7 @@ public interface RoadsFinderService {
      *
      * @param start name of the start node
      * @param steps list of checkpoints
-     * @param end name of the end node
+     * @param end   name of the end node
      * @return shortest path between two nodes with checkpoints
      */
     Path getPathsWithSpecificLocations(String start, List<String> steps, String end);

@@ -18,7 +18,7 @@ public class Path {
     /**
      * Constructor of the path.
      *
-     * @param path The path.
+     * @param path     The path.
      * @param distance The distance between the two nodes.
      */
     public Path(List<Step> path, Double distance) {

@@ -33,16 +33,6 @@ public enum NodeType {
     }
 
     /**
-     * Returns the string representation of the node type.
-     *
-     * @return the string representation of the node type
-     */
-    @Override
-    public String toString() {
-        return type;
-    }
-
-    /**
      * Parse a string to a node type.
      *
      * @param type String "V", "R" or "L"
@@ -55,5 +45,15 @@ public enum NodeType {
             case "L" -> NodeType.RECREATION_CENTER;
             default -> null;
         };
+    }
+
+    /**
+     * Returns the string representation of the node type.
+     *
+     * @return the string representation of the node type
+     */
+    @Override
+    public String toString() {
+        return type;
     }
 }

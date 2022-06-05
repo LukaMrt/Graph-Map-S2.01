@@ -33,7 +33,7 @@ public class SwingGraphPanel extends JPanel {
     /**
      * Constructor.
      *
-     * @param nodes the nodes to draw
+     * @param nodes     the nodes to draw
      * @param swingView the screen
      */
     public SwingGraphPanel(List<Node> nodes, SwingView swingView) {

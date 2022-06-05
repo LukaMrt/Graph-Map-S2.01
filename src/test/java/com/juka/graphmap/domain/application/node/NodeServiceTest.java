@@ -7,7 +7,6 @@ import com.juka.graphmap.domain.model.node.Flag;
 import com.juka.graphmap.domain.model.node.Node;
 import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 import com.juka.graphmap.domain.model.node.NodeType;
-import com.juka.graphmap.main.Main;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,7 +52,7 @@ public class NodeServiceTest {
         Link link = new Link("Link", neighbour, LinkType.HIGHWAY, 10);
         node.addLink(link);
         when(nodeRepository.getNode("Node")).thenReturn(node);
-        
+
         List<Node> neighbours = nodeService.getDirectNeighbours("Node");
 
         assertThat(neighbours).hasSize(1);

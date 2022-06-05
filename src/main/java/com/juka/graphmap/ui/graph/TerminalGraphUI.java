@@ -31,13 +31,13 @@ public class TerminalGraphUI implements GraphUI {
     /**
      * Constructor of the TerminalGraphUI.
      *
-     * @param graphService          the graph service
-     * @param graphView             the graph view
-     * @param homeUI                the home UI
-     * @param compareUI             the compare UI
-     * @param pathUI                the path UI
-     * @param directNeighborsUI     the direct neighbors UI
-     * @param indirectNeighborsUI   the indirect neighbors UI
+     * @param graphService        the graph service
+     * @param graphView           the graph view
+     * @param homeUI              the home UI
+     * @param compareUI           the compare UI
+     * @param pathUI              the path UI
+     * @param directNeighborsUI   the direct neighbors UI
+     * @param indirectNeighborsUI the indirect neighbors UI
      */
     @Inject
     public TerminalGraphUI(GraphService graphService, GraphView graphView, HomeUI homeUI, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI) {

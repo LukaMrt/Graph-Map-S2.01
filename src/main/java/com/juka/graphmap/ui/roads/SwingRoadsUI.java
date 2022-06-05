@@ -29,11 +29,11 @@ public class SwingRoadsUI implements RoadsUI {
     /**
      * Constructor the the swing roads UI.
      *
-     * @param roadsView             The roads view.
-     * @param graphService          The graph service.
-     * @param nodeService           The node service.
-     * @param linkService           The link service.
-     * @param roadsFinderService    The roads finder service.
+     * @param roadsView          The roads view.
+     * @param graphService       The graph service.
+     * @param nodeService        The node service.
+     * @param linkService        The link service.
+     * @param roadsFinderService The roads finder service.
      */
     @Inject
     public SwingRoadsUI(RoadsView roadsView, GraphService graphService, NodeService nodeService, LinkService linkService, RoadsFinderService roadsFinderService) {

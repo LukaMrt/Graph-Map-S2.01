@@ -16,11 +16,11 @@ public interface CompareView {
     /**
      * Displays the compare view.
      *
-     * @param nodes the nodes to display
+     * @param nodes  the nodes to display
      * @param cities the cities to display
      * @param result the result of the comparison
-     * @param city1 the first city to compare
-     * @param city2 the second city to compare
+     * @param city1  the first city to compare
+     * @param city2  the second city to compare
      */
     void display(List<Node> nodes, List<String> cities, List<Comparaison> result, String city1, String city2);
 

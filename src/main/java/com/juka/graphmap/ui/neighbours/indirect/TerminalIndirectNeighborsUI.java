@@ -69,8 +69,7 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
 
         switch (choice) {
             case '0' -> graphUI.interact();
-            case '1' ->
-                    this.interact(chooseLocation().getName(), chooseDistance());
+            case '1' -> this.interact(chooseLocation().getName(), chooseDistance());
             default -> homeUI.interact();
         }
 

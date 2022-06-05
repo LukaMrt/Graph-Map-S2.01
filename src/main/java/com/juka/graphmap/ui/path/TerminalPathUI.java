@@ -62,7 +62,7 @@ public class TerminalPathUI implements PathUI {
 
         char choice = SCANNER.nextLine().charAt(0);
 
-        while(!"012".contains(String.valueOf(choice))) {
+        while (!"012".contains(String.valueOf(choice))) {
             System.out.println("Entrée invalide. Veuillez réessayer.");
             choice = SCANNER.nextLine().charAt(0);
         }

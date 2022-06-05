@@ -42,7 +42,7 @@ public class ComboBoxBuilder {
     /**
      * Sets the ComboBox size.
      *
-     * @param width the ComboBox width
+     * @param width  the ComboBox width
      * @param height the ComboBox height
      * @return the ComboBoxBuilder
      */

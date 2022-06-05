@@ -118,7 +118,7 @@ public class LabelBuilder {
     /**
      * Set the size of the label.
      *
-     * @param width the width of the label
+     * @param width  the width of the label
      * @param height the height of the label
      * @return the LabelBuilder
      */

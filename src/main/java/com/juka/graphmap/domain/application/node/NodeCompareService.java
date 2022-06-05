@@ -31,7 +31,7 @@ public class NodeCompareService {
     /**
      * Returns the number of a specific type of node at 2 distance of a given node.
      *
-     * @param node name of the given node.
+     * @param node     name of the given node.
      * @param nodeType type of node to count.
      * @return number of a specific type of node at 2 distance of a given node.
      */

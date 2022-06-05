@@ -36,16 +36,6 @@ public enum LinkType {
     }
 
     /**
-     * Returns the String representation of the link type.
-     *
-     * @return the String representation of the link type
-     */
-    @Override
-    public String toString() {
-        return type;
-    }
-
-    /**
      * Parse a string to a link type.
      *
      * @param type String "A", "D" or "N" to parse
@@ -58,5 +48,15 @@ public enum LinkType {
             case "N" -> LinkType.NATIONAL;
             default -> null;
         };
+    }
+
+    /**
+     * Returns the String representation of the link type.
+     *
+     * @return the String representation of the link type
+     */
+    @Override
+    public String toString() {
+        return type;
     }
 }

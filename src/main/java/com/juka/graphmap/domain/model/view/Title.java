@@ -19,7 +19,8 @@ public class Title {
 
     /**
      * Constructor of the Title class.
-     * @param title Title of the screen.
+     *
+     * @param title        Title of the screen.
      * @param screenNumber Number of the screen.
      */
     public Title(String title, int screenNumber) {

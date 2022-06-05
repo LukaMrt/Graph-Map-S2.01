@@ -103,10 +103,10 @@ public class FileGraphLoader implements GraphLoader {
     /**
      * Load all the links from the file.
      *
-     * @param nodeRepository        the repository of nodes
-     * @param links                 the list of links to fill
-     * @throws IOException          if the file doesn't exist of if the file format is incorrect
-     * @throws RuntimeException     if the node doesn't exist
+     * @param nodeRepository the repository of nodes
+     * @param links          the list of links to fill
+     * @throws IOException      if the file doesn't exist of if the file format is incorrect
+     * @throws RuntimeException if the node doesn't exist
      */
     private void loadLinks(NodeRepository nodeRepository, List<Link> links) throws IOException, RuntimeException {
 

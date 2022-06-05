@@ -9,7 +9,9 @@ import com.juka.graphmap.domain.model.path.FloydWarshallStep;
 import com.juka.graphmap.domain.model.path.Path;
 import com.juka.graphmap.domain.model.path.Step;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Service to find the shortest path between two nodes with checkpoints.
@@ -25,7 +27,7 @@ public class PathService implements RoadsFinderService {
     /**
      * Constructor of the path service.
      *
-     * @param nodeRepository repository of nodes
+     * @param nodeRepository     repository of nodes
      * @param distanceRepository repository of distances
      */
     @Inject
@@ -60,7 +62,7 @@ public class PathService implements RoadsFinderService {
      * Initializes the steps of the Floyd-Warshall algorithm.
      *
      * @param steps matrix of steps
-     * @param node node to initialize
+     * @param node  node to initialize
      * @param nodes list of nodes
      */
     private void initializeSteps(FloydWarshallStep[][] steps, Node node, List<Node> nodes) {
@@ -87,8 +89,8 @@ public class PathService implements RoadsFinderService {
      *
      * @param nodes list of nodes
      * @param steps matrix of steps
-     * @param k index of the node
-     * @param i index of the node
+     * @param k     index of the node
+     * @param i     index of the node
      */
     private void iteration(List<Node> nodes, FloydWarshallStep[][] steps, int k, int i) {
         for (int j = 0; j < nodes.size(); j++) {
@@ -107,7 +109,7 @@ public class PathService implements RoadsFinderService {
     /**
      * Returns the shortest path between two nodes.
      *
-     * @param originNodeName name of the origin node
+     * @param originNodeName      name of the origin node
      * @param destinationNodeName name of the destination node
      * @return shortest path between two nodes
      */

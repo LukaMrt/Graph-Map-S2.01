@@ -42,7 +42,7 @@ public class FileChooserBuilder {
     /**
      * Set the FileChooser size.
      *
-     * @param width the width of the FileChooser
+     * @param width  the width of the FileChooser
      * @param height the height of the FileChooser
      * @return the FileChooserBuilder
      */

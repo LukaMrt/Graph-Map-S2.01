@@ -41,8 +41,8 @@ public class SwingCompareView extends SwingView implements CompareView {
     /**
      * Constructor.
      *
-     * @param frame the fram of the application
-     * @param graphUI the graph ui
+     * @param frame     the fram of the application
+     * @param graphUI   the graph ui
      * @param compareUI the compare ui
      */
     @Inject

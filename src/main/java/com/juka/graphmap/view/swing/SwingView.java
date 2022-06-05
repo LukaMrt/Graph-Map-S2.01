@@ -7,7 +7,6 @@ import com.juka.graphmap.view.frame.GraphMapJFrame;
 import com.juka.graphmap.view.swing.components.SwingGraphPanel;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.util.List;
 

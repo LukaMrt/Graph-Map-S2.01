@@ -26,8 +26,8 @@ public class Comparaison {
     /**
      * Constructor of the comparaison object.
      *
-     * @param name The criteria of the comparison.
-     * @param best The best node.
+     * @param name  The criteria of the comparison.
+     * @param best  The best node.
      * @param worst The worst node.
      */
     public Comparaison(String name, String best, String worst) {
@@ -38,6 +38,7 @@ public class Comparaison {
 
     /**
      * Returns the result of the comparison.
+     *
      * @return The result of the comparison.
      */
     @Override
@@ -47,6 +48,7 @@ public class Comparaison {
 
     /**
      * Return a short description of the comparison.
+     *
      * @return A short description of the comparison.
      */
     public String toShortString() {

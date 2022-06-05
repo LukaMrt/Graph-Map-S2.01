@@ -21,8 +21,8 @@ import java.util.List;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
-import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
+import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
 
 /**
  * The graph view with graphical interface.

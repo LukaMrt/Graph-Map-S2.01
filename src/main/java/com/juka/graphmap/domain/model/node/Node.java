@@ -24,8 +24,8 @@ public class Node implements Comparable<Node> {
     /**
      * Constructor of the node with coordinate.
      *
-     * @param name name of the node
-     * @param type type of the node
+     * @param name     name of the node
+     * @param type     type of the node
      * @param abscissa x coordinate of the node
      * @param ordinate y coordinate of the node
      */

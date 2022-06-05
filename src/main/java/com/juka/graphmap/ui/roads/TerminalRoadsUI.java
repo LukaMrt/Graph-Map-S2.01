@@ -29,10 +29,10 @@ public class TerminalRoadsUI implements RoadsUI {
     /**
      * Constructor of the terminal roads UI.
      *
-     * @param graphService          The graph service.
-     * @param pathService           The path service.
-     * @param view                  The roads view.
-     * @param homeUI                The home UI.
+     * @param graphService The graph service.
+     * @param pathService  The path service.
+     * @param view         The roads view.
+     * @param homeUI       The home UI.
      */
     @Inject
     public TerminalRoadsUI(GraphService graphService, PathService pathService, RoadsView view, HomeUI homeUI) {
@@ -88,7 +88,7 @@ public class TerminalRoadsUI implements RoadsUI {
 
     /**
      * Asks a user to choose a list of steps.
-     * 
+     *
      * @return The list of steps chosen by the user.
      */
     private List<String> chooseSteps() {

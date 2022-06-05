@@ -26,10 +26,10 @@ public class SwingIndirectNeighborsUI implements IndirectNeighborsUI {
     /**
      * Constructor of the SwingIndirectNeighborsUI.
      *
-     * @param view                  the view of the indirect neighbours
-     * @param nodeRepository        the node repository
-     * @param nodeDistanceService   the node distance service
-     * @param nodeService           the node service
+     * @param view                the view of the indirect neighbours
+     * @param nodeRepository      the node repository
+     * @param nodeDistanceService the node distance service
+     * @param nodeService         the node service
      */
     @Inject
     public SwingIndirectNeighborsUI(IndirectNeighborsView view, NodeRepository nodeRepository, NodeDistanceService nodeDistanceService, NodeService nodeService) {

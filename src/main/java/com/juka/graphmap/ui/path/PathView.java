@@ -19,7 +19,7 @@ public interface PathView {
      * @param nodes the nodes to display
      * @param node1 the first node, null if it's the first call of the method
      * @param node2 the second node, null if it's the first call of the method
-     * @param path the path to display, null if it's the first call of the method
+     * @param path  the path to display, null if it's the first call of the method
      */
     void display(List<Node> nodes, String node1, String node2, Path path);
 

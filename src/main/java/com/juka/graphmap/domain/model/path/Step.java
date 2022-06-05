@@ -19,7 +19,7 @@ public class Step {
      * Constructor of a step.
      *
      * @param destination The destination node.
-     * @param originLink The origin link.
+     * @param originLink  The origin link.
      */
     public Step(Node destination, Link originLink) {
         this.destination = destination;
