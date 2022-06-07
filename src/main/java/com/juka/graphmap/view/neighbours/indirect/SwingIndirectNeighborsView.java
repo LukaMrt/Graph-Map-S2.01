@@ -64,11 +64,11 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     @Override
     protected String getHelp() {
         return "Cet écran permet de déterminer si 2 lieux sont à n-distance ou non. 2 lieux sont " +
-                "à n-distance si l'on peut passer de l'un à l'autre en n étapes. Vous pouvez " +
-                "sélectionner les 2 lieux et la distance à gauche puis afficher le résultat avec le bouton Analyser.\n\n" +
+                "à n-distance si le chemin le plus court entre les 2 contient n étapes. Vous pouvez " +
+                "sélectionner les 1 lieux et la distance à gauche puis afficher tous les lieux à n-distance " +
+                "du lieu sélectionné avec le bouton Analyser.\n\n" +
                 "Pour l'interface graphique, les contrôles sont les suivants :\n" +
-                "- Clic gauche pour sélectionner la première ville\n" +
-                "- Clic droit pour sélectionner la seconde ville";
+                "- Clic gauche pour sélectionner la seconde ville";
     }
 
     @Override
