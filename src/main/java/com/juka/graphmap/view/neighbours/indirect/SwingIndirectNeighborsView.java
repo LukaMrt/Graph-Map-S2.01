@@ -68,7 +68,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
                 "sélectionner les 1 lieux et la distance à gauche puis afficher tous les lieux à n-distance " +
                 "du lieu sélectionné avec le bouton Analyser.\n\n" +
                 "Pour l'interface graphique, les contrôles sont les suivants :\n" +
-                "- Clic gauche pour sélectionner la seconde ville";
+                "- Clic gauche pour sélectionner la ville";
     }
 
     @Override
