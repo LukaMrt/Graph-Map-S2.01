@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class GraphServiceTest {
     void countCities_shouldReturn1_whenGraphHas1City() {
 
         Node node1 = new Node("node1", NodeType.CITY, 0, 0);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1));
+        when(nodeRepository.getAllNodes()).thenReturn(Collections.singletonList(node1));
 
         int result = graphService.countCities();
 
@@ -53,7 +54,7 @@ public class GraphServiceTest {
 
         Node node1 = new Node("node1", NodeType.CITY, 0, 0);
         Node node2 = new Node("node2", NodeType.CITY, 0, 0);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2));
 
         int result = graphService.countCities();
 
@@ -66,7 +67,7 @@ public class GraphServiceTest {
         Node node1 = new Node("node1", NodeType.CITY, 0, 0);
         Link link1 = new Link("link1", node1, LinkType.HIGHWAY, 1);
         Link link2 = new Link("link2", node1, LinkType.HIGHWAY, 1);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link1, link2));
 
         int result = graphService.countRoads();
 
@@ -81,7 +82,7 @@ public class GraphServiceTest {
         Link link2 = new Link("link2", node1, LinkType.HIGHWAY, 1);
         Link link3 = new Link("link3", node1, LinkType.HIGHWAY, 1);
         Link link4 = new Link("link4", node1, LinkType.HIGHWAY, 1);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2, link3, link4));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link1, link2, link3, link4));
 
         int result = graphService.countRoads();
 
@@ -101,7 +102,7 @@ public class GraphServiceTest {
         Node node8 = new Node("node8", NodeType.RECREATION_CENTER, 0, 0);
         Node node9 = new Node("node9", NodeType.RECREATION_CENTER, 0, 0);
         Node node10 = new Node("node10", NodeType.RECREATION_CENTER, 0, 0);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4, node5, node6, node7, node8, node9, node10));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9, node10));
 
         float result = graphService.getPercentageOfLocationType(NodeType.CITY);
 
@@ -121,7 +122,7 @@ public class GraphServiceTest {
         Node node8 = new Node("node8", NodeType.RECREATION_CENTER, 0, 0);
         Node node9 = new Node("node9", NodeType.RECREATION_CENTER, 0, 0);
         Node node10 = new Node("node10", NodeType.RECREATION_CENTER, 0, 0);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4, node5, node6, node7, node8, node9, node10));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9, node10));
 
         float result = graphService.getPercentageOfLocationType(NodeType.RESTAURANT);
 
@@ -143,7 +144,7 @@ public class GraphServiceTest {
         Link link8 = new Link("link8", node2, LinkType.DEPARTMENTAL, 1);
         Link link9 = new Link("link9", node2, LinkType.DEPARTMENTAL, 1);
         Link link10 = new Link("link10", node2, LinkType.DEPARTMENTAL, 1);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2, link3, link4, link5, link6, link7, link8, link9, link10));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link1, link2, link3, link4, link5, link6, link7, link8, link9, link10));
 
         float result = graphService.getPercentageOfLinkType(LinkType.HIGHWAY);
 
@@ -165,7 +166,7 @@ public class GraphServiceTest {
         Link link8 = new Link("link8", node2, LinkType.DEPARTMENTAL, 1);
         Link link9 = new Link("link9", node2, LinkType.DEPARTMENTAL, 1);
         Link link10 = new Link("link10", node2, LinkType.DEPARTMENTAL, 1);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2, link3, link4, link5, link6, link7, link8, link9, link10));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link1, link2, link3, link4, link5, link6, link7, link8, link9, link10));
 
         float result = graphService.getPercentageOfLinkType(LinkType.NATIONAL);
 
@@ -259,7 +260,7 @@ public class GraphServiceTest {
         Node node1 = new Node("node", NodeType.CITY, 0, 0);
         Node node2 = new Node("node", NodeType.RECREATION_CENTER, 0, 0);
 
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2));
 
         assertThat(nodeRepository.getAllNodes()).containsExactlyInAnyOrder(node1, node2);
     }
@@ -277,7 +278,7 @@ public class GraphServiceTest {
         Link link1 = new Link("link", null, LinkType.HIGHWAY, 0);
         Link link2 = new Link("lin2", null, LinkType.HIGHWAY, 0);
 
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link1, link2));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link1, link2));
 
         assertThat(graphService.getAllLinks()).containsExactlyInAnyOrder(link1, link2);
     }
@@ -349,8 +350,8 @@ public class GraphServiceTest {
         Link link = new Link("link", node, LinkType.HIGHWAY, 0);
         Link link2 = new Link("link2", node, LinkType.HIGHWAY, 0);
 
-        when(loader.loadNodes()).thenReturn(List.of(node, node2, node3));
-        when(loader.loadLinks(nodeRepository)).thenReturn(List.of(link, link2));
+        when(loader.loadNodes()).thenReturn(Arrays.asList(node, node2, node3));
+        when(loader.loadLinks(nodeRepository)).thenReturn(Arrays.asList(link, link2));
         doNothing().when(nodeRepository).addNode(any());
 
         graphService.load();

@@ -9,8 +9,8 @@ group 'com.juka'
 version '0.1.0'
 
 java {
-    sourceCompatibility = JavaVersion.toVersion('16')
-    targetCompatibility = JavaVersion.toVersion('16')
+    sourceCompatibility = JavaVersion.toVersion('1.8')
+    targetCompatibility = JavaVersion.toVersion('1.8')
 }
 
 shadowJar {

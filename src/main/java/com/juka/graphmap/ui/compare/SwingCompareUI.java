@@ -11,6 +11,7 @@ import com.juka.graphmap.domain.model.node.NodeType;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Swing implementation for the compare UI.
@@ -66,7 +67,7 @@ public class SwingCompareUI implements CompareUI {
         List<String> cities = graphService.getAllNodes().stream()
                 .filter(node -> node.getType() == NodeType.CITY)
                 .map(Node::getName)
-                .toList();
+                .collect(Collectors.toList());
 
         view.display(graphService.getAllNodes(), cities, result, city1, city2);
 

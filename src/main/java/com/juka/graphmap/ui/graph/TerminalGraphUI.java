@@ -64,12 +64,23 @@ public class TerminalGraphUI implements GraphUI {
         }
 
         switch (entry) {
-            case '1' -> compareUI.interact(null, null);
-            case '2' -> pathUI.interact(null, null);
-            case '3' -> directNeighborsUI.interact(null, null);
-            case '4' -> indirectNeighborsUI.interact(null, 2);
-            case '5' -> System.out.println("Au revoir.");
-            default -> homeUI.interact();
+            case '1':
+                compareUI.interact(null, null);
+                break;
+            case '2':
+                pathUI.interact(null, null);
+                break;
+            case '3':
+                directNeighborsUI.interact(null, null);
+                break;
+            case '4':
+                indirectNeighborsUI.interact(null, 2);
+                break;
+            case '5':
+                System.out.println("Au revoir.");
+                break;
+            default:
+                homeUI.interact();
         }
 
     }

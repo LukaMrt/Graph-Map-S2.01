@@ -12,7 +12,11 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.inject.Inject;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.ComboBoxBuilder.aComboBox;
@@ -54,7 +58,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
 
     @Override
     public void display(List<Node> nodes, String node, int distance, List<Node> result) {
-        this.nodes = nodes.stream().map(Node::getName).toList();
+        this.nodes = nodes.stream().map(Node::getName).collect(Collectors.toList());
         this.node = node != null ? node : "";
         this.result = result;
         this.distance = distance;
@@ -78,12 +82,12 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
 
     @Override
     protected List<JButton> getButtons() {
-        return List.of(aButton()
+        return new ArrayList<>(Collections.singleton(aButton()
                 .withText("Retour")
                 .withSize(200, 50)
                 .isYCentered()
                 .withAction(e -> graphUI.interact())
-                .build());
+                .build()));
     }
 
     @Override
@@ -102,7 +106,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
                 .build();
 
         JComboBox<String> comboBox = aComboBox()
-                .withData(List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
+                .withData(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"))
                 .isXCentered()
                 .withSize(200, 50)
                 .withSelectedValue(String.valueOf(distance))
@@ -134,7 +138,7 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
     protected JPanel buildRightPanel() {
 
         JScrollPane scrollPane = anHorizontalList()
-                .withData(this.result.stream().map(Node::getName).toList())
+                .withData(this.result.stream().map(Node::getName).collect(Collectors.toList()))
                 .withSize(200, 200)
                 .withSingleSelection()
                 .isYCentered()

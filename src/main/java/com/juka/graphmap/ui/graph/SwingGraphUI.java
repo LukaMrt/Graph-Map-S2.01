@@ -9,6 +9,7 @@ import com.juka.graphmap.domain.model.node.Node;
 import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Swing implementation of the Graph UI.
@@ -46,14 +47,14 @@ public class SwingGraphUI implements GraphUI {
         List<Link> links = graphService.getAllLinks().stream()
                 .sorted(Comparator.comparing(Link::getType))
                 .filter(link -> link.getName().endsWith(".1"))
-                .toList();
+                .collect(Collectors.toList());
 
         nodeService.unselectAll();
         linkService.unselectAll();
 
         List<Node> nodes = graphService.getAllNodes().stream()
                 .sorted(Comparator.comparing(Node::getType))
-                .toList();
+                .collect(Collectors.toList());
 
         view.display(nodes, links);
     }

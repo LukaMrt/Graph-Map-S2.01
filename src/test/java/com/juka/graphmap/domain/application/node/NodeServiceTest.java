@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class NodeServiceTest {
         Link link = new Link("Link", neighbour, LinkType.HIGHWAY, 10);
         node.addLink(link);
 
-        NodeCharacteristics expected = new NodeCharacteristics("Node2", NodeType.RECREATION_CENTER.toString(), List.of("Neighbour"));
+        NodeCharacteristics expected = new NodeCharacteristics("Node2", NodeType.RECREATION_CENTER.toString(), Collections.singletonList("Neighbour"));
         when(nodeRepository.getNode("Node2")).thenReturn(node);
 
         assertThat(nodeService.getNodeCharacteristics("Node2")).isEqualTo(expected);
@@ -139,7 +140,7 @@ public class NodeServiceTest {
     void unselectAll_shouldUnselectAllNodes_whenNodesAreSelected() {
         Node node = new Node("Node", NodeType.CITY, 0, 0);
         node.flag(Flag.MAIN);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node));
+        when(nodeRepository.getAllNodes()).thenReturn(Collections.singletonList(node));
 
         nodeService.unselectAll();
 

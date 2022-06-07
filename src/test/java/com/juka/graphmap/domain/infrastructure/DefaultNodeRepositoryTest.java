@@ -6,6 +6,8 @@ import com.juka.graphmap.infrastructure.DefaultNodeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +37,7 @@ public class DefaultNodeRepositoryTest {
 
         List<Node> nodes = nodeRepository.getAllNodes();
 
-        assertThat(nodes).isEqualTo(List.of(node));
+        assertThat(nodes).isEqualTo(Collections.singletonList(node));
     }
 
     @Test

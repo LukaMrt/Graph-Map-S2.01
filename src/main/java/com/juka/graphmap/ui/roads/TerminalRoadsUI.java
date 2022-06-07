@@ -61,9 +61,14 @@ public class TerminalRoadsUI implements RoadsUI {
         }
 
         switch (entry) {
-            case '0' -> System.out.println("Au revoir.");
-            case '1' -> this.interact(chooseLocation("le départ"), chooseSteps(), chooseLocation("la destination"));
-            case '2' -> homeUI.interact();
+            case '0':
+                System.out.println("Au revoir.");
+                break;
+            case '1':
+                this.interact(chooseLocation("le départ"), chooseSteps(), chooseLocation("la destination"));
+                break;
+            default:
+                homeUI.interact();
         }
 
     }

@@ -7,6 +7,7 @@ import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service to get Link characteristics.
@@ -50,7 +51,7 @@ public class LinkService {
                 .filter(l -> l.getName().contains(linkName + "."))
                 .map(Link::getDestination)
                 .sorted()
-                .toList();
+                .collect(Collectors.toList());
 
         if (nodes.size() != 2) {
             return LinkCharacteristics.empty();

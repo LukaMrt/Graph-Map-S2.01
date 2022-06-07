@@ -15,7 +15,9 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.ComboBoxBuilder.aComboBox;
@@ -57,7 +59,7 @@ public class SwingRoadsView extends SwingView implements RoadsView {
 
     @Override
     public void display(List<Node> nodes, List<String> steps, Path path, String start, String end) {
-        this.nodes = nodes.stream().map(Node::getName).toList();
+        this.nodes = nodes.stream().map(Node::getName).collect(Collectors.toList());
         this.steps = steps != null ? new ArrayList<>(steps) : new ArrayList<>();
         this.path = path != null ? path : new Path(new ArrayList<>(), 0d);
         this.start = start;
@@ -84,12 +86,11 @@ public class SwingRoadsView extends SwingView implements RoadsView {
 
     @Override
     protected List<JButton> getButtons() {
-        return List.of(aButton().withText("Retour")
+        return new ArrayList<>(Collections.singleton(aButton().withText("Retour")
                 .withSize(200, 50)
                 .isYCentered()
                 .withAction(e -> homeUI.interact())
-                .build()
-        );
+                .build()));
     }
 
     @Override
@@ -152,9 +153,9 @@ public class SwingRoadsView extends SwingView implements RoadsView {
                     Link originLink = step.getOriginLink();
                     String link = "      " + (originLink != null ? "via " + originLink.getRoadNameWithIndex() + " (" + originLink.getDistance() + " km)" : "");
 
-                    List<String> list = new ArrayList<>(List.of("=> " + step.getDestination().getName()));
+                    List<String> list = new ArrayList<>(Collections.singleton("=> " + step.getDestination().getName()));
 
-                    if (!link.isBlank()) {
+                    if (!isBlank(link)) {
                         list.add(link);
                     }
 
@@ -162,7 +163,7 @@ public class SwingRoadsView extends SwingView implements RoadsView {
                     return list;
                 })
                 .flatMap(List::stream)
-                .toList();
+                .collect(Collectors.toList());
 
         return aPanel()
                 .withYBoxLayout()
@@ -182,6 +183,10 @@ public class SwingRoadsView extends SwingView implements RoadsView {
                         .build())
                 .addVerticalGlue()
                 .build();
+    }
+
+    private boolean isBlank(String s) {
+        return s.trim().isEmpty();
     }
 
     @Override

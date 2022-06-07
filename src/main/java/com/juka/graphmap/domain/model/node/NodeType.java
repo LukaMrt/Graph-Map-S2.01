@@ -39,12 +39,16 @@ public enum NodeType {
      * @return the matching node type, null if no match
      */
     public static NodeType of(String type) {
-        return switch (type) {
-            case "V" -> NodeType.CITY;
-            case "R" -> NodeType.RESTAURANT;
-            case "L" -> NodeType.RECREATION_CENTER;
-            default -> null;
-        };
+        switch (type) {
+            case "V":
+                return NodeType.CITY;
+            case "R":
+                return NodeType.RESTAURANT;
+            case "L":
+                return NodeType.RECREATION_CENTER;
+            default:
+                return null;
+        }
     }
 
     /**

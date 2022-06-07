@@ -15,7 +15,9 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 import javax.inject.Inject;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
@@ -56,7 +58,7 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
 
     @Override
     public void display(List<Node> nodes, List<String> links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {
-        this.nodes = nodes.stream().map(Node::getName).toList();
+        this.nodes = nodes.stream().map(Node::getName).collect(Collectors.toList());
         this.links = links;
         this.nodeCharacteristics = nodeCharacteristics == null ? new NodeCharacteristics("", "", new ArrayList<>()) : nodeCharacteristics;
         this.linkCharacteristics = linkCharacteristics == null ? new LinkCharacteristics("", "", "", "", 0) : linkCharacteristics;
@@ -80,12 +82,12 @@ public class SwingDirectNeighborsView extends SwingView implements DirectNeighbo
 
     @Override
     protected List<JButton> getButtons() {
-        return List.of(aButton()
+        return new ArrayList<>(Collections.singleton(aButton()
                 .withText("Retour")
                 .withSize(200, 50)
                 .isYCentered()
                 .withAction(e -> graphUI.interact())
-                .build());
+                .build()));
     }
 
     @Override

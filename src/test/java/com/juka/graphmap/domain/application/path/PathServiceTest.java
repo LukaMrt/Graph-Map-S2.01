@@ -46,7 +46,7 @@ public class PathServiceTest {
 
         when(nodeRepository.getNode("Lyon")).thenReturn(origin);
         when(nodeRepository.getNode("New York")).thenReturn(destination);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(origin, destination));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(origin, destination));
         when(distanceRepository.getDistances(0)).thenReturn(distances);
 
         Path path = pathService.getShortestPath("Lyon", "New York");
@@ -79,12 +79,12 @@ public class PathServiceTest {
 
         when(nodeRepository.getNode("A")).thenReturn(node1);
         when(nodeRepository.getNode("D")).thenReturn(node4);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3, node4));
         when(distanceRepository.getDistances(0)).thenReturn(distances);
 
         Path path = pathService.getShortestPath("A", "D");
 
-        Path expected = new Path(List.of(new Step(node1, null),
+        Path expected = new Path(Arrays.asList(new Step(node1, null),
                 new Step(node2, linkLoop1),
                 new Step(node3, link1),
                 new Step(node4, link2)), 11.0);
@@ -107,7 +107,7 @@ public class PathServiceTest {
         Node node3 = new Node("C", NodeType.CITY, 0, 0);
         Node node4 = new Node("D", NodeType.RESTAURANT, 0, 0);
 
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3, node4));
 
         pathService.computeFloydWarshall();
 
@@ -147,7 +147,7 @@ public class PathServiceTest {
                 {new FloydWarshallStep(5, node2, linkLoop2), new FloydWarshallStep(4, node4, link3), new FloydWarshallStep(7, node2, link1), new FloydWarshallStep(0, node4, null)}
         };
 
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3, node4));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3, node4));
 
         pathService.computeFloydWarshall();
 
@@ -165,7 +165,7 @@ public class PathServiceTest {
 
         when(nodeRepository.getNode("A")).thenReturn(node1);
         when(nodeRepository.getNode("B")).thenReturn(node2);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2));
         when(distanceRepository.getDistances(0)).thenReturn(new FloydWarshallStep[]{new FloydWarshallStep(0, node1, null), new FloydWarshallStep(1, node1, link1)});
 
         Path path = pathService.getPathsWithSpecificLocations("A", new ArrayList<>(), "B");
@@ -190,12 +190,12 @@ public class PathServiceTest {
         when(nodeRepository.getNode("A")).thenReturn(node1);
         when(nodeRepository.getNode("B")).thenReturn(node2);
         when(nodeRepository.getNode("C")).thenReturn(node3);
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3));
         when(distanceRepository.getDistances(0)).thenReturn(new FloydWarshallStep[]{new FloydWarshallStep(0, node1, null), new FloydWarshallStep(1, node1, link1), new FloydWarshallStep(2, node2, link2)});
         when(distanceRepository.getDistances(1)).thenReturn(new FloydWarshallStep[]{new FloydWarshallStep(1_000_000, null, null), new FloydWarshallStep(0, node2, null), new FloydWarshallStep(1, node2, link2)});
         when(distanceRepository.getDistances(2)).thenReturn(new FloydWarshallStep[]{new FloydWarshallStep(0, node1, null), new FloydWarshallStep(1, node3, link3), new FloydWarshallStep(0, node3, null)});
 
-        Path path = pathService.getPathsWithSpecificLocations("A", List.of("C", "B"), "C");
+        Path path = pathService.getPathsWithSpecificLocations("A", Arrays.asList("C", "B"), "C");
 
         assertThat(path).isEqualTo(new Path(Arrays.asList(new Step(node1, null), new Step(node2, link1), new Step(node3, link2), new Step(node2, link3), new Step(node3, link2)), 4.0));
     }

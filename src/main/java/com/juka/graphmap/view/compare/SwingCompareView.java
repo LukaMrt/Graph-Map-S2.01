@@ -14,7 +14,10 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.inject.Inject;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
@@ -81,12 +84,12 @@ public class SwingCompareView extends SwingView implements CompareView {
 
     @Override
     protected List<JButton> getButtons() {
-        return List.of(aButton()
+        return new ArrayList<>(Collections.singleton(aButton()
                 .withText("Retour")
                 .withSize(200, 50)
                 .isYCentered()
                 .withAction(e -> graphUI.interact())
-                .build());
+                .build()));
     }
 
     @Override
@@ -155,7 +158,7 @@ public class SwingCompareView extends SwingView implements CompareView {
 
         List<JLabel> comparaisons = result.stream()
                 .map(comparaison -> aLabel().withText(comparaison.toShortString()).isText().isXCentered().build())
-                .toList();
+                .collect(Collectors.toList());
 
         return aPanel()
                 .withYBoxLayout()

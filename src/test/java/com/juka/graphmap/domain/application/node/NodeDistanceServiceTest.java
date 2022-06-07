@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,10 +41,10 @@ public class NodeDistanceServiceTest {
         Node node2 = new Node("Node2", NodeType.CITY, 0, 0);
         Node node3 = new Node("Node3", NodeType.CITY, 0, 0);
 
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3));
-        when(pathService.getShortestPath("Node1", "Node1")).thenReturn(new Path(List.of(new Step(null, null)), 0d));
-        when(pathService.getShortestPath("Node1", "Node2")).thenReturn(new Path(List.of(new Step(null, null), new Step(null, null)), 0d));
-        when(pathService.getShortestPath("Node1", "Node3")).thenReturn(new Path(List.of(new Step(null, null), new Step(null, null)), 0d));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3));
+        when(pathService.getShortestPath("Node1", "Node1")).thenReturn(new Path(Arrays.asList(new Step(null, null)), 0d));
+        when(pathService.getShortestPath("Node1", "Node2")).thenReturn(new Path(Arrays.asList(new Step(null, null), new Step(null, null)), 0d));
+        when(pathService.getShortestPath("Node1", "Node3")).thenReturn(new Path(Arrays.asList(new Step(null, null), new Step(null, null)), 0d));
 
         List<Node> result = nodeDistanceService.getNDistanceNeighbors("Node1", 1);
 
@@ -57,10 +58,10 @@ public class NodeDistanceServiceTest {
         Node node2 = new Node("Node2", NodeType.CITY, 0, 0);
         Node node3 = new Node("Node3", NodeType.CITY, 0, 0);
 
-        when(nodeRepository.getAllNodes()).thenReturn(List.of(node1, node2, node3));
-        when(pathService.getShortestPath("Node1", "Node1")).thenReturn(new Path(List.of(new Step(null, null)), 0d));
-        when(pathService.getShortestPath("Node1", "Node2")).thenReturn(new Path(List.of(new Step(null, null), new Step(null, null)), 0d));
-        when(pathService.getShortestPath("Node1", "Node3")).thenReturn(new Path(List.of(new Step(null, null), new Step(null, null), new Step(null, null)), 0d));
+        when(nodeRepository.getAllNodes()).thenReturn(Arrays.asList(node1, node2, node3));
+        when(pathService.getShortestPath("Node1", "Node1")).thenReturn(new Path(Arrays.asList(new Step(null, null)), 0d));
+        when(pathService.getShortestPath("Node1", "Node2")).thenReturn(new Path(Arrays.asList(new Step(null, null), new Step(null, null)), 0d));
+        when(pathService.getShortestPath("Node1", "Node3")).thenReturn(new Path(Arrays.asList(new Step(null, null), new Step(null, null), new Step(null, null)), 0d));
 
         List<Node> result = nodeDistanceService.getNDistanceNeighbors("Node1", 2);
 

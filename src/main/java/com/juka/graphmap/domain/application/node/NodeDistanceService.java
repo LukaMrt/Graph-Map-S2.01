@@ -6,6 +6,7 @@ import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service to check if two nodes are at 2 distance.
@@ -49,7 +50,7 @@ public class NodeDistanceService {
 
         return nodeRepository.getAllNodes().stream()
                 .filter(n -> pathService.getShortestPath(node, n.getName()).getPath().size() - 1 == distance)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 }

@@ -14,7 +14,10 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 import javax.inject.Inject;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
@@ -54,7 +57,7 @@ public class SwingPathView extends SwingView implements PathView {
 
     @Override
     public void display(List<Node> nodes, String node1, String node2, Path path) {
-        this.nodes = nodes.stream().map(Node::getName).toList();
+        this.nodes = nodes.stream().map(Node::getName).collect(Collectors.toList());
         this.node1 = node1;
         this.node2 = node2;
         this.path = path;
@@ -78,7 +81,7 @@ public class SwingPathView extends SwingView implements PathView {
 
     @Override
     protected List<JButton> getButtons() {
-        return List.of(aButton()
+        return Collections.singletonList(aButton()
                 .withText("Retour")
                 .withSize(200, 50)
                 .isYCentered()
@@ -145,9 +148,9 @@ public class SwingPathView extends SwingView implements PathView {
                     Link originLink = step.getOriginLink();
                     String link = "      " + (originLink != null ? "via " + originLink.getRoadNameWithIndex() + " (" + originLink.getDistance() + " km)" : "");
 
-                    List<String> list = new ArrayList<>(List.of("=> " + step.getDestination().getName()));
+                    List<String> list = new ArrayList<>(Collections.singletonList("=> " + step.getDestination().getName()));
 
-                    if (!link.isBlank()) {
+                    if (!link.trim().isEmpty()) {
                         list.add(link);
                     }
 
@@ -155,7 +158,7 @@ public class SwingPathView extends SwingView implements PathView {
                     return list;
                 })
                 .flatMap(List::stream)
-                .toList();
+                .collect(Collectors.toList());
 
         return aPanel()
                 .withYBoxLayout()

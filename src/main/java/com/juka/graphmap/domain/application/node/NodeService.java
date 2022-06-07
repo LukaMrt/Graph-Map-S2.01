@@ -86,7 +86,7 @@ public class NodeService {
         List<String> neighbors = node.getNeighbors().stream()
                 .map(Node::getName)
                 .distinct()
-                .toList();
+                .collect(java.util.stream.Collectors.toList());
 
         return new NodeCharacteristics(node.getName(), node.getType().toString(), neighbors);
     }

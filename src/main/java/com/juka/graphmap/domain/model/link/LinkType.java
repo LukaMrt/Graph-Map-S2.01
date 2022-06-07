@@ -42,12 +42,16 @@ public enum LinkType {
      * @return the corresponding link type, or null if the string is not recognized
      */
     public static LinkType of(String type) {
-        return switch (type) {
-            case "A" -> LinkType.HIGHWAY;
-            case "D" -> LinkType.DEPARTMENTAL;
-            case "N" -> LinkType.NATIONAL;
-            default -> null;
-        };
+        switch (type) {
+            case "A":
+                return LinkType.HIGHWAY;
+            case "D":
+                return LinkType.DEPARTMENTAL;
+            case "N":
+                return LinkType.NATIONAL;
+            default:
+                return null;
+        }
     }
 
     /**

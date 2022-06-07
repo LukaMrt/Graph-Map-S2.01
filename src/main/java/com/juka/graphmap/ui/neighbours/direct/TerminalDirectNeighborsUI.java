@@ -11,6 +11,7 @@ import com.juka.graphmap.ui.graph.GraphUI;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Terminal implementation for the DirectNeighborsUI.
@@ -51,7 +52,7 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
 
         LinkCharacteristics characteristics = link != null && !link.isEmpty() ? linkService.getLinkCharacteristics(linkService.getLink(link).getRoadNameWithIndex()) : LinkCharacteristics.empty();
         NodeCharacteristics characteristics2 = node != null && !node.isEmpty() ? nodeService.getNodeCharacteristics(nodeService.getNode(node).getName()) : NodeCharacteristics.empty();
-        List<String> links = graphService.getAllLinks().stream().map(Link::getRoadNameWithIndex).distinct().toList();
+        List<String> links = graphService.getAllLinks().stream().map(Link::getRoadNameWithIndex).distinct().collect(Collectors.toList());
 
         view.display(graphService.getAllNodes(), links, characteristics2, characteristics);
 
@@ -63,10 +64,17 @@ public class TerminalDirectNeighborsUI implements DirectNeighborsUI {
         }
 
         switch (choice) {
-            case '0' -> System.out.println("Au revoir");
-            case '1' -> this.interact(chooseLocation(), link);
-            case '2' -> this.interact(node, chooseLink());
-            default -> graphUI.interact();
+            case '0':
+                System.out.println("Au revoir");
+                break;
+            case '1':
+                this.interact(chooseLocation(), link);
+                break;
+            case '2':
+                this.interact(node, chooseLink());
+                break;
+            default:
+                graphUI.interact();
         }
 
     }

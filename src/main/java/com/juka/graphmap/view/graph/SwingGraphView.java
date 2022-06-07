@@ -17,6 +17,7 @@ import com.juka.graphmap.view.swing.SwingView;
 import javax.inject.Inject;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
@@ -109,7 +110,7 @@ public class SwingGraphView extends SwingView implements GraphView {
 
     @Override
     protected List<JButton> getButtons() {
-        return List.of(
+        return Arrays.asList(
                 aButton().withText("Description")
                         .withSize(180, 50)
                         .isYCentered()

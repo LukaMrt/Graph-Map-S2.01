@@ -10,6 +10,7 @@ import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Swing implementation for the DirectNeighborsUI.
@@ -59,7 +60,7 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
         List<String> links = graphService.getAllLinks().stream()
                 .map(Link::getRoadNameWithIndex)
                 .distinct()
-                .toList();
+                .collect(Collectors.toList());
 
         view.display(graphService.getAllNodes(), links, nodeCharacteristics, linkCharacteristics);
 

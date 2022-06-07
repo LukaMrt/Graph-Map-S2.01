@@ -75,9 +75,14 @@ public class TerminalCompareUI implements CompareUI {
         }
 
         switch (choice) {
-            case '0' -> graphUI.interact();
-            case '1' -> this.interact(chooseLocation(1), chooseLocation(2));
-            default -> homeUI.interact();
+            case '0':
+                graphUI.interact();
+                break;
+            case '1':
+                this.interact(chooseLocation(1), chooseLocation(2));
+                break;
+            default:
+                homeUI.interact();
         }
     }
 

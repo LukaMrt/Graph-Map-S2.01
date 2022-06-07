@@ -68,9 +68,15 @@ public class TerminalPathUI implements PathUI {
         }
 
         switch (choice) {
-            case '0' -> graphUI.interact();
-            case '1' -> this.interact(chooseLocation(1).getName(), chooseLocation(2).getName());
-            default -> homeUI.interact();
+            case '0':
+                graphUI.interact();
+                break;
+            case '1':
+                this.interact(chooseLocation(1).getName(), chooseLocation(2).getName());
+                break;
+            default:
+                homeUI.interact();
+                break;
         }
 
     }

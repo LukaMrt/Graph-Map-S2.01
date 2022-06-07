@@ -62,9 +62,15 @@ public class SwingGraphPanel extends JPanel {
                 neighborCoordinate = neighborLink.getDestination().getCoordinate();
 
                 switch (neighborLink.getType()) {
-                    case NATIONAL -> g2d.setColor(new Color(255, 0, 0));
-                    case HIGHWAY -> g2d.setColor(new Color(0, 255, 0));
-                    case DEPARTMENTAL -> g2d.setColor(new Color(0, 0, 255));
+                    case NATIONAL:
+                        g2d.setColor(new Color(255, 0, 0));
+                        break;
+                    case HIGHWAY:
+                        g2d.setColor(new Color(0, 255, 0));
+                        break;
+                    case DEPARTMENTAL:
+                        g2d.setColor(new Color(0, 0, 255));
+                        break;
                 }
 
                 if (neighborLink.isSelected()) {
@@ -95,9 +101,15 @@ public class SwingGraphPanel extends JPanel {
                     (float) (nodeCoordinate.y() - size / 3));
 
             switch (node.getType()) {
-                case CITY -> g2d.setColor(new Color(0, 255, 0));
-                case RECREATION_CENTER -> g2d.setColor(new Color(0, 0, 255));
-                case RESTAURANT -> g2d.setColor(new Color(255, 0, 0));
+                case CITY:
+                    g2d.setColor(new Color(0, 255, 0));
+                    break;
+                case RECREATION_CENTER:
+                    g2d.setColor(new Color(0, 0, 255));
+                    break;
+                case RESTAURANT:
+                    g2d.setColor(new Color(255, 0, 0));
+                    break;
             }
 
             if (node.getFlag() == Flag.MAIN) {

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class LinkServiceTest {
         node1.addLink(link);
         node2.addLink(link2);
 
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link, link2));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link, link2));
         when(linkRepository.getLink("link.1")).thenReturn(link);
 
         LinkCharacteristics result = linkService.getLinkCharacteristics("link");
@@ -82,7 +83,7 @@ public class LinkServiceTest {
     void unselectAll_shouldUnselectAllLinks_whenLinksAreSelected() {
         Link link = new Link("Link", null, LinkType.DEPARTMENTAL, 20);
         link.select();
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link));
 
         linkService.unselectAll();
 
@@ -93,7 +94,7 @@ public class LinkServiceTest {
     void select_shouldSelectLink_whenNodeExist() {
         Link link = new Link("Link.1.1", null, LinkType.DEPARTMENTAL, 20);
         Link link2 = new Link("Link.2.1", null, LinkType.DEPARTMENTAL, 20);
-        when(linkRepository.getAllLinks()).thenReturn(List.of(link, link2));
+        when(linkRepository.getAllLinks()).thenReturn(Arrays.asList(link, link2));
 
         linkService.select("Link.1");
 
