@@ -40,10 +40,16 @@ public class FileGraphLoader implements GraphLoader {
         List<Node> nodes = new ArrayList<>();
 
         try {
-            loadNodes(nodes);
-        } catch (Exception e) {
+            loadNodesFromFile(nodes);
+        } catch (FileNotFoundException e) {
             System.out.println("Fichier non trouvé");
-            return null;
+            nodes = null;
+        } catch (IOException e) {
+            System.out.println("Erreur de lecture");
+            nodes = null;
+        } catch (InvalidNodeFormatException e) {
+            System.out.println("Le fichier n'est pas correctement formaté");
+            nodes = null;
         }
 
         return nodes;
@@ -53,15 +59,10 @@ public class FileGraphLoader implements GraphLoader {
      * Load all the nodes from the file.
      *
      * @param nodes the list of nodes to fill
-     * @throws Exception if the file doesn't exist of if the file format is incorrect
+     * @throws IOException                if the file doesn't exist or if there is a read error
+     * @throws InvalidNodeFormatException if the file format is incorrect
      */
-    private void loadNodes(List<Node> nodes) throws Exception {
-
-        File file = new File(filePath.path());
-
-        if (!file.exists()) {
-            throw new FileNotFoundException();
-        }
+    private void loadNodesFromFile(List<Node> nodes) throws IOException, InvalidNodeFormatException {
 
         BufferedReader reader = new BufferedReader(new FileReader(filePath.path()));
 
@@ -75,6 +76,7 @@ public class FileGraphLoader implements GraphLoader {
                     .split(",");
 
             if (node.length != 4) {
+                reader.close();
                 throw new InvalidNodeFormatException();
             }
 
@@ -84,17 +86,28 @@ public class FileGraphLoader implements GraphLoader {
         reader.close();
     }
 
-
     @Override
     public List<Link> loadLinks(NodeRepository nodeRepository) {
 
         List<Link> links = new ArrayList<>();
 
         try {
-            loadLinks(nodeRepository, links);
-        } catch (Exception e) {
+            loadLinksFromFile(nodeRepository, links);
+        } catch (IOException e) {
             System.out.println("Fichier non trouvé");
-            return null;
+            links = null;
+        } catch (InvalidLinkFormatException e) {
+            System.out.println("Le fichier n'est pas correctement formaté");
+            links = null;
+        } catch (NodeNotFoundException e) {
+            System.out.println("Un lien a un voisin qui n'existe pas : " + e.node);
+            links = null;
+        } catch (InvalidLinkTypeException e) {
+            System.out.println("Le type " + e.type + " n'existe pas");
+            links = null;
+        } catch (LinkAlreadyExistException e) {
+            System.out.println("Le lien " + e.link + " existe déjà");
+            links = null;
         }
 
         return links;
@@ -105,16 +118,13 @@ public class FileGraphLoader implements GraphLoader {
      *
      * @param nodeRepository the repository of nodes
      * @param links          the list of links to fill
-     * @throws IOException      if the file doesn't exist of if the file format is incorrect
-     * @throws RuntimeException if the node doesn't exist
+     * @throws IOException                if the file doesn't exist or if there is a read error
+     * @throws InvalidLinkFormatException if the file format is incorrect
+     * @throws NodeNotFoundException      if a node has a neighbour that not exists
+     * @throws InvalidLinkTypeException   if the type of link is invalid
+     * @throws LinkAlreadyExistException  if a link appears 2 times in the file
      */
-    private void loadLinks(NodeRepository nodeRepository, List<Link> links) throws IOException, RuntimeException {
-
-        File file = new File(filePath.path());
-
-        if (!file.exists()) {
-            throw new FileNotFoundException();
-        }
+    private void loadLinksFromFile(NodeRepository nodeRepository, List<Link> links) throws IOException, InvalidLinkFormatException, NodeNotFoundException, InvalidLinkTypeException, LinkAlreadyExistException {
 
         BufferedReader reader = new BufferedReader(new FileReader(filePath.path()));
 
@@ -141,6 +151,7 @@ public class FileGraphLoader implements GraphLoader {
                 road = neighbor.split(",");
 
                 if (road.length != 4) {
+                    reader.close();
                     throw new InvalidLinkFormatException();
                 }
 
@@ -148,19 +159,23 @@ public class FileGraphLoader implements GraphLoader {
                 Node destination = nodeRepository.getNode(road[3]);
 
                 if (origin == null) {
-                    throw new NodeNotFountException(node);
+                    reader.close();
+                    throw new NodeNotFoundException(node);
                 }
 
                 if (destination == null) {
-                    throw new NodeNotFountException(road[3]);
+                    reader.close();
+                    throw new NodeNotFoundException(road[3]);
                 }
 
                 if (LinkType.of(road[0]) == null) {
-                    throw new InvalidLinkTypeException();
+                    reader.close();
+                    throw new InvalidLinkTypeException(road[0]);
                 }
 
                 String[] finalRoad = road;
                 if (origin.getNeighborsLinks().stream().map(Link::getName).anyMatch(name -> name.equals(finalRoad[1] + ".1"))) {
+                    reader.close();
                     throw new LinkAlreadyExistException(finalRoad[1]);
                 }
 
@@ -177,6 +192,7 @@ public class FileGraphLoader implements GraphLoader {
 
         }
 
+        reader.close();
     }
 
 }
