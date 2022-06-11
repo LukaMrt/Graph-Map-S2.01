@@ -8,7 +8,7 @@ package com.juka.graphmap.domain.model.file;
  */
 public class FilePath {
 
-    private String path;
+    private final String path;
 
     /**
      * Constructor of the FilePath.

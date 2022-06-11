@@ -14,7 +14,6 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 import javax.inject.Inject;
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
