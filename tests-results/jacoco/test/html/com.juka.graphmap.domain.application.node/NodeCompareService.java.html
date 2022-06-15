@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NodeCompareService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.application.node</a> &gt; <span class="el_source">NodeCompareService.java</span></div><h1>NodeCompareService.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.application.node;
+
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
+
+import javax.inject.Inject;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Service to compare two nodes.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class NodeCompareService {
+
+    private final NodeRepository nodeRepository;
+
+    /**
+     * Constructor of the NodeCompareService.
+     *
+     * @param nodeRepository NodeRepository to get Node characteristics.
+     */
+    @Inject
+<span class="fc" id="L27">    public NodeCompareService(NodeRepository nodeRepository) {</span>
+<span class="fc" id="L28">        this.nodeRepository = nodeRepository;</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Returns the number of a specific type of node at 2 distance of a given node.
+     *
+     * @param node     name of the given node.
+     * @param nodeType type of node to count.
+     * @return number of a specific type of node at 2 distance of a given node.
+     */
+    private int numberOfTypeAt2Distance(String node, NodeType nodeType) {
+
+<span class="fc" id="L40">        Node currentNode = nodeRepository.getNode(node);</span>
+
+<span class="fc" id="L42">        int counter = 0;</span>
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        for (Node pass : currentNode.getNeighbors()) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            for (Node twoDistanceNeighbor : pass.getNeighbors()) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                if (twoDistanceNeighbor.getType() == nodeType) counter++;</span>
+<span class="fc" id="L47">            }</span>
+<span class="fc" id="L48">        }</span>
+<span class="fc" id="L49">        return counter;</span>
+    }
+
+    /**
+     * Returns a map of String and Boolean that contains the result of the comparison of two nodes.
+     * The map contains the following keys:
+     * - &quot;ouverte&quot; : true if the node1 is more open than node2
+     * - &quot;culturelle&quot; : true if the node1 is more cultural than node2
+     * - &quot;gastronomique&quot; : true if the node1 is more gastronomic than node2
+     *
+     * @param node1 name of the first node.
+     * @param node2 name of the second node.
+     * @return a map of String and Boolean that contains the result of the comparison of two nodes.
+     */
+    public Map&lt;String, Boolean&gt; nodeCompareCity(String node1, String node2) {
+<span class="fc" id="L64">        Map&lt;String, Boolean&gt; isMore = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L65">        isMore.put(&quot;ouverte&quot;, false);</span>
+<span class="fc" id="L66">        isMore.put(&quot;culturelle&quot;, false);</span>
+<span class="fc" id="L67">        isMore.put(&quot;gastronomique&quot;, false);</span>
+
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (numberOfTypeAt2Distance(node1, NodeType.CITY) &gt; numberOfTypeAt2Distance(node2, NodeType.CITY))</span>
+<span class="fc" id="L70">            isMore.put(&quot;ouverte&quot;, true);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (numberOfTypeAt2Distance(node1, NodeType.RECREATION_CENTER) &gt; numberOfTypeAt2Distance(node2, NodeType.RECREATION_CENTER))</span>
+<span class="fc" id="L72">            isMore.put(&quot;culturelle&quot;, true);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (numberOfTypeAt2Distance(node1, NodeType.RESTAURANT) &gt; numberOfTypeAt2Distance(node2, NodeType.RESTAURANT))</span>
+<span class="fc" id="L74">            isMore.put(&quot;gastronomique&quot;, true);</span>
+
+<span class="fc" id="L76">        return isMore;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalHomeView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.home</a> &gt; <span class="el_source">TerminalHomeView.java</span></div><h1>TerminalHomeView.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.home;
+
+import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.ui.home.HomeView;
+
+import java.util.List;
+
+/**
+ * The home view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+<span class="nc" id="L15">public class TerminalHomeView implements HomeView {</span>
+
+    @Override
+    public void display(GraphCharacteristics graphCharacteristics, List&lt;Node&gt; nodes) {
+<span class="nc" id="L19">        System.out.println();</span>
+<span class="nc" id="L20">        System.out.println(&quot;------------------------------------------------------&quot;);</span>
+<span class="nc" id="L21">        System.out.println(&quot;Écran n°1 - Accueil&quot;);</span>
+<span class="nc" id="L22">        System.out.println(graphCharacteristics.error);</span>
+
+<span class="nc" id="L24">        System.out.println();</span>
+<span class="nc" id="L25">        System.out.println(&quot;Le graphe contient &quot; + graphCharacteristics.locationCount + &quot; lieux dont :&quot;);</span>
+<span class="nc" id="L26">        System.out.println(&quot;\t- &quot; + graphCharacteristics.cityPercentage + &quot; % de villes&quot;);</span>
+<span class="nc" id="L27">        System.out.println(&quot;\t- &quot; + graphCharacteristics.restaurantPercentage + &quot; % de restaurants&quot;);</span>
+<span class="nc" id="L28">        System.out.println(&quot;\t- &quot; + graphCharacteristics.recreationPercentage + &quot; % de centres de loisirs&quot;);</span>
+
+<span class="nc" id="L30">        System.out.println();</span>
+<span class="nc" id="L31">        System.out.println(&quot;Le graphe contient &quot; + graphCharacteristics.roadCount + &quot; routes dont :&quot;);</span>
+<span class="nc" id="L32">        System.out.println(&quot;\t- &quot; + graphCharacteristics.highwayPercentage + &quot; % d'autoroutes&quot;);</span>
+<span class="nc" id="L33">        System.out.println(&quot;\t- &quot; + graphCharacteristics.nationalPercentage + &quot; % de nationales&quot;);</span>
+<span class="nc" id="L34">        System.out.println(&quot;\t- &quot; + graphCharacteristics.departementalPercentage + &quot; % de départementales&quot;);</span>
+
+<span class="nc" id="L36">        System.out.println();</span>
+<span class="nc" id="L37">        System.out.println(&quot;Que souhaitez-vous faire ?&quot;);</span>
+<span class="nc" id="L38">        System.out.println(&quot;0 - Quitter&quot;);</span>
+<span class="nc" id="L39">        System.out.println(&quot;1 - Afficher le graphe complet&quot;);</span>
+<span class="nc" id="L40">        System.out.println(&quot;2 - Rechercher des routes&quot;);</span>
+<span class="nc" id="L41">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

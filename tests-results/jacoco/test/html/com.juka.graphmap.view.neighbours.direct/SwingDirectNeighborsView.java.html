@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwingDirectNeighborsView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.neighbours.direct</a> &gt; <span class="el_source">SwingDirectNeighborsView.java</span></div><h1>SwingDirectNeighborsView.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.neighbours.direct;
+
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeCharacteristics;
+import com.juka.graphmap.domain.model.view.Title;
+import com.juka.graphmap.ui.graph.GraphUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsView;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.SwingView;
+import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
+
+import javax.inject.Inject;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
+import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizontalList;
+
+/**
+ * The direct neighbors view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class SwingDirectNeighborsView extends SwingView implements DirectNeighborsView {
+
+<span class="nc" id="L35">    private static boolean firstTime = true;</span>
+
+    private final DirectNeighborsUI directNeighborsUI;
+    private final GraphUI graphUI;
+
+    private List&lt;String&gt; nodes;
+    private List&lt;String&gt; links;
+    private NodeCharacteristics nodeCharacteristics;
+    private LinkCharacteristics linkCharacteristics;
+
+    /**
+     * Constructor.
+     *
+     * @param frame             the fram of the application
+     * @param directNeighborsUI the direct neighbors ui
+     * @param graphUI           the graph ui
+     */
+    @Inject
+    public SwingDirectNeighborsView(GraphMapJFrame frame, DirectNeighborsUI directNeighborsUI, GraphUI graphUI) {
+<span class="nc" id="L54">        super(frame);</span>
+<span class="nc" id="L55">        this.directNeighborsUI = directNeighborsUI;</span>
+<span class="nc" id="L56">        this.graphUI = graphUI;</span>
+<span class="nc" id="L57">    }</span>
+
+    @Override
+    public void display(List&lt;Node&gt; nodes, List&lt;String&gt; links, NodeCharacteristics nodeCharacteristics, LinkCharacteristics linkCharacteristics) {
+<span class="nc" id="L61">        this.nodes = nodes.stream().map(Node::getName).collect(Collectors.toList());</span>
+<span class="nc" id="L62">        this.links = links;</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        this.nodeCharacteristics = nodeCharacteristics == null ? new NodeCharacteristics(&quot;&quot;, &quot;&quot;, new ArrayList&lt;&gt;()) : nodeCharacteristics;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        this.linkCharacteristics = linkCharacteristics == null ? new LinkCharacteristics(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0) : linkCharacteristics;</span>
+<span class="nc" id="L65">        super.display(nodes);</span>
+<span class="nc" id="L66">    }</span>
+
+    @Override
+    protected String getHelp() {
+<span class="nc" id="L70">        return &quot;Cet écran permet de connaître les caractéristiques d'un noeud ou d'un lien &quot; +</span>
+                &quot;en donnant le nom, le type et les voisins directs pour un noeud et le nom, le type, &quot; +
+                &quot;les extrémités et la distance pour un lien. Vous pouvez &quot; +
+                &quot;sélectionner les noeuds à gauche pour les étudier et les liens à droite.\n\n&quot; +
+                &quot;Pour l'interface graphique, les contrôles sont les suivants :\n&quot; +
+                &quot;- Clic gauche pour sélectionner un noeud ou un lien et afficher ses caractéristiques.&quot;;
+    }
+
+    @Override
+    protected Title getTitle() {
+<span class="nc" id="L80">        return new Title(&quot;Voisinage direct&quot;, 3);</span>
+    }
+
+    @Override
+    protected List&lt;JButton&gt; getButtons() {
+<span class="nc" id="L85">        return new ArrayList&lt;&gt;(Collections.singleton(aButton()</span>
+<span class="nc" id="L86">                .withText(&quot;Retour&quot;)</span>
+<span class="nc" id="L87">                .withSize(200, 50)</span>
+<span class="nc" id="L88">                .isYCentered()</span>
+<span class="nc" id="L89">                .withAction(e -&gt; graphUI.interact())</span>
+<span class="nc" id="L90">                .build()));</span>
+    }
+
+    @Override
+    protected JPanel buildLeftPanel() {
+
+<span class="nc" id="L96">        ScrollPaneBuilder builder = anHorizontalList()</span>
+<span class="nc" id="L97">                .withData(nodes)</span>
+<span class="nc" id="L98">                .withSize(200, 200)</span>
+<span class="nc" id="L99">                .withSingleSelection()</span>
+<span class="nc" id="L100">                .withSelectedValue(nodeCharacteristics.name)</span>
+<span class="nc" id="L101">                .isYCentered()</span>
+<span class="nc" id="L102">                .alwaysScrollVertical()</span>
+<span class="nc" id="L103">                .neverScrollHorizontal();</span>
+
+<span class="nc" id="L105">        JScrollPane nodeList = builder</span>
+<span class="nc" id="L106">                .build();</span>
+
+<span class="nc" id="L108">        JButton button = aButton()</span>
+<span class="nc" id="L109">                .withText(&quot;Analyser&quot;)</span>
+<span class="nc" id="L110">                .withSize(100, 40)</span>
+<span class="nc" id="L111">                .isXCentered()</span>
+<span class="nc" id="L112">                .withAction(e -&gt; directNeighborsUI.interact(builder.getSelectedValue(), linkCharacteristics.name))</span>
+<span class="nc" id="L113">                .build();</span>
+
+<span class="nc" id="L115">        JScrollPane neighborsList = anHorizontalList()</span>
+<span class="nc" id="L116">                .withData(nodeCharacteristics.neighbors)</span>
+<span class="nc" id="L117">                .withSize(200, 100)</span>
+<span class="nc" id="L118">                .withSingleSelection()</span>
+<span class="nc" id="L119">                .isYCentered()</span>
+<span class="nc" id="L120">                .alwaysScrollVertical()</span>
+<span class="nc" id="L121">                .neverScrollHorizontal()</span>
+<span class="nc" id="L122">                .build();</span>
+
+<span class="nc" id="L124">        JPanel descriptionPanel = aPanel()</span>
+<span class="nc" id="L125">                .withYBoxLayout()</span>
+<span class="nc" id="L126">                .add(aLabel().withText(&quot;Description du noeud :&quot;).isTitle().isXCentered().build())</span>
+<span class="nc" id="L127">                .add(aLabel().withText(&quot;Nom : &quot; + nodeCharacteristics.name).isText().isXCentered().build())</span>
+<span class="nc" id="L128">                .add(aLabel().withText(&quot;Type : &quot; + nodeCharacteristics.type).isText().isXCentered().build())</span>
+<span class="nc" id="L129">                .add(aLabel().withText(&quot;Voisins (&quot; + nodeCharacteristics.neighbors.size() + &quot;) :&quot;).isText().isXCentered().build())</span>
+<span class="nc" id="L130">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L131">                .add(neighborsList)</span>
+<span class="nc" id="L132">                .build();</span>
+
+<span class="nc" id="L134">        return aPanel()</span>
+<span class="nc" id="L135">                .withYBoxLayout()</span>
+<span class="nc" id="L136">                .isXCentered()</span>
+<span class="nc" id="L137">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L138">                .add(aLabel().withText(&quot;Liste des noeuds : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L139">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L140">                .add(nodeList)</span>
+<span class="nc" id="L141">                .addRigidArea(0, 15)</span>
+<span class="nc" id="L142">                .add(button)</span>
+<span class="nc" id="L143">                .addRigidArea(0, 15)</span>
+<span class="nc" id="L144">                .add(descriptionPanel)</span>
+<span class="nc" id="L145">                .addVerticalGlue()</span>
+<span class="nc" id="L146">                .build();</span>
+    }
+
+    @Override
+    protected JPanel buildRightPanel() {
+
+<span class="nc" id="L152">        ScrollPaneBuilder builder = anHorizontalList()</span>
+<span class="nc" id="L153">                .withData(links)</span>
+<span class="nc" id="L154">                .withSize(200, 200)</span>
+<span class="nc" id="L155">                .withSingleSelection()</span>
+<span class="nc" id="L156">                .withSelectedValue(linkCharacteristics.name)</span>
+<span class="nc" id="L157">                .isYCentered()</span>
+<span class="nc" id="L158">                .alwaysScrollVertical()</span>
+<span class="nc" id="L159">                .neverScrollHorizontal();</span>
+
+<span class="nc" id="L161">        JScrollPane nodeList = builder</span>
+<span class="nc" id="L162">                .build();</span>
+
+<span class="nc" id="L164">        JButton button = aButton()</span>
+<span class="nc" id="L165">                .withText(&quot;Analyser&quot;)</span>
+<span class="nc" id="L166">                .withSize(100, 40)</span>
+<span class="nc" id="L167">                .isXCentered()</span>
+<span class="nc" id="L168">                .withAction(e -&gt; directNeighborsUI.interact(nodeCharacteristics.name, builder.getSelectedValue()))</span>
+<span class="nc" id="L169">                .build();</span>
+
+<span class="nc" id="L171">        JPanel descriptionPanel = aPanel()</span>
+<span class="nc" id="L172">                .withYBoxLayout()</span>
+<span class="nc" id="L173">                .add(aLabel().withText(&quot;Description du lien :&quot;).isTitle().isXCentered().build())</span>
+<span class="nc" id="L174">                .add(aLabel().withText(&quot;Nom : &quot; + linkCharacteristics.name).isText().isXCentered().build())</span>
+<span class="nc" id="L175">                .add(aLabel().withText(&quot;Type : &quot; + linkCharacteristics.type).isText().isXCentered().build())</span>
+<span class="nc" id="L176">                .add(aLabel().withText(&quot;Allant de : &quot; + linkCharacteristics.start).isText().isXCentered().build())</span>
+<span class="nc" id="L177">                .add(aLabel().withText(&quot;Vers : &quot; + linkCharacteristics.end).isText().isXCentered().build())</span>
+<span class="nc" id="L178">                .add(aLabel().withText(&quot;Distance : &quot; + linkCharacteristics.distance + &quot; km&quot;).isText().isXCentered().build())</span>
+<span class="nc" id="L179">                .build();</span>
+
+<span class="nc" id="L181">        return aPanel()</span>
+<span class="nc" id="L182">                .withYBoxLayout()</span>
+<span class="nc" id="L183">                .isXCentered()</span>
+<span class="nc" id="L184">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L185">                .add(aLabel().withText(&quot;Liste des liens : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L186">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L187">                .add(nodeList)</span>
+<span class="nc" id="L188">                .addRigidArea(0, 15)</span>
+<span class="nc" id="L189">                .add(button)</span>
+<span class="nc" id="L190">                .addRigidArea(0, 15)</span>
+<span class="nc" id="L191">                .add(descriptionPanel)</span>
+<span class="nc" id="L192">                .addVerticalGlue()</span>
+<span class="nc" id="L193">                .build();</span>
+    }
+
+    @Override
+    public void leftClick(Node node, Link link) {
+
+<span class="nc bnc" id="L199" title="All 2 branches missed.">        String newNode = node != null ? node.getName() : nodeCharacteristics.name;</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">        String newLink = link != null ? link.getRoadNameWithIndex() : linkCharacteristics.name;</span>
+
+<span class="nc" id="L202">        directNeighborsUI.interact(newNode, newLink);</span>
+<span class="nc" id="L203">    }</span>
+
+    @Override
+    protected boolean isFirstTime() {
+<span class="nc bnc" id="L207" title="All 2 branches missed.">        if (firstTime) {</span>
+<span class="nc" id="L208">            firstTime = false;</span>
+<span class="nc" id="L209">            return true;</span>
+        }
+<span class="nc" id="L211">        return false;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

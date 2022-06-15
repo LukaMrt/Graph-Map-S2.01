@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Link.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.model.link</a> &gt; <span class="el_source">Link.java</span></div><h1>Link.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.model.link;
+
+import com.juka.graphmap.domain.model.node.Node;
+
+/**
+ * Link class represents a link between two nodes.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class Link {
+
+    private final String name;
+    private final Node destination;
+    private final LinkType type;
+    private final int distance;
+    private boolean selected;
+
+    /**
+     * Constructor of a link.
+     *
+     * @param name        name of the link
+     * @param destination destination node
+     * @param type        type of the link
+     * @param distance    distance between the two nodes
+     */
+<span class="fc" id="L27">    public Link(String name, Node destination, LinkType type, int distance) {</span>
+<span class="fc" id="L28">        this.name = name;</span>
+<span class="fc" id="L29">        this.destination = destination;</span>
+<span class="fc" id="L30">        this.type = type;</span>
+<span class="fc" id="L31">        this.distance = distance;</span>
+<span class="fc" id="L32">        this.selected = false;</span>
+<span class="fc" id="L33">    }</span>
+
+    /**
+     * Returns the destination node of this link.
+     *
+     * @return the destination node of this link
+     */
+    public Node getDestination() {
+<span class="fc" id="L41">        return this.destination;</span>
+    }
+
+    /**
+     * Returns the distance of this link.
+     *
+     * @return the distance of this link
+     */
+    public LinkType getType() {
+<span class="fc" id="L50">        return this.type;</span>
+    }
+
+    /**
+     * Returns the distance of this link.
+     *
+     * @return the distance of this link
+     */
+    public int getDistance() {
+<span class="fc" id="L59">        return this.distance;</span>
+    }
+
+    /**
+     * Returns the name of this link with the index.
+     *
+     * @return the name of this link with the index
+     */
+    public String getName() {
+<span class="fc" id="L68">        return name;</span>
+    }
+
+    /**
+     * Returns the name of this link without the index.
+     *
+     * @return the name of this link without the index
+     */
+    public String getRoadName() {
+<span class="nc" id="L77">        return name.substring(0, name.indexOf(&quot;.&quot;));</span>
+    }
+
+    /**
+     * Returns the name of this link without the last .1 or .2.
+     *
+     * @return the name of this link without the index
+     */
+    public String getRoadNameWithIndex() {
+<span class="fc" id="L86">        return name.substring(0, name.lastIndexOf(&quot;.&quot;));</span>
+    }
+
+    /**
+     * Returns true if the link is selected, false otherwise.
+     *
+     * @return true if the link is selected, false otherwise
+     */
+    public boolean isSelected() {
+<span class="fc" id="L95">        return this.selected;</span>
+    }
+
+    /**
+     * Sets the state of the link to selected.
+     */
+    public void select() {
+<span class="fc" id="L102">        this.selected = true;</span>
+<span class="fc" id="L103">    }</span>
+
+    /**
+     * Sets the state of the link to unselected.
+     */
+    public void unselect() {
+<span class="fc" id="L109">        this.selected = false;</span>
+<span class="fc" id="L110">    }</span>
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="pc bpc" id="L114" title="2 of 4 branches missed.">        return obj instanceof Link &amp;&amp; ((Link) obj).getName().equals(this.getName());</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L119">        return &quot;Link{&quot; +</span>
+                &quot;name='&quot; + name + '\'' +
+                &quot;, destination=&quot; + destination +
+                &quot;, type=&quot; + type +
+                &quot;, distance=&quot; + distance +
+                '}';
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

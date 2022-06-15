@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalGraphUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.ui.graph</a> &gt; <span class="el_source">TerminalGraphUI.java</span></div><h1>TerminalGraphUI.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.ui.graph;
+
+import com.google.inject.Inject;
+import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.ui.compare.CompareUI;
+import com.juka.graphmap.ui.home.HomeUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
+import com.juka.graphmap.ui.path.PathUI;
+
+import java.util.Scanner;
+
+/**
+ * Terminal implementation of the Graph UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class TerminalGraphUI implements GraphUI {
+
+<span class="nc" id="L21">    private static final Scanner scanner = new Scanner(System.in);</span>
+
+    private final GraphService graphService;
+    private final GraphView graphView;
+    private final HomeUI homeUI;
+    private final CompareUI compareUI;
+    private final PathUI pathUI;
+    private final DirectNeighborsUI directNeighborsUI;
+    private final IndirectNeighborsUI indirectNeighborsUI;
+
+    /**
+     * Constructor of the TerminalGraphUI.
+     *
+     * @param graphService        the graph service
+     * @param graphView           the graph view
+     * @param homeUI              the home UI
+     * @param compareUI           the compare UI
+     * @param pathUI              the path UI
+     * @param directNeighborsUI   the direct neighbors UI
+     * @param indirectNeighborsUI the indirect neighbors UI
+     */
+    @Inject
+<span class="nc" id="L43">    public TerminalGraphUI(GraphService graphService, GraphView graphView, HomeUI homeUI, CompareUI compareUI, PathUI pathUI, DirectNeighborsUI directNeighborsUI, IndirectNeighborsUI indirectNeighborsUI) {</span>
+<span class="nc" id="L44">        this.graphService = graphService;</span>
+<span class="nc" id="L45">        this.graphView = graphView;</span>
+<span class="nc" id="L46">        this.homeUI = homeUI;</span>
+<span class="nc" id="L47">        this.compareUI = compareUI;</span>
+<span class="nc" id="L48">        this.pathUI = pathUI;</span>
+<span class="nc" id="L49">        this.directNeighborsUI = directNeighborsUI;</span>
+<span class="nc" id="L50">        this.indirectNeighborsUI = indirectNeighborsUI;</span>
+<span class="nc" id="L51">    }</span>
+
+    @Override
+    public void interact() {
+        char entry;
+
+<span class="nc" id="L57">        graphView.display(graphService.getAllNodes(), graphService.getAllLinks());</span>
+
+<span class="nc" id="L59">        entry = scanner.nextLine().charAt(0);</span>
+
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        while (!&quot;012345&quot;.contains(String.valueOf(entry))) {</span>
+<span class="nc" id="L62">            System.out.println(&quot;Entrée invalide. Veuillez réessayer (0, 1, 2, 3, 4, 5 ou 6).&quot;);</span>
+<span class="nc" id="L63">            entry = scanner.nextLine().charAt(0);</span>
+        }
+
+<span class="nc bnc" id="L66" title="All 6 branches missed.">        switch (entry) {</span>
+            case '1':
+<span class="nc" id="L68">                compareUI.interact(null, null);</span>
+<span class="nc" id="L69">                break;</span>
+            case '2':
+<span class="nc" id="L71">                pathUI.interact(null, null);</span>
+<span class="nc" id="L72">                break;</span>
+            case '3':
+<span class="nc" id="L74">                directNeighborsUI.interact(null, null);</span>
+<span class="nc" id="L75">                break;</span>
+            case '4':
+<span class="nc" id="L77">                indirectNeighborsUI.interact(null, 2);</span>
+<span class="nc" id="L78">                break;</span>
+            case '5':
+<span class="nc" id="L80">                System.out.println(&quot;Au revoir.&quot;);</span>
+<span class="nc" id="L81">                break;</span>
+            default:
+<span class="nc" id="L83">                homeUI.interact();</span>
+        }
+
+<span class="nc" id="L86">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

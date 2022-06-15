@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwingHomeView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.home</a> &gt; <span class="el_source">SwingHomeView.java</span></div><h1>SwingHomeView.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.home;
+
+import com.juka.graphmap.domain.model.graph.GraphCharacteristics;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.view.Title;
+import com.juka.graphmap.ui.graph.GraphUI;
+import com.juka.graphmap.ui.home.HomeView;
+import com.juka.graphmap.ui.roads.RoadsUI;
+import com.juka.graphmap.view.frame.GraphMapJFrame;
+import com.juka.graphmap.view.swing.SwingView;
+
+import javax.inject.Inject;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
+import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
+import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
+
+/**
+ * The home view with graphical interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class SwingHomeView extends SwingView implements HomeView {
+
+<span class="nc" id="L30">    private static boolean firstTime = true;</span>
+
+    private final GraphUI graphUI;
+    private final RoadsUI roadsUI;
+    private GraphCharacteristics graphCharacteristics;
+
+    /**
+     * Constructor.
+     *
+     * @param frame   the frame of the application
+     * @param graphUI the graph view
+     * @param roadsUI the roads view
+     */
+    @Inject
+    public SwingHomeView(GraphMapJFrame frame, GraphUI graphUI, RoadsUI roadsUI) {
+<span class="nc" id="L45">        super(frame);</span>
+<span class="nc" id="L46">        this.graphUI = graphUI;</span>
+<span class="nc" id="L47">        this.roadsUI = roadsUI;</span>
+<span class="nc" id="L48">    }</span>
+
+    @Override
+    public void display(GraphCharacteristics graphCharacteristics, List&lt;Node&gt; nodes) {
+<span class="nc" id="L52">        this.graphCharacteristics = graphCharacteristics;</span>
+<span class="nc" id="L53">        super.display(nodes);</span>
+<span class="nc" id="L54">    }</span>
+
+    @Override
+    protected String getHelp() {
+<span class="nc" id="L58">        return &quot;Cet écran décrit le graphe en donnant le nombre d'éléments et le pourcentage de&quot; +</span>
+                &quot;chaque type de noeud et de lien par rapport à l'ensemble des éléments. &quot; +
+                &quot;Aucune action n'est disponible ici.&quot;;
+    }
+
+    @Override
+    protected Title getTitle() {
+<span class="nc" id="L65">        return new Title(&quot;Accueil (&quot; + graphCharacteristics.error + &quot;)&quot;, 1);</span>
+    }
+
+    @Override
+    protected List&lt;JButton&gt; getButtons() {
+<span class="nc" id="L70">        return Arrays.asList(</span>
+<span class="nc" id="L71">                aButton().withText(&quot;Graphe&quot;)</span>
+<span class="nc" id="L72">                        .withSize(200, 50)</span>
+<span class="nc" id="L73">                        .isYCentered()</span>
+<span class="nc" id="L74">                        .withAction(e -&gt; graphUI.interact())</span>
+<span class="nc" id="L75">                        .build(),</span>
+<span class="nc" id="L76">                aButton().withText(&quot;Routes&quot;)</span>
+<span class="nc" id="L77">                        .withSize(200, 50)</span>
+<span class="nc" id="L78">                        .isYCentered()</span>
+<span class="nc" id="L79">                        .withAction(e -&gt; roadsUI.interact(null, null, null))</span>
+<span class="nc" id="L80">                        .build()</span>
+        );
+    }
+
+    @Override
+    protected JPanel buildLeftPanel() {
+<span class="nc" id="L86">        return buildPanel(graphCharacteristics.locationCount + &quot; lieux dont :&quot;,</span>
+                &quot; - &quot; + graphCharacteristics.cityPercentage + &quot; % de villes&quot;,
+                &quot; - &quot; + graphCharacteristics.restaurantPercentage + &quot; % de restaurants&quot;,
+                &quot; - &quot; + graphCharacteristics.recreationPercentage + &quot; % de centres de loisirs&quot;);
+    }
+
+    @Override
+    protected JPanel buildRightPanel() {
+<span class="nc" id="L94">        return buildPanel(graphCharacteristics.roadCount + &quot; routes dont :&quot;,</span>
+                &quot; - &quot; + graphCharacteristics.highwayPercentage + &quot; % d'autoroutes&quot;,
+                &quot; - &quot; + graphCharacteristics.nationalPercentage + &quot; % de routes nationales&quot;,
+                &quot; - &quot; + graphCharacteristics.departementalPercentage + &quot; % de routes départementales&quot;);
+    }
+
+    private JPanel buildPanel(String text1, String text2, String text3, String text4) {
+<span class="nc" id="L101">        return aPanel()</span>
+<span class="nc" id="L102">                .withYBoxLayout()</span>
+<span class="nc" id="L103">                .isXCentered()</span>
+<span class="nc" id="L104">                .add(aLabel().withText(text1).isTitle().build())</span>
+<span class="nc" id="L105">                .add(aLabel().withText(text2).withColor(Color.GREEN).isText().build())</span>
+<span class="nc" id="L106">                .add(aLabel().withText(text3).withColor(Color.RED).isText().build())</span>
+<span class="nc" id="L107">                .add(aLabel().withText(text4).withColor(Color.BLUE).isText().build())</span>
+<span class="nc" id="L108">                .build();</span>
+    }
+
+    @Override
+    protected boolean isFirstTime() {
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (firstTime) {</span>
+<span class="nc" id="L114">            firstTime = false;</span>
+<span class="nc" id="L115">            return true;</span>
+        }
+<span class="nc" id="L117">        return false;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

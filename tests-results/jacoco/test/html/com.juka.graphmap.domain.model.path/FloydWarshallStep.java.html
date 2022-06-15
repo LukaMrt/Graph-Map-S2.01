@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FloydWarshallStep.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.model.path</a> &gt; <span class="el_source">FloydWarshallStep.java</span></div><h1>FloydWarshallStep.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.model.path;
+
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Node;
+
+import java.util.Objects;
+
+/**
+ * Represents a step in the Floyd-Warshall algorithm.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class FloydWarshallStep {
+
+    /**
+     * The distance between the two nodes.
+     */
+    public final int distance;
+
+    /**
+     * The previous node.
+     */
+    public final Node previous;
+
+    /**
+     * The last link of the path
+     */
+    public final Link previousLink;
+
+    /**
+     * Constructor of the Floyd and Warshall step.
+     *
+     * @param distance     The distance between the two nodes.
+     * @param previous     The previous node in the path.
+     * @param previousLink The previous link in the path.
+     */
+<span class="fc" id="L38">    public FloydWarshallStep(int distance, Node previous, Link previousLink) {</span>
+<span class="fc" id="L39">        this.distance = distance;</span>
+<span class="fc" id="L40">        this.previous = previous;</span>
+<span class="fc" id="L41">        this.previousLink = previousLink;</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Returns the string representation of this step.
+     *
+     * @return The string representation of this step.
+     */
+    @Override
+    public String toString() {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (distance == 1_000_000) {</span>
+<span class="nc" id="L52">            return &quot;[INF]&quot;;</span>
+        }
+<span class="nc" id="L54">        return &quot;[&quot; + distance + &quot;/&quot; + previous.getName() + &quot;]&quot;;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="pc bpc" id="L59" title="2 of 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L60">            return false;</span>
+        }
+<span class="fc" id="L62">        FloydWarshallStep other = (FloydWarshallStep) obj;</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        return this.distance == other.distance</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                &amp;&amp; Objects.equals(this.previous, other.previous)</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">                &amp;&amp; Objects.equals(this.previousLink, other.previousLink);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

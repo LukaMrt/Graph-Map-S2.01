@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalGuiceModule.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.main.guice</a> &gt; <span class="el_source">TerminalGuiceModule.java</span></div><h1>TerminalGuiceModule.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.main.guice;
+
+import com.google.inject.AbstractModule;
+import com.juka.graphmap.domain.application.graph.GraphLoader;
+import com.juka.graphmap.domain.application.graph.LinkRepository;
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.application.path.FloydWarshallDistancesRepository;
+import com.juka.graphmap.domain.model.file.FilePath;
+import com.juka.graphmap.infrastructure.DefaultLinkRepository;
+import com.juka.graphmap.infrastructure.DefaultNodeRepository;
+import com.juka.graphmap.infrastructure.graph.FileGraphLoader;
+import com.juka.graphmap.infrastructure.path.DefaultFloydWarshallDistancesRepository;
+import com.juka.graphmap.ui.compare.CompareUI;
+import com.juka.graphmap.ui.compare.CompareView;
+import com.juka.graphmap.ui.compare.TerminalCompareUI;
+import com.juka.graphmap.ui.graph.GraphUI;
+import com.juka.graphmap.ui.graph.GraphView;
+import com.juka.graphmap.ui.graph.TerminalGraphUI;
+import com.juka.graphmap.ui.home.HomeUI;
+import com.juka.graphmap.ui.home.HomeView;
+import com.juka.graphmap.ui.home.TerminalHomeUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.direct.DirectNeighborsView;
+import com.juka.graphmap.ui.neighbours.direct.TerminalDirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsUI;
+import com.juka.graphmap.ui.neighbours.indirect.IndirectNeighborsView;
+import com.juka.graphmap.ui.neighbours.indirect.TerminalIndirectNeighborsUI;
+import com.juka.graphmap.ui.path.PathUI;
+import com.juka.graphmap.ui.path.PathView;
+import com.juka.graphmap.ui.path.TerminalPathUI;
+import com.juka.graphmap.ui.roads.RoadsUI;
+import com.juka.graphmap.ui.roads.RoadsView;
+import com.juka.graphmap.ui.roads.TerminalRoadsUI;
+import com.juka.graphmap.view.compare.TerminalCompareView;
+import com.juka.graphmap.view.graph.TerminalGraphView;
+import com.juka.graphmap.view.home.TerminalHomeView;
+import com.juka.graphmap.view.neighbours.direct.TerminalDirectNeighborsView;
+import com.juka.graphmap.view.neighbours.indirect.TerminalIndirectNeighborsView;
+import com.juka.graphmap.view.path.TerminalPathView;
+import com.juka.graphmap.view.roads.TerminalRoadsView;
+
+import javax.inject.Singleton;
+
+/**
+ * Guice module for terminal application.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
+public class TerminalGuiceModule extends AbstractModule {
+
+    private final FilePath path;
+
+    /**
+     * Constructor of the terminal module.
+     *
+     * @param path path to the graph file
+     */
+<span class="nc" id="L59">    public TerminalGuiceModule(String path) {</span>
+<span class="nc" id="L60">        this.path = new FilePath(path);</span>
+<span class="nc" id="L61">    }</span>
+
+    @Override
+    protected void configure() {
+
+<span class="nc" id="L66">        bind(FilePath.class).toInstance(path);</span>
+
+<span class="nc" id="L68">        bind(NodeRepository.class).to(DefaultNodeRepository.class).in(Singleton.class);</span>
+<span class="nc" id="L69">        bind(LinkRepository.class).to(DefaultLinkRepository.class).in(Singleton.class);</span>
+<span class="nc" id="L70">        bind(FloydWarshallDistancesRepository.class).to(DefaultFloydWarshallDistancesRepository.class);</span>
+<span class="nc" id="L71">        bind(GraphLoader.class).to(FileGraphLoader.class);</span>
+
+<span class="nc" id="L73">        bind(HomeView.class).to(TerminalHomeView.class);</span>
+<span class="nc" id="L74">        bind(RoadsView.class).to(TerminalRoadsView.class);</span>
+<span class="nc" id="L75">        bind(GraphView.class).to(TerminalGraphView.class);</span>
+<span class="nc" id="L76">        bind(CompareView.class).to(TerminalCompareView.class);</span>
+<span class="nc" id="L77">        bind(PathView.class).to(TerminalPathView.class);</span>
+<span class="nc" id="L78">        bind(DirectNeighborsView.class).to(TerminalDirectNeighborsView.class);</span>
+<span class="nc" id="L79">        bind(IndirectNeighborsView.class).to(TerminalIndirectNeighborsView.class);</span>
+
+<span class="nc" id="L81">        bind(GraphUI.class).to(TerminalGraphUI.class);</span>
+<span class="nc" id="L82">        bind(RoadsUI.class).to(TerminalRoadsUI.class);</span>
+<span class="nc" id="L83">        bind(HomeUI.class).to(TerminalHomeUI.class);</span>
+<span class="nc" id="L84">        bind(CompareUI.class).to(TerminalCompareUI.class);</span>
+<span class="nc" id="L85">        bind(PathUI.class).to(TerminalPathUI.class);</span>
+<span class="nc" id="L86">        bind(DirectNeighborsUI.class).to(TerminalDirectNeighborsUI.class);</span>
+<span class="nc" id="L87">        bind(IndirectNeighborsUI.class).to(TerminalIndirectNeighborsUI.class);</span>
+
+<span class="nc" id="L89">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwingCompareUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.ui.compare</a> &gt; <span class="el_source">SwingCompareUI.java</span></div><h1>SwingCompareUI.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.ui.compare;
+
+import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.domain.application.node.NodeCompareService;
+import com.juka.graphmap.domain.application.node.NodeService;
+import com.juka.graphmap.domain.model.comparaison.Comparaison;
+import com.juka.graphmap.domain.model.node.Flag;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Swing implementation for the compare UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class SwingCompareUI implements CompareUI {
+
+    private final GraphService graphService;
+    private final NodeCompareService nodeCompareService;
+    private final NodeService nodeService;
+    private final CompareView view;
+
+    /**
+     * Constructor of the Swing compare UI.
+     *
+     * @param graphService       The graph service.
+     * @param nodeCompareService The node compare service.
+     * @param nodeService        The node service.
+     * @param view               The view.
+     */
+    @Inject
+<span class="nc" id="L38">    public SwingCompareUI(GraphService graphService, NodeCompareService nodeCompareService, NodeService nodeService, CompareView view) {</span>
+<span class="nc" id="L39">        this.graphService = graphService;</span>
+<span class="nc" id="L40">        this.nodeCompareService = nodeCompareService;</span>
+<span class="nc" id="L41">        this.nodeService = nodeService;</span>
+<span class="nc" id="L42">        this.view = view;</span>
+<span class="nc" id="L43">    }</span>
+
+    @Override
+    public void interact(String city1, String city2) {
+
+<span class="nc" id="L48">        List&lt;Comparaison&gt; result = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L50">        nodeService.unselectAll();</span>
+
+<span class="nc bnc" id="L52" title="All 4 branches missed.">        if (city1 != null &amp;&amp; city2 != null) {</span>
+<span class="nc" id="L53">            nodeCompareService.nodeCompareCity(city1, city2)</span>
+<span class="nc" id="L54">                    .entrySet().stream()</span>
+<span class="nc bnc" id="L55" title="All 4 branches missed.">                    .map(entry -&gt; new Comparaison(entry.getKey(), entry.getValue() ? city1 : city2, entry.getValue() ? city2 : city1))</span>
+<span class="nc" id="L56">                    .forEach(result::add);</span>
+        }
+
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (city1 != null) {</span>
+<span class="nc" id="L60">            nodeService.select(city1, Flag.MAIN);</span>
+        }
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (city2 != null) {</span>
+<span class="nc" id="L64">            nodeService.select(city2, Flag.MAIN);</span>
+        }
+
+<span class="nc" id="L67">        List&lt;String&gt; cities = graphService.getAllNodes().stream()</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">                .filter(node -&gt; node.getType() == NodeType.CITY)</span>
+<span class="nc" id="L69">                .map(Node::getName)</span>
+<span class="nc" id="L70">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L72">        view.display(graphService.getAllNodes(), cities, result, city1, city2);</span>
+
+<span class="nc" id="L74">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

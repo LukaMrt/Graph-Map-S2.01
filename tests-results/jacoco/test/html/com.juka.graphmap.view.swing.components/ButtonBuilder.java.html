@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ButtonBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing.components</a> &gt; <span class="el_source">ButtonBuilder.java</span></div><h1>ButtonBuilder.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing.components;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+/**
+ * Swing JButton builder.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class ButtonBuilder {
+
+    private final JButton button;
+
+<span class="nc" id="L17">    private ButtonBuilder() {</span>
+<span class="nc" id="L18">        button = new JButton();</span>
+<span class="nc" id="L19">    }</span>
+
+    /**
+     * Crate a ButtonBuilder.
+     *
+     * @return a ButtonBuilder
+     */
+    public static ButtonBuilder aButton() {
+<span class="nc" id="L27">        return new ButtonBuilder();</span>
+    }
+
+    /**
+     * Set the text of the Button.
+     *
+     * @param text the text of the Button
+     * @return the ButtonBuilder
+     */
+    public ButtonBuilder withText(String text) {
+<span class="nc" id="L37">        button.setText(text);</span>
+<span class="nc" id="L38">        button.setFont(new Font(&quot;Arial&quot;, Font.PLAIN, 16));</span>
+<span class="nc" id="L39">        return this;</span>
+    }
+
+    /**
+     * Set the size of the Button.
+     *
+     * @param width  the width of the Button
+     * @param height the height of the Button
+     * @return the ButtonBuilder
+     */
+    public ButtonBuilder withSize(int width, int height) {
+<span class="nc" id="L50">        button.setPreferredSize(new Dimension(width, height));</span>
+<span class="nc" id="L51">        button.setMaximumSize(new Dimension(width, height));</span>
+<span class="nc" id="L52">        button.setMinimumSize(new Dimension(width, height));</span>
+<span class="nc" id="L53">        button.setSize(new Dimension(width, height));</span>
+<span class="nc" id="L54">        return this;</span>
+    }
+
+    /**
+     * Set the action listener of the Button.
+     *
+     * @param listener the action listener of the Button
+     * @return the ButtonBuilder
+     */
+    public ButtonBuilder withAction(ActionListener listener) {
+<span class="nc" id="L64">        button.addActionListener(listener);</span>
+<span class="nc" id="L65">        return this;</span>
+    }
+
+    /**
+     * Center the Button on the Y axis.
+     *
+     * @return the ButtonBuilder
+     */
+    public ButtonBuilder isYCentered() {
+<span class="nc" id="L74">        button.setAlignmentY(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L75">        return this;</span>
+    }
+
+    /**
+     * Center the Button on the X axis.
+     *
+     * @return the ButtonBuilder
+     */
+    public ButtonBuilder isXCentered() {
+<span class="nc" id="L84">        button.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="nc" id="L85">        return this;</span>
+    }
+
+    /**
+     * Build the final Button.
+     *
+     * @return the final Button
+     */
+    public JButton build() {
+<span class="nc" id="L94">        return button;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalCompareUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.ui.compare</a> &gt; <span class="el_source">TerminalCompareUI.java</span></div><h1>TerminalCompareUI.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.ui.compare;
+
+import com.google.inject.Inject;
+import com.juka.graphmap.domain.application.graph.GraphService;
+import com.juka.graphmap.domain.application.node.NodeCompareService;
+import com.juka.graphmap.domain.model.comparaison.Comparaison;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
+import com.juka.graphmap.ui.graph.GraphUI;
+import com.juka.graphmap.ui.home.HomeUI;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+/**
+ * Terminal implementation for the compare UI.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class TerminalCompareUI implements CompareUI {
+
+<span class="nc" id="L25">    private static final Scanner SCANNER = new Scanner(System.in);</span>
+
+    private final NodeCompareService nodeCompareService;
+    private final GraphService graphService;
+    private final CompareView compareView;
+    private final HomeUI homeUI;
+    private final GraphUI graphUI;
+
+    /**
+     * The constructor of the terminal compare UI.
+     *
+     * @param nodeCompareService The node compare service.
+     * @param graphService       The graph service.
+     * @param compareView        The compare view.
+     * @param homeUI             The home UI.
+     * @param graphUI            The graph UI.
+     */
+    @Inject
+<span class="nc" id="L43">    public TerminalCompareUI(NodeCompareService nodeCompareService, GraphService graphService, CompareView compareView, HomeUI homeUI, GraphUI graphUI) {</span>
+<span class="nc" id="L44">        this.nodeCompareService = nodeCompareService;</span>
+<span class="nc" id="L45">        this.graphService = graphService;</span>
+<span class="nc" id="L46">        this.compareView = compareView;</span>
+<span class="nc" id="L47">        this.homeUI = homeUI;</span>
+<span class="nc" id="L48">        this.graphUI = graphUI;</span>
+<span class="nc" id="L49">    }</span>
+
+    @Override
+    public void interact(String city1, String city2) {
+
+<span class="nc" id="L54">        List&lt;Comparaison&gt; result = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        if (city1 != null &amp;&amp; city2 != null) {</span>
+<span class="nc" id="L57">            nodeCompareService.nodeCompareCity(city1, city2)</span>
+<span class="nc" id="L58">                    .entrySet().stream()</span>
+<span class="nc bnc" id="L59" title="All 4 branches missed.">                    .map(entry -&gt; new Comparaison(entry.getKey(), entry.getValue() ? city1 : city2, entry.getValue() ? city2 : city1))</span>
+<span class="nc" id="L60">                    .forEach(result::add);</span>
+        }
+
+<span class="nc" id="L63">        List&lt;String&gt; cities = graphService.getAllNodes().stream()</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                .filter(node -&gt; node.getType() == NodeType.CITY)</span>
+<span class="nc" id="L65">                .map(Node::getName)</span>
+<span class="nc" id="L66">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L68">        compareView.display(graphService.getAllNodes(), cities, result, city1, city2);</span>
+
+<span class="nc" id="L70">        char choice = SCANNER.nextLine().charAt(0);</span>
+
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if (!&quot;0123&quot;.contains(String.valueOf(choice))) {</span>
+<span class="nc" id="L73">            System.out.println(&quot;Entrée invalide. Veuillez réessayer.&quot;);</span>
+<span class="nc" id="L74">            choice = SCANNER.nextLine().charAt(0);</span>
+        }
+
+<span class="nc bnc" id="L77" title="All 3 branches missed.">        switch (choice) {</span>
+            case '0':
+<span class="nc" id="L79">                graphUI.interact();</span>
+<span class="nc" id="L80">                break;</span>
+            case '1':
+<span class="nc" id="L82">                this.interact(chooseLocation(1), chooseLocation(2));</span>
+<span class="nc" id="L83">                break;</span>
+            default:
+<span class="nc" id="L85">                homeUI.interact();</span>
+        }
+<span class="nc" id="L87">    }</span>
+
+    /**
+     * Asks the user to choose a location.
+     *
+     * @param i The number of the node. (1 or 2)
+     * @return The name of the location.
+     */
+    private String chooseLocation(int i) {
+
+<span class="nc" id="L97">        System.out.println();</span>
+        String entry;
+        do {
+<span class="nc" id="L100">            System.out.println(&quot;Entrez le noeud n°&quot; + i + &quot; à étudier :&quot;);</span>
+<span class="nc" id="L101">            entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
+
+<span class="nc" id="L104">        return entry;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

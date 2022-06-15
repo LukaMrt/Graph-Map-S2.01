@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultLinkRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.infrastructure</a> &gt; <span class="el_source">DefaultLinkRepository.java</span></div><h1>DefaultLinkRepository.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.infrastructure;
+
+import com.juka.graphmap.domain.application.graph.LinkRepository;
+import com.juka.graphmap.domain.model.link.Link;
+
+import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+/**
+ * Default implementation of LinkRepository with an ArrayList.
+ *
+ * @author Luka Maret
+ * @since 0.1.0
+ */
+@Singleton
+<span class="fc" id="L18">public class DefaultLinkRepository implements LinkRepository {</span>
+
+<span class="fc" id="L20">    private final List&lt;Link&gt; links = new ArrayList&lt;&gt;();</span>
+
+    @Override
+    public void addLink(Link link) {
+<span class="fc" id="L24">        links.add(link);</span>
+<span class="fc" id="L25">    }</span>
+
+    @Override
+    public List&lt;Link&gt; getAllLinks() {
+<span class="fc" id="L29">        ArrayList&lt;Link&gt; links1 = new ArrayList&lt;&gt;(this.links);</span>
+<span class="fc" id="L30">        links1.sort(Comparator.comparing(Link::getRoadNameWithIndex));</span>
+<span class="fc" id="L31">        return links1;</span>
+    }
+
+    @Override
+    public Link getLink(String name) {
+<span class="fc" id="L36">        return links.stream()</span>
+<span class="fc" id="L37">                .filter(link -&gt; link.getName().startsWith(name))</span>
+<span class="fc" id="L38">                .findFirst()</span>
+<span class="fc" id="L39">                .orElse(null);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

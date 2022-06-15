@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MouseListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing.components</a> &gt; <span class="el_source">MouseListener.java</span></div><h1>MouseListener.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing.components;
+
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.node.Coordinate;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.view.swing.SwingView;
+
+import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
+/**
+ * Custom MouseListener to handle mouse events on the graph and perform actions.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class MouseListener implements java.awt.event.MouseListener {
+
+    private final List&lt;Node&gt; nodes;
+    private final SwingView swingView;
+
+    /**
+     * Constructor.
+     *
+     * @param nodes     List of nodes to handle mouse events on.
+     * @param swingView SwingView to update.
+     */
+<span class="nc" id="L35">    public MouseListener(List&lt;Node&gt; nodes, SwingView swingView) {</span>
+<span class="nc" id="L36">        this.nodes = nodes;</span>
+<span class="nc" id="L37">        this.swingView = swingView;</span>
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public void mouseClicked(MouseEvent event) {
+
+<span class="nc" id="L43">        Node clickedNode = nodes.stream()</span>
+<span class="nc" id="L44">                .filter(node -&gt; isClicked(event, node))</span>
+<span class="nc" id="L45">                .findFirst()</span>
+<span class="nc" id="L46">                .orElse(null);</span>
+
+<span class="nc" id="L48">        Link2 clickedLink = retrieveLinks(nodes)</span>
+<span class="nc" id="L49">                .stream().filter(link -&gt; isClicked(event, link))</span>
+<span class="nc" id="L50">                .findFirst()</span>
+<span class="nc" id="L51">                .orElse(new Link2(null, null));</span>
+
+<span class="nc" id="L53">        BiConsumer&lt;Node, Link&gt; action = (node, link) -&gt; swingView.leftClick(clickedNode, clickedLink.link);</span>
+
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (SwingUtilities.isRightMouseButton(event)) {</span>
+<span class="nc" id="L56">            action = (node, link) -&gt; swingView.rightClick(clickedNode, clickedLink.link);</span>
+        }
+
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (event.isShiftDown()) {</span>
+<span class="nc" id="L60">            action = (node, link) -&gt; swingView.shiftClick(clickedNode, clickedLink.link);</span>
+        }
+
+<span class="nc" id="L63">        action.accept(clickedNode, clickedLink.link);</span>
+<span class="nc" id="L64">    }</span>
+
+    private boolean isClicked(MouseEvent event, Link2 link) {
+
+<span class="nc" id="L68">        Coordinate source = link.from.getCoordinate();</span>
+<span class="nc" id="L69">        Coordinate destination = link.link.getDestination().getCoordinate();</span>
+
+<span class="nc" id="L71">        double x1 = source.x() + 10;</span>
+<span class="nc" id="L72">        double y1 = source.y() + 10;</span>
+<span class="nc" id="L73">        double x2 = destination.x() + 10;</span>
+<span class="nc" id="L74">        double y2 = destination.y() + 10;</span>
+
+<span class="nc" id="L76">        double x3 = event.getX();</span>
+<span class="nc" id="L77">        double y3 = event.getY();</span>
+
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        return Line2D.ptSegDistSq(x1, y1, x2, y2, x3, y3) &lt; 100</span>
+<span class="nc bnc" id="L80" title="All 4 branches missed.">                &amp;&amp; min(x1, x2) &lt;= x3 &amp;&amp; x3 &lt;= max(x1, x2)</span>
+<span class="nc bnc" id="L81" title="All 4 branches missed.">                &amp;&amp; min(y1, y2) &lt;= y3 &amp;&amp; y3 &lt;= max(y1, y2)</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                &amp;&amp; !isClicked(event, link.from)</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">                &amp;&amp; !isClicked(event, link.link.getDestination());</span>
+    }
+
+    private boolean isClicked(MouseEvent event, Node node) {
+<span class="nc" id="L87">        Coordinate coordinate = node.getCoordinate();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        return event.getPoint().distanceSq(coordinate.x() + 10, coordinate.y() + 10) &lt; 100;</span>
+    }
+
+    private List&lt;Link2&gt; retrieveLinks(List&lt;Node&gt; nodes) {
+
+<span class="nc" id="L93">        List&lt;Link2&gt; links = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        for (Node node : nodes) {</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            for (Link neighborLink : node.getNeighborsLinks()) {</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">                if (links.stream().noneMatch(link -&gt; link.link().getRoadNameWithIndex().equals(neighborLink.getRoadNameWithIndex()))) {</span>
+<span class="nc" id="L98">                    links.add(new Link2(node, neighborLink));</span>
+                }
+<span class="nc" id="L100">            }</span>
+<span class="nc" id="L101">        }</span>
+
+<span class="nc" id="L103">        return links;</span>
+    }
+
+    @Override
+    public void mousePressed(MouseEvent event) {
+
+<span class="nc" id="L109">    }</span>
+
+    @Override
+    public void mouseReleased(MouseEvent event) {
+
+<span class="nc" id="L114">    }</span>
+
+    @Override
+    public void mouseEntered(MouseEvent event) {
+
+<span class="nc" id="L119">    }</span>
+
+    @Override
+    public void mouseExited(MouseEvent event) {
+
+<span class="nc" id="L124">    }</span>
+
+    private class Link2 {
+        private final Node from;
+        private final Link link;
+
+<span class="nc" id="L130">        public Link2(Node from, Link link) {</span>
+<span class="nc" id="L131">            this.from = from;</span>
+<span class="nc" id="L132">            this.link = link;</span>
+<span class="nc" id="L133">        }</span>
+
+        public Node from() {
+<span class="nc" id="L136">            return from;</span>
+        }
+
+        public Link link() {
+<span class="nc" id="L140">            return link;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

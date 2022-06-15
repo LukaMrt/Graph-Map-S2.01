@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileGraphLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.infrastructure.graph</a> &gt; <span class="el_source">FileGraphLoader.java</span></div><h1>FileGraphLoader.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.infrastructure.graph;
+
+import com.juka.graphmap.domain.application.graph.GraphLoader;
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.model.exception.*;
+import com.juka.graphmap.domain.model.file.FilePath;
+import com.juka.graphmap.domain.model.link.Link;
+import com.juka.graphmap.domain.model.link.LinkType;
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.node.NodeType;
+
+import javax.inject.Inject;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Implementation of GraphLoader from a file.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class FileGraphLoader implements GraphLoader {
+
+    private final FilePath filePath;
+
+    /**
+     * Constructor of the FileGraphLoader.
+     *
+     * @param filePath the path of the file to load
+     */
+    @Inject
+<span class="nc" id="L36">    public FileGraphLoader(FilePath filePath) {</span>
+<span class="nc" id="L37">        this.filePath = filePath;</span>
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public List&lt;Node&gt; loadNodes() {
+
+<span class="nc" id="L43">        List&lt;Node&gt; nodes = new ArrayList&lt;&gt;();</span>
+
+        try {
+<span class="nc" id="L46">            loadNodesFromFile(nodes);</span>
+<span class="nc" id="L47">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L48">            System.out.println(&quot;Fichier non trouvé&quot;);</span>
+<span class="nc" id="L49">            nodes = null;</span>
+<span class="nc" id="L50">        } catch (IOException e) {</span>
+<span class="nc" id="L51">            System.out.println(&quot;Erreur de lecture&quot;);</span>
+<span class="nc" id="L52">            nodes = null;</span>
+<span class="nc" id="L53">        } catch (InvalidNodeFormatException e) {</span>
+<span class="nc" id="L54">            System.out.println(&quot;Le fichier n'est pas correctement formaté&quot;);</span>
+<span class="nc" id="L55">            nodes = null;</span>
+<span class="nc" id="L56">        }</span>
+
+<span class="nc" id="L58">        return nodes;</span>
+    }
+
+    /**
+     * Load all the nodes from the file.
+     *
+     * @param nodes the list of nodes to fill
+     * @throws IOException                if the file doesn't exist or if there is a read error
+     * @throws InvalidNodeFormatException if the file format is incorrect
+     */
+    private void loadNodesFromFile(List&lt;Node&gt; nodes) throws IOException, InvalidNodeFormatException {
+
+<span class="nc" id="L70">        BufferedReader reader = new BufferedReader(new FileReader(filePath.path()));</span>
+
+        String line;
+
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        while ((line = reader.readLine()) != null) {</span>
+
+<span class="nc" id="L76">            String[] node = line</span>
+<span class="nc" id="L77">                    .replace(&quot;\n&quot;, &quot;&quot;)</span>
+<span class="nc" id="L78">                    .split(&quot;:&quot;)[0]</span>
+<span class="nc" id="L79">                    .split(&quot;,&quot;);</span>
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (node.length != 4) {</span>
+<span class="nc" id="L82">                reader.close();</span>
+<span class="nc" id="L83">                throw new InvalidNodeFormatException();</span>
+            }
+
+<span class="nc" id="L86">            nodes.add(new Node(node[1], NodeType.of(node[0]), Integer.parseInt(node[2]), Integer.parseInt(node[3])));</span>
+<span class="nc" id="L87">        }</span>
+
+<span class="nc" id="L89">        reader.close();</span>
+<span class="nc" id="L90">    }</span>
+
+    @Override
+    public List&lt;Link&gt; loadLinks(NodeRepository nodeRepository) {
+
+<span class="nc" id="L95">        List&lt;Link&gt; links = new ArrayList&lt;&gt;();</span>
+
+        try {
+<span class="nc" id="L98">            loadLinksFromFile(nodeRepository, links);</span>
+<span class="nc" id="L99">        } catch (IOException e) {</span>
+<span class="nc" id="L100">            System.out.println(&quot;Fichier non trouvé&quot;);</span>
+<span class="nc" id="L101">            links = null;</span>
+<span class="nc" id="L102">        } catch (InvalidLinkFormatException e) {</span>
+<span class="nc" id="L103">            System.out.println(&quot;Le fichier n'est pas correctement formaté&quot;);</span>
+<span class="nc" id="L104">            links = null;</span>
+<span class="nc" id="L105">        } catch (NodeNotFoundException e) {</span>
+<span class="nc" id="L106">            System.out.println(&quot;Un lien a un voisin qui n'existe pas : &quot; + e.node);</span>
+<span class="nc" id="L107">            links = null;</span>
+<span class="nc" id="L108">        } catch (InvalidLinkTypeException e) {</span>
+<span class="nc" id="L109">            System.out.println(&quot;Le type &quot; + e.type + &quot; n'existe pas&quot;);</span>
+<span class="nc" id="L110">            links = null;</span>
+<span class="nc" id="L111">        } catch (LinkAlreadyExistException e) {</span>
+<span class="nc" id="L112">            System.out.println(&quot;Le lien &quot; + e.link + &quot; existe déjà&quot;);</span>
+<span class="nc" id="L113">            links = null;</span>
+<span class="nc" id="L114">        }</span>
+
+<span class="nc" id="L116">        return links;</span>
+    }
+
+    /**
+     * Load all the links from the file.
+     *
+     * @param nodeRepository the repository of nodes
+     * @param links          the list of links to fill
+     * @throws IOException                if the file doesn't exist or if there is a read error
+     * @throws InvalidLinkFormatException if the file format is incorrect
+     * @throws NodeNotFoundException      if a node has a neighbour that not exists
+     * @throws InvalidLinkTypeException   if the type of link is invalid
+     * @throws LinkAlreadyExistException  if a link appears 2 times in the file
+     */
+    private void loadLinksFromFile(NodeRepository nodeRepository, List&lt;Link&gt; links) throws IOException, InvalidLinkFormatException, NodeNotFoundException, InvalidLinkTypeException, LinkAlreadyExistException {
+
+<span class="nc" id="L132">        BufferedReader reader = new BufferedReader(new FileReader(filePath.path()));</span>
+
+        String line;
+        String[] neighbors;
+        String[] road;
+        int doublePoint;
+        Link link;
+
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        while ((line = reader.readLine()) != null) {</span>
+
+<span class="nc" id="L142">            line = line.replace(&quot;\n&quot;, &quot;&quot;);</span>
+<span class="nc" id="L143">            doublePoint = line.indexOf(&quot;:&quot;);</span>
+
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            if (doublePoint == -1) {</span>
+<span class="nc" id="L146">                continue;</span>
+            }
+
+<span class="nc" id="L149">            String node = line.substring(0, doublePoint).split(&quot;,&quot;)[1];</span>
+<span class="nc" id="L150">            neighbors = line.substring(doublePoint + 1).split(&quot;;&quot;);</span>
+
+<span class="nc bnc" id="L152" title="All 2 branches missed.">            for (String neighbor : neighbors) {</span>
+
+<span class="nc" id="L154">                road = neighbor.split(&quot;,&quot;);</span>
+
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                if (road.length != 4) {</span>
+<span class="nc" id="L157">                    reader.close();</span>
+<span class="nc" id="L158">                    throw new InvalidLinkFormatException();</span>
+                }
+
+<span class="nc" id="L161">                Node origin = nodeRepository.getNode(node);</span>
+<span class="nc" id="L162">                Node destination = nodeRepository.getNode(road[3]);</span>
+
+<span class="nc bnc" id="L164" title="All 2 branches missed.">                if (origin == null) {</span>
+<span class="nc" id="L165">                    reader.close();</span>
+<span class="nc" id="L166">                    throw new NodeNotFoundException(node);</span>
+                }
+
+<span class="nc bnc" id="L169" title="All 2 branches missed.">                if (destination == null) {</span>
+<span class="nc" id="L170">                    reader.close();</span>
+<span class="nc" id="L171">                    throw new NodeNotFoundException(road[3]);</span>
+                }
+
+<span class="nc bnc" id="L174" title="All 2 branches missed.">                if (LinkType.of(road[0]) == null) {</span>
+<span class="nc" id="L175">                    reader.close();</span>
+<span class="nc" id="L176">                    throw new InvalidLinkTypeException(road[0]);</span>
+                }
+
+<span class="nc" id="L179">                String[] finalRoad = road;</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                if (origin.getNeighborsLinks().stream().map(Link::getName).anyMatch(name -&gt; name.equals(finalRoad[1] + &quot;.1&quot;))) {</span>
+<span class="nc" id="L181">                    reader.close();</span>
+<span class="nc" id="L182">                    throw new LinkAlreadyExistException(finalRoad[1]);</span>
+                }
+
+<span class="nc" id="L185">                String finalName = finalRoad[1] + &quot;.1&quot;;</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">                if (links.stream().map(Link::getName).anyMatch(name -&gt; name.equals(finalRoad[1] + &quot;.1&quot;))) {</span>
+<span class="nc" id="L187">                    finalName = finalRoad[1] + &quot;.2&quot;;</span>
+                }
+
+<span class="nc" id="L190">                link = new Link(finalName, destination, LinkType.of(road[0]), Integer.parseInt(road[2]));</span>
+<span class="nc" id="L191">                origin.addLink(link);</span>
+<span class="nc" id="L192">                links.add(link);</span>
+
+            }
+
+<span class="nc" id="L196">        }</span>
+
+<span class="nc" id="L198">        reader.close();</span>
+<span class="nc" id="L199">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

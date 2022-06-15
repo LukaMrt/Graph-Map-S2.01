@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileChooserBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.swing.components</a> &gt; <span class="el_source">FileChooserBuilder.java</span></div><h1>FileChooserBuilder.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.swing.components;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Swing JFileChooser builder.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class FileChooserBuilder {
+
+    private final JFileChooser fileChooser;
+
+<span class="nc" id="L16">    private FileChooserBuilder() {</span>
+<span class="nc" id="L17">        fileChooser = new JFileChooser();</span>
+<span class="nc" id="L18">        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);</span>
+<span class="nc" id="L19">        fileChooser.setMultiSelectionEnabled(false);</span>
+<span class="nc" id="L20">    }</span>
+
+    /**
+     * Create a new JFileChooser builder.
+     *
+     * @return a new JFileChooser builder
+     */
+    public static FileChooserBuilder aFileChooser() {
+<span class="nc" id="L28">        return new FileChooserBuilder();</span>
+    }
+
+    /**
+     * Set the start directory.
+     *
+     * @param directory the start directory
+     * @return the FileChooserBuilder
+     */
+    public FileChooserBuilder withDirectory(String directory) {
+<span class="nc" id="L38">        fileChooser.setCurrentDirectory(new java.io.File(directory));</span>
+<span class="nc" id="L39">        return this;</span>
+    }
+
+    /**
+     * Set the FileChooser size.
+     *
+     * @param width  the width of the FileChooser
+     * @param height the height of the FileChooser
+     * @return the FileChooserBuilder
+     */
+    public FileChooserBuilder withSize(int width, int height) {
+<span class="nc" id="L50">        fileChooser.setPreferredSize(new Dimension(width, height));</span>
+<span class="nc" id="L51">        fileChooser.setMaximumSize(new Dimension(width, height));</span>
+<span class="nc" id="L52">        fileChooser.setMinimumSize(new Dimension(width, height));</span>
+<span class="nc" id="L53">        fileChooser.setSize(new Dimension(width, height));</span>
+<span class="nc" id="L54">        return this;</span>
+    }
+
+    /**
+     * Build the final JFileChooser.
+     *
+     * @return the final JFileChooser
+     */
+    public JFileChooser build() {
+<span class="nc" id="L63">        return fileChooser;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NodeDistanceService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.domain.application.node</a> &gt; <span class="el_source">NodeDistanceService.java</span></div><h1>NodeDistanceService.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.domain.application.node;
+
+import com.juka.graphmap.domain.application.graph.NodeRepository;
+import com.juka.graphmap.domain.application.path.PathService;
+import com.juka.graphmap.domain.model.node.Node;
+
+import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Service to check if two nodes are at 2 distance.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+public class NodeDistanceService {
+
+    private final NodeRepository nodeRepository;
+    private final PathService pathService;
+
+    /**
+     * Constructor of the NodeDistanceService.
+     *
+     * @param nodeRepository NodeRepository of the graph.
+     * @param pathService    PathService of the graph.
+     */
+    @Inject
+<span class="fc" id="L29">    public NodeDistanceService(NodeRepository nodeRepository, PathService pathService) {</span>
+<span class="fc" id="L30">        this.nodeRepository = nodeRepository;</span>
+<span class="fc" id="L31">        this.pathService = pathService;</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Get all the neighbors of the node at given distance.
+     *
+     * @param node     name of the node.
+     * @param distance distance of the neighbors.
+     * @return all the neighbors of the node at given distance.
+     */
+    public List&lt;Node&gt; getNDistanceNeighbors(String node, int distance) {
+
+//        Stream&lt;Node&gt; stream = nodeRepository.getNode(node).getNeighbors().stream();
+//
+//        for (int i = 0; i &lt; distance - 1; i++) {
+//            stream = stream.map(Node::getNeighbors).flatMap(Collection::stream).distinct();
+//        }
+//
+//        return stream.toList();
+
+<span class="fc" id="L51">        return nodeRepository.getAllNodes().stream()</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                .filter(n -&gt; pathService.getShortestPath(node, n.getName()).getPath().size() - 1 == distance)</span>
+<span class="fc" id="L53">                .collect(Collectors.toList());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

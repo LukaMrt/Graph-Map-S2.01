@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TerminalRoadsView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GraphMap</a> &gt; <a href="index.source.html" class="el_package">com.juka.graphmap.view.roads</a> &gt; <span class="el_source">TerminalRoadsView.java</span></div><h1>TerminalRoadsView.java</h1><pre class="source lang-java linenums">package com.juka.graphmap.view.roads;
+
+import com.juka.graphmap.domain.model.node.Node;
+import com.juka.graphmap.domain.model.path.Path;
+import com.juka.graphmap.domain.model.path.Step;
+import com.juka.graphmap.ui.roads.RoadsView;
+
+import java.util.List;
+
+/**
+ * The roads view with terminal interface.
+ *
+ * @author Luka Maret and Julien Linget
+ * @since 0.1.0
+ */
+<span class="nc" id="L16">public class TerminalRoadsView implements RoadsView {</span>
+
+    @Override
+    public void display(List&lt;Node&gt; nodes, List&lt;String&gt; steps, Path path, String start, String end) {
+
+<span class="nc" id="L21">        System.out.println();</span>
+<span class="nc" id="L22">        System.out.println(&quot;------------------------------------------------------&quot;);</span>
+<span class="nc" id="L23">        System.out.println(&quot;Écran n°7 - Routes&quot;);</span>
+
+<span class="nc" id="L25">        System.out.println(&quot;Liste des neuds :&quot;);</span>
+
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        for (Node node : nodes) {</span>
+<span class="nc" id="L28">            System.out.println(&quot;- &quot; + node.getName());</span>
+<span class="nc" id="L29">        }</span>
+
+
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (path != null) {</span>
+<span class="nc" id="L33">            System.out.println();</span>
+<span class="nc" id="L34">            StringBuilder strSteps = new StringBuilder(steps.get(0));</span>
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            for (int i = 1; i &lt; steps.size() - 1; i++) {</span>
+<span class="nc" id="L37">                strSteps.append(&quot;, &quot;)</span>
+<span class="nc" id="L38">                        .append(steps.get(i));</span>
+            }
+
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            if (steps.size() &gt; 1) {</span>
+<span class="nc" id="L42">                strSteps.append(&quot; et &quot;)</span>
+<span class="nc" id="L43">                        .append(steps.get(steps.size() - 1));</span>
+            }
+
+<span class="nc" id="L46">            System.out.println(&quot;Chemin le plus court passant par les étapes &quot; + strSteps + &quot;  (&quot; + path.getDistance() + &quot; km) :&quot;);</span>
+
+<span class="nc" id="L48">            System.out.println(&quot;=&gt; &quot; + path.getPath().get(0).getDestination().getName());</span>
+
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            for (Step step : path.getPath().subList(1, path.getPath().size())) {</span>
+<span class="nc" id="L51">                System.out.println(&quot;=&gt; &quot; + step.getDestination().getName() + &quot;, via &quot; + step.getOriginLink().getRoadNameWithIndex() + &quot; (&quot; + step.getOriginLink().getDistance() + &quot; km)&quot;);</span>
+<span class="nc" id="L52">            }</span>
+
+        }
+
+<span class="nc" id="L56">        System.out.println();</span>
+<span class="nc" id="L57">        System.out.println(&quot;Que souhaitez-vous faire ?&quot;);</span>
+<span class="nc" id="L58">        System.out.println(&quot;0 - Quitter&quot;);</span>
+<span class="nc" id="L59">        System.out.println(&quot;1 - Choisir les étapes&quot;);</span>
+<span class="nc" id="L60">        System.out.println(&quot;2 - Retour&quot;);</span>
+<span class="nc" id="L61">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
