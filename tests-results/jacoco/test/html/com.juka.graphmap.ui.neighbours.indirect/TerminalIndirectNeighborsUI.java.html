@@ -68,36 +68,42 @@ public class TerminalIndirectNeighborsUI implements IndirectNeighborsUI {
         }
 
 <span class="nc bnc" id="L70" title="All 3 branches missed.">        switch (choice) {</span>
-<span class="nc" id="L71">            case '0' -&gt; graphUI.interact();</span>
-<span class="nc" id="L72">            case '1' -&gt; this.interact(chooseLocation().getName(), chooseDistance());</span>
-<span class="nc" id="L73">            default -&gt; homeUI.interact();</span>
+            case '0':
+<span class="nc" id="L72">                graphUI.interact();</span>
+<span class="nc" id="L73">                break;</span>
+            case '1':
+<span class="nc" id="L75">                this.interact(chooseLocation().getName(), chooseDistance());</span>
+<span class="nc" id="L76">                break;</span>
+            default:
+<span class="nc" id="L78">                homeUI.interact();</span>
+                break;
         }
 
-<span class="nc" id="L76">    }</span>
+<span class="nc" id="L82">    }</span>
 
     private int chooseDistance() {
 
-<span class="nc" id="L80">        System.out.println();</span>
+<span class="nc" id="L86">        System.out.println();</span>
         String entry;
 
         do {
-<span class="nc" id="L84">            System.out.println(&quot;Entrez la distance :&quot;);</span>
-<span class="nc" id="L85">            entry = SCANNER.nextLine();</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        } while (!&quot;1 2 3 4 5 6 7 8 9 10&quot;.contains(entry));</span>
+<span class="nc" id="L90">            System.out.println(&quot;Entrez la distance :&quot;);</span>
+<span class="nc" id="L91">            entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        } while (!&quot;1 2 3 4 5 6 7 8 9 10&quot;.contains(entry));</span>
 
-<span class="nc" id="L88">        return Integer.parseInt(entry);</span>
+<span class="nc" id="L94">        return Integer.parseInt(entry);</span>
     }
 
     private Node chooseLocation() {
 
-<span class="nc" id="L93">        System.out.println();</span>
+<span class="nc" id="L99">        System.out.println();</span>
         String entry;
         do {
-<span class="nc" id="L96">            System.out.println(&quot;Entrez le noeud à étudier :&quot;);</span>
-<span class="nc" id="L97">            entry = SCANNER.nextLine();</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
+<span class="nc" id="L102">            System.out.println(&quot;Entrez le noeud à étudier :&quot;);</span>
+<span class="nc" id="L103">            entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
 
-<span class="nc" id="L100">        return nodeService.getNode(entry);</span>
+<span class="nc" id="L106">        return nodeService.getNode(entry);</span>
     }
 
 }

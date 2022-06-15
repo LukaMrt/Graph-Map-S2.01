@@ -41,7 +41,7 @@ public class PathService implements RoadsFinderService {
      */
     public void computeFloydWarshall() {
 
-<span class="fc" id="L44">        List&lt;Node&gt; nodes = nodeRepository.getAllNodes().stream().sorted().toList();</span>
+<span class="fc" id="L44">        List&lt;Node&gt; nodes = nodeRepository.getAllNodes().stream().sorted().collect(ArrayList::new, ArrayList::add, ArrayList::addAll);</span>
 
 <span class="fc" id="L46">        FloydWarshallStep[][] steps = new FloydWarshallStep[nodes.size()][nodes.size()];</span>
 
@@ -118,7 +118,7 @@ public class PathService implements RoadsFinderService {
 <span class="fc" id="L118">        Node node = nodeRepository.getNode(originNodeName);</span>
 <span class="fc" id="L119">        Node destination = nodeRepository.getNode(destinationNodeName);</span>
 
-<span class="fc" id="L121">        List&lt;Node&gt; nodes = nodeRepository.getAllNodes().stream().sorted().toList();</span>
+<span class="fc" id="L121">        List&lt;Node&gt; nodes = nodeRepository.getAllNodes().stream().sorted().collect(ArrayList::new, ArrayList::add, ArrayList::addAll);</span>
 
 <span class="fc" id="L123">        FloydWarshallStep[] distances = distanceRepository.getDistances(nodes.indexOf(node));</span>
 

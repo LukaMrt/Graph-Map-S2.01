@@ -15,7 +15,9 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.ComboBoxBuilder.aComboBox;
@@ -31,7 +33,7 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingRoadsView extends SwingView implements RoadsView {
 
-<span class="nc" id="L34">    private static boolean firstTime = true;</span>
+<span class="nc" id="L36">    private static boolean firstTime = true;</span>
 
     private final HomeUI homeUI;
     private final RoadsUI roadsUI;
@@ -50,24 +52,24 @@ public class SwingRoadsView extends SwingView implements RoadsView {
      */
     @Inject
     public SwingRoadsView(GraphMapJFrame frame, HomeUI homeUI, RoadsUI roadsUI) {
-<span class="nc" id="L53">        super(frame);</span>
-<span class="nc" id="L54">        this.homeUI = homeUI;</span>
-<span class="nc" id="L55">        this.roadsUI = roadsUI;</span>
-<span class="nc" id="L56">    }</span>
+<span class="nc" id="L55">        super(frame);</span>
+<span class="nc" id="L56">        this.homeUI = homeUI;</span>
+<span class="nc" id="L57">        this.roadsUI = roadsUI;</span>
+<span class="nc" id="L58">    }</span>
 
     @Override
     public void display(List&lt;Node&gt; nodes, List&lt;String&gt; steps, Path path, String start, String end) {
-<span class="nc" id="L60">        this.nodes = nodes.stream().map(Node::getName).toList();</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">        this.steps = steps != null ? new ArrayList&lt;&gt;(steps) : new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">        this.path = path != null ? path : new Path(new ArrayList&lt;&gt;(), 0d);</span>
-<span class="nc" id="L63">        this.start = start;</span>
-<span class="nc" id="L64">        this.end = end;</span>
-<span class="nc" id="L65">        super.display(nodes);</span>
-<span class="nc" id="L66">    }</span>
+<span class="nc" id="L62">        this.nodes = nodes.stream().map(Node::getName).collect(Collectors.toList());</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        this.steps = steps != null ? new ArrayList&lt;&gt;(steps) : new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        this.path = path != null ? path : new Path(new ArrayList&lt;&gt;(), 0d);</span>
+<span class="nc" id="L65">        this.start = start;</span>
+<span class="nc" id="L66">        this.end = end;</span>
+<span class="nc" id="L67">        super.display(nodes);</span>
+<span class="nc" id="L68">    }</span>
 
     @Override
     protected String getHelp() {
-<span class="nc" id="L70">        return &quot;Cet écran permet de déterminer un chemin entre 2 lieux et passant par &quot; +</span>
+<span class="nc" id="L72">        return &quot;Cet écran permet de déterminer un chemin entre 2 lieux et passant par &quot; +</span>
                 &quot;des étapes intermédiaires données. Vous pouvez sélectionner les extrémités du &quot; +
                 &quot;chemin et les étapes intermédiaires à gauche puis afficher le chemin (Ctrl ou Cmd &quot; +
                 &quot;clic pour choisir plusieurs étapes dans la liste).\n\n&quot; +
@@ -79,148 +81,151 @@ public class SwingRoadsView extends SwingView implements RoadsView {
 
     @Override
     protected Title getTitle() {
-<span class="nc" id="L82">        return new Title(&quot;Routes&quot;, 7);</span>
+<span class="nc" id="L84">        return new Title(&quot;Routes&quot;, 7);</span>
     }
 
     @Override
     protected List&lt;JButton&gt; getButtons() {
-<span class="nc" id="L87">        return List.of(aButton().withText(&quot;Retour&quot;)</span>
-<span class="nc" id="L88">                .withSize(200, 50)</span>
-<span class="nc" id="L89">                .isYCentered()</span>
-<span class="nc" id="L90">                .withAction(e -&gt; homeUI.interact())</span>
-<span class="nc" id="L91">                .build()</span>
-        );
+<span class="nc" id="L89">        return new ArrayList&lt;&gt;(Collections.singleton(aButton().withText(&quot;Retour&quot;)</span>
+<span class="nc" id="L90">                .withSize(200, 50)</span>
+<span class="nc" id="L91">                .isYCentered()</span>
+<span class="nc" id="L92">                .withAction(e -&gt; homeUI.interact())</span>
+<span class="nc" id="L93">                .build()));</span>
     }
 
     @Override
     protected JPanel buildLeftPanel() {
 
-<span class="nc" id="L98">        ComboBoxBuilder startBuilder = aComboBox()</span>
-<span class="nc" id="L99">                .withData(this.nodes)</span>
-<span class="nc" id="L100">                .withSize(200, 40)</span>
-<span class="nc" id="L101">                .withSelectedValue(start)</span>
-<span class="nc" id="L102">                .isXCentered();</span>
+<span class="nc" id="L99">        ComboBoxBuilder startBuilder = aComboBox()</span>
+<span class="nc" id="L100">                .withData(this.nodes)</span>
+<span class="nc" id="L101">                .withSize(200, 40)</span>
+<span class="nc" id="L102">                .withSelectedValue(start)</span>
+<span class="nc" id="L103">                .isXCentered();</span>
 
-<span class="nc" id="L104">        ScrollPaneBuilder stepsBuilder = anHorizontalList()</span>
-<span class="nc" id="L105">                .withData(this.nodes)</span>
-<span class="nc" id="L106">                .withSize(200, 200)</span>
-<span class="nc" id="L107">                .withMultipleSelection()</span>
-<span class="nc" id="L108">                .withSelectedValues(steps)</span>
-<span class="nc" id="L109">                .isYCentered()</span>
-<span class="nc" id="L110">                .alwaysScrollVertical()</span>
-<span class="nc" id="L111">                .neverScrollHorizontal();</span>
+<span class="nc" id="L105">        ScrollPaneBuilder stepsBuilder = anHorizontalList()</span>
+<span class="nc" id="L106">                .withData(this.nodes)</span>
+<span class="nc" id="L107">                .withSize(200, 200)</span>
+<span class="nc" id="L108">                .withMultipleSelection()</span>
+<span class="nc" id="L109">                .withSelectedValues(steps)</span>
+<span class="nc" id="L110">                .isYCentered()</span>
+<span class="nc" id="L111">                .alwaysScrollVertical()</span>
+<span class="nc" id="L112">                .neverScrollHorizontal();</span>
 
-<span class="nc" id="L113">        ComboBoxBuilder endBuilder = aComboBox()</span>
-<span class="nc" id="L114">                .withData(this.nodes)</span>
-<span class="nc" id="L115">                .withSize(200, 40)</span>
-<span class="nc" id="L116">                .withSelectedValue(end)</span>
-<span class="nc" id="L117">                .isXCentered();</span>
+<span class="nc" id="L114">        ComboBoxBuilder endBuilder = aComboBox()</span>
+<span class="nc" id="L115">                .withData(this.nodes)</span>
+<span class="nc" id="L116">                .withSize(200, 40)</span>
+<span class="nc" id="L117">                .withSelectedValue(end)</span>
+<span class="nc" id="L118">                .isXCentered();</span>
 
-<span class="nc" id="L119">        JButton button = aButton()</span>
-<span class="nc" id="L120">                .withText(&quot;Analyser&quot;)</span>
-<span class="nc" id="L121">                .withSize(100, 40)</span>
-<span class="nc" id="L122">                .isXCentered()</span>
-<span class="nc" id="L123">                .withAction(e -&gt; roadsUI.interact(startBuilder.getSelectedValue(), stepsBuilder.getSelectedValues(), endBuilder.getSelectedValue()))</span>
-<span class="nc" id="L124">                .build();</span>
+<span class="nc" id="L120">        JButton button = aButton()</span>
+<span class="nc" id="L121">                .withText(&quot;Analyser&quot;)</span>
+<span class="nc" id="L122">                .withSize(100, 40)</span>
+<span class="nc" id="L123">                .isXCentered()</span>
+<span class="nc" id="L124">                .withAction(e -&gt; roadsUI.interact(startBuilder.getSelectedValue(), stepsBuilder.getSelectedValues(), endBuilder.getSelectedValue()))</span>
+<span class="nc" id="L125">                .build();</span>
 
-<span class="nc" id="L126">        return aPanel()</span>
-<span class="nc" id="L127">                .withYBoxLayout()</span>
-<span class="nc" id="L128">                .isXCentered()</span>
-<span class="nc" id="L129">                .addRigidArea(0, 10)</span>
-<span class="nc" id="L130">                .add(aLabel().withText(&quot;Départ : &quot;).isXCentered().isTitle().build())</span>
-<span class="nc" id="L131">                .addRigidArea(0, 5)</span>
-<span class="nc" id="L132">                .add(startBuilder.build())</span>
-<span class="nc" id="L133">                .addVerticalGlue()</span>
-<span class="nc" id="L134">                .add(aLabel().withText(&quot;Étapes : &quot;).isXCentered().isTitle().build())</span>
-<span class="nc" id="L135">                .addRigidArea(0, 5)</span>
-<span class="nc" id="L136">                .add(stepsBuilder.build())</span>
-<span class="nc" id="L137">                .addVerticalGlue()</span>
-<span class="nc" id="L138">                .add(aLabel().withText(&quot;Arrivée : &quot;).isXCentered().isTitle().build())</span>
-<span class="nc" id="L139">                .addRigidArea(0, 5)</span>
-<span class="nc" id="L140">                .add(endBuilder.build())</span>
-<span class="nc" id="L141">                .addVerticalGlue()</span>
-<span class="nc" id="L142">                .add(button)</span>
-<span class="nc" id="L143">                .addVerticalGlue()</span>
-<span class="nc" id="L144">                .build();</span>
+<span class="nc" id="L127">        return aPanel()</span>
+<span class="nc" id="L128">                .withYBoxLayout()</span>
+<span class="nc" id="L129">                .isXCentered()</span>
+<span class="nc" id="L130">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L131">                .add(aLabel().withText(&quot;Départ : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L132">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L133">                .add(startBuilder.build())</span>
+<span class="nc" id="L134">                .addVerticalGlue()</span>
+<span class="nc" id="L135">                .add(aLabel().withText(&quot;Étapes : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L136">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L137">                .add(stepsBuilder.build())</span>
+<span class="nc" id="L138">                .addVerticalGlue()</span>
+<span class="nc" id="L139">                .add(aLabel().withText(&quot;Arrivée : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L140">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L141">                .add(endBuilder.build())</span>
+<span class="nc" id="L142">                .addVerticalGlue()</span>
+<span class="nc" id="L143">                .add(button)</span>
+<span class="nc" id="L144">                .addVerticalGlue()</span>
+<span class="nc" id="L145">                .build();</span>
     }
 
     @Override
     protected JPanel buildRightPanel() {
 
-<span class="nc" id="L150">        List&lt;String&gt; steps = path.getPath().stream()</span>
-<span class="nc" id="L151">                .map(step -&gt; {</span>
-<span class="nc" id="L152">                    Link originLink = step.getOriginLink();</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">                    String link = &quot;      &quot; + (originLink != null ? &quot;via &quot; + originLink.getRoadNameWithIndex() + &quot; (&quot; + originLink.getDistance() + &quot; km)&quot; : &quot;&quot;);</span>
+<span class="nc" id="L151">        List&lt;String&gt; steps = path.getPath().stream()</span>
+<span class="nc" id="L152">                .map(step -&gt; {</span>
+<span class="nc" id="L153">                    Link originLink = step.getOriginLink();</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">                    String link = &quot;      &quot; + (originLink != null ? &quot;via &quot; + originLink.getRoadNameWithIndex() + &quot; (&quot; + originLink.getDistance() + &quot; km)&quot; : &quot;&quot;);</span>
 
-<span class="nc" id="L155">                    List&lt;String&gt; list = new ArrayList&lt;&gt;(List.of(&quot;=&gt; &quot; + step.getDestination().getName()));</span>
+<span class="nc" id="L156">                    List&lt;String&gt; list = new ArrayList&lt;&gt;(Collections.singleton(&quot;=&gt; &quot; + step.getDestination().getName()));</span>
 
-<span class="nc bnc" id="L157" title="All 2 branches missed.">                    if (!link.isBlank()) {</span>
-<span class="nc" id="L158">                        list.add(link);</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                    if (!isBlank(link)) {</span>
+<span class="nc" id="L159">                        list.add(link);</span>
                     }
 
-<span class="nc" id="L161">                    list.add(&quot;&quot;);</span>
-<span class="nc" id="L162">                    return list;</span>
+<span class="nc" id="L162">                    list.add(&quot;&quot;);</span>
+<span class="nc" id="L163">                    return list;</span>
                 })
-<span class="nc" id="L164">                .flatMap(List::stream)</span>
-<span class="nc" id="L165">                .toList();</span>
+<span class="nc" id="L165">                .flatMap(List::stream)</span>
+<span class="nc" id="L166">                .collect(Collectors.toList());</span>
 
-<span class="nc" id="L167">        return aPanel()</span>
-<span class="nc" id="L168">                .withYBoxLayout()</span>
-<span class="nc" id="L169">                .isXCentered()</span>
-<span class="nc" id="L170">                .addRigidArea(0, 10)</span>
-<span class="nc" id="L171">                .add(aLabel().withText(&quot;Résultat : &quot;).isXCentered().isTitle().build())</span>
-<span class="nc" id="L172">                .add(aLabel().withText(&quot;Distance : &quot; + path.getDistance() + &quot; km&quot;).isText().isXCentered().build())</span>
-<span class="nc" id="L173">                .add(aLabel().withText(&quot;Étapes : &quot;).isText().isXCentered().build())</span>
-<span class="nc" id="L174">                .addRigidArea(0, 7)</span>
-<span class="nc" id="L175">                .add(anHorizontalList()</span>
-<span class="nc" id="L176">                        .withData(steps)</span>
-<span class="nc" id="L177">                        .withSize(250, 400)</span>
-<span class="nc" id="L178">                        .withSingleSelection()</span>
-<span class="nc" id="L179">                        .isYCentered()</span>
-<span class="nc" id="L180">                        .alwaysScrollVertical()</span>
-<span class="nc" id="L181">                        .alwaysScrollHorizontal()</span>
-<span class="nc" id="L182">                        .build())</span>
-<span class="nc" id="L183">                .addVerticalGlue()</span>
-<span class="nc" id="L184">                .build();</span>
+<span class="nc" id="L168">        return aPanel()</span>
+<span class="nc" id="L169">                .withYBoxLayout()</span>
+<span class="nc" id="L170">                .isXCentered()</span>
+<span class="nc" id="L171">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L172">                .add(aLabel().withText(&quot;Résultat : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L173">                .add(aLabel().withText(&quot;Distance : &quot; + path.getDistance() + &quot; km&quot;).isText().isXCentered().build())</span>
+<span class="nc" id="L174">                .add(aLabel().withText(&quot;Étapes : &quot;).isText().isXCentered().build())</span>
+<span class="nc" id="L175">                .addRigidArea(0, 7)</span>
+<span class="nc" id="L176">                .add(anHorizontalList()</span>
+<span class="nc" id="L177">                        .withData(steps)</span>
+<span class="nc" id="L178">                        .withSize(250, 400)</span>
+<span class="nc" id="L179">                        .withSingleSelection()</span>
+<span class="nc" id="L180">                        .isYCentered()</span>
+<span class="nc" id="L181">                        .alwaysScrollVertical()</span>
+<span class="nc" id="L182">                        .alwaysScrollHorizontal()</span>
+<span class="nc" id="L183">                        .build())</span>
+<span class="nc" id="L184">                .addVerticalGlue()</span>
+<span class="nc" id="L185">                .build();</span>
+    }
+
+    private boolean isBlank(String s) {
+<span class="nc" id="L189">        return s.trim().isEmpty();</span>
     }
 
     @Override
     public void leftClick(Node node, Link link) {
 
-<span class="nc bnc" id="L190" title="All 2 branches missed.">        String newNode = node != null ? node.getName() : start;</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">        String newNode = node != null ? node.getName() : start;</span>
 
-<span class="nc" id="L192">        roadsUI.interact(newNode, steps, end);</span>
-<span class="nc" id="L193">    }</span>
+<span class="nc" id="L197">        roadsUI.interact(newNode, steps, end);</span>
+<span class="nc" id="L198">    }</span>
 
     @Override
     public void rightClick(Node node, Link link) {
 
-<span class="nc bnc" id="L198" title="All 2 branches missed.">        String newNode = node != null ? node.getName() : end;</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        String newNode = node != null ? node.getName() : end;</span>
 
-<span class="nc" id="L200">        roadsUI.interact(start, steps, newNode);</span>
-<span class="nc" id="L201">    }</span>
+<span class="nc" id="L205">        roadsUI.interact(start, steps, newNode);</span>
+<span class="nc" id="L206">    }</span>
 
     @Override
     public void shiftClick(Node node, Link link) {
 
-<span class="nc bnc" id="L206" title="All 2 branches missed.">        if (node != null) {</span>
-<span class="nc bnc" id="L207" title="All 2 branches missed.">            if (steps.contains(node.getName())) {</span>
-<span class="nc" id="L208">                steps.remove(node.getName());</span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">        if (node != null) {</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">            if (steps.contains(node.getName())) {</span>
+<span class="nc" id="L213">                steps.remove(node.getName());</span>
             } else {
-<span class="nc" id="L210">                steps.add(node.getName());</span>
+<span class="nc" id="L215">                steps.add(node.getName());</span>
             }
         }
 
-<span class="nc" id="L214">        roadsUI.interact(start, steps, end);</span>
-<span class="nc" id="L215">    }</span>
+<span class="nc" id="L219">        roadsUI.interact(start, steps, end);</span>
+<span class="nc" id="L220">    }</span>
 
     @Override
     protected boolean isFirstTime() {
-<span class="nc bnc" id="L219" title="All 2 branches missed.">        if (firstTime) {</span>
-<span class="nc" id="L220">            firstTime = false;</span>
-<span class="nc" id="L221">            return true;</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">        if (firstTime) {</span>
+<span class="nc" id="L225">            firstTime = false;</span>
+<span class="nc" id="L226">            return true;</span>
         }
-<span class="nc" id="L223">        return false;</span>
+<span class="nc" id="L228">        return false;</span>
     }
 
 }

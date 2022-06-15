@@ -42,12 +42,16 @@
      * @return the corresponding link type, or null if the string is not recognized
      */
     public static LinkType of(String type) {
-<span class="nc bnc" id="L45" title="All 4 branches missed.">        return switch (type) {</span>
-<span class="nc" id="L46">            case &quot;A&quot; -&gt; LinkType.HIGHWAY;</span>
-<span class="nc" id="L47">            case &quot;D&quot; -&gt; LinkType.DEPARTMENTAL;</span>
-<span class="nc" id="L48">            case &quot;N&quot; -&gt; LinkType.NATIONAL;</span>
-<span class="nc" id="L49">            default -&gt; null;</span>
-        };
+<span class="nc bnc" id="L45" title="All 4 branches missed.">        switch (type) {</span>
+            case &quot;A&quot;:
+<span class="nc" id="L47">                return LinkType.HIGHWAY;</span>
+            case &quot;D&quot;:
+<span class="nc" id="L49">                return LinkType.DEPARTMENTAL;</span>
+            case &quot;N&quot;:
+<span class="nc" id="L51">                return LinkType.NATIONAL;</span>
+            default:
+<span class="nc" id="L53">                return null;</span>
+        }
     }
 
     /**
@@ -57,7 +61,7 @@
      */
     @Override
     public String toString() {
-<span class="fc" id="L60">        return type;</span>
+<span class="fc" id="L64">        return type;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

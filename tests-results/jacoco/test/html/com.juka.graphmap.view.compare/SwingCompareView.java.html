@@ -14,7 +14,10 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.inject.Inject;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.LabelBuilder.aLabel;
@@ -29,7 +32,7 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingCompareView extends SwingView implements CompareView {
 
-<span class="nc" id="L32">    private static boolean firstTime = true;</span>
+<span class="nc" id="L35">    private static boolean firstTime = true;</span>
 
     private final GraphUI graphUI;
     private final CompareUI compareUI;
@@ -47,23 +50,23 @@ public class SwingCompareView extends SwingView implements CompareView {
      */
     @Inject
     public SwingCompareView(GraphMapJFrame frame, GraphUI graphUI, CompareUI compareUI) {
-<span class="nc" id="L50">        super(frame);</span>
-<span class="nc" id="L51">        this.graphUI = graphUI;</span>
-<span class="nc" id="L52">        this.compareUI = compareUI;</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L53">        super(frame);</span>
+<span class="nc" id="L54">        this.graphUI = graphUI;</span>
+<span class="nc" id="L55">        this.compareUI = compareUI;</span>
+<span class="nc" id="L56">    }</span>
 
     @Override
     public void display(List&lt;Node&gt; nodes, List&lt;String&gt; cities, List&lt;Comparaison&gt; result, String city1, String city2) {
-<span class="nc" id="L57">        this.cities = cities;</span>
-<span class="nc" id="L58">        this.result = result;</span>
-<span class="nc" id="L59">        super.display(nodes);</span>
-<span class="nc" id="L60">        this.city1 = city1;</span>
-<span class="nc" id="L61">        this.city2 = city2;</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L60">        this.cities = cities;</span>
+<span class="nc" id="L61">        this.result = result;</span>
+<span class="nc" id="L62">        super.display(nodes);</span>
+<span class="nc" id="L63">        this.city1 = city1;</span>
+<span class="nc" id="L64">        this.city2 = city2;</span>
+<span class="nc" id="L65">    }</span>
 
     @Override
     protected String getHelp() {
-<span class="nc" id="L66">        return &quot;Cet écran propose de comparer 2 villes (et uniquement des villes) selon &quot; +</span>
+<span class="nc" id="L69">        return &quot;Cet écran propose de comparer 2 villes (et uniquement des villes) selon &quot; +</span>
                 &quot;les lieux présents autour d'elles. Si une villes a plus d'autres villes à &quot; +
                 &quot;2 distances d'elle que l'autre, alors elle est plus ouverte, si elle a plus &quot; +
                 &quot;de restaurants elle est plus gastronomique et si elle a plus de lieux de loisirs &quot; +
@@ -76,127 +79,127 @@ public class SwingCompareView extends SwingView implements CompareView {
 
     @Override
     protected Title getTitle() {
-<span class="nc" id="L79">        return new Title(&quot;Comparaison&quot;, 5);</span>
+<span class="nc" id="L82">        return new Title(&quot;Comparaison&quot;, 5);</span>
     }
 
     @Override
     protected List&lt;JButton&gt; getButtons() {
-<span class="nc" id="L84">        return List.of(aButton()</span>
-<span class="nc" id="L85">                .withText(&quot;Retour&quot;)</span>
-<span class="nc" id="L86">                .withSize(200, 50)</span>
-<span class="nc" id="L87">                .isYCentered()</span>
-<span class="nc" id="L88">                .withAction(e -&gt; graphUI.interact())</span>
-<span class="nc" id="L89">                .build());</span>
+<span class="nc" id="L87">        return new ArrayList&lt;&gt;(Collections.singleton(aButton()</span>
+<span class="nc" id="L88">                .withText(&quot;Retour&quot;)</span>
+<span class="nc" id="L89">                .withSize(200, 50)</span>
+<span class="nc" id="L90">                .isYCentered()</span>
+<span class="nc" id="L91">                .withAction(e -&gt; graphUI.interact())</span>
+<span class="nc" id="L92">                .build()));</span>
     }
 
     @Override
     protected JPanel buildLeftPanel() {
 
-<span class="nc" id="L95">        String city1 = result.stream()</span>
-<span class="nc" id="L96">                .findFirst()</span>
-<span class="nc" id="L97">                .map(comparaison -&gt; comparaison.best)</span>
-<span class="nc" id="L98">                .orElse(&quot;&quot;);</span>
+<span class="nc" id="L98">        String city1 = result.stream()</span>
+<span class="nc" id="L99">                .findFirst()</span>
+<span class="nc" id="L100">                .map(comparaison -&gt; comparaison.best)</span>
+<span class="nc" id="L101">                .orElse(&quot;&quot;);</span>
 
-<span class="nc" id="L100">        String city2 = result.stream()</span>
-<span class="nc" id="L101">                .findFirst()</span>
-<span class="nc" id="L102">                .map(comparaison -&gt; comparaison.worst)</span>
-<span class="nc" id="L103">                .orElse(&quot;&quot;);</span>
+<span class="nc" id="L103">        String city2 = result.stream()</span>
+<span class="nc" id="L104">                .findFirst()</span>
+<span class="nc" id="L105">                .map(comparaison -&gt; comparaison.worst)</span>
+<span class="nc" id="L106">                .orElse(&quot;&quot;);</span>
 
-<span class="nc" id="L105">        ScrollPaneBuilder builder1 = anHorizontalList()</span>
-<span class="nc" id="L106">                .withData(this.cities)</span>
-<span class="nc" id="L107">                .withSize(200, 200)</span>
-<span class="nc" id="L108">                .withSingleSelection()</span>
-<span class="nc" id="L109">                .withSelectedValue(city1)</span>
-<span class="nc" id="L110">                .isYCentered()</span>
-<span class="nc" id="L111">                .alwaysScrollVertical()</span>
-<span class="nc" id="L112">                .neverScrollHorizontal();</span>
+<span class="nc" id="L108">        ScrollPaneBuilder builder1 = anHorizontalList()</span>
+<span class="nc" id="L109">                .withData(this.cities)</span>
+<span class="nc" id="L110">                .withSize(200, 200)</span>
+<span class="nc" id="L111">                .withSingleSelection()</span>
+<span class="nc" id="L112">                .withSelectedValue(city1)</span>
+<span class="nc" id="L113">                .isYCentered()</span>
+<span class="nc" id="L114">                .alwaysScrollVertical()</span>
+<span class="nc" id="L115">                .neverScrollHorizontal();</span>
 
-<span class="nc" id="L114">        JScrollPane nodeList1 = builder1</span>
-<span class="nc" id="L115">                .build();</span>
+<span class="nc" id="L117">        JScrollPane nodeList1 = builder1</span>
+<span class="nc" id="L118">                .build();</span>
 
-<span class="nc" id="L117">        ScrollPaneBuilder builder2 = anHorizontalList()</span>
-<span class="nc" id="L118">                .withData(this.cities)</span>
-<span class="nc" id="L119">                .withSize(200, 200)</span>
-<span class="nc" id="L120">                .withSingleSelection()</span>
-<span class="nc" id="L121">                .withSelectedValue(city2)</span>
-<span class="nc" id="L122">                .isYCentered()</span>
-<span class="nc" id="L123">                .alwaysScrollVertical()</span>
-<span class="nc" id="L124">                .neverScrollHorizontal();</span>
+<span class="nc" id="L120">        ScrollPaneBuilder builder2 = anHorizontalList()</span>
+<span class="nc" id="L121">                .withData(this.cities)</span>
+<span class="nc" id="L122">                .withSize(200, 200)</span>
+<span class="nc" id="L123">                .withSingleSelection()</span>
+<span class="nc" id="L124">                .withSelectedValue(city2)</span>
+<span class="nc" id="L125">                .isYCentered()</span>
+<span class="nc" id="L126">                .alwaysScrollVertical()</span>
+<span class="nc" id="L127">                .neverScrollHorizontal();</span>
 
-<span class="nc" id="L126">        JScrollPane nodeList2 = builder2</span>
-<span class="nc" id="L127">                .build();</span>
+<span class="nc" id="L129">        JScrollPane nodeList2 = builder2</span>
+<span class="nc" id="L130">                .build();</span>
 
-<span class="nc" id="L129">        JButton button = aButton()</span>
-<span class="nc" id="L130">                .withText(&quot;Analyser&quot;)</span>
-<span class="nc" id="L131">                .withSize(100, 40)</span>
-<span class="nc" id="L132">                .isXCentered()</span>
-<span class="nc" id="L133">                .withAction(e -&gt; compareUI.interact(builder1.getSelectedValue(), builder2.getSelectedValue()))</span>
-<span class="nc" id="L134">                .build();</span>
+<span class="nc" id="L132">        JButton button = aButton()</span>
+<span class="nc" id="L133">                .withText(&quot;Analyser&quot;)</span>
+<span class="nc" id="L134">                .withSize(100, 40)</span>
+<span class="nc" id="L135">                .isXCentered()</span>
+<span class="nc" id="L136">                .withAction(e -&gt; compareUI.interact(builder1.getSelectedValue(), builder2.getSelectedValue()))</span>
+<span class="nc" id="L137">                .build();</span>
 
-<span class="nc" id="L136">        return aPanel()</span>
-<span class="nc" id="L137">                .withYBoxLayout()</span>
-<span class="nc" id="L138">                .isXCentered()</span>
-<span class="nc" id="L139">                .addRigidArea(0, 10)</span>
-<span class="nc" id="L140">                .add(aLabel().withText(&quot;Première ville : &quot;).isXCentered().isTitle().build())</span>
-<span class="nc" id="L141">                .addRigidArea(0, 5)</span>
-<span class="nc" id="L142">                .add(nodeList1)</span>
-<span class="nc" id="L143">                .addVerticalGlue()</span>
-<span class="nc" id="L144">                .add(aLabel().withText(&quot;Seconde ville : &quot;).isXCentered().isTitle().build())</span>
-<span class="nc" id="L145">                .addRigidArea(0, 5)</span>
-<span class="nc" id="L146">                .add(nodeList2)</span>
-<span class="nc" id="L147">                .addVerticalGlue()</span>
-<span class="nc" id="L148">                .add(button)</span>
-<span class="nc" id="L149">                .addVerticalGlue()</span>
-<span class="nc" id="L150">                .build();</span>
+<span class="nc" id="L139">        return aPanel()</span>
+<span class="nc" id="L140">                .withYBoxLayout()</span>
+<span class="nc" id="L141">                .isXCentered()</span>
+<span class="nc" id="L142">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L143">                .add(aLabel().withText(&quot;Première ville : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L144">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L145">                .add(nodeList1)</span>
+<span class="nc" id="L146">                .addVerticalGlue()</span>
+<span class="nc" id="L147">                .add(aLabel().withText(&quot;Seconde ville : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L148">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L149">                .add(nodeList2)</span>
+<span class="nc" id="L150">                .addVerticalGlue()</span>
+<span class="nc" id="L151">                .add(button)</span>
+<span class="nc" id="L152">                .addVerticalGlue()</span>
+<span class="nc" id="L153">                .build();</span>
     }
 
     @Override
     protected JPanel buildRightPanel() {
 
-<span class="nc" id="L156">        List&lt;JLabel&gt; comparaisons = result.stream()</span>
-<span class="nc" id="L157">                .map(comparaison -&gt; aLabel().withText(comparaison.toShortString()).isText().isXCentered().build())</span>
-<span class="nc" id="L158">                .toList();</span>
+<span class="nc" id="L159">        List&lt;JLabel&gt; comparaisons = result.stream()</span>
+<span class="nc" id="L160">                .map(comparaison -&gt; aLabel().withText(comparaison.toShortString()).isText().isXCentered().build())</span>
+<span class="nc" id="L161">                .collect(Collectors.toList());</span>
 
-<span class="nc" id="L160">        return aPanel()</span>
-<span class="nc" id="L161">                .withYBoxLayout()</span>
-<span class="nc" id="L162">                .addVerticalGlue()</span>
-<span class="nc" id="L163">                .add(aLabel().withText(&quot;Résultat :&quot;).isTitle().isXCentered().build())</span>
-<span class="nc" id="L164">                .addAll(comparaisons)</span>
+<span class="nc" id="L163">        return aPanel()</span>
+<span class="nc" id="L164">                .withYBoxLayout()</span>
 <span class="nc" id="L165">                .addVerticalGlue()</span>
-<span class="nc" id="L166">                .build();</span>
+<span class="nc" id="L166">                .add(aLabel().withText(&quot;Résultat :&quot;).isTitle().isXCentered().build())</span>
+<span class="nc" id="L167">                .addAll(comparaisons)</span>
+<span class="nc" id="L168">                .addVerticalGlue()</span>
+<span class="nc" id="L169">                .build();</span>
     }
 
     @Override
     public void leftClick(Node node, Link link) {
 
-<span class="nc" id="L172">        String newNode = city1;</span>
+<span class="nc" id="L175">        String newNode = city1;</span>
 
-<span class="nc bnc" id="L174" title="All 4 branches missed.">        if ((node != null &amp;&amp; node.getType() == NodeType.CITY)) {</span>
-<span class="nc" id="L175">            newNode = node.getName();</span>
+<span class="nc bnc" id="L177" title="All 4 branches missed.">        if ((node != null &amp;&amp; node.getType() == NodeType.CITY)) {</span>
+<span class="nc" id="L178">            newNode = node.getName();</span>
         }
 
-<span class="nc" id="L178">        compareUI.interact(newNode, city2);</span>
-<span class="nc" id="L179">    }</span>
+<span class="nc" id="L181">        compareUI.interact(newNode, city2);</span>
+<span class="nc" id="L182">    }</span>
 
     @Override
     public void rightClick(Node node, Link link) {
 
-<span class="nc" id="L184">        String newNode = city2;</span>
+<span class="nc" id="L187">        String newNode = city2;</span>
 
-<span class="nc bnc" id="L186" title="All 4 branches missed.">        if ((node != null &amp;&amp; node.getType() == NodeType.CITY)) {</span>
-<span class="nc" id="L187">            newNode = node.getName();</span>
+<span class="nc bnc" id="L189" title="All 4 branches missed.">        if ((node != null &amp;&amp; node.getType() == NodeType.CITY)) {</span>
+<span class="nc" id="L190">            newNode = node.getName();</span>
         }
 
-<span class="nc" id="L190">        compareUI.interact(city1, newNode);</span>
-<span class="nc" id="L191">    }</span>
+<span class="nc" id="L193">        compareUI.interact(city1, newNode);</span>
+<span class="nc" id="L194">    }</span>
 
     @Override
     protected boolean isFirstTime() {
-<span class="nc bnc" id="L195" title="All 2 branches missed.">        if (firstTime) {</span>
-<span class="nc" id="L196">            firstTime = false;</span>
-<span class="nc" id="L197">            return true;</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">        if (firstTime) {</span>
+<span class="nc" id="L199">            firstTime = false;</span>
+<span class="nc" id="L200">            return true;</span>
         }
-<span class="nc" id="L199">        return false;</span>
+<span class="nc" id="L202">        return false;</span>
     }
 
 }

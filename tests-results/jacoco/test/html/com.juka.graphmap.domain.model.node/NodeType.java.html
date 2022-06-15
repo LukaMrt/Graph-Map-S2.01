@@ -39,12 +39,16 @@
      * @return the matching node type, null if no match
      */
     public static NodeType of(String type) {
-<span class="nc bnc" id="L42" title="All 4 branches missed.">        return switch (type) {</span>
-<span class="nc" id="L43">            case &quot;V&quot; -&gt; NodeType.CITY;</span>
-<span class="nc" id="L44">            case &quot;R&quot; -&gt; NodeType.RESTAURANT;</span>
-<span class="nc" id="L45">            case &quot;L&quot; -&gt; NodeType.RECREATION_CENTER;</span>
-<span class="nc" id="L46">            default -&gt; null;</span>
-        };
+<span class="nc bnc" id="L42" title="All 4 branches missed.">        switch (type) {</span>
+            case &quot;V&quot;:
+<span class="nc" id="L44">                return NodeType.CITY;</span>
+            case &quot;R&quot;:
+<span class="nc" id="L46">                return NodeType.RESTAURANT;</span>
+            case &quot;L&quot;:
+<span class="nc" id="L48">                return NodeType.RECREATION_CENTER;</span>
+            default:
+<span class="nc" id="L50">                return null;</span>
+        }
     }
 
     /**
@@ -54,7 +58,7 @@
      */
     @Override
     public String toString() {
-<span class="fc" id="L57">        return type;</span>
+<span class="fc" id="L61">        return type;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

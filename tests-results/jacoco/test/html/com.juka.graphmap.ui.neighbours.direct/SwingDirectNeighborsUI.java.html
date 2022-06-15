@@ -10,6 +10,7 @@ import com.juka.graphmap.domain.model.node.NodeCharacteristics;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Swing implementation for the DirectNeighborsUI.
@@ -30,40 +31,40 @@ public class SwingDirectNeighborsUI implements DirectNeighborsUI {
      * @param view         The view
      */
     @Inject
-<span class="nc" id="L33">    public SwingDirectNeighborsUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighborsView view) {</span>
-<span class="nc" id="L34">        this.graphService = graphService;</span>
-<span class="nc" id="L35">        this.nodeService = nodeService;</span>
-<span class="nc" id="L36">        this.linkService = linkService;</span>
-<span class="nc" id="L37">        this.view = view;</span>
-<span class="nc" id="L38">    }</span>
+<span class="nc" id="L34">    public SwingDirectNeighborsUI(GraphService graphService, NodeService nodeService, LinkService linkService, DirectNeighborsView view) {</span>
+<span class="nc" id="L35">        this.graphService = graphService;</span>
+<span class="nc" id="L36">        this.nodeService = nodeService;</span>
+<span class="nc" id="L37">        this.linkService = linkService;</span>
+<span class="nc" id="L38">        this.view = view;</span>
+<span class="nc" id="L39">    }</span>
 
     @Override
     public void interact(String node, String link) {
 
-<span class="nc" id="L43">        NodeCharacteristics nodeCharacteristics = NodeCharacteristics.empty();</span>
+<span class="nc" id="L44">        NodeCharacteristics nodeCharacteristics = NodeCharacteristics.empty();</span>
 
-<span class="nc bnc" id="L45" title="All 4 branches missed.">        if (node != null &amp;&amp; !node.isEmpty()) {</span>
-<span class="nc" id="L46">            nodeCharacteristics = nodeService.getNodeCharacteristics(node);</span>
-<span class="nc" id="L47">            nodeService.unselectAll();</span>
-<span class="nc" id="L48">            nodeService.select(node, Flag.MAIN);</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">        if (node != null &amp;&amp; !node.isEmpty()) {</span>
+<span class="nc" id="L47">            nodeCharacteristics = nodeService.getNodeCharacteristics(node);</span>
+<span class="nc" id="L48">            nodeService.unselectAll();</span>
+<span class="nc" id="L49">            nodeService.select(node, Flag.MAIN);</span>
         }
 
-<span class="nc" id="L51">        LinkCharacteristics linkCharacteristics = LinkCharacteristics.empty();</span>
+<span class="nc" id="L52">        LinkCharacteristics linkCharacteristics = LinkCharacteristics.empty();</span>
 
-<span class="nc bnc" id="L53" title="All 4 branches missed.">        if (link != null &amp;&amp; !link.isEmpty()) {</span>
-<span class="nc" id="L54">            linkCharacteristics = linkService.getLinkCharacteristics(link);</span>
-<span class="nc" id="L55">            linkService.unselectAll();</span>
-<span class="nc" id="L56">            linkService.select(link);</span>
+<span class="nc bnc" id="L54" title="All 4 branches missed.">        if (link != null &amp;&amp; !link.isEmpty()) {</span>
+<span class="nc" id="L55">            linkCharacteristics = linkService.getLinkCharacteristics(link);</span>
+<span class="nc" id="L56">            linkService.unselectAll();</span>
+<span class="nc" id="L57">            linkService.select(link);</span>
         }
 
-<span class="nc" id="L59">        List&lt;String&gt; links = graphService.getAllLinks().stream()</span>
-<span class="nc" id="L60">                .map(Link::getRoadNameWithIndex)</span>
-<span class="nc" id="L61">                .distinct()</span>
-<span class="nc" id="L62">                .toList();</span>
+<span class="nc" id="L60">        List&lt;String&gt; links = graphService.getAllLinks().stream()</span>
+<span class="nc" id="L61">                .map(Link::getRoadNameWithIndex)</span>
+<span class="nc" id="L62">                .distinct()</span>
+<span class="nc" id="L63">                .collect(Collectors.toList());</span>
 
-<span class="nc" id="L64">        view.display(graphService.getAllNodes(), links, nodeCharacteristics, linkCharacteristics);</span>
+<span class="nc" id="L65">        view.display(graphService.getAllNodes(), links, nodeCharacteristics, linkCharacteristics);</span>
 
-<span class="nc" id="L66">    }</span>
+<span class="nc" id="L67">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

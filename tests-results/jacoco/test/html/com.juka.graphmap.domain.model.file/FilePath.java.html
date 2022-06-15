@@ -6,6 +6,27 @@
  * @author Luka Maret and Julien Linget
  * @since 0.1.0
  */
-<span class="nc" id="L9">public record FilePath(String path) {</span>
+public class FilePath {
+
+    private final String path;
+
+    /**
+     * Constructor of the FilePath.
+     *
+     * @param path the path
+     */
+<span class="nc" id="L18">    public FilePath(String path) {</span>
+<span class="nc" id="L19">        this.path = path;</span>
+<span class="nc" id="L20">    }</span>
+
+    /**
+     * Returns the path.
+     *
+     * @return the path
+     */
+    public String path() {
+<span class="nc" id="L28">        return path;</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -3,10 +3,42 @@
 /**
  * Represents a node's coordinate.
  *
- * @param x the abscissa
- * @param y the ordinate
  * @author Julien Linget
  */
-<span class="pc" id="L10">public record Coordinate(int x, int y) {</span>
+public class Coordinate {
+
+    private final int x;
+    private final int y;
+
+    /**
+     * Constructor of the coordinate.
+     *
+     * @param x the abscissa
+     * @param y the ordinate
+     */
+<span class="fc" id="L19">    public Coordinate(int x, int y) {</span>
+<span class="fc" id="L20">        this.x = x;</span>
+<span class="fc" id="L21">        this.y = y;</span>
+<span class="fc" id="L22">    }</span>
+
+    /**
+     * Gets the abscissa.
+     *
+     * @return the abscissa
+     */
+    public int x() {
+<span class="nc" id="L30">        return x;</span>
+    }
+
+    /**
+     * Gets the ordinate.
+     *
+     * @return the ordinate
+     */
+
+    public int y() {
+<span class="nc" id="L40">        return y;</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -7,6 +7,7 @@ import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service to get Link characteristics.
@@ -24,9 +25,9 @@ public class LinkService {
      * @param linkRepository LinkRepository to get Link characteristics.
      */
     @Inject
-<span class="fc" id="L27">    public LinkService(LinkRepository linkRepository) {</span>
-<span class="fc" id="L28">        this.linkRepository = linkRepository;</span>
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L28">    public LinkService(LinkRepository linkRepository) {</span>
+<span class="fc" id="L29">        this.linkRepository = linkRepository;</span>
+<span class="fc" id="L30">    }</span>
 
     /**
      * Get a link with a given name.
@@ -35,7 +36,7 @@ public class LinkService {
      * @return Link with the given name.
      */
     public Link getLink(String name) {
-<span class="fc" id="L38">        return linkRepository.getLink(name);</span>
+<span class="fc" id="L39">        return linkRepository.getLink(name);</span>
     }
 
     /**
@@ -46,26 +47,26 @@ public class LinkService {
      */
     public LinkCharacteristics getLinkCharacteristics(String linkName) {
 
-<span class="fc" id="L49">        List&lt;Node&gt; nodes = linkRepository.getAllLinks().stream()</span>
-<span class="fc" id="L50">                .filter(l -&gt; l.getName().contains(linkName + &quot;.&quot;))</span>
-<span class="fc" id="L51">                .map(Link::getDestination)</span>
-<span class="fc" id="L52">                .sorted()</span>
-<span class="fc" id="L53">                .toList();</span>
+<span class="fc" id="L50">        List&lt;Node&gt; nodes = linkRepository.getAllLinks().stream()</span>
+<span class="fc" id="L51">                .filter(l -&gt; l.getName().contains(linkName + &quot;.&quot;))</span>
+<span class="fc" id="L52">                .map(Link::getDestination)</span>
+<span class="fc" id="L53">                .sorted()</span>
+<span class="fc" id="L54">                .collect(Collectors.toList());</span>
 
-<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (nodes.size() != 2) {</span>
-<span class="fc" id="L56">            return LinkCharacteristics.empty();</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (nodes.size() != 2) {</span>
+<span class="fc" id="L57">            return LinkCharacteristics.empty();</span>
         }
 
-<span class="fc" id="L59">        Link link = getLink(linkName + &quot;.1&quot;);</span>
-<span class="fc" id="L60">        return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType().toString(), link.getDistance());</span>
+<span class="fc" id="L60">        Link link = getLink(linkName + &quot;.1&quot;);</span>
+<span class="fc" id="L61">        return new LinkCharacteristics(link.getRoadNameWithIndex(), nodes.get(0).getName(), nodes.get(1).getName(), link.getType().toString(), link.getDistance());</span>
     }
 
     /**
      * Sets all the links to unselected.
      */
     public void unselectAll() {
-<span class="fc" id="L67">        linkRepository.getAllLinks().forEach(Link::unselect);</span>
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L68">        linkRepository.getAllLinks().forEach(Link::unselect);</span>
+<span class="fc" id="L69">    }</span>
 
     /**
      * Sets the link with the given name to selected.
@@ -73,10 +74,10 @@ public class LinkService {
      * @param link The link to select.
      */
     public void select(String link) {
-<span class="fc" id="L76">        linkRepository.getAllLinks().stream()</span>
-<span class="pc bpc" id="L77" title="1 of 4 branches missed.">                .filter(l -&gt; l.getName().equals(link + &quot;.1&quot;) || l.getName().equals(link + &quot;.2&quot;))</span>
-<span class="fc" id="L78">                .forEach(Link::select);</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L77">        linkRepository.getAllLinks().stream()</span>
+<span class="pc bpc" id="L78" title="1 of 4 branches missed.">                .filter(l -&gt; l.getName().equals(link + &quot;.1&quot;) || l.getName().equals(link + &quot;.2&quot;))</span>
+<span class="fc" id="L79">                .forEach(Link::select);</span>
+<span class="fc" id="L80">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

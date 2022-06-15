@@ -60,13 +60,18 @@ public class TerminalRoadsUI implements RoadsUI {
 <span class="nc" id="L60">            SCANNER.nextLine();</span>
         }
 
-<span class="nc bnc" id="L63" title="All 4 branches missed.">        switch (entry) {</span>
-<span class="nc" id="L64">            case '0' -&gt; System.out.println(&quot;Au revoir.&quot;);</span>
-<span class="nc" id="L65">            case '1' -&gt; this.interact(chooseLocation(&quot;le départ&quot;), chooseSteps(), chooseLocation(&quot;la destination&quot;));</span>
-<span class="nc" id="L66">            case '2' -&gt; homeUI.interact();</span>
+<span class="nc bnc" id="L63" title="All 3 branches missed.">        switch (entry) {</span>
+            case '0':
+<span class="nc" id="L65">                System.out.println(&quot;Au revoir.&quot;);</span>
+<span class="nc" id="L66">                break;</span>
+            case '1':
+<span class="nc" id="L68">                this.interact(chooseLocation(&quot;le départ&quot;), chooseSteps(), chooseLocation(&quot;la destination&quot;));</span>
+<span class="nc" id="L69">                break;</span>
+            default:
+<span class="nc" id="L71">                homeUI.interact();</span>
         }
 
-<span class="nc" id="L69">    }</span>
+<span class="nc" id="L74">    }</span>
 
     /**
      * Asks a user to choose a location.
@@ -76,14 +81,14 @@ public class TerminalRoadsUI implements RoadsUI {
      */
     private String chooseLocation(String text) {
 
-<span class="nc" id="L79">        System.out.println();</span>
+<span class="nc" id="L84">        System.out.println();</span>
         String entry;
         do {
-<span class="nc" id="L82">            System.out.println(&quot;Choisissez &quot; + text + &quot; :&quot;);</span>
-<span class="nc" id="L83">            entry = SCANNER.nextLine();</span>
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
+<span class="nc" id="L87">            System.out.println(&quot;Choisissez &quot; + text + &quot; :&quot;);</span>
+<span class="nc" id="L88">            entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
 
-<span class="nc" id="L86">        return entry;</span>
+<span class="nc" id="L91">        return entry;</span>
     }
 
     /**
@@ -93,25 +98,25 @@ public class TerminalRoadsUI implements RoadsUI {
      */
     private List&lt;String&gt; chooseSteps() {
 
-<span class="nc" id="L96">        System.out.println();</span>
-<span class="nc" id="L97">        String entry = &quot;.&quot;;</span>
+<span class="nc" id="L101">        System.out.println();</span>
+<span class="nc" id="L102">        String entry = &quot;.&quot;;</span>
 
-<span class="nc" id="L99">        List&lt;String&gt; steps = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L104">        List&lt;String&gt; steps = new ArrayList&lt;&gt;();</span>
 
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        while (!entry.isEmpty()) {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        while (!entry.isEmpty()) {</span>
 
             do {
-<span class="nc" id="L104">                System.out.println(&quot;Choisissez une étape (entrée pour terminer) :&quot;);</span>
-<span class="nc" id="L105">                entry = SCANNER.nextLine();</span>
-<span class="nc bnc" id="L106" title="All 4 branches missed.">            } while (!graphService.nodeExist(entry) &amp;&amp; !entry.isEmpty());</span>
+<span class="nc" id="L109">                System.out.println(&quot;Choisissez une étape (entrée pour terminer) :&quot;);</span>
+<span class="nc" id="L110">                entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L111" title="All 4 branches missed.">            } while (!graphService.nodeExist(entry) &amp;&amp; !entry.isEmpty());</span>
 
-<span class="nc bnc" id="L108" title="All 2 branches missed.">            if (!entry.isEmpty()) {</span>
-<span class="nc" id="L109">                steps.add(entry);</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            if (!entry.isEmpty()) {</span>
+<span class="nc" id="L114">                steps.add(entry);</span>
             }
 
         }
 
-<span class="nc" id="L114">        return steps;</span>
+<span class="nc" id="L119">        return steps;</span>
     }
 
 }

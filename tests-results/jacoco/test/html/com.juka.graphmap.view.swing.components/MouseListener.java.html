@@ -123,7 +123,22 @@ public class MouseListener implements java.awt.event.MouseListener {
 
 <span class="nc" id="L124">    }</span>
 
-<span class="nc" id="L126">    private record Link2(Node from, Link link) {</span>
+    private class Link2 {
+        private final Node from;
+        private final Link link;
+
+<span class="nc" id="L130">        public Link2(Node from, Link link) {</span>
+<span class="nc" id="L131">            this.from = from;</span>
+<span class="nc" id="L132">            this.link = link;</span>
+<span class="nc" id="L133">        }</span>
+
+        public Node from() {
+<span class="nc" id="L136">            return from;</span>
+        }
+
+        public Link link() {
+<span class="nc" id="L140">            return link;</span>
+        }
     }
 
 }

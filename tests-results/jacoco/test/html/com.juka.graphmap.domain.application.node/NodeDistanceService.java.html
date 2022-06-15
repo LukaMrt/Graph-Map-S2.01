@@ -6,6 +6,7 @@ import com.juka.graphmap.domain.model.node.Node;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service to check if two nodes are at 2 distance.
@@ -25,10 +26,10 @@ public class NodeDistanceService {
      * @param pathService    PathService of the graph.
      */
     @Inject
-<span class="fc" id="L28">    public NodeDistanceService(NodeRepository nodeRepository, PathService pathService) {</span>
-<span class="fc" id="L29">        this.nodeRepository = nodeRepository;</span>
-<span class="fc" id="L30">        this.pathService = pathService;</span>
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L29">    public NodeDistanceService(NodeRepository nodeRepository, PathService pathService) {</span>
+<span class="fc" id="L30">        this.nodeRepository = nodeRepository;</span>
+<span class="fc" id="L31">        this.pathService = pathService;</span>
+<span class="fc" id="L32">    }</span>
 
     /**
      * Get all the neighbors of the node at given distance.
@@ -47,9 +48,9 @@ public class NodeDistanceService {
 //
 //        return stream.toList();
 
-<span class="fc" id="L50">        return nodeRepository.getAllNodes().stream()</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">                .filter(n -&gt; pathService.getShortestPath(node, n.getName()).getPath().size() - 1 == distance)</span>
-<span class="fc" id="L52">                .toList();</span>
+<span class="fc" id="L51">        return nodeRepository.getAllNodes().stream()</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                .filter(n -&gt; pathService.getShortestPath(node, n.getName()).getPath().size() - 1 == distance)</span>
+<span class="fc" id="L53">                .collect(Collectors.toList());</span>
     }
 
 }

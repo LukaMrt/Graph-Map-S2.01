@@ -12,6 +12,7 @@ import com.juka.graphmap.view.swing.SwingView;
 import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
@@ -26,7 +27,7 @@ import static com.juka.graphmap.view.swing.components.PanelBuilder.aPanel;
  */
 public class SwingHomeView extends SwingView implements HomeView {
 
-<span class="nc" id="L29">    private static boolean firstTime = true;</span>
+<span class="nc" id="L30">    private static boolean firstTime = true;</span>
 
     private final GraphUI graphUI;
     private final RoadsUI roadsUI;
@@ -41,48 +42,48 @@ public class SwingHomeView extends SwingView implements HomeView {
      */
     @Inject
     public SwingHomeView(GraphMapJFrame frame, GraphUI graphUI, RoadsUI roadsUI) {
-<span class="nc" id="L44">        super(frame);</span>
-<span class="nc" id="L45">        this.graphUI = graphUI;</span>
-<span class="nc" id="L46">        this.roadsUI = roadsUI;</span>
-<span class="nc" id="L47">    }</span>
+<span class="nc" id="L45">        super(frame);</span>
+<span class="nc" id="L46">        this.graphUI = graphUI;</span>
+<span class="nc" id="L47">        this.roadsUI = roadsUI;</span>
+<span class="nc" id="L48">    }</span>
 
     @Override
     public void display(GraphCharacteristics graphCharacteristics, List&lt;Node&gt; nodes) {
-<span class="nc" id="L51">        this.graphCharacteristics = graphCharacteristics;</span>
-<span class="nc" id="L52">        super.display(nodes);</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L52">        this.graphCharacteristics = graphCharacteristics;</span>
+<span class="nc" id="L53">        super.display(nodes);</span>
+<span class="nc" id="L54">    }</span>
 
     @Override
     protected String getHelp() {
-<span class="nc" id="L57">        return &quot;Cet écran décrit le graphe en donnant le nombre d'éléments et le pourcentage de&quot; +</span>
+<span class="nc" id="L58">        return &quot;Cet écran décrit le graphe en donnant le nombre d'éléments et le pourcentage de&quot; +</span>
                 &quot;chaque type de noeud et de lien par rapport à l'ensemble des éléments. &quot; +
                 &quot;Aucune action n'est disponible ici.&quot;;
     }
 
     @Override
     protected Title getTitle() {
-<span class="nc" id="L64">        return new Title(&quot;Accueil (&quot; + graphCharacteristics.error + &quot;)&quot;, 1);</span>
+<span class="nc" id="L65">        return new Title(&quot;Accueil (&quot; + graphCharacteristics.error + &quot;)&quot;, 1);</span>
     }
 
     @Override
     protected List&lt;JButton&gt; getButtons() {
-<span class="nc" id="L69">        return List.of(</span>
-<span class="nc" id="L70">                aButton().withText(&quot;Graphe&quot;)</span>
-<span class="nc" id="L71">                        .withSize(200, 50)</span>
-<span class="nc" id="L72">                        .isYCentered()</span>
-<span class="nc" id="L73">                        .withAction(e -&gt; graphUI.interact())</span>
-<span class="nc" id="L74">                        .build(),</span>
-<span class="nc" id="L75">                aButton().withText(&quot;Routes&quot;)</span>
-<span class="nc" id="L76">                        .withSize(200, 50)</span>
-<span class="nc" id="L77">                        .isYCentered()</span>
-<span class="nc" id="L78">                        .withAction(e -&gt; roadsUI.interact(null, null, null))</span>
-<span class="nc" id="L79">                        .build()</span>
+<span class="nc" id="L70">        return Arrays.asList(</span>
+<span class="nc" id="L71">                aButton().withText(&quot;Graphe&quot;)</span>
+<span class="nc" id="L72">                        .withSize(200, 50)</span>
+<span class="nc" id="L73">                        .isYCentered()</span>
+<span class="nc" id="L74">                        .withAction(e -&gt; graphUI.interact())</span>
+<span class="nc" id="L75">                        .build(),</span>
+<span class="nc" id="L76">                aButton().withText(&quot;Routes&quot;)</span>
+<span class="nc" id="L77">                        .withSize(200, 50)</span>
+<span class="nc" id="L78">                        .isYCentered()</span>
+<span class="nc" id="L79">                        .withAction(e -&gt; roadsUI.interact(null, null, null))</span>
+<span class="nc" id="L80">                        .build()</span>
         );
     }
 
     @Override
     protected JPanel buildLeftPanel() {
-<span class="nc" id="L85">        return buildPanel(graphCharacteristics.locationCount + &quot; lieux dont :&quot;,</span>
+<span class="nc" id="L86">        return buildPanel(graphCharacteristics.locationCount + &quot; lieux dont :&quot;,</span>
                 &quot; - &quot; + graphCharacteristics.cityPercentage + &quot; % de villes&quot;,
                 &quot; - &quot; + graphCharacteristics.restaurantPercentage + &quot; % de restaurants&quot;,
                 &quot; - &quot; + graphCharacteristics.recreationPercentage + &quot; % de centres de loisirs&quot;);
@@ -90,30 +91,30 @@ public class SwingHomeView extends SwingView implements HomeView {
 
     @Override
     protected JPanel buildRightPanel() {
-<span class="nc" id="L93">        return buildPanel(graphCharacteristics.roadCount + &quot; routes dont :&quot;,</span>
+<span class="nc" id="L94">        return buildPanel(graphCharacteristics.roadCount + &quot; routes dont :&quot;,</span>
                 &quot; - &quot; + graphCharacteristics.highwayPercentage + &quot; % d'autoroutes&quot;,
                 &quot; - &quot; + graphCharacteristics.nationalPercentage + &quot; % de routes nationales&quot;,
                 &quot; - &quot; + graphCharacteristics.departementalPercentage + &quot; % de routes départementales&quot;);
     }
 
     private JPanel buildPanel(String text1, String text2, String text3, String text4) {
-<span class="nc" id="L100">        return aPanel()</span>
-<span class="nc" id="L101">                .withYBoxLayout()</span>
-<span class="nc" id="L102">                .isXCentered()</span>
-<span class="nc" id="L103">                .add(aLabel().withText(text1).isTitle().build())</span>
-<span class="nc" id="L104">                .add(aLabel().withText(text2).withColor(Color.GREEN).isText().build())</span>
-<span class="nc" id="L105">                .add(aLabel().withText(text3).withColor(Color.RED).isText().build())</span>
-<span class="nc" id="L106">                .add(aLabel().withText(text4).withColor(Color.BLUE).isText().build())</span>
-<span class="nc" id="L107">                .build();</span>
+<span class="nc" id="L101">        return aPanel()</span>
+<span class="nc" id="L102">                .withYBoxLayout()</span>
+<span class="nc" id="L103">                .isXCentered()</span>
+<span class="nc" id="L104">                .add(aLabel().withText(text1).isTitle().build())</span>
+<span class="nc" id="L105">                .add(aLabel().withText(text2).withColor(Color.GREEN).isText().build())</span>
+<span class="nc" id="L106">                .add(aLabel().withText(text3).withColor(Color.RED).isText().build())</span>
+<span class="nc" id="L107">                .add(aLabel().withText(text4).withColor(Color.BLUE).isText().build())</span>
+<span class="nc" id="L108">                .build();</span>
     }
 
     @Override
     protected boolean isFirstTime() {
-<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (firstTime) {</span>
-<span class="nc" id="L113">            firstTime = false;</span>
-<span class="nc" id="L114">            return true;</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (firstTime) {</span>
+<span class="nc" id="L114">            firstTime = false;</span>
+<span class="nc" id="L115">            return true;</span>
         }
-<span class="nc" id="L116">        return false;</span>
+<span class="nc" id="L117">        return false;</span>
     }
 
 }

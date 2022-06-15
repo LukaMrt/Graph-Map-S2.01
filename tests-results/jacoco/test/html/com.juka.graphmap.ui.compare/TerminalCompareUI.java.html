@@ -75,11 +75,16 @@ public class TerminalCompareUI implements CompareUI {
         }
 
 <span class="nc bnc" id="L77" title="All 3 branches missed.">        switch (choice) {</span>
-<span class="nc" id="L78">            case '0' -&gt; graphUI.interact();</span>
-<span class="nc" id="L79">            case '1' -&gt; this.interact(chooseLocation(1), chooseLocation(2));</span>
-<span class="nc" id="L80">            default -&gt; homeUI.interact();</span>
+            case '0':
+<span class="nc" id="L79">                graphUI.interact();</span>
+<span class="nc" id="L80">                break;</span>
+            case '1':
+<span class="nc" id="L82">                this.interact(chooseLocation(1), chooseLocation(2));</span>
+<span class="nc" id="L83">                break;</span>
+            default:
+<span class="nc" id="L85">                homeUI.interact();</span>
         }
-<span class="nc" id="L82">    }</span>
+<span class="nc" id="L87">    }</span>
 
     /**
      * Asks the user to choose a location.
@@ -89,14 +94,14 @@ public class TerminalCompareUI implements CompareUI {
      */
     private String chooseLocation(int i) {
 
-<span class="nc" id="L92">        System.out.println();</span>
+<span class="nc" id="L97">        System.out.println();</span>
         String entry;
         do {
-<span class="nc" id="L95">            System.out.println(&quot;Entrez le noeud n°&quot; + i + &quot; à étudier :&quot;);</span>
-<span class="nc" id="L96">            entry = SCANNER.nextLine();</span>
-<span class="nc bnc" id="L97" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
+<span class="nc" id="L100">            System.out.println(&quot;Entrez le noeud n°&quot; + i + &quot; à étudier :&quot;);</span>
+<span class="nc" id="L101">            entry = SCANNER.nextLine();</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        } while (!graphService.nodeExist(entry));</span>
 
-<span class="nc" id="L99">        return entry;</span>
+<span class="nc" id="L104">        return entry;</span>
     }
 
 }

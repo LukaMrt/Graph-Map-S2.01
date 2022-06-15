@@ -12,7 +12,11 @@ import com.juka.graphmap.view.swing.components.ScrollPaneBuilder;
 
 import javax.inject.Inject;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.juka.graphmap.view.swing.components.ButtonBuilder.aButton;
 import static com.juka.graphmap.view.swing.components.ComboBoxBuilder.aComboBox;
@@ -28,7 +32,7 @@ import static com.juka.graphmap.view.swing.components.ScrollPaneBuilder.anHorizo
  */
 public class SwingIndirectNeighborsView extends SwingView implements IndirectNeighborsView {
 
-<span class="nc" id="L31">    private static boolean firstTime = true;</span>
+<span class="nc" id="L35">    private static boolean firstTime = true;</span>
 
     private final GraphUI graphUI;
     private final IndirectNeighborsUI indirectNeighborsUI;
@@ -47,128 +51,128 @@ public class SwingIndirectNeighborsView extends SwingView implements IndirectNei
      */
     @Inject
     public SwingIndirectNeighborsView(GraphMapJFrame frame, GraphUI graphUI, IndirectNeighborsUI indirectNeighborsUI) {
-<span class="nc" id="L50">        super(frame);</span>
-<span class="nc" id="L51">        this.graphUI = graphUI;</span>
-<span class="nc" id="L52">        this.indirectNeighborsUI = indirectNeighborsUI;</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L54">        super(frame);</span>
+<span class="nc" id="L55">        this.graphUI = graphUI;</span>
+<span class="nc" id="L56">        this.indirectNeighborsUI = indirectNeighborsUI;</span>
+<span class="nc" id="L57">    }</span>
 
     @Override
     public void display(List&lt;Node&gt; nodes, String node, int distance, List&lt;Node&gt; result) {
-<span class="nc" id="L57">        this.nodes = nodes.stream().map(Node::getName).toList();</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        this.node = node != null ? node : &quot;&quot;;</span>
-<span class="nc" id="L59">        this.result = result;</span>
-<span class="nc" id="L60">        this.distance = distance;</span>
-<span class="nc" id="L61">        super.display(nodes);</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L61">        this.nodes = nodes.stream().map(Node::getName).collect(Collectors.toList());</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        this.node = node != null ? node : &quot;&quot;;</span>
+<span class="nc" id="L63">        this.result = result;</span>
+<span class="nc" id="L64">        this.distance = distance;</span>
+<span class="nc" id="L65">        super.display(nodes);</span>
+<span class="nc" id="L66">    }</span>
 
     @Override
     protected String getHelp() {
-<span class="nc" id="L66">        return &quot;Cet écran permet de déterminer si 2 lieux sont à n-distance ou non. 2 lieux sont &quot; +</span>
-                &quot;à n-distance si l'on peut passer de l'un à l'autre en n étapes. Vous pouvez &quot; +
-                &quot;sélectionner les 2 lieux et la distance à gauche puis afficher le résultat avec le bouton Analyser.\n\n&quot; +
+<span class="nc" id="L70">        return &quot;Cet écran permet de déterminer si 2 lieux sont à n-distance ou non. 2 lieux sont &quot; +</span>
+                &quot;à n-distance si le chemin le plus court entre les 2 contient n étapes. Vous pouvez &quot; +
+                &quot;sélectionner les 1 lieux et la distance à gauche puis afficher tous les lieux à n-distance &quot; +
+                &quot;du lieu sélectionné avec le bouton Analyser.\n\n&quot; +
                 &quot;Pour l'interface graphique, les contrôles sont les suivants :\n&quot; +
-                &quot;- Clic gauche pour sélectionner la première ville\n&quot; +
-                &quot;- Clic droit pour sélectionner la seconde ville&quot;;
+                &quot;- Clic gauche pour sélectionner la ville&quot;;
     }
 
     @Override
     protected Title getTitle() {
-<span class="nc" id="L76">        return new Title(&quot;Voisinage indirect&quot;, 4);</span>
+<span class="nc" id="L80">        return new Title(&quot;Voisinage indirect&quot;, 4);</span>
     }
 
     @Override
     protected List&lt;JButton&gt; getButtons() {
-<span class="nc" id="L81">        return List.of(aButton()</span>
-<span class="nc" id="L82">                .withText(&quot;Retour&quot;)</span>
-<span class="nc" id="L83">                .withSize(200, 50)</span>
-<span class="nc" id="L84">                .isYCentered()</span>
-<span class="nc" id="L85">                .withAction(e -&gt; graphUI.interact())</span>
-<span class="nc" id="L86">                .build());</span>
+<span class="nc" id="L85">        return new ArrayList&lt;&gt;(Collections.singleton(aButton()</span>
+<span class="nc" id="L86">                .withText(&quot;Retour&quot;)</span>
+<span class="nc" id="L87">                .withSize(200, 50)</span>
+<span class="nc" id="L88">                .isYCentered()</span>
+<span class="nc" id="L89">                .withAction(e -&gt; graphUI.interact())</span>
+<span class="nc" id="L90">                .build()));</span>
     }
 
     @Override
     protected JPanel buildLeftPanel() {
 
-<span class="nc" id="L92">        ScrollPaneBuilder builder1 = anHorizontalList()</span>
-<span class="nc" id="L93">                .withData(this.nodes)</span>
-<span class="nc" id="L94">                .withSize(200, 150)</span>
-<span class="nc" id="L95">                .withSingleSelection()</span>
-<span class="nc" id="L96">                .withSelectedValue(node)</span>
-<span class="nc" id="L97">                .isYCentered()</span>
-<span class="nc" id="L98">                .alwaysScrollVertical()</span>
-<span class="nc" id="L99">                .neverScrollHorizontal();</span>
+<span class="nc" id="L96">        ScrollPaneBuilder builder1 = anHorizontalList()</span>
+<span class="nc" id="L97">                .withData(this.nodes)</span>
+<span class="nc" id="L98">                .withSize(200, 150)</span>
+<span class="nc" id="L99">                .withSingleSelection()</span>
+<span class="nc" id="L100">                .withSelectedValue(node)</span>
+<span class="nc" id="L101">                .isYCentered()</span>
+<span class="nc" id="L102">                .alwaysScrollVertical()</span>
+<span class="nc" id="L103">                .neverScrollHorizontal();</span>
 
-<span class="nc" id="L101">        JScrollPane nodeList1 = builder1</span>
-<span class="nc" id="L102">                .build();</span>
+<span class="nc" id="L105">        JScrollPane nodeList1 = builder1</span>
+<span class="nc" id="L106">                .build();</span>
 
-<span class="nc" id="L104">        JComboBox&lt;String&gt; comboBox = aComboBox()</span>
-<span class="nc" id="L105">                .withData(List.of(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;))</span>
-<span class="nc" id="L106">                .isXCentered()</span>
-<span class="nc" id="L107">                .withSize(200, 50)</span>
-<span class="nc" id="L108">                .withSelectedValue(String.valueOf(distance))</span>
-<span class="nc" id="L109">                .build();</span>
+<span class="nc" id="L108">        JComboBox&lt;String&gt; comboBox = aComboBox()</span>
+<span class="nc" id="L109">                .withData(Arrays.asList(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;))</span>
+<span class="nc" id="L110">                .isXCentered()</span>
+<span class="nc" id="L111">                .withSize(200, 50)</span>
+<span class="nc" id="L112">                .withSelectedValue(String.valueOf(distance))</span>
+<span class="nc" id="L113">                .build();</span>
 
-<span class="nc" id="L111">        JButton button = aButton()</span>
-<span class="nc" id="L112">                .withText(&quot;Analyser&quot;)</span>
-<span class="nc" id="L113">                .withSize(100, 40)</span>
-<span class="nc" id="L114">                .isXCentered()</span>
-<span class="nc" id="L115">                .withAction(e -&gt; indirectNeighborsUI.interact(builder1.getSelectedValue(), Integer.parseInt((String) comboBox.getSelectedItem())))</span>
-<span class="nc" id="L116">                .build();</span>
+<span class="nc" id="L115">        JButton button = aButton()</span>
+<span class="nc" id="L116">                .withText(&quot;Analyser&quot;)</span>
+<span class="nc" id="L117">                .withSize(100, 40)</span>
+<span class="nc" id="L118">                .isXCentered()</span>
+<span class="nc" id="L119">                .withAction(e -&gt; indirectNeighborsUI.interact(builder1.getSelectedValue(), Integer.parseInt((String) comboBox.getSelectedItem())))</span>
+<span class="nc" id="L120">                .build();</span>
 
-<span class="nc" id="L118">        return aPanel()</span>
-<span class="nc" id="L119">                .withYBoxLayout()</span>
-<span class="nc" id="L120">                .isXCentered()</span>
-<span class="nc" id="L121">                .addRigidArea(0, 10)</span>
-<span class="nc" id="L122">                .add(aLabel().withText(&quot;Noeud à étudier : &quot;).isXCentered().isTitle().build())</span>
-<span class="nc" id="L123">                .addRigidArea(0, 5)</span>
-<span class="nc" id="L124">                .add(nodeList1)</span>
-<span class="nc" id="L125">                .addVerticalGlue()</span>
-<span class="nc" id="L126">                .add(comboBox)</span>
-<span class="nc" id="L127">                .addVerticalGlue()</span>
-<span class="nc" id="L128">                .add(button)</span>
+<span class="nc" id="L122">        return aPanel()</span>
+<span class="nc" id="L123">                .withYBoxLayout()</span>
+<span class="nc" id="L124">                .isXCentered()</span>
+<span class="nc" id="L125">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L126">                .add(aLabel().withText(&quot;Noeud à étudier : &quot;).isXCentered().isTitle().build())</span>
+<span class="nc" id="L127">                .addRigidArea(0, 5)</span>
+<span class="nc" id="L128">                .add(nodeList1)</span>
 <span class="nc" id="L129">                .addVerticalGlue()</span>
-<span class="nc" id="L130">                .build();</span>
+<span class="nc" id="L130">                .add(comboBox)</span>
+<span class="nc" id="L131">                .addVerticalGlue()</span>
+<span class="nc" id="L132">                .add(button)</span>
+<span class="nc" id="L133">                .addVerticalGlue()</span>
+<span class="nc" id="L134">                .build();</span>
     }
 
     @Override
     protected JPanel buildRightPanel() {
 
-<span class="nc" id="L136">        JScrollPane scrollPane = anHorizontalList()</span>
-<span class="nc" id="L137">                .withData(this.result.stream().map(Node::getName).toList())</span>
-<span class="nc" id="L138">                .withSize(200, 200)</span>
-<span class="nc" id="L139">                .withSingleSelection()</span>
-<span class="nc" id="L140">                .isYCentered()</span>
-<span class="nc" id="L141">                .alwaysScrollVertical()</span>
-<span class="nc" id="L142">                .neverScrollHorizontal()</span>
-<span class="nc" id="L143">                .build();</span>
+<span class="nc" id="L140">        JScrollPane scrollPane = anHorizontalList()</span>
+<span class="nc" id="L141">                .withData(this.result.stream().map(Node::getName).collect(Collectors.toList()))</span>
+<span class="nc" id="L142">                .withSize(200, 200)</span>
+<span class="nc" id="L143">                .withSingleSelection()</span>
+<span class="nc" id="L144">                .isYCentered()</span>
+<span class="nc" id="L145">                .alwaysScrollVertical()</span>
+<span class="nc" id="L146">                .neverScrollHorizontal()</span>
+<span class="nc" id="L147">                .build();</span>
 
-<span class="nc" id="L145">        return aPanel()</span>
-<span class="nc" id="L146">                .withYBoxLayout()</span>
-<span class="nc" id="L147">                .isXCentered()</span>
-<span class="nc" id="L148">                .addRigidArea(0, 10)</span>
-<span class="nc" id="L149">                .add(aLabel().withText(&quot;Résultat :&quot;).isTitle().isXCentered().build())</span>
-<span class="nc" id="L150">                .add(aLabel().withText(&quot;Les &quot; + result.size() + &quot; noeuds à &quot; + distance + &quot;-distance de &quot;).isText().isXCentered().build())</span>
-<span class="nc" id="L151">                .add(aLabel().withText(node + &quot; sont :&quot;).isText().isXCentered().build())</span>
+<span class="nc" id="L149">        return aPanel()</span>
+<span class="nc" id="L150">                .withYBoxLayout()</span>
+<span class="nc" id="L151">                .isXCentered()</span>
 <span class="nc" id="L152">                .addRigidArea(0, 10)</span>
-<span class="nc" id="L153">                .add(scrollPane)</span>
-<span class="nc" id="L154">                .build();</span>
+<span class="nc" id="L153">                .add(aLabel().withText(&quot;Résultat :&quot;).isTitle().isXCentered().build())</span>
+<span class="nc" id="L154">                .add(aLabel().withText(&quot;Les &quot; + result.size() + &quot; noeuds à &quot; + distance + &quot;-distance de &quot;).isText().isXCentered().build())</span>
+<span class="nc" id="L155">                .add(aLabel().withText(node + &quot; sont :&quot;).isText().isXCentered().build())</span>
+<span class="nc" id="L156">                .addRigidArea(0, 10)</span>
+<span class="nc" id="L157">                .add(scrollPane)</span>
+<span class="nc" id="L158">                .build();</span>
     }
 
     @Override
     public void leftClick(Node node, Link link) {
 
-<span class="nc bnc" id="L160" title="All 2 branches missed.">        String newNode = node != null ? node.getName() : this.node;</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        String newNode = node != null ? node.getName() : this.node;</span>
 
-<span class="nc" id="L162">        indirectNeighborsUI.interact(newNode, distance);</span>
-<span class="nc" id="L163">    }</span>
+<span class="nc" id="L166">        indirectNeighborsUI.interact(newNode, distance);</span>
+<span class="nc" id="L167">    }</span>
 
     @Override
     protected boolean isFirstTime() {
-<span class="nc bnc" id="L167" title="All 2 branches missed.">        if (firstTime) {</span>
-<span class="nc" id="L168">            firstTime = false;</span>
-<span class="nc" id="L169">            return true;</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (firstTime) {</span>
+<span class="nc" id="L172">            firstTime = false;</span>
+<span class="nc" id="L173">            return true;</span>
         }
-<span class="nc" id="L171">        return false;</span>
+<span class="nc" id="L175">        return false;</span>
     }
 
 }

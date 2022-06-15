@@ -53,12 +53,17 @@ public class TerminalHomeUI implements HomeUI {
         }
 
 <span class="nc bnc" id="L55" title="All 3 branches missed.">        switch (entry) {</span>
-<span class="nc" id="L56">            case '1' -&gt; graphUI.interact();</span>
-<span class="nc" id="L57">            case '2' -&gt; roadsUI.interact(null, null, null);</span>
-<span class="nc" id="L58">            default -&gt; System.out.println(&quot;Au revoir.&quot;);</span>
+            case '1':
+<span class="nc" id="L57">                graphUI.interact();</span>
+<span class="nc" id="L58">                break;</span>
+            case '2':
+<span class="nc" id="L60">                roadsUI.interact(null, null, null);</span>
+<span class="nc" id="L61">                break;</span>
+            default:
+<span class="nc" id="L63">                System.out.println(&quot;Au revoir.&quot;);</span>
         }
 
-<span class="nc" id="L61">    }</span>
+<span class="nc" id="L66">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

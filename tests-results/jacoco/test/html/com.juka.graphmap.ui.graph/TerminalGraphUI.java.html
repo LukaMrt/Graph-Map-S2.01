@@ -64,15 +64,26 @@ public class TerminalGraphUI implements GraphUI {
         }
 
 <span class="nc bnc" id="L66" title="All 6 branches missed.">        switch (entry) {</span>
-<span class="nc" id="L67">            case '1' -&gt; compareUI.interact(null, null);</span>
-<span class="nc" id="L68">            case '2' -&gt; pathUI.interact(null, null);</span>
-<span class="nc" id="L69">            case '3' -&gt; directNeighborsUI.interact(null, null);</span>
-<span class="nc" id="L70">            case '4' -&gt; indirectNeighborsUI.interact(null, 2);</span>
-<span class="nc" id="L71">            case '5' -&gt; System.out.println(&quot;Au revoir.&quot;);</span>
-<span class="nc" id="L72">            default -&gt; homeUI.interact();</span>
+            case '1':
+<span class="nc" id="L68">                compareUI.interact(null, null);</span>
+<span class="nc" id="L69">                break;</span>
+            case '2':
+<span class="nc" id="L71">                pathUI.interact(null, null);</span>
+<span class="nc" id="L72">                break;</span>
+            case '3':
+<span class="nc" id="L74">                directNeighborsUI.interact(null, null);</span>
+<span class="nc" id="L75">                break;</span>
+            case '4':
+<span class="nc" id="L77">                indirectNeighborsUI.interact(null, 2);</span>
+<span class="nc" id="L78">                break;</span>
+            case '5':
+<span class="nc" id="L80">                System.out.println(&quot;Au revoir.&quot;);</span>
+<span class="nc" id="L81">                break;</span>
+            default:
+<span class="nc" id="L83">                homeUI.interact();</span>
         }
 
-<span class="nc" id="L75">    }</span>
+<span class="nc" id="L86">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -6,6 +6,21 @@
  * @author Luka Maret and Julien Linget
  * @since 0.1.0
  */
-<span class="nc" id="L9">public class InvalidLinkTypeException extends RuntimeException {</span>
+public class InvalidLinkTypeException extends RuntimeException {
+
+    /**
+     * Not found type.
+     */
+    public final String type;
+
+    /**
+     * Constructor.
+     *
+     * @param type not found type
+     */
+<span class="nc" id="L21">    public InvalidLinkTypeException(String type) {</span>
+<span class="nc" id="L22">        this.type = type;</span>
+<span class="nc" id="L23">    }</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

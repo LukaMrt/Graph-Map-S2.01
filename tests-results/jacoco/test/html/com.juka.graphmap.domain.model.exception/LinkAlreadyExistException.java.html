@@ -11,7 +11,7 @@ public class LinkAlreadyExistException extends RuntimeException {
     /**
      * The link that raised the exception.
      */
-    private final String link;
+    public final String link;
 
     /**
      * Constructor.

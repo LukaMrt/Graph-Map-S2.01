@@ -62,55 +62,67 @@ public class SwingGraphPanel extends JPanel {
 <span class="nc" id="L62">                neighborCoordinate = neighborLink.getDestination().getCoordinate();</span>
 
 <span class="nc bnc" id="L64" title="All 4 branches missed.">                switch (neighborLink.getType()) {</span>
-<span class="nc" id="L65">                    case NATIONAL -&gt; g2d.setColor(new Color(255, 0, 0));</span>
-<span class="nc" id="L66">                    case HIGHWAY -&gt; g2d.setColor(new Color(0, 255, 0));</span>
-<span class="nc" id="L67">                    case DEPARTMENTAL -&gt; g2d.setColor(new Color(0, 0, 255));</span>
+                    case NATIONAL:
+<span class="nc" id="L66">                        g2d.setColor(new Color(255, 0, 0));</span>
+<span class="nc" id="L67">                        break;</span>
+                    case HIGHWAY:
+<span class="nc" id="L69">                        g2d.setColor(new Color(0, 255, 0));</span>
+<span class="nc" id="L70">                        break;</span>
+                    case DEPARTMENTAL:
+<span class="nc" id="L72">                        g2d.setColor(new Color(0, 0, 255));</span>
+                        break;
                 }
 
-<span class="nc bnc" id="L70" title="All 2 branches missed.">                if (neighborLink.isSelected()) {</span>
-<span class="nc" id="L71">                    g2d.setColor(new Color(0, 255, 255, 255));</span>
-<span class="nc" id="L72">                    g2d.setStroke(new BasicStroke(5.5f));</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">                if (neighborLink.isSelected()) {</span>
+<span class="nc" id="L77">                    g2d.setColor(new Color(0, 255, 255, 255));</span>
+<span class="nc" id="L78">                    g2d.setStroke(new BasicStroke(5.5f));</span>
                 }
 
-<span class="nc" id="L75">                g2d.draw(new Line2D.Double(nodeCoordinate.x() + NODE_SIZE / 2, nodeCoordinate.y() + NODE_SIZE / 2,</span>
-<span class="nc" id="L76">                        neighborCoordinate.x() + NODE_SIZE / 2, neighborCoordinate.y() + NODE_SIZE / 2));</span>
-<span class="nc" id="L77">            }</span>
+<span class="nc" id="L81">                g2d.draw(new Line2D.Double(nodeCoordinate.x() + NODE_SIZE / 2, nodeCoordinate.y() + NODE_SIZE / 2,</span>
+<span class="nc" id="L82">                        neighborCoordinate.x() + NODE_SIZE / 2, neighborCoordinate.y() + NODE_SIZE / 2));</span>
+<span class="nc" id="L83">            }</span>
 
-<span class="nc" id="L79">        }</span>
-<span class="nc" id="L80">    }</span>
+<span class="nc" id="L85">        }</span>
+<span class="nc" id="L86">    }</span>
 
     private void drawNodes(Graphics2D g2d, List&lt;Node&gt; nodes) {
         Coordinate nodeCoordinate;
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        for (Node node : nodes) {</span>
-<span class="nc" id="L85">            double size = NODE_SIZE;</span>
-<span class="nc" id="L86">            nodeCoordinate = node.getCoordinate();</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        for (Node node : nodes) {</span>
+<span class="nc" id="L91">            double size = NODE_SIZE;</span>
+<span class="nc" id="L92">            nodeCoordinate = node.getCoordinate();</span>
 
-<span class="nc bnc" id="L88" title="All 2 branches missed.">            if (node.getFlag() != Flag.NONE) {</span>
-<span class="nc" id="L89">                size = NODE_SIZE * 1.5;</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            if (node.getFlag() != Flag.NONE) {</span>
+<span class="nc" id="L95">                size = NODE_SIZE * 1.5;</span>
             }
 
-<span class="nc" id="L92">            g2d.setColor(new Color(0, 0, 0));</span>
-<span class="nc" id="L93">            g2d.drawString(node.getName(), (</span>
-<span class="nc" id="L94">                            nodeCoordinate.x() - node.getName().length() * 3.3f),</span>
-<span class="nc" id="L95">                    (float) (nodeCoordinate.y() - size / 3));</span>
+<span class="nc" id="L98">            g2d.setColor(new Color(0, 0, 0));</span>
+<span class="nc" id="L99">            g2d.drawString(node.getName(), (</span>
+<span class="nc" id="L100">                            nodeCoordinate.x() - node.getName().length() * 3.3f),</span>
+<span class="nc" id="L101">                    (float) (nodeCoordinate.y() - size / 3));</span>
 
-<span class="nc bnc" id="L97" title="All 4 branches missed.">            switch (node.getType()) {</span>
-<span class="nc" id="L98">                case CITY -&gt; g2d.setColor(new Color(0, 255, 0));</span>
-<span class="nc" id="L99">                case RECREATION_CENTER -&gt; g2d.setColor(new Color(0, 0, 255));</span>
-<span class="nc" id="L100">                case RESTAURANT -&gt; g2d.setColor(new Color(255, 0, 0));</span>
+<span class="nc bnc" id="L103" title="All 4 branches missed.">            switch (node.getType()) {</span>
+                case CITY:
+<span class="nc" id="L105">                    g2d.setColor(new Color(0, 255, 0));</span>
+<span class="nc" id="L106">                    break;</span>
+                case RECREATION_CENTER:
+<span class="nc" id="L108">                    g2d.setColor(new Color(0, 0, 255));</span>
+<span class="nc" id="L109">                    break;</span>
+                case RESTAURANT:
+<span class="nc" id="L111">                    g2d.setColor(new Color(255, 0, 0));</span>
+                    break;
             }
 
-<span class="nc bnc" id="L103" title="All 2 branches missed.">            if (node.getFlag() == Flag.MAIN) {</span>
-<span class="nc" id="L104">                g2d.setColor(new Color(0, 255, 255, 255));</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">            if (node.getFlag() == Flag.MAIN) {</span>
+<span class="nc" id="L116">                g2d.setColor(new Color(0, 255, 255, 255));</span>
             }
 
-<span class="nc bnc" id="L107" title="All 2 branches missed.">            if (node.getFlag() == Flag.SECONDARY) {</span>
-<span class="nc" id="L108">                g2d.setColor(new Color(255, 140, 60, 255));</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">            if (node.getFlag() == Flag.SECONDARY) {</span>
+<span class="nc" id="L120">                g2d.setColor(new Color(255, 140, 60, 255));</span>
             }
 
-<span class="nc" id="L111">            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x() - (size - NODE_SIZE) * 0.5, node.getCoordinate().y() - (size - NODE_SIZE) * 0.5, size, size));</span>
-<span class="nc" id="L112">        }</span>
-<span class="nc" id="L113">    }</span>
+<span class="nc" id="L123">            g2d.fill(new Ellipse2D.Double(node.getCoordinate().x() - (size - NODE_SIZE) * 0.5, node.getCoordinate().y() - (size - NODE_SIZE) * 0.5, size, size));</span>
+<span class="nc" id="L124">        }</span>
+<span class="nc" id="L125">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

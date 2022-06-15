@@ -9,6 +9,7 @@ import com.juka.graphmap.domain.model.node.Node;
 import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Swing implementation of the Graph UI.
@@ -33,30 +34,30 @@ public class SwingGraphUI implements GraphUI {
      * @param view         the view
      */
     @Inject
-<span class="nc" id="L36">    public SwingGraphUI(GraphService graphService, NodeService nodeService, LinkService linkService, GraphView view) {</span>
-<span class="nc" id="L37">        this.graphService = graphService;</span>
-<span class="nc" id="L38">        this.nodeService = nodeService;</span>
-<span class="nc" id="L39">        this.linkService = linkService;</span>
-<span class="nc" id="L40">        this.view = view;</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L37">    public SwingGraphUI(GraphService graphService, NodeService nodeService, LinkService linkService, GraphView view) {</span>
+<span class="nc" id="L38">        this.graphService = graphService;</span>
+<span class="nc" id="L39">        this.nodeService = nodeService;</span>
+<span class="nc" id="L40">        this.linkService = linkService;</span>
+<span class="nc" id="L41">        this.view = view;</span>
+<span class="nc" id="L42">    }</span>
 
     @Override
     public void interact() {
 
-<span class="nc" id="L46">        List&lt;Link&gt; links = graphService.getAllLinks().stream()</span>
-<span class="nc" id="L47">                .sorted(Comparator.comparing(Link::getType))</span>
-<span class="nc" id="L48">                .filter(link -&gt; link.getName().endsWith(&quot;.1&quot;))</span>
-<span class="nc" id="L49">                .toList();</span>
+<span class="nc" id="L47">        List&lt;Link&gt; links = graphService.getAllLinks().stream()</span>
+<span class="nc" id="L48">                .sorted(Comparator.comparing(Link::getType))</span>
+<span class="nc" id="L49">                .filter(link -&gt; link.getName().endsWith(&quot;.1&quot;))</span>
+<span class="nc" id="L50">                .collect(Collectors.toList());</span>
 
-<span class="nc" id="L51">        nodeService.unselectAll();</span>
-<span class="nc" id="L52">        linkService.unselectAll();</span>
+<span class="nc" id="L52">        nodeService.unselectAll();</span>
+<span class="nc" id="L53">        linkService.unselectAll();</span>
 
-<span class="nc" id="L54">        List&lt;Node&gt; nodes = graphService.getAllNodes().stream()</span>
-<span class="nc" id="L55">                .sorted(Comparator.comparing(Node::getType))</span>
-<span class="nc" id="L56">                .toList();</span>
+<span class="nc" id="L55">        List&lt;Node&gt; nodes = graphService.getAllNodes().stream()</span>
+<span class="nc" id="L56">                .sorted(Comparator.comparing(Node::getType))</span>
+<span class="nc" id="L57">                .collect(Collectors.toList());</span>
 
-<span class="nc" id="L58">        view.display(nodes, links);</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L59">        view.display(nodes, links);</span>
+<span class="nc" id="L60">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
