@@ -35,7 +35,7 @@ cities.
 
 ## Authors
 
-- [LINGET Julien](https://github.com/KuLain)
+- [LINGET Julien](https://github.com/neswatch)
 - [MARET Luka](https://github.com/LukaMrt)
 
 ## License
